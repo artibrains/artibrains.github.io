@@ -8,4 +8,4 @@ Al pulsar el "Comprobar clasificacion" en *** los datos se actualizan, pero no s
 
 
 
-mueve las web independiente de la carpeta knn-visualizer a un post de hugo. Utiliza los archivos knn.css, knn.js y el shortcode knn.html para mover la logica ahi, pero intenta que el post se integre esteticamente lo mejor posible con el resto de la web . Mira que partes de main.css puedes aprovechar mejor para que la interaccion sea lo mejor posible, pero asegurate de que toda la logica sigue funcionando correctamente.
+mueve las web independiente de la carpeta knn-visualizer a un post de hugo. Utiliza los archivos knn.css, knn.js y el shortcode knn.html para mover la logica ahi, pero intenta que el post se integre esteticamente lo mejor posible con el resto de la web. Mira que partes de main.css puedes aprovechar mejor para que la interaccion sea lo mejor posible, pero asegurate de que toda la logica sigue funcionando correctamente.
