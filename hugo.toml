@@ -35,6 +35,6 @@ defaultContentLanguageInSubdir = false
 
   # Mostrar selector de idiomas
   showLanguageSwitcher = true
-  # alwaysopen = true
+  alwaysopen = true
   disableSearch = true
 
