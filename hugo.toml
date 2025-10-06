@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://artibrains.github.io/'
 title = 'Artificial Brains'
 theme = 'hugo-theme-relearn'
 
@@ -37,8 +37,4 @@ defaultContentLanguageInSubdir = false
   showLanguageSwitcher = true
   # alwaysopen = true
   disableSearch = true
-
-
-
-baseURL = "https://artibrains.github.io/"
 
