@@ -37,3 +37,7 @@ defaultContentLanguageInSubdir = false
   showLanguageSwitcher = true
   # alwaysopen = true
   disableSearch = true
+
+
+
+baseURL = "https://artibrain.github.io/"
