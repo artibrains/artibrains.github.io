@@ -235,6 +235,56 @@
         }
     }
 
+    .lpc-section h1,
+    .lpc-section h2,
+    .lpc-section h3 {
+        color: var(--lpc-text-header);
+        margin: 0 0 1rem;
+    }
+
+    .lpc-section h1 {
+        font-size: clamp(2.4rem, 5vw, 3.2rem);
+        line-height: 1.15;
+    }
+
+    .lpc-section h2 {
+        font-size: clamp(1.8rem, 3.6vw, 2.2rem);
+    }
+
+    .lpc-section h3 {
+        font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+    }
+
+    .lpc-section-subtitle {
+        color: var(--lpc-text-muted);
+        max-width: 760px;
+        margin: .75rem 0 0;
+    }
+
+    .lpc-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .lpc-2col {
+        grid-template-columns: 1fr;
+    }
+
+    .lpc-3col {
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+        .lpc-2col {
+            grid-template-columns: 1.2fr .8fr;
+            align-items: center;
+        }
+
+        .lpc-3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
     /* Hero */
     .lpc-hero {
         position: relative;
@@ -358,7 +408,7 @@
         color: var(--lpc-accent);
     }
 
-    /* Cards and reusable elements */
+    /* Tarjetas y elementos reutilizables */
     .lpc-card {
         background: linear-gradient(145deg, color-mix(in srgb, var(--lpc-card-bg) 96%, transparent) 0%, color-mix(in srgb, var(--lpc-card-bg) 85%, var(--lpc-accent) 2%) 100%);
         backdrop-filter: blur(3px);
@@ -403,7 +453,23 @@
         border: 1px dashed var(--lpc-border);
     }
 
-    /* Learning list */
+    /* Caracteres */
+    .lpc-character-card {
+        text-align: left;
+    }
+
+    .lpc-character-card .icon {
+        font-size: 2rem;
+        line-height: 1;
+    }
+
+    .role {
+        color: var(--lpc-text-muted);
+        font-size: .95rem;
+        margin-top: .15rem;
+    }
+
+    /* Lista de aprendizaje */
     .lpc-list {
         display: grid;
         gap: .8rem;
@@ -425,7 +491,7 @@
         font-weight: 700;
     }
 
-    /* Chapters / modules */
+    /* Capítulos / módulos */
     .lpc-chapter-grid {
         display: grid;
         gap: 1rem;
@@ -449,7 +515,7 @@
         font-weight: 600;
     }
 
-    /* Social proof / metrics */
+    /* Social proof / métrica */
     .lpc-stats {
         display: grid;
         gap: 1rem;
@@ -482,7 +548,7 @@
         margin-bottom: .25rem;
     }
 
-    /* Amazon / purchase */
+    /* Amazon / compra */
     .lpc-amazon {
         display: grid;
         gap: 1.25rem;
@@ -537,7 +603,7 @@
         color: var(--lpc-accent-2);
     }
 
-    /* Separator */
+    /* Separador */
     .lpc-sep {
         height: 1px;
         background: var(--lpc-border);
@@ -579,131 +645,147 @@
 
     <hr class="lpc-sep" />
 
-    <!-- VALUE PROPOSITION -->
+    <!-- VALOR DIFERENCIAL -->
     <section class="lpc-section">
-        <h2>{{ $t.value_title }}</h2>
+        <h2>Comprende la IA desde dentro</h2>
 
         <div class="lpc-stats">
-            <div class="lpc-stat"><b>{{ $t.stat_story }}</b> {{ $t.stat_story_desc }}</div>
-            <div class="lpc-stat"><b>{{ $t.stat_content }}</b> {{ $t.stat_content_desc }}</div>
+            <div class="lpc-stat"><b>Historia</b> Ficticia, con rigor técnico</div>
+            <div class="lpc-stat"><b>Contenido</b> Referencias y definiciones precisas</div>
         </div>
         <p class="lpc-section-subtitle">
-            {{ $t.value_subtitle }}
+            No es un manual de recetas: es un viaje para construir intuición y conectar cada pieza con su porqué. Una
+            novela técnica que humaniza la IA, con apuntes
+            formales que no esconden las matemáticas ni la implementación.
         </p>
         <br>
         <div class="lpc-grid lpc-3col">
             <div class="lpc-card">
-                <h3>{{ $t.card1_title }}</h3>
-                <p>{{ $t.card1_desc }}</p>
-                <span class="lpc-chip">{{ $t.card1_chip }}</span>
+                <h3>De la intuición a la matemática</h3>
+                <p>La narrativa te sitúa en problemas reales; las notas técnicas explican el fundamento: coste,
+                    gradiente, regularización y validación.</p>
+                <span class="lpc-chip">Intuición que se sostiene</span>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.card2_title }}</h3>
-                <p>{{ $t.card2_desc }}</p>
-                <span class="lpc-chip">{{ $t.card2_chip }}</span>
+                <h3>Del algoritmo a la generalización</h3>
+                <p>Por qué los modelos aprenden, cuándo se equivocan y cómo medimos lo que de verdad importa para
+                    decidir en la práctica.</p>
+                <span class="lpc-chip">Rigor sin fricción</span>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.card3_title }}</h3>
-                <p>{{ $t.card3_desc }}</p>
-                <span class="lpc-chip">{{ $t.card3_chip }}</span>
+                <h3>Camino a los LLMs</h3>
+                <p>De RNNs y sus límites a Transformers: tokenización, embeddings, codificación posicional y atención
+                    como mecanismo central.</p>
+                <span class="lpc-chip">Del “cómo” al “por qué”</span>
             </div>
         </div>
 
+
     </section>
 
-    <!-- LEARNING OUTCOMES -->
+
+
+    <!-- QUÉ APRENDERÁS -->
     <section class="lpc-section">
-        <h2>{{ $t.learn_title }}</h2>
+        <h2>Qué aprenderás</h2>
         <ul class="lpc-list">
-            <li>{{ $t.learn_1 }}</li>
-            <li>{{ $t.learn_2 }}</li>
-            <li>{{ $t.learn_3 }}</li>
-            <li>{{ $t.learn_4 }}</li>
-            <li>{{ $t.learn_5 }}</li>
-            <li>{{ $t.learn_6 }}</li>
-            <li>{{ $t.learn_7 }}</li>
-            <li>{{ $t.learn_8 }}</li>
+            <li>Cómo el descenso del gradiente minimiza una función de coste y por qué la tasa de aprendizaje importa.
+            </li>
+            <li>Qué significa generalizar: sobreajuste, regularización y validación cruzada bien aplicada.</li>
+            <li>Clasificación binaria: de la regresión logística a SVM y el papel del margen.</li>
+            <li>Multiclase y métricas clínicas: precisión por clase, recall, ROC/AUC y validación en el mundo real.</li>
+            <li>Clustering con K‑Means: elección de K (método del codo), centroides e inercia para descubrir riesgos
+                ocultos.</li>
+            <li>Redes neuronales: del perceptrón al MLP, activaciones y backpropagation sin cajas negras mágicas.</li>
+            <li>El paso a LLMs: tokenización, embeddings, geometría del significado y la atención que captura contexto
+                global.</li>
+            <li>Por qué los senos y cosenos en la posición, y cómo la arquitectura Transformer compone significado a
+                gran escala.</li>
         </ul>
     </section>
 
     <hr class="lpc-sep" />
 
-    <!-- CHAPTERS MAP -->
+    <!-- MAPA / ÍNDICE ORIENTADO A TU CONTENIDO -->
     <section class="lpc-section" id="chapters">
-        <h2>{{ $t.chapters_title }}</h2>
-        <p class="lpc-section-subtitle">{{ $t.chapters_subtitle }}</p>
+        <h2>El mapa de tu viaje</h2>
+        <p class="lpc-section-subtitle">De los fundamentos a los LLMs, con paradas en lo que necesitas para implementar
+            con seguridad.</p>
 
         <div class="lpc-grid lpc-chapter-grid">
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 01</p>
-                <h3>{{ $t.ch1_title }}</h3>
-                <p>{{ $t.ch1_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 01</p>
+                <h3>Introducción y contexto</h3>
+                <p>De Turing a AlphaFold. Por qué ahora y qué cambia en la práctica.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 02</p>
-                <h3>{{ $t.ch2_title }}</h3>
-                <p>{{ $t.ch2_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 02</p>
+                <h3>Regresión y Gradiente</h3>
+                <p>Regresión lineal, descenso del gradiente, funciones de coste.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 03</p>
-                <h3>{{ $t.ch3_title }}</h3>
-                <p>{{ $t.ch3_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 03</p>
+                <h3>Clasificación binaria</h3>
+                <p>Logística vs SVM, regularización, validación cruzada.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 04</p>
-                <h3>{{ $t.ch4_title }}</h3>
-                <p>{{ $t.ch4_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 04</p>
+                <h3>Multiclase y métricas</h3>
+                <p>Algoritmos, matrices de confusión y métricas que importan.
+                </p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 05</p>
-                <h3>{{ $t.ch5_title }}</h3>
-                <p>{{ $t.ch5_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 05</p>
+                <h3>No supervisado</h3>
+                <p>K‑Means, centroides e inercia. Hallar patrones ocultos.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 06</p>
-                <h3>{{ $t.ch6_title }}</h3>
-                <p>{{ $t.ch6_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 06</p>
+                <h3>Redes neuronales</h3>
+                <p>Perceptrón a MLP, backprop, herramientas y datos propios.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 07</p>
-                <h3>{{ $t.ch7_title }}</h3>
-                <p>{{ $t.ch7_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 07</p>
+                <h3>LLMs en profundidad</h3>
+                <p>Transformers, RLHF, prompting seguro y aplicaciones clínicas.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 08</p>
-                <h3>{{ $t.ch8_title }}</h3>
-                <p>{{ $t.ch8_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">Módulo 08</p>
+                <h3>Casos reales</h3>
+                <p>Frameworks aplicados en medicina y el “viaje de vuelta”.</p>
+                <a href="#" class="link">Ver extracto →</a>
             </div>
+
         </div>
 
         <div class="lpc-cta" style="margin-top:1.2rem">
-            <a href="#" class="lpc-btn lpc-btn-primary">{{ $t.cta_start }}</a>
-            <a href="#" class="lpc-btn lpc-btn-secondary">{{ $t.cta_free }}</a>
+            <a href="#" class="lpc-btn lpc-btn-primary">✨ Comenzar el viaje digital</a>
+            <a href="#" class="lpc-btn lpc-btn-secondary">🔎 Leer un capítulo gratis</a>
         </div>
     </section>
 
-    <!-- PURCHASE -->
+    <!-- COMPRA -->
     <section class="lpc-section">
         <div class="lpc-card">
             <div class="lpc-amazon">
                 <div class="mock">
-                    <div class="cover" aria-label="{{ $t.cover_alt }}"></div>
+                    <div class="cover" aria-label="Portada del libro"></div>
                 </div>
                 <div>
-                    <h2>{{ $t.purchase_title }}</h2>
+                    <h2>Consigue el libro</h2>
                     <p class="lpc-section-subtitle">
-                        {{ $t.purchase_subtitle }}
+                        La web te da las herramientas interactivas; el libro te ofrece la historia completa, el
+                        razonamiento técnico y una guía práctica lista para aplicar.
                     </p>
                     <div class="status" style="font-size: 1.2rem; padding: 1rem; margin-top: 1rem;">
-                        <strong>{{ $t.coming_soon }}</strong>
+                        📚 <strong>Próximamente disponible - Finales de 2025</strong>
                     </div>
                 </div>
             </div>
@@ -714,41 +796,47 @@
 
     <!-- FAQ -->
     <section class="lpc-section lpc-faq">
-        <h2>{{ $t.faq_title }}</h2>
+        <h2>Preguntas frecuentes</h2>
         <details>
-            <summary>{{ $t.faq_q1 }}</summary>
-            <p>{{ $t.faq_a1 }}</p>
+            <summary>¿Es un libro técnico denso?</summary>
+            <p>Equilibra narrativa y notas. La intuición llega primero; la matemática y los detalles, justo después y
+                con claridad.</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q2 }}</summary>
-            <p>{{ $t.faq_a2 }}</p>
+            <summary>¿Necesito saber programar?</summary>
+            <p>No. Se explican los conceptos para comprender cómo y por qué funcionan los modelos. La implementación es
+                un medio, no el fin.</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q3 }}</summary>
-            <p>{{ $t.faq_a3 }}</p>
+            <summary>¿Es realmente aplicable?</summary>
+            <p>Sí. Aunque la historia es ficticia, las referencias y los datos técnicos son reales y orientados a
+                decisiones del mundo real.</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q4 }}</summary>
-            <p>{{ $t.faq_a4 }}</p>
+            <summary>¿Bilingüe o dos ediciones?</summary>
+            <p>Dos ediciones separadas: Español o Inglés. El glosario aclara términos clave y sus equivalencias.</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q5 }}</summary>
-            <p>{{ $t.faq_a5 }}</p>
+            <summary>¿Está orientado solo a medicina?</summary>
+            <p>Los ejemplos son clínicos por su exigencia ética y de validación, pero los principios y técnicas aplican
+                a cualquier sector.</p>
         </details>
     </section>
 
-    <!-- AUTHOR -->
+    <!-- AUTOR -->
     <section class="lpc-section">
-        <h2>{{ $t.author_title }}</h2>
+        <h2>Autor y propósito</h2>
         <div class="lpc-grid lpc-2col" style="grid-template-columns:1fr 1fr">
             <div class="lpc-card">
-                <h3>{{ $t.author_about }}</h3>
-                <p>{{ $t.author_bio }}</p>
-                <p><em>{{ $t.author_quote }}</em></p>
+                <h3>Sobre Javier Falcó</h3>
+                <p>Autor e investigador. Su trabajo combina claridad pedagógica con aplicaciones que funcionan fuera del
+                    laboratorio.</p>
+                <p><em>“La mejor manera de entender la IA es vivirla, no solo estudiarla.”</em></p>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.project_title }}</h3>
-                <p>{{ $t.project_desc }}</p>
+                <h3>Objetivo del proyecto</h3>
+                <p>Democratizar la IA con una propuesta única: narrativa inmersiva + notas rigurosas + guías prácticas.
+                    Para aprender, aplicar y decidir con criterio.</p>
             </div>
         </div>
     </section>
