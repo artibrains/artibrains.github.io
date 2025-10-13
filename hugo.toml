@@ -2,6 +2,43 @@ baseURL = 'https://artibrains.github.io/'
 title = 'Artificial Brains'
 theme = 'hugo-theme-relearn'
 
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      linkifyProtocol = 'https'
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = false
+    [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+      autoHeadingIDType = 'github'
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xhtml = false
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = 'monokai'
+    tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+
 [security]
   enableInlineShortcodes = true
   [security.exec]
@@ -11,7 +48,6 @@ theme = 'hugo-theme-relearn'
   [security.http]
     methods = ['(?i)GET|POST']
     urls = ['.*']
-
 
 [caches]
   [caches.images]
