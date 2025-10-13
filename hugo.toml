@@ -4,6 +4,13 @@ theme = 'hugo-theme-relearn'
 
 [security]
   enableInlineShortcodes = true
+  [security.exec]
+    allow = ['^(dart-)?sass(-embedded)?$', '^go$', '^npx$', '^postcss$', '^pandoc$', '^asciidoctor$']
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$']
+  [security.http]
+    methods = ['(?i)GET|POST']
+    urls = ['.*']
 
 
 [caches]
