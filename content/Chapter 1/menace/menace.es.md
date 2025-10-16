@@ -10,12 +10,10 @@ slug: "menace-maquina-aprendizaje-cerillas"
 
 MENACE (Machine Educable Noughts And Crosses Engine, o Máquina Educable para el Juego del Tres en Raya) fue una computadora mecánica construida en 1961 por Donald Michie, un investigador pionero en inteligencia artificial. Esta notable máquina, construida con 304 cajas de cerillas y cuentas de colores, podía aprender a jugar al tres en raya mediante aprendizaje por refuerzo, años antes de que las computadoras modernas hicieran tales experimentos comunes.
 
-{{< medical-context 
-    type="research" 
-    level="basic"
-    scenario="MENACE demuestra cómo una máquina puede aprender estrategias óptimas mediante prueba y error, utilizando componentes físicos en lugar de computación digital. Cada caja de cerillas corresponde a una configuración única del tablero. Las cuentas de colores dentro representan movimientos posibles para esa configuración. Después de cada juego, los movimientos ganadores obtienen más cuentas (refuerzo) mientras que los movimientos perdedores pierden cuentas (castigo). Con el tiempo, MENACE aprende la estrategia óptima a través de convergencia estadística."
-    highlight="utiliza cajas de cerillas como 'memoria' y cuentas de colores como 'decisiones'. Cada caja representa un estado del juego, y las cuentas representan posibles movimientos. A través de juegos repetidos, los movimientos exitosos se refuerzan mientras que los no exitosos se eliminan."
-    intro_text="**MENACE** representa una de las demostraciones prácticas más tempranas del aprendizaje por refuerzo y aprendizaje automático, precediendo a las redes neuronales modernas por décadas."
+{{< demo-intro 
+    lang="es"
+    title="MENACE: Aprendizaje mediante Computación Física"
+    intro_text="**MENACE** representa una de las demostraciones prácticas más tempranas del aprendizaje por refuerzo y del aprendizaje automático, precediendo a las redes neuronales modernas por décadas."
     steps="🎲 Estructura: 304 cajas de cerillas, cada una representando una configuración única del tablero.|🔵 Cuentas: Cada color representa un movimiento diferente en la cuadrícula del tres en raya.|🎯 Refuerzo: Después de cada juego, los movimientos ganadores obtienen más cuentas mientras que los perdedores las pierden.|📈 Aprendizaje: Con el tiempo, MENACE aprende la estrategia óptima a través de convergencia estadística."
 >}}
 

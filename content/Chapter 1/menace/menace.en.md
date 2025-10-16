@@ -13,8 +13,6 @@ MENACE (Machine Educable Noughts And Crosses Engine) was a mechanical computer b
 {{< demo-intro 
     lang="en"
     title="MENACE: Learning Through Physical Computation"
-    medical_scenario="MENACE demonstrates how a machine can learn optimal strategies through trial and error, using physical components instead of digital computation."
-    medical_highlight="uses matchboxes as 'memory' and colored beads as 'decisions'. Each matchbox represents a game state, and beads represent possible moves. Through repeated games, successful moves are reinforced while unsuccessful ones are eliminated."
     intro_text="**MENACE** represents one of the earliest practical demonstrations of reinforcement learning and machine learning, predating modern neural networks by decades."
     steps="Each matchbox corresponds to a unique board configuration.|Colored beads inside represent possible moves for that configuration.|After each game, winning moves get more beads (reinforcement) while losing moves lose beads (punishment).|Over time, MENACE learns the optimal strategy through statistical convergence."
 >}}
