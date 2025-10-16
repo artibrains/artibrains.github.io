@@ -16,8 +16,10 @@ Throughout this chapter, you will immerse yourself in the history of AI and its 
 
 2. **[Alma's Notes]({{< relref "Chapter 1/deep-blue-vs-alphago/deep-blue-vs-alphago.en.md" >}})**: Deep Blue vs. AlphaGo: You will analyze the fundamental difference between classical AI (brute force) and modern learning, a key point that Alma García, the director of AIA, used to illustrate the potential of new technologies.
 
-3. **[The Lighthill Report]({{< relref "Chapter 1/lighthill/lighthill.en.md" >}})**: You will reflect on historical criticisms of AI and how these have shaped its development. You will learn that, although AI has faced challenges, its evolution has been constant and resilient.
+3.  **[The Lighthill Report]({{< relref "Chapter 1/lighthill/lighthill.en.md" >}})**: You will reflect on historical criticisms of AI and how these have shaped its development. You will learn that, although AI has faced challenges, its evolution has been constant and resilient.
 
 4. **[The Cheese and Mouse Game]({{< relref "Chapter 1/cheese-mouse-game/cheese-mouse-game.en.md" >}})**: You will experiment with reinforcement learning through the same practical exercise that convinced Dr. Carmen. You will intuitively understand how a machine can "learn" from experience through rewards.
+
+5. **[MENACE: The Matchbox Learning Machine]({{< relref "Chapter 1/menace/menace.en.md" >}})**: You will discover how Donald Michie created one of the first machine learning systems in 1961 using only matchboxes and colored beads. This fascinating example demonstrates that the principles of AI learning can be understood through physical, tangible systems.
 
 Prepare to join the Minermont Hospital team as they embark on an adventure that will lead them to question their methods, overcome their prejudices, and discover the power of artificial intelligence.

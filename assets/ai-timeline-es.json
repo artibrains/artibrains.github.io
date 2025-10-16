@@ -53,7 +53,7 @@
             "date": "1805",
             "title": "Legendre formaliza mínimos cuadrados",
             "shortDescription": "Adrien-Marie Legendre introduce el método de mínimos cuadrados para estimación de parámetros.",
-            "fullDescription": "Adrien-Marie Legendre publicó el método de mínimos cuadrados para estimar parámetros minimizando la suma de errores al cuadrado. Este método se volvió pilar de la regresión, la minimización de error y la optimización moderna usada en estadística y aprendizaje automático.",
+            "fullDescription": "Adrien-Marie Legendre publicó el método de mínimos cuadrados para estimar parámetros minimizando la suma de errores al cuadrado. Curiosamente, Carl Friedrich Gauss, por entonces un joven de 24 años, ya había planteado los fundamentos de su enfoque en 1795, cuando aún tenía 18 años. Sin embargo, su método de mínimos cuadrados no se publicó sino hasta 1809, y apareció en el segundo volumen de su trabajo sobre mecánica celeste, Theoria Motus Corporum Coelestium in sectionibus conicis solem ambientium. El francés Adrien-Marie Legendre desarrolló el mismo método de forma independiente en 1805. Este método se volvió pilar de la regresión, la minimización de error y la optimización moderna usada en estadística y aprendizaje automático.",
             "references": [
                 {
                     "title": "Adrien-Marie Legendre - MacTutor History of Mathematics",
@@ -64,8 +64,12 @@
                     "url": "https://es.wikipedia.org/wiki/M%C3%ADnimos_cuadrados"
                 },
                 {
-                    "title": "Legendre (1805): Nouvelles méthodes...",
-                    "url": "https://gallica.bnf.fr/ark:/12148/bpt6k9611335p"
+                    "title": "Legendre (1805): Nouvelles méthodes",
+                    "url": "https://archive.org/details/nouvellesmthode00legegoog/mode/2up"
+                },
+                {
+                    "title": "Gauss (1809): Theoria Motus Corporum Coelestium",
+                    "url": "https://archive.org/details/bub_gb_ORUOAAAAQAAJ"
                 }
             ],
             "media": {
@@ -105,7 +109,7 @@
             "date": "1843",
             "title": "Notas de Ada Lovelace sobre la Máquina Analítica",
             "shortDescription": "Los apuntes de 1843 anticipan el cómputo programable e incluyen un algoritmo.",
-            "fullDescription": "Las notas de Ada Lovelace sobre la Máquina Analítica de Charles Babbage (1843) delinearon conceptos de cómputo de propósito general programable e incluyeron lo que suele considerarse el primer algoritmo publicado destinado a una máquina. Estas ideas anticipan la computación moderna y la lógica programable que sustenta la IA.",
+            "fullDescription": "Ada Lovelace conoció a Charles Babbage en una fiesta donde él presentó su primer modelo de la Máquina Analítica, un embrionario proyecto de ordenador. Babbage la llamó 'la encantadora del número' debido a sus notables contribuciones. Tras unas charlas que Babbage diera en Turín, Luigi Menabrea publicó un artículo en francés que Ada tradujo al inglés. El propio Babbage, asombrado de que no escribiese algo original, sugirió que anotase el ensayo con sus propias ideas. Las notas de Lovelace terminaron siendo más largas que el ensayo de Menabrea y constituyeron el primer escrito público en que se debatía la programación de una computadora de forma exhaustiva. Se la considera la primera programadora y estableció que 'la Máquina Analítica teje patrones algebraicos de la misma manera que el telar de Jacquard teje flores y hojas'. Su algoritmo de cálculo de los números de Bernoulli, si bien no fue el primer programa computacional jamás concebido, sí se convirtió en el más conocido e incluía avances conceptuales como la idea de que la Máquina Analítica podía trabajar con símbolos, no solo con números.",
             "references": [
                 {
                     "title": "Máquina Analítica – Wikipedia",
@@ -114,6 +118,10 @@
                 {
                     "title": "Ada Lovelace – Wikipedia",
                     "url": "https://es.wikipedia.org/wiki/Ada_Lovelace"
+                },
+                {
+                    "title": "Ada Lovelace: historia de la 'encantadora del número'",
+                    "url": "https://www.bbva.com/es/ada-lovelace-historia-encantadora-numero/"
                 }
             ],
             "media": {

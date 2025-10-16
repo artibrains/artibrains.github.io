@@ -63,4 +63,12 @@ Este tipo de aprendizaje por refuerzo tiene aplicaciones directas en:
 - **Finanzas:** Estrategias de trading adaptativas
 - **Juegos:** Desarrollo de IA que supera a jugadores humanos (AlphaGo, OpenAI Five)
 
+## Materiales de Actividad Imprimibles
+
+{{% notice style="success" title="Descargar Versión PDF" %}}
+📄 **[Descargar El Juego del Ratón y el Queso (PDF)](/files/Juego%20del%20Rat%C3%B3n%20y%20el%20Queso.pdf)**
+
+Esta versión imprimible contiene todos los materiales que necesitas para realizar esta actividad de aprendizaje por refuerzo sin conexión. Perfecta para talleres, aulas o demostraciones prácticas donde los participantes pueden experimentar físicamente cómo los agentes de IA aprenden mediante prueba y error.
+{{% /notice %}}
+
 {{< terminal lang="es" >}}

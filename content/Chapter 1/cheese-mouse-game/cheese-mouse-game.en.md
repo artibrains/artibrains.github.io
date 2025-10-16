@@ -63,4 +63,12 @@ This type of reinforcement learning has direct applications in:
 - **Finance:** Adaptive trading strategies
 - **Games:** Development of AI that surpasses human players (AlphaGo, OpenAI Five)
 
+## Printable Activity Materials
+
+{{% notice style="success" title="Download PDF Version" %}}
+📄 **[Download The Mouse and the Cheese Game (PDF)](/files/The%20Mouse%20and%20the%20Cheese%20Game.pdf)**
+
+This printable version contains all the materials you need to conduct this reinforcement learning activity offline. Perfect for workshops, classrooms, or hands-on demonstrations where participants can physically experience how AI agents learn through trial and error.
+{{% /notice %}}
+
 {{< terminal lang="en" >}}

@@ -20,6 +20,6 @@ A lo largo de este capítulo, te sumergirás en la historia de la IA y sus aplic
 
 4.  **[El Juego del Ratón y el Queso]({{< relref "Chapter 1/cheese-mouse-game/cheese-mouse-game.es.md" >}})**: Experimentarás con el aprendizaje por refuerzo a través del mismo ejercicio práctico que convenció a la Dra. Carmen. Entenderás de forma intuitiva cómo una máquina puede "aprender" de la experiencia mediante recompensas.
 
-
+5.  **[MENACE: La Máquina de Aprendizaje con Cajas de Cerillas]({{< relref "Chapter 1/menace/menace.es.md" >}})**: Descubrirás cómo Donald Michie creó uno de los primeros sistemas de aprendizaje automático en 1961 utilizando solo cajas de cerillas y cuentas de colores. Este fascinante ejemplo demuestra que los principios del aprendizaje de IA pueden entenderse a través de sistemas físicos y tangibles.
 
 Prepárate para unirte al equipo del Hospital Minermont en el inicio de una aventura que les llevará a cuestionar sus métodos, superar sus prejuicios y descubrir el poder de la inteligencia artificial.

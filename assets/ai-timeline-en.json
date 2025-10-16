@@ -53,7 +53,7 @@
             "date": "1805",
             "title": "Legendre formalizes least squares",
             "shortDescription": "Adrien-Marie Legendre introduces the method of least squares for parameter estimation.",
-            "fullDescription": "Adrien-Marie Legendre published the method of least squares to estimate parameters by minimizing the sum of squared residuals. Least squares became a cornerstone of regression, error minimization, and modern optimization used throughout statistics and machine learning.",
+            "fullDescription": "Adrien-Marie Legendre published the method of least squares to estimate parameters by minimizing the sum of squared residuals. Interestingly, Carl Friedrich Gauss had already formulated the foundations of this approach in 1795 when he was only 18 years old, though his method wasn't published until 1809 in his work on celestial mechanics, 'Theoria Motus Corporum Coelestium'. Legendre developed the same method independently in 1805. Least squares became a cornerstone of regression, error minimization, and modern optimization used throughout statistics and machine learning.",
             "references": [
                 {
                     "title": "Adrien-Marie Legendre - MacTutor History of Mathematics",
@@ -64,8 +64,12 @@
                     "url": "https://en.wikipedia.org/wiki/Least_squares"
                 },
                 {
-                    "title": "Legendre (1805): Nouvelles méthodes pour la détermination des orbites des comètes",
-                    "url": "https://gallica.bnf.fr/ark:/12148/bpt6k9611335p"
+                    "title": "Legendre (1805): Nouvelles méthodes",
+                    "url": "https://archive.org/details/nouvellesmthode00legegoog/mode/2up"
+                },
+                {
+                    "title": "Gauss (1809): Theoria Motus Corporum Coelestium",
+                    "url": "https://archive.org/details/bub_gb_ORUOAAAAQAAJ"
                 }
             ],
             "media": {
@@ -105,7 +109,7 @@
             "date": "1843",
             "title": "Lovelace's Notes on Babbage's Analytical Engine",
             "shortDescription": "Ada Lovelace's 1843 notes anticipate programmable computation and include an algorithm.",
-            "fullDescription": "Ada Lovelace's notes on Charles Babbage's Analytical Engine (1843) outlined concepts of general-purpose programmable computation and included what is often regarded as the first published algorithm intended for a machine. These ideas presage modern computing and programmable logic that underpins AI.",
+            "fullDescription": "Ada Lovelace met Charles Babbage at a party where he presented his early model of the Analytical Engine, an embryonic computer project. Babbage called her the 'enchantress of numbers' due to her remarkable contributions. After Luigi Menabrea published an article in French about Babbage's Turin lectures, Ada translated it into English. Babbage, amazed that she didn't write something original, suggested she annotate the essay with her own ideas. Her notes ended up being longer than Menabrea's essay and constituted the first public writing that exhaustively debated computer programming. She was considered the first programmer and established that 'the Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves.' Her algorithm for calculating Bernoulli numbers, while not the first program ever conceived, became the most well-known and included conceptual advances like the idea that the Analytical Engine could work with symbols, not just numbers.",
             "references": [
                 {
                     "title": "Analytical Engine – Wikipedia",
@@ -114,6 +118,10 @@
                 {
                     "title": "Ada Lovelace – Wikipedia",
                     "url": "https://en.wikipedia.org/wiki/Ada_Lovelace"
+                },
+                {
+                    "title": "Ada Lovelace: Story of the 'Enchantress of Numbers' (Spanish)",
+                    "url": "https://www.bbva.com/es/ada-lovelace-historia-encantadora-numero/"
                 }
             ],
             "media": {
