@@ -10,13 +10,6 @@ slug: "menace-matchbox-learning-machine"
 
 MENACE (Machine Educable Noughts And Crosses Engine) was a mechanical computer built in 1961 by Donald Michie, a pioneering artificial intelligence researcher. This remarkable machine, constructed from 304 matchboxes and colored beads, could learn to play tic-tac-toe (noughts and crosses) through reinforcement learning—years before modern computers made such experiments commonplace.
 
-{{< demo-intro 
-    lang="en"
-    title="MENACE: Learning Through Physical Computation"
-    intro_text="**MENACE** represents one of the earliest practical demonstrations of reinforcement learning and machine learning, predating modern neural networks by decades."
-    steps="Each matchbox corresponds to a unique board configuration.|Colored beads inside represent possible moves for that configuration.|After each game, winning moves get more beads (reinforcement) while losing moves lose beads (punishment).|Over time, MENACE learns the optimal strategy through statistical convergence."
->}}
-
 ## History and Context
 
 ### The Creator: Donald Michie
@@ -133,6 +126,9 @@ You can experience MENACE in action through these resources:
 🎮 **[Play against MENACE online](https://www.mscroggs.co.uk/menace/)** - Interactive simulation by Matthew Scroggs
 
 📺 **[Watch MENACE in action](https://www.youtube.com/watch?v=R9c-_neaxeU)** - Excellent video explanation by Matt Parker (Stand-up Maths)
+
+{{< youtube "R9c-_neaxeU" >}}
+
 
 🏗️ **[Build your own MENACE](https://www.mscroggs.co.uk/blog/94)** - Detailed instructions for constructing a physical MENACE
 
