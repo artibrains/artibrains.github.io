@@ -1,27 +1,15 @@
 {{/*
 Shortcode unificado para contextos médicos
 Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlight="...">}}
-    */}}
+Uses Hugo's native i18n system for translations
+*/}}
 
-    {{ $type := .Get "type" | default "general" }}
-    {{ $level := .Get "level" | default "beginner" }}
-    {{ $scenario := .Get "scenario" }}
-    {{ $highlight := .Get "highlight" }}
-    {{ $intro_text := .Get "intro_text" | default "" }}
-    {{ $steps := .Get "steps" | default "" }}
-
-    {{/* Diccionario de traducciones */}}
-    {{ $translations := dict
-    "es" (dict
-    "how_it_works" "¿Cómo funciona esta herramienta?"
-    )
-    "en" (dict
-    "how_it_works" "How does this tool work?"
-    )
-    }}
-
-    {{ $lang := .Site.Language.Lang | default "en" }}
-    {{ $t := index $translations $lang }}
+{{ $type := .Get "type" | default "general" }}
+{{ $level := .Get "level" | default "beginner" }}
+{{ $scenario := .Get "scenario" }}
+{{ $highlight := .Get "highlight" }}
+{{ $intro_text := .Get "intro_text" | default "" }}
+{{ $steps := .Get "steps" | default "" }}
 
     <link rel="stylesheet" href="/css/unified-demos.css">
     <h3 class="medical-context__title">
@@ -87,7 +75,7 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
         </div>
         <div class="steps">
             {{ if $steps }}
-            <h3>{{ $t.how_it_works }}</h3>
+            <h3>{{ i18n "medical_context_how_it_works" }}</h3>
             <ol>
                 {{ range (split $steps "|") }}
                 {{ $step := split . ":" }}

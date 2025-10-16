@@ -218,3 +218,119 @@ other = "Project Objective"
 
 [project_desc]
 other = "Democratize AI with a unique proposal: immersive narrative + rigorous notes + practical guides. To learn, apply, and decide with judgment."
+
+# English translations for medical-context shortcode
+
+[medical_context_how_it_works]
+other = "How does this tool work?"
+
+# English translations for context-intro and demo-intro shortcodes
+
+[demo_medical_context]
+other = "Medical Context"
+
+[demo_type]
+other = "Type"
+
+[demo_level]
+other = "Level"
+
+[demo_scenario]
+other = "Scenario"
+
+[demo_how_it_works]
+other = "How does this tool work?"
+
+[demo_step]
+other = "Step"
+
+[demo_title_default]
+other = "Interactive AI Demo"
+
+# English translations for terminal shortcode
+
+[terminal_started]
+other = "Terminal started..."
+
+[terminal_clear]
+other = "Clear"
+
+# English translations for ai-timeline shortcode
+
+[timeline_references]
+other = "References"
+
+[timeline_caption]
+other = "The Evolution of Artificial Intelligence"
+
+[timeline_headline]
+other = "History of Artificial Intelligence"
+
+[timeline_description]
+other = "A journey through the most important events in AI development"
+
+[timeline_legend_title]
+other = "Legend"
+
+[timeline_importance_levels]
+other = "Importance Levels"
+
+[timeline_critical]
+other = "Critical"
+
+[timeline_high]
+other = "High"
+
+[timeline_medium]
+other = "Medium"
+
+[timeline_ai_phases]
+other = "AI Phases"
+
+[timeline_categories]
+other = "Categories"
+
+[timeline_filter_categories]
+other = "Filter by Categories"
+
+[timeline_show_all]
+other = "Show All"
+
+[timeline_breakthrough]
+other = "Breakthrough"
+
+[timeline_theory]
+other = "Theory"
+
+[timeline_applications]
+other = "Applications"
+
+[timeline_infrastructure]
+other = "Infrastructure"
+
+[timeline_mathematics]
+other = "Mathematics"
+
+[timeline_early_foundations]
+other = "Early Foundations (1763-1955)"
+
+[timeline_birth_of_ai]
+other = "Birth of AI (1956-1973)"
+
+[timeline_first_ai_winter]
+other = "First AI Winter (1974-1979)"
+
+[timeline_expert_systems]
+other = "Expert Systems Era (1980-1986)"
+
+[timeline_second_ai_winter]
+other = "Second AI Winter (1987-1996)"
+
+[timeline_ai_resurgence]
+other = "AI Resurgence (1997-2011)"
+
+[timeline_deep_learning_boom]
+other = "Deep Learning Boom (2012-2019)"
+
+[timeline_ai_breakthrough]
+other = "AI Breakthrough Era (2020-present)"
