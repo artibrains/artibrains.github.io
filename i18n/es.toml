@@ -1,0 +1,220 @@
+# Spanish translations for main_page shortcode
+
+[hero_title]
+other = "Un viaje guiado al corazón de la máquina"
+
+[hero_subtitle]
+other = "Una historia en el Hospital Minermont que hace comprensible el camino completo: de los modelos clásicos al corazón de los LLMs. Ficción narrativa con referencias reales y datos técnicos ciertos."
+
+[badge_science]
+other = "Ciencia + Narrativa"
+
+[badge_bilingual]
+other = "Edición bilingüe (ES/EN)"
+
+[badge_guides]
+other = "Guías prácticas (Prompting, Métricas, K‑Means, Transformers)"
+
+[coming_soon]
+other = "📚 Próximamente disponible - Finales de 2025"
+
+[cover_alt]
+other = "Portada del libro"
+
+[cover_desc]
+other = "Entiende el núcleo: aprendizaje, generalización, métricas de clasificación, representación, atención, fundamentos de Transformers y RLHF."
+
+[value_title]
+other = "Comprende la IA desde dentro"
+
+[stat_story]
+other = "Historia"
+
+[stat_story_desc]
+other = "Ficticia, con rigor técnico"
+
+[stat_content]
+other = "Contenido"
+
+[stat_content_desc]
+other = "Referencias y definiciones precisas"
+
+[value_subtitle]
+other = "No es un manual de recetas: es un viaje para construir intuición y conectar cada pieza con su porqué. Una novela técnica que humaniza la IA, con apuntes formales que no esconden las matemáticas ni la implementación."
+
+[card1_title]
+other = "De la intuición a la matemática"
+
+[card1_desc]
+other = "La narrativa te sitúa en problemas reales; las notas técnicas explican el fundamento: coste, gradiente, regularización y validación."
+
+[card1_chip]
+other = "Intuición que se sostiene"
+
+[card2_title]
+other = "Del algoritmo a la generalización"
+
+[card2_desc]
+other = "Por qué los modelos aprenden, cuándo se equivocan y cómo medimos lo que de verdad importa para decidir en la práctica."
+
+[card2_chip]
+other = "Rigor sin fricción"
+
+[card3_title]
+other = "Camino a los LLMs"
+
+[card3_desc]
+other = "De RNNs y sus límites a Transformers: tokenización, embeddings, codificación posicional y atención como mecanismo central."
+
+[card3_chip]
+other = "Del \"cómo\" al \"por qué\""
+
+[learn_title]
+other = "Qué aprenderás"
+
+[learn_1]
+other = "Cómo el descenso del gradiente minimiza una función de coste y por qué la tasa de aprendizaje importa."
+
+[learn_2]
+other = "Qué significa generalizar: sobreajuste, regularización y validación cruzada bien aplicada."
+
+[learn_3]
+other = "Clasificación binaria: de la regresión logística a SVM y el papel del margen."
+
+[learn_4]
+other = "Multiclase y métricas clínicas: precisión por clase, recall, ROC/AUC y validación en el mundo real."
+
+[learn_5]
+other = "Clustering con K‑Means: elección de K (método del codo), centroides e inercia para descubrir riesgos ocultos."
+
+[learn_6]
+other = "Redes neuronales: del perceptrón al MLP, activaciones y backpropagation sin cajas negras mágicas."
+
+[learn_7]
+other = "El paso a LLMs: tokenización, embeddings, geometría del significado y la atención que captura contexto global."
+
+[learn_8]
+other = "Por qué los senos y cosenos en la posición, y cómo la arquitectura Transformer compone significado a gran escala."
+
+[chapters_title]
+other = "Tu mapa de viaje"
+
+[chapters_subtitle]
+other = "De fundamentos a LLMs, con paradas en lo que necesitas para implementar con seguridad."
+
+[module]
+other = "Módulo"
+
+[ch1_title]
+other = "Introducción y contexto"
+
+[ch1_desc]
+other = "De Turing a AlphaFold. Por qué ahora y qué cambia en la práctica."
+
+[ch2_title]
+other = "Regresión y Gradiente"
+
+[ch2_desc]
+other = "Regresión lineal, descenso del gradiente, funciones de coste."
+
+[ch3_title]
+other = "Clasificación binaria"
+
+[ch3_desc]
+other = "Logística vs SVM, regularización, validación cruzada."
+
+[ch4_title]
+other = "Multiclase y métricas"
+
+[ch4_desc]
+other = "Algoritmos, matrices de confusión y métricas que importan."
+
+[ch5_title]
+other = "No supervisado"
+
+[ch5_desc]
+other = "K‑Means, centroides e inercia. Hallar patrones ocultos."
+
+[ch6_title]
+other = "Redes neuronales"
+
+[ch6_desc]
+other = "Perceptrón a MLP, backprop, herramientas y datos propios."
+
+[ch7_title]
+other = "LLMs en profundidad"
+
+[ch7_desc]
+other = "Transformers, RLHF, prompting seguro y aplicaciones clínicas."
+
+[ch8_title]
+other = "Casos reales"
+
+[ch8_desc]
+other = "Frameworks aplicados en medicina y el \"viaje de vuelta\"."
+
+[see_excerpt]
+other = "Ver extracto →"
+
+[cta_start]
+other = "✨ Comenzar el viaje digital"
+
+[cta_free]
+other = "🔎 Leer un capítulo gratis"
+
+[purchase_title]
+other = "Consigue el libro"
+
+[purchase_subtitle]
+other = "La web te da las herramientas interactivas; el libro te ofrece la historia completa, el razonamiento técnico y una guía práctica lista para aplicar."
+
+[faq_title]
+other = "Preguntas frecuentes"
+
+[faq_q1]
+other = "¿Es un libro técnico denso?"
+
+[faq_a1]
+other = "Equilibra narrativa y notas. La intuición llega primero; la matemática y los detalles, justo después y con claridad."
+
+[faq_q2]
+other = "¿Necesito saber programar?"
+
+[faq_a2]
+other = "No. Se explican los conceptos para comprender cómo y por qué funcionan los modelos. La implementación es un medio, no el fin."
+
+[faq_q3]
+other = "¿Es realmente aplicable?"
+
+[faq_a3]
+other = "Sí. Aunque la historia es ficticia, las referencias y los datos técnicos son reales y orientados a decisiones del mundo real."
+
+[faq_q4]
+other = "¿Bilingüe o dos ediciones?"
+
+[faq_a4]
+other = "Dos ediciones separadas: Español o Inglés. El glosario aclara términos clave y sus equivalencias."
+
+[faq_q5]
+other = "¿Está orientado solo a medicina?"
+
+[faq_a5]
+other = "Los ejemplos son clínicos por su exigencia ética y de validación, pero los principios y técnicas aplican a cualquier sector."
+
+[author_title]
+other = "Autor y propósito"
+
+[author_about]
+other = "Sobre Javier Falcó"
+
+[author_bio]
+other = "Autor e investigador. Su trabajo combina claridad pedagógica con aplicaciones que funcionan fuera del laboratorio."
+
+[author_quote]
+other = "\"La mejor manera de entender la IA es vivirla, no solo estudiarla.\""
+
+[project_title]
+other = "Objetivo del proyecto"
+
+[project_desc]
+other = "Democratizar la IA con una propuesta única: narrativa inmersiva + notas rigurosas + guías prácticas. Para aprender, aplicar y decidir con criterio."

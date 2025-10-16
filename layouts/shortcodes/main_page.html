@@ -1,191 +1,8 @@
 {{/*
 Multilingual landing page shortcode for "Artificial Brains: How Machines Think"
-Detects site language and displays appropriate translations
+Uses Hugo's native i18n system for robust, maintainable translations
+Translation files: i18n/es.toml and i18n/en.toml
 */}}
-
-{{ $lang := .Site.Language.Lang | default "es" }}
-
-{{/* Translation dictionary */}}
-{{ $translations := dict
-"es" (dict
-"hero_title" "Un viaje guiado al corazón de la máquina"
-"hero_subtitle" "Una historia en el Hospital Minermont que hace comprensible el camino completo: de los modelos clásicos
-al corazón de los LLMs. Ficción narrativa con referencias reales y datos técnicos ciertos."
-"badge_science" "Ciencia + Narrativa"
-"badge_bilingual" "Edición bilingüe (ES/EN)"
-"badge_guides" "Guías prácticas (Prompting, Métricas, K‑Means, Transformers)"
-"coming_soon" "📚 Próximamente disponible - Finales de 2025"
-"cover_alt" "Portada del libro"
-"cover_desc" "Entiende el núcleo: aprendizaje, generalización, métricas de clasificación, representación, atención,
-fundamentos de Transformers y RLHF."
-"value_title" "Comprende la IA desde dentro"
-"stat_story" "Historia"
-"stat_story_desc" "Ficticia, con rigor técnico"
-"stat_content" "Contenido"
-"stat_content_desc" "Referencias y definiciones precisas"
-"value_subtitle" "No es un manual de recetas: es un viaje para construir intuición y conectar cada pieza con su porqué.
-Una novela técnica que humaniza la IA, con apuntes formales que no esconden las matemáticas ni la implementación."
-"card1_title" "De la intuición a la matemática"
-"card1_desc" "La narrativa te sitúa en problemas reales; las notas técnicas explican el fundamento: coste, gradiente,
-regularización y validación."
-"card1_chip" "Intuición que se sostiene"
-"card2_title" "Del algoritmo a la generalización"
-"card2_desc" "Por qué los modelos aprenden, cuándo se equivocan y cómo medimos lo que de verdad importa para decidir en
-la práctica."
-"card2_chip" "Rigor sin fricción"
-"card3_title" "Camino a los LLMs"
-"card3_desc" "De RNNs y sus límites a Transformers: tokenización, embeddings, codificación posicional y atención como
-mecanismo central."
-"card3_chip" "Del \"cómo\" al \"por qué\""
-"learn_title" "Qué aprenderás"
-"learn_1" "Cómo el descenso del gradiente minimiza una función de coste y por qué la tasa de aprendizaje importa."
-"learn_2" "Qué significa generalizar: sobreajuste, regularización y validación cruzada bien aplicada."
-"learn_3" "Clasificación binaria: de la regresión logística a SVM y el papel del margen."
-"learn_4" "Multiclase y métricas clínicas: precisión por clase, recall, ROC/AUC y validación en el mundo real."
-"learn_5" "Clustering con K‑Means: elección de K (método del codo), centroides e inercia para descubrir riesgos
-ocultos."
-"learn_6" "Redes neuronales: del perceptrón al MLP, activaciones y backpropagation sin cajas negras mágicas."
-"learn_7" "El paso a LLMs: tokenización, embeddings, geometría del significado y la atención que captura contexto
-global."
-"learn_8" "Por qué los senos y cosenos en la posición, y cómo la arquitectura Transformer compone significado a gran
-escala."
-"chapters_title" "El mapa de tu viaje"
-"chapters_subtitle" "De los fundamentos a los LLMs, con paradas en lo que necesitas para implementar con seguridad."
-"module" "Módulo"
-"ch1_title" "Introducción y contexto"
-"ch1_desc" "De Turing a AlphaFold. Por qué ahora y qué cambia en la práctica."
-"ch2_title" "Regresión y Gradiente"
-"ch2_desc" "Regresión lineal, descenso del gradiente, funciones de coste."
-"ch3_title" "Clasificación binaria"
-"ch3_desc" "Logística vs SVM, regularización, validación cruzada."
-"ch4_title" "Multiclase y métricas"
-"ch4_desc" "Algoritmos, matrices de confusión y métricas que importan."
-"ch5_title" "No supervisado"
-"ch5_desc" "K‑Means, centroides e inercia. Hallar patrones ocultos."
-"ch6_title" "Redes neuronales"
-"ch6_desc" "Perceptrón a MLP, backprop, herramientas y datos propios."
-"ch7_title" "LLMs en profundidad"
-"ch7_desc" "Transformers, RLHF, prompting seguro y aplicaciones clínicas."
-"ch8_title" "Casos reales"
-"ch8_desc" "Frameworks aplicados en medicina y el \"viaje de vuelta\"."
-"see_excerpt" "Ver extracto →"
-"cta_start" "✨ Comenzar el viaje digital"
-"cta_free" "🔎 Leer un capítulo gratis"
-"purchase_title" "Consigue el libro"
-"purchase_subtitle" "La web te da las herramientas interactivas; el libro te ofrece la historia completa, el
-razonamiento técnico y una guía práctica lista para aplicar."
-"faq_title" "Preguntas frecuentes"
-"faq_q1" "¿Es un libro técnico denso?"
-"faq_a1" "Equilibra narrativa y notas. La intuición llega primero; la matemática y los detalles, justo después y con
-claridad."
-"faq_q2" "¿Necesito saber programar?"
-"faq_a2" "No. Se explican los conceptos para comprender cómo y por qué funcionan los modelos. La implementación es un
-medio, no el fin."
-"faq_q3" "¿Es realmente aplicable?"
-"faq_a3" "Sí. Aunque la historia es ficticia, las referencias y los datos técnicos son reales y orientados a decisiones
-del mundo real."
-"faq_q4" "¿Bilingüe o dos ediciones?"
-"faq_a4" "Dos ediciones separadas: Español o Inglés. El glosario aclara términos clave y sus equivalencias."
-"faq_q5" "¿Está orientado solo a medicina?"
-"faq_a5" "Los ejemplos son clínicos por su exigencia ética y de validación, pero los principios y técnicas aplican a
-cualquier sector."
-"author_title" "Autor y propósito"
-"author_about" "Sobre Javier Falcó"
-"author_bio" "Autor e investigador. Su trabajo combina claridad pedagógica con aplicaciones que funcionan fuera del
-laboratorio."
-"author_quote" "\"La mejor manera de entender la IA es vivirla, no solo estudiarla.\""
-"project_title" "Objetivo del proyecto"
-"project_desc" "Democratizar la IA con una propuesta única: narrativa inmersiva + notas rigurosas + guías prácticas.
-Para aprender, aplicar y decidir con criterio."
-)
-"en" (dict
-"hero_title" "A Guided Journey to the Heart of the Machine"
-"hero_subtitle" "A story set in Minermont Hospital that makes the complete journey comprehensible: from classical models
-to the core of LLMs. Narrative fiction with real references and accurate technical data."
-"badge_science" "Science + Narrative"
-"badge_bilingual" "Bilingual Edition (ES/EN)"
-"badge_guides" "Practical Guides (Prompting, Metrics, K‑Means, Transformers)"
-"coming_soon" "📚 Coming Soon - Late 2025"
-"cover_alt" "Book cover"
-"cover_desc" "Understand the core: learning, generalization, classification metrics, representation, attention,
-Transformer fundamentals, and RLHF."
-"value_title" "Understand AI from the Inside"
-"stat_story" "Story"
-"stat_story_desc" "Fictional, with technical rigor"
-"stat_content" "Content"
-"stat_content_desc" "Precise references and definitions"
-"value_subtitle" "This is not a recipe manual: it's a journey to build intuition and connect each piece with its why. A
-technical novel that humanizes AI, with formal notes that don't hide the mathematics or implementation."
-"card1_title" "From Intuition to Mathematics"
-"card1_desc" "The narrative places you in real problems; the technical notes explain the foundation: cost, gradient,
-regularization, and validation."
-"card1_chip" "Intuition that holds up"
-"card2_title" "From Algorithm to Generalization"
-"card2_desc" "Why models learn, when they fail, and how we measure what truly matters for practical decision-making."
-"card2_chip" "Rigor without friction"
-"card3_title" "Path to LLMs"
-"card3_desc" "From RNNs and their limits to Transformers: tokenization, embeddings, positional encoding, and attention
-as the central mechanism."
-"card3_chip" "From \"how\" to \"why\""
-"learn_title" "What You'll Learn"
-"learn_1" "How gradient descent minimizes a cost function and why the learning rate matters."
-"learn_2" "What it means to generalize: overfitting, regularization, and properly applied cross-validation."
-"learn_3" "Binary classification: from logistic regression to SVM and the role of the margin."
-"learn_4" "Multiclass and clinical metrics: per-class precision, recall, ROC/AUC, and real-world validation."
-"learn_5" "Clustering with K‑Means: choosing K (elbow method), centroids, and inertia to discover hidden risks."
-"learn_6" "Neural networks: from perceptron to MLP, activations, and backpropagation without magic black boxes."
-"learn_7" "The step to LLMs: tokenization, embeddings, geometry of meaning, and attention capturing global context."
-"learn_8" "Why sines and cosines in position encoding, and how the Transformer architecture composes meaning at scale."
-"chapters_title" "Your Journey Map"
-"chapters_subtitle" "From fundamentals to LLMs, with stops at what you need to implement safely."
-"module" "Module"
-"ch1_title" "Introduction and Context"
-"ch1_desc" "From Turing to AlphaFold. Why now and what changes in practice."
-"ch2_title" "Regression and Gradient"
-"ch2_desc" "Linear regression, gradient descent, cost functions."
-"ch3_title" "Binary Classification"
-"ch3_desc" "Logistic vs SVM, regularization, cross-validation."
-"ch4_title" "Multiclass and Metrics"
-"ch4_desc" "Algorithms, confusion matrices, and metrics that matter."
-"ch5_title" "Unsupervised Learning"
-"ch5_desc" "K‑Means, centroids, and inertia. Finding hidden patterns."
-"ch6_title" "Neural Networks"
-"ch6_desc" "Perceptron to MLP, backprop, tools, and your own data."
-"ch7_title" "LLMs in Depth"
-"ch7_desc" "Transformers, RLHF, safe prompting, and clinical applications."
-"ch8_title" "Real Cases"
-"ch8_desc" "Frameworks applied in medicine and the \"return journey\"."
-"see_excerpt" "View excerpt →"
-"cta_start" "✨ Start the digital journey"
-"cta_free" "🔎 Read a free chapter"
-"purchase_title" "Get the Book"
-"purchase_subtitle" "The website gives you interactive tools; the book offers you the complete story, technical
-reasoning, and a practical guide ready to apply."
-"faq_title" "Frequently Asked Questions"
-"faq_q1" "Is this a dense technical book?"
-"faq_a1" "It balances narrative and notes. Intuition comes first; mathematics and details follow clearly."
-"faq_q2" "Do I need to know how to program?"
-"faq_a2" "No. The concepts are explained to understand how and why models work. Implementation is a means, not the end."
-"faq_q3" "Is it really applicable?"
-"faq_a3" "Yes. Although the story is fictional, the references and technical data are real and oriented toward
-real-world decisions."
-"faq_q4" "Bilingual or two editions?"
-"faq_a4" "Two separate editions: Spanish or English. The glossary clarifies key terms and their equivalents."
-"faq_q5" "Is it only oriented to medicine?"
-"faq_a5" "The examples are clinical due to their ethical and validation demands, but the principles and techniques apply
-to any sector."
-"author_title" "Author and Purpose"
-"author_about" "About Javier Falcó"
-"author_bio" "Author and researcher. His work combines pedagogical clarity with applications that work outside the
-laboratory."
-"author_quote" "\"The best way to understand AI is to experience it, not just study it.\""
-"project_title" "Project Objective"
-"project_desc" "Democratize AI with a unique proposal: immersive narrative + rigorous notes + practical guides. To
-learn, apply, and decide with judgment."
-)
-}}
-
-{{ $t := index $translations $lang }}
 
 <style>
     /* Promotional component for "Artificial Brains" book adapted to Relearn theme */
@@ -578,26 +395,26 @@ learn, apply, and decide with judgment."
     <section class="lpc-section lpc-hero">
         <div class="lpc-grid lpc-2col">
             <div>
-                <h3>{{ $t.hero_title }}</h3>
+                <h3>{{ i18n "hero_title" }}</h3>
 
                 <p class="lpc-section-subtitle">
-                    {{ $t.hero_subtitle }}
+                    {{ i18n "hero_subtitle" }}
                 </p>
                 <div class="badge-row">
-                    <span class="badge">{{ $t.badge_science }}</span>
-                    <span class="badge">{{ $t.badge_bilingual }}</span>
-                    <span class="badge">{{ $t.badge_guides }}</span>
+                    <span class="badge">{{ i18n "badge_science" }}</span>
+                    <span class="badge">{{ i18n "badge_bilingual" }}</span>
+                    <span class="badge">{{ i18n "badge_guides" }}</span>
                 </div>
                 <div class="lpc-cta">
                     <div class="status"
                         style="font-size: 1.2rem; padding: 1rem; background: var(--lpc-card-bg); border-radius: 8px; text-align: center;">
-                        <strong>{{ $t.coming_soon }}</strong>
+                        <strong>{{ i18n "coming_soon" }}</strong>
                     </div>
                 </div>
             </div>
             <div class="mock">
-                <div class="cover" aria-label="{{ $t.cover_alt }}"></div>
-                <p style="margin:.8rem 0 0; color:var(--lpc-text-muted);">{{ $t.cover_desc }}</p>
+                <div class="cover" aria-label="{{ i18n " cover_alt" }}"></div>
+                <p style="margin:.8rem 0 0; color:var(--lpc-text-muted);">{{ i18n "cover_desc" }}</p>
             </div>
         </div>
 
@@ -607,31 +424,31 @@ learn, apply, and decide with judgment."
 
     <!-- VALUE PROPOSITION -->
     <section class="lpc-section">
-        <h2>{{ $t.value_title }}</h2>
+        <h2>{{ i18n "value_title" }}</h2>
 
         <div class="lpc-stats">
-            <div class="lpc-stat"><b>{{ $t.stat_story }}</b> {{ $t.stat_story_desc }}</div>
-            <div class="lpc-stat"><b>{{ $t.stat_content }}</b> {{ $t.stat_content_desc }}</div>
+            <div class="lpc-stat"><b>{{ i18n "stat_story" }}</b> {{ i18n "stat_story_desc" }}</div>
+            <div class="lpc-stat"><b>{{ i18n "stat_content" }}</b> {{ i18n "stat_content_desc" }}</div>
         </div>
         <p class="lpc-section-subtitle">
-            {{ $t.value_subtitle }}
+            {{ i18n "value_subtitle" }}
         </p>
         <br>
         <div class="lpc-grid lpc-3col">
             <div class="lpc-card">
-                <h3>{{ $t.card1_title }}</h3>
-                <p>{{ $t.card1_desc }}</p>
-                <span class="lpc-chip">{{ $t.card1_chip }}</span>
+                <h3>{{ i18n "card1_title" }}</h3>
+                <p>{{ i18n "card1_desc" }}</p>
+                <span class="lpc-chip">{{ i18n "card1_chip" }}</span>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.card2_title }}</h3>
-                <p>{{ $t.card2_desc }}</p>
-                <span class="lpc-chip">{{ $t.card2_chip }}</span>
+                <h3>{{ i18n "card2_title" }}</h3>
+                <p>{{ i18n "card2_desc" }}</p>
+                <span class="lpc-chip">{{ i18n "card2_chip" }}</span>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.card3_title }}</h3>
-                <p>{{ $t.card3_desc }}</p>
-                <span class="lpc-chip">{{ $t.card3_chip }}</span>
+                <h3>{{ i18n "card3_title" }}</h3>
+                <p>{{ i18n "card3_desc" }}</p>
+                <span class="lpc-chip">{{ i18n "card3_chip" }}</span>
             </div>
         </div>
 
@@ -639,16 +456,16 @@ learn, apply, and decide with judgment."
 
     <!-- LEARNING OUTCOMES -->
     <section class="lpc-section">
-        <h2>{{ $t.learn_title }}</h2>
+        <h2>{{ i18n "learn_title" }}</h2>
         <ul class="lpc-list">
-            <li>{{ $t.learn_1 }}</li>
-            <li>{{ $t.learn_2 }}</li>
-            <li>{{ $t.learn_3 }}</li>
-            <li>{{ $t.learn_4 }}</li>
-            <li>{{ $t.learn_5 }}</li>
-            <li>{{ $t.learn_6 }}</li>
-            <li>{{ $t.learn_7 }}</li>
-            <li>{{ $t.learn_8 }}</li>
+            <li>{{ i18n "learn_1" }}</li>
+            <li>{{ i18n "learn_2" }}</li>
+            <li>{{ i18n "learn_3" }}</li>
+            <li>{{ i18n "learn_4" }}</li>
+            <li>{{ i18n "learn_5" }}</li>
+            <li>{{ i18n "learn_6" }}</li>
+            <li>{{ i18n "learn_7" }}</li>
+            <li>{{ i18n "learn_8" }}</li>
         </ul>
     </section>
 
@@ -656,63 +473,63 @@ learn, apply, and decide with judgment."
 
     <!-- CHAPTERS MAP -->
     <section class="lpc-section" id="chapters">
-        <h2>{{ $t.chapters_title }}</h2>
-        <p class="lpc-section-subtitle">{{ $t.chapters_subtitle }}</p>
+        <h2>{{ i18n "chapters_title" }}</h2>
+        <p class="lpc-section-subtitle">{{ i18n "chapters_subtitle" }}</p>
 
         <div class="lpc-grid lpc-chapter-grid">
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 01</p>
-                <h3>{{ $t.ch1_title }}</h3>
-                <p>{{ $t.ch1_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 01</p>
+                <h3>{{ i18n "ch1_title" }}</h3>
+                <p>{{ i18n "ch1_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 02</p>
-                <h3>{{ $t.ch2_title }}</h3>
-                <p>{{ $t.ch2_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 02</p>
+                <h3>{{ i18n "ch2_title" }}</h3>
+                <p>{{ i18n "ch2_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 03</p>
-                <h3>{{ $t.ch3_title }}</h3>
-                <p>{{ $t.ch3_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 03</p>
+                <h3>{{ i18n "ch3_title" }}</h3>
+                <p>{{ i18n "ch3_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 04</p>
-                <h3>{{ $t.ch4_title }}</h3>
-                <p>{{ $t.ch4_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 04</p>
+                <h3>{{ i18n "ch4_title" }}</h3>
+                <p>{{ i18n "ch4_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 05</p>
-                <h3>{{ $t.ch5_title }}</h3>
-                <p>{{ $t.ch5_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 05</p>
+                <h3>{{ i18n "ch5_title" }}</h3>
+                <p>{{ i18n "ch5_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 06</p>
-                <h3>{{ $t.ch6_title }}</h3>
-                <p>{{ $t.ch6_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 06</p>
+                <h3>{{ i18n "ch6_title" }}</h3>
+                <p>{{ i18n "ch6_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 07</p>
-                <h3>{{ $t.ch7_title }}</h3>
-                <p>{{ $t.ch7_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 07</p>
+                <h3>{{ i18n "ch7_title" }}</h3>
+                <p>{{ i18n "ch7_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
             <div class="lpc-card lpc-chapter-card">
-                <p class="number">{{ $t.module }} 08</p>
-                <h3>{{ $t.ch8_title }}</h3>
-                <p>{{ $t.ch8_desc }}</p>
-                <a href="#" class="link">{{ $t.see_excerpt }}</a>
+                <p class="number">{{ i18n "module" }} 08</p>
+                <h3>{{ i18n "ch8_title" }}</h3>
+                <p>{{ i18n "ch8_desc" }}</p>
+                <a href="#" class="link">{{ i18n "see_excerpt" }}</a>
             </div>
         </div>
 
         <div class="lpc-cta" style="margin-top:1.2rem">
-            <a href="#" class="lpc-btn lpc-btn-primary">{{ $t.cta_start }}</a>
-            <a href="#" class="lpc-btn lpc-btn-secondary">{{ $t.cta_free }}</a>
+            <a href="#" class="lpc-btn lpc-btn-primary">{{ i18n "cta_start" }}</a>
+            <a href="#" class="lpc-btn lpc-btn-secondary">{{ i18n "cta_free" }}</a>
         </div>
     </section>
 
@@ -721,15 +538,15 @@ learn, apply, and decide with judgment."
         <div class="lpc-card">
             <div class="lpc-amazon">
                 <div class="mock">
-                    <div class="cover" aria-label="{{ $t.cover_alt }}"></div>
+                    <div class="cover" aria-label="{{ i18n " cover_alt" }}"></div>
                 </div>
                 <div>
-                    <h2>{{ $t.purchase_title }}</h2>
+                    <h2>{{ i18n "purchase_title" }}</h2>
                     <p class="lpc-section-subtitle">
-                        {{ $t.purchase_subtitle }}
+                        {{ i18n "purchase_subtitle" }}
                     </p>
                     <div class="status" style="font-size: 1.2rem; padding: 1rem; margin-top: 1rem;">
-                        <strong>{{ $t.coming_soon }}</strong>
+                        <strong>{{ i18n "coming_soon" }}</strong>
                     </div>
                 </div>
             </div>
@@ -740,41 +557,41 @@ learn, apply, and decide with judgment."
 
     <!-- FAQ -->
     <section class="lpc-section lpc-faq">
-        <h2>{{ $t.faq_title }}</h2>
+        <h2>{{ i18n "faq_title" }}</h2>
         <details>
-            <summary>{{ $t.faq_q1 }}</summary>
-            <p>{{ $t.faq_a1 }}</p>
+            <summary>{{ i18n "faq_q1" }}</summary>
+            <p>{{ i18n "faq_a1" }}</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q2 }}</summary>
-            <p>{{ $t.faq_a2 }}</p>
+            <summary>{{ i18n "faq_q2" }}</summary>
+            <p>{{ i18n "faq_a2" }}</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q3 }}</summary>
-            <p>{{ $t.faq_a3 }}</p>
+            <summary>{{ i18n "faq_q3" }}</summary>
+            <p>{{ i18n "faq_a3" }}</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q4 }}</summary>
-            <p>{{ $t.faq_a4 }}</p>
+            <summary>{{ i18n "faq_q4" }}</summary>
+            <p>{{ i18n "faq_a4" }}</p>
         </details>
         <details>
-            <summary>{{ $t.faq_q5 }}</summary>
-            <p>{{ $t.faq_a5 }}</p>
+            <summary>{{ i18n "faq_q5" }}</summary>
+            <p>{{ i18n "faq_a5" }}</p>
         </details>
     </section>
 
     <!-- AUTHOR -->
     <section class="lpc-section">
-        <h2>{{ $t.author_title }}</h2>
+        <h2>{{ i18n "author_title" }}</h2>
         <div class="lpc-grid lpc-2col" style="grid-template-columns:1fr 1fr">
             <div class="lpc-card">
-                <h3>{{ $t.author_about }}</h3>
-                <p>{{ $t.author_bio }}</p>
-                <p><em>{{ $t.author_quote }}</em></p>
+                <h3>{{ i18n "author_about" }}</h3>
+                <p>{{ i18n "author_bio" }}</p>
+                <p><em>{{ i18n "author_quote" }}</em></p>
             </div>
             <div class="lpc-card">
-                <h3>{{ $t.project_title }}</h3>
-                <p>{{ $t.project_desc }}</p>
+                <h3>{{ i18n "project_title" }}</h3>
+                <p>{{ i18n "project_desc" }}</p>
             </div>
         </div>
     </section>

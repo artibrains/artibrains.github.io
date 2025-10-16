@@ -1,0 +1,220 @@
+# English translations for main_page shortcode
+
+[hero_title]
+other = "A Guided Journey to the Heart of the Machine"
+
+[hero_subtitle]
+other = "A story set in Minermont Hospital that makes the complete journey comprehensible: from classical models to the core of LLMs. Narrative fiction with real references and accurate technical data."
+
+[badge_science]
+other = "Science + Narrative"
+
+[badge_bilingual]
+other = "Bilingual Edition (ES/EN)"
+
+[badge_guides]
+other = "Practical Guides (Prompting, Metrics, K‑Means, Transformers)"
+
+[coming_soon]
+other = "📚 Coming Soon - Late 2025"
+
+[cover_alt]
+other = "Book cover"
+
+[cover_desc]
+other = "Understand the core: learning, generalization, classification metrics, representation, attention, Transformer fundamentals, and RLHF."
+
+[value_title]
+other = "Understand AI from the Inside"
+
+[stat_story]
+other = "Story"
+
+[stat_story_desc]
+other = "Fictional, with technical rigor"
+
+[stat_content]
+other = "Content"
+
+[stat_content_desc]
+other = "Precise references and definitions"
+
+[value_subtitle]
+other = "This is not a recipe manual: it's a journey to build intuition and connect each piece with its why. A technical novel that humanizes AI, with formal notes that don't hide the mathematics or implementation."
+
+[card1_title]
+other = "From Intuition to Mathematics"
+
+[card1_desc]
+other = "The narrative places you in real problems; the technical notes explain the foundation: cost, gradient, regularization, and validation."
+
+[card1_chip]
+other = "Intuition that holds up"
+
+[card2_title]
+other = "From Algorithm to Generalization"
+
+[card2_desc]
+other = "Why models learn, when they fail, and how we measure what truly matters for practical decision-making."
+
+[card2_chip]
+other = "Rigor without friction"
+
+[card3_title]
+other = "Path to LLMs"
+
+[card3_desc]
+other = "From RNNs and their limits to Transformers: tokenization, embeddings, positional encoding, and attention as the central mechanism."
+
+[card3_chip]
+other = "From \"how\" to \"why\""
+
+[learn_title]
+other = "What You'll Learn"
+
+[learn_1]
+other = "How gradient descent minimizes a cost function and why the learning rate matters."
+
+[learn_2]
+other = "What it means to generalize: overfitting, regularization, and properly applied cross-validation."
+
+[learn_3]
+other = "Binary classification: from logistic regression to SVM and the role of the margin."
+
+[learn_4]
+other = "Multiclass and clinical metrics: per-class precision, recall, ROC/AUC, and real-world validation."
+
+[learn_5]
+other = "Clustering with K‑Means: choosing K (elbow method), centroids, and inertia to discover hidden risks."
+
+[learn_6]
+other = "Neural networks: from perceptron to MLP, activations, and backpropagation without magic black boxes."
+
+[learn_7]
+other = "The step to LLMs: tokenization, embeddings, geometry of meaning, and attention capturing global context."
+
+[learn_8]
+other = "Why sines and cosines in position encoding, and how the Transformer architecture composes meaning at scale."
+
+[chapters_title]
+other = "Your Journey Map"
+
+[chapters_subtitle]
+other = "From fundamentals to LLMs, with stops at what you need to implement safely."
+
+[module]
+other = "Module"
+
+[ch1_title]
+other = "Introduction and Context"
+
+[ch1_desc]
+other = "From Turing to AlphaFold. Why now and what changes in practice."
+
+[ch2_title]
+other = "Regression and Gradient"
+
+[ch2_desc]
+other = "Linear regression, gradient descent, cost functions."
+
+[ch3_title]
+other = "Binary Classification"
+
+[ch3_desc]
+other = "Logistic vs SVM, regularization, cross-validation."
+
+[ch4_title]
+other = "Multiclass and Metrics"
+
+[ch4_desc]
+other = "Algorithms, confusion matrices, and metrics that matter."
+
+[ch5_title]
+other = "Unsupervised Learning"
+
+[ch5_desc]
+other = "K‑Means, centroids, and inertia. Finding hidden patterns."
+
+[ch6_title]
+other = "Neural Networks"
+
+[ch6_desc]
+other = "Perceptron to MLP, backprop, tools, and your own data."
+
+[ch7_title]
+other = "LLMs in Depth"
+
+[ch7_desc]
+other = "Transformers, RLHF, safe prompting, and clinical applications."
+
+[ch8_title]
+other = "Real Cases"
+
+[ch8_desc]
+other = "Frameworks applied in medicine and the \"return journey\"."
+
+[see_excerpt]
+other = "View excerpt →"
+
+[cta_start]
+other = "✨ Start the digital journey"
+
+[cta_free]
+other = "🔎 Read a free chapter"
+
+[purchase_title]
+other = "Get the Book"
+
+[purchase_subtitle]
+other = "The website gives you interactive tools; the book offers you the complete story, technical reasoning, and a practical guide ready to apply."
+
+[faq_title]
+other = "Frequently Asked Questions"
+
+[faq_q1]
+other = "Is this a dense technical book?"
+
+[faq_a1]
+other = "It balances narrative and notes. Intuition comes first; mathematics and details follow clearly."
+
+[faq_q2]
+other = "Do I need to know how to program?"
+
+[faq_a2]
+other = "No. The concepts are explained to understand how and why models work. Implementation is a means, not the end."
+
+[faq_q3]
+other = "Is it really applicable?"
+
+[faq_a3]
+other = "Yes. Although the story is fictional, the references and technical data are real and oriented toward real-world decisions."
+
+[faq_q4]
+other = "Bilingual or two editions?"
+
+[faq_a4]
+other = "Two separate editions: Spanish or English. The glossary clarifies key terms and their equivalents."
+
+[faq_q5]
+other = "Is it only oriented to medicine?"
+
+[faq_a5]
+other = "The examples are clinical due to their ethical and validation demands, but the principles and techniques apply to any sector."
+
+[author_title]
+other = "Author and Purpose"
+
+[author_about]
+other = "About Javier Falcó"
+
+[author_bio]
+other = "Author and researcher. His work combines pedagogical clarity with applications that work outside the laboratory."
+
+[author_quote]
+other = "\"The best way to understand AI is to experience it, not just study it.\""
+
+[project_title]
+other = "Project Objective"
+
+[project_desc]
+other = "Democratize AI with a unique proposal: immersive narrative + rigorous notes + practical guides. To learn, apply, and decide with judgment."
