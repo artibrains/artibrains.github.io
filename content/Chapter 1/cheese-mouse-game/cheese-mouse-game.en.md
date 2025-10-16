@@ -66,7 +66,7 @@ This type of reinforcement learning has direct applications in:
 ## Printable Activity Materials
 
 {{% notice style="success" title="Download PDF Version" %}}
-📄 **[Download The Mouse and the Cheese Game (PDF)](/files/The%20Mouse%20and%20the%20Cheese%20Game.pdf)**
+📄 **[Download The Mouse and the Cheese Game (PDF)](/files/mouse-cheese-game-en.pdf)**
 
 This printable version contains all the materials you need to conduct this reinforcement learning activity offline. Perfect for workshops, classrooms, or hands-on demonstrations where participants can physically experience how AI agents learn through trial and error.
 {{% /notice %}}
