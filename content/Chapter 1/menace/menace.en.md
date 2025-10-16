@@ -6,7 +6,6 @@ weight: 52
 slug: "menace-matchbox-learning-machine"
 ---
 
-## Introduction
 
 MENACE (Machine Educable Noughts And Crosses Engine) was a mechanical computer built in 1961 by Donald Michie, a pioneering artificial intelligence researcher. This remarkable machine, constructed from 304 matchboxes and colored beads, could learn to play tic-tac-toe (noughts and crosses) through reinforcement learning—years before modern computers made such experiments commonplace.
 
@@ -18,7 +17,7 @@ Donald Michie (1923-2007) was a British researcher who had worked on code-breaki
 
 ### Origin of MENACE
 
-MENACE was reportedly created as the result of a bet with a computer science colleague who claimed that such a learning machine was impossible. Michie took on the challenge, constructing a functional mechanical computer from matchboxes and beads as a "fun project" that later became an important demonstration tool.
+MENACE was created as the result of a bet with a computer science colleague who claimed that such a learning machine was impossible. Michie took on the challenge, constructing a functional mechanical computer from matchboxes and beads as a "fun project" that later became an important demonstration tool.
 
 Michie completed his seminal essay "Experiments on the mechanization of game-learning" in 1963, describing MENACE's operation and introducing the "BOXES" algorithm—one of the earliest documented reinforcement learning systems.
 
@@ -108,10 +107,8 @@ After MENACE's success, Donald Michie:
 MENACE has been recreated multiple times:
 - **Matthew Scroggs** (University College London) built a functional replica in 2016
 - This replica appeared on QI (BBC quiz show), the Royal Institution Christmas Lectures, and various science festivals
-- An [interactive online version](https://www.mscroggs.co.uk/menace/) allows anyone to play against a virtual MENACE
+- This [interactive online version](https://www.mscroggs.co.uk/menace/) allows anyone to play against a virtual MENACE
 - MENACE is used as a teaching tool for demonstrating reinforcement learning concepts
-
-### Cultural References
 
 MENACE has been referenced in:
 - Fred Saberhagen's 1963 short story "Without A Thought"
@@ -122,7 +119,7 @@ MENACE has been referenced in:
 
 You can experience MENACE in action through these resources:
 
-{{% notice style="success" title="Interactive Resources" %}}
+
 🎮 **[Play against MENACE online](https://www.mscroggs.co.uk/menace/)** - Interactive simulation by Matthew Scroggs
 
 📺 **[Watch MENACE in action](https://www.youtube.com/watch?v=R9c-_neaxeU)** - Excellent video explanation by Matt Parker (Stand-up Maths)
@@ -133,7 +130,7 @@ You can experience MENACE in action through these resources:
 🏗️ **[Build your own MENACE](https://www.mscroggs.co.uk/blog/94)** - Detailed instructions for constructing a physical MENACE
 
 📄 **[Read the original paper](https://doi.org/10.1093/comjnl/6.3.232)** - Michie's 1963 publication in The Computer Journal
-{{% /notice %}}
+
 
 ## Key Concepts Demonstrated
 

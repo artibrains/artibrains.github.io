@@ -6,8 +6,6 @@ weight: 52
 slug: "menace-maquina-aprendizaje-cerillas"
 ---
 
-## Introducción
-
 MENACE (Machine Educable Noughts And Crosses Engine, o Máquina Educable para el Juego del Tres en Raya) fue una computadora mecánica construida en 1961 por Donald Michie, un investigador pionero en inteligencia artificial. Esta notable máquina, construida con 304 cajas de cerillas y cuentas de colores, podía aprender a jugar al tres en raya mediante aprendizaje por refuerzo, años antes de que las computadoras modernas hicieran tales experimentos comunes.
 
 ## Historia y Contexto
@@ -18,7 +16,7 @@ Donald Michie (1923-2007) fue un investigador británico que había trabajado en
 
 ### Origen de MENACE
 
-Según se informa, MENACE fue creado como resultado de una apuesta con un colega de ciencias de la computación que afirmaba que tal máquina de aprendizaje era imposible. Michie aceptó el desafío, construyendo una computadora mecánica funcional a partir de cajas de cerillas y cuentas como un "proyecto divertido" que más tarde se convirtió en una importante herramienta de demostración.
+MENACE fue creado como resultado de una apuesta con un colega de ciencias de la computación que afirmaba que tal máquina de aprendizaje era imposible. Michie aceptó el desafío, construyendo una computadora mecánica funcional a partir de cajas de cerillas y cuentas como un "proyecto divertido" que más tarde se convirtió en una importante herramienta de demostración.
 
 Michie completó su ensayo seminal "Experiments on the mechanization of game-learning" (Experimentos sobre la mecanización del aprendizaje de juegos) en 1963, describiendo el funcionamiento de MENACE e introduciendo el algoritmo "BOXES", uno de los primeros sistemas de aprendizaje por refuerzo documentados.
 
@@ -108,10 +106,8 @@ Después del éxito de MENACE, Donald Michie:
 MENACE ha sido recreado múltiples veces:
 - **Matthew Scroggs** (University College London) construyó una réplica funcional en 2016
 - Esta réplica apareció en QI (programa de concursos de la BBC), las Royal Institution Christmas Lectures y varios festivales de ciencia
-- Una [versión interactiva en línea](https://www.mscroggs.co.uk/menace/) permite a cualquiera jugar contra un MENACE virtual
+- This [versión interactiva en línea](https://www.mscroggs.co.uk/menace/) permite a cualquiera jugar contra un MENACE virtual
 - MENACE se usa como herramienta de enseñanza para demostrar conceptos de aprendizaje por refuerzo
-
-### Referencias Culturales
 
 MENACE ha sido referenciado en:
 - El cuento de Fred Saberhagen de 1963 "Without A Thought"
@@ -122,7 +118,7 @@ MENACE ha sido referenciado en:
 
 Puedes experimentar MENACE en acción a través de estos recursos:
 
-{{% notice style="success" title="Recursos Interactivos" %}}
+
 🎮 **[Juega contra MENACE en línea](https://www.mscroggs.co.uk/menace/)** - Simulación interactiva por Matthew Scroggs
 
 📺 **[Ve MENACE en acción](https://www.youtube.com/watch?v=R9c-_neaxeU)** - Excelente video explicativo de Matt Parker (Stand-up Maths)
@@ -133,7 +129,7 @@ Puedes experimentar MENACE en acción a través de estos recursos:
 🏗️ **[Construye tu propio MENACE](https://www.mscroggs.co.uk/blog/94)** - Instrucciones detalladas para construir un MENACE físico
 
 📄 **[Lee el artículo original](https://doi.org/10.1093/comjnl/6.3.232)** - Publicación de Michie de 1963 en The Computer Journal
-{{% /notice %}}
+
 
 ## Conceptos Clave Demostrados
 
