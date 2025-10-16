@@ -1,20 +1,4 @@
-{{ $lang := .lang | default "es" }}
-{{ $translations := .translations | default (dict "clear_terminal" "Limpiar") }}
-
-{{/* Diccionario de traducciones por defecto */}}
-{{ $defaultTranslations := dict
-"es" (dict
-"clear_terminal" "Limpiar"
-)
-"en" (dict
-"clear_terminal" "Clear"
-)
-}}
-
-{{ $t := index $defaultTranslations $lang }}
-{{ if $translations }}
-{{ $t = $translations }}
-{{ end }}
+{{/* Terminal partial - Uses Hugo's native i18n system */}}
 
 <div id="custom-terminal" class="terminal-container">
     <div class="terminal-header">
@@ -23,8 +7,7 @@
             <span class="dot yellow"></span>
             <span class="dot green"></span>
         </div>
-        <button id="terminal-clear-btn" class="terminal-clear-button" title="{{ $t.clear_terminal }} Terminal">{{
-            $t.clear_terminal }}</button>
+        <button id="terminal-clear-btn" class="terminal-clear-button" title="{{ i18n "terminal_clear" }} Terminal">{{ i18n "terminal_clear" }}</button>
     </div>
     <div class="terminal-body" id="custom-terminal-body"></div>
 </div>
