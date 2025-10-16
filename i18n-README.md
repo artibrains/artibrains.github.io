@@ -15,6 +15,7 @@ Translations are stored in TOML format in the `i18n/` directory:
 
 Instead of using a large dictionary embedded in templates, use Hugo's `i18n` function:
 
+```hugo
 {{ i18n "hero_title" }}
 ```
 
@@ -30,3 +31,5 @@ Instead of using a large dictionary embedded in templates, use Hugo's `i18n` fun
    ```hugo
    {{ i18n "new_key" }}
    ```
+
+This README was moved out of `i18n/` because Hugo treats files in that directory as translation resources and only supports certain data formats (TOML, YAML, JSON). Keep documentation outside `i18n/` or put it in a docs/ or README at the repo root.
