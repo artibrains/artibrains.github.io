@@ -1,58 +1,5 @@
+{{/* AI Timeline shortcode - Uses Hugo's native i18n system */}}
 {{ $language := .Site.Language.Lang }}
-{{ $translations := dict "es" (dict
-"references" "Referencias"
-"caption" "La evolución de la Inteligencia Artificial"
-"headline" "Historia de la Inteligencia Artificial"
-"description" "Un recorrido por los eventos más importantes en el desarrollo de la IA"
-"legend_title" "Leyenda"
-"importance_levels" "Niveles de Importancia"
-"critical" "Crítico"
-"high" "Alta"
-"medium" "Media"
-"ai_phases" "Fases de la IA"
-"categories" "Categorías"
-"filter_categories" "Filtrar por Categorías"
-"show_all" "Mostrar Todas"
-"breakthrough" "Avance"
-"theory" "Teoría"
-"applications" "Aplicaciones"
-"infrastructure" "Infraestructura"
-"mathematics" "Matemáticas"
-"early_foundations" "Bases Tempranas (1763-1955)"
-"birth_of_ai" "Nacimiento de la IA (1956-1973)"
-"first_ai_winter" "Primer Invierno de la IA (1974-1979)"
-"expert_systems" "Era de Sistemas Expertos (1980-1986)"
-"second_ai_winter" "Segundo Invierno de la IA (1987-1996)"
-"ai_resurgence" "Resurgimiento de la IA (1997-2011)"
-"deep_learning_boom" "Auge del Deep Learning (2012-2019)"
-"ai_breakthrough" "Era de Avances de la IA (2020-presente)")
-"en" (dict
-"references" "References"
-"caption" "The Evolution of Artificial Intelligence"
-"headline" "History of Artificial Intelligence"
-"description" "A journey through the most important events in AI development"
-"legend_title" "Legend"
-"importance_levels" "Importance Levels"
-"critical" "Critical"
-"high" "High"
-"medium" "Medium"
-"ai_phases" "AI Phases"
-"categories" "Categories"
-"filter_categories" "Filter by Categories"
-"show_all" "Show All"
-"breakthrough" "Breakthrough"
-"theory" "Theory"
-"applications" "Applications"
-"infrastructure" "Infrastructure"
-"mathematics" "Mathematics"
-"early_foundations" "Early Foundations (1763-1955)"
-"birth_of_ai" "Birth of AI (1956-1973)"
-"first_ai_winter" "First AI Winter (1974-1979)"
-"expert_systems" "Expert Systems Era (1980-1986)"
-"second_ai_winter" "Second AI Winter (1987-1996)"
-"ai_resurgence" "AI Resurgence (1997-2011)"
-"deep_learning_boom" "Deep Learning Boom (2012-2019)"
-"ai_breakthrough" "AI Breakthrough Era (2020-present)") }}
 
 <!-- Timeline.js CSS and JS -->
 <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
@@ -63,117 +10,114 @@
 {{ if $timelineResource }}
 {{ $timelineData := $timelineResource | transform.Unmarshal }}
 {{ $timelineJson := $timelineData | jsonify }}
-{{ $translationsJson := index $translations $language | jsonify }}
 
 <!-- Category Filter Controls -->
 <div class="timeline-controls">
-    <h3>{{ index $translations $language "filter_categories" }}</h3>
+    <h3>{{ i18n "timeline_filter_categories" }}</h3>
     <div class="category-filters">
-        <button class="category-filter active" data-category="all">{{ index $translations $language "show_all"
-            }}</button>
-        <button class="category-filter" data-category="breakthrough">{{ index $translations $language "breakthrough"
-            }}</button>
-        <button class="category-filter" data-category="theory">{{ index $translations $language "theory"
-            }}</button>
-        <button class="category-filter" data-category="applications">{{ index $translations $language "applications"
-            }}</button>
-        <button class="category-filter" data-category="infrastructure">{{ index $translations $language "infrastructure"
-            }}</button>
+        <button class="category-filter active" data-category="all">{{ i18n "timeline_show_all" }}</button>
+        <button class="category-filter" data-category="breakthrough">{{ i18n "timeline_breakthrough" }}</button>
+        <button class="category-filter" data-category="theory">{{ i18n "timeline_theory" }}</button>
+        <button class="category-filter" data-category="applications">{{ i18n "timeline_applications" }}</button>
+        <button class="category-filter" data-category="infrastructure">{{ i18n "timeline_infrastructure" }}</button>
     </div>
 </div>
 
-<div id='ai-timeline-embed' style='width: 100%; height: 700px' data-timeline="{{ $timelineJson | safeHTML }}"
-    data-translations="{{ $translationsJson | safeHTML }}" data-language="{{ $language }}"></div>
+{{ $jsTranslations := dict "references" (i18n "timeline_references") "headline" (i18n "timeline_headline") "description" (i18n "timeline_description") }}
+<div id='ai-timeline-embed' style='width: 100%; height: 700px' 
+    data-timeline="{{ $timelineJson | safeHTML }}"
+    data-translations="{{ $jsTranslations | jsonify | safeHTML }}"
+    data-language="{{ $language }}"></div>
 
 <!-- Timeline Legend -->
 <div class="timeline-legend">
-    <h3>{{ index $translations $language "legend_title" }}</h3>
+    <h3>{{ i18n "timeline_legend_title" }}</h3>
     <div class="legend-content">
         <div class="legend-section">
-            <h4>{{ index $translations $language "importance_levels" }}</h4>
+            <h4>{{ i18n "timeline_importance_levels" }}</h4>
             <div class="legend-items">
                 <div class="legend-item">
                     <span class="legend-indicator critical"></span>
-                    <span>{{ index $translations $language "critical" }}</span>
+                    <span>{{ i18n "timeline_critical" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-indicator high"></span>
-                    <span>{{ index $translations $language "high" }}</span>
+                    <span>{{ i18n "timeline_high" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-indicator medium"></span>
-                    <span>{{ index $translations $language "medium" }}</span>
+                    <span>{{ i18n "timeline_medium" }}</span>
                 </div>
             </div>
         </div>
         <div class="legend-section">
-            <h4>{{ index $translations $language "ai_phases" }}</h4>
+            <h4>{{ i18n "timeline_ai_phases" }}</h4>
             <div class="legend-items phases">
                 <div class="legend-item">
                     <span class="legend-phase early-foundations"></span>
-                    <span>{{ index $translations $language "early_foundations" }}</span>
+                    <span>{{ i18n "timeline_early_foundations" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase birth-of-ai"></span>
-                    <span>{{ index $translations $language "birth_of_ai" }}</span>
+                    <span>{{ i18n "timeline_birth_of_ai" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase first-ai-winter"></span>
-                    <span>{{ index $translations $language "first_ai_winter" }}</span>
+                    <span>{{ i18n "timeline_first_ai_winter" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase expert-systems"></span>
-                    <span>{{ index $translations $language "expert_systems" }}</span>
+                    <span>{{ i18n "timeline_expert_systems" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase second-ai-winter"></span>
-                    <span>{{ index $translations $language "second_ai_winter" }}</span>
+                    <span>{{ i18n "timeline_second_ai_winter" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase ai-resurgence"></span>
-                    <span>{{ index $translations $language "ai_resurgence" }}</span>
+                    <span>{{ i18n "timeline_ai_resurgence" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase deep-learning-boom"></span>
-                    <span>{{ index $translations $language "deep_learning_boom" }}</span>
+                    <span>{{ i18n "timeline_deep_learning_boom" }}</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-phase ai-breakthrough"></span>
-                    <span>{{ index $translations $language "ai_breakthrough" }}</span>
+                    <span>{{ i18n "timeline_ai_breakthrough" }}</span>
                 </div>
             </div>
         </div>
 
         <!-- Categories Section -->
         <div class="legend-section">
-            <h4>{{ index $translations $language "categories" }}</h4>
+            <h4>{{ i18n "timeline_categories" }}</h4>
             <div class="legend-items categories">
                 <div class="legend-item">
                     <span class="category-badge"
                         style="background-color: #FF980020; border: 1px solid #FF9800; color: var(--MAIN-TEXT-color);">
                         <span class="category-icon">🚀</span>
-                        {{ index $translations $language "breakthrough" }}
+                        {{ i18n "timeline_breakthrough" }}
                     </span>
                 </div>
                 <div class="legend-item">
                     <span class="category-badge"
                         style="background-color: #4CAF5020; border: 1px solid #4CAF50; color: var(--MAIN-TEXT-color);">
                         <span class="category-icon">�</span>
-                        {{ index $translations $language "theory" }}
+                        {{ i18n "timeline_theory" }}
                     </span>
                 </div>
                 <div class="legend-item">
                     <span class="category-badge"
                         style="background-color: #2196F320; border: 1px solid #2196F3; color: var(--MAIN-TEXT-color);">
                         <span class="category-icon">💻</span>
-                        {{ index $translations $language "applications" }}
+                        {{ i18n "timeline_applications" }}
                     </span>
                 </div>
                 <div class="legend-item">
                     <span class="category-badge"
                         style="background-color: #9E9E9E20; border: 1px solid #9E9E9E; color: var(--MAIN-TEXT-color);">
                         <span class="category-icon">🔧</span>
-                        {{ index $translations $language "infrastructure" }}
+                        {{ i18n "timeline_infrastructure" }}
                     </span>
                 </div>
             </div>

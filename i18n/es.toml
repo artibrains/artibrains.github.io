@@ -218,3 +218,119 @@ other = "Objetivo del proyecto"
 
 [project_desc]
 other = "Democratizar la IA con una propuesta única: narrativa inmersiva + notas rigurosas + guías prácticas. Para aprender, aplicar y decidir con criterio."
+
+# Spanish translations for medical-context shortcode
+
+[medical_context_how_it_works]
+other = "¿Cómo funciona esta herramienta?"
+
+# Spanish translations for context-intro and demo-intro shortcodes
+
+[demo_medical_context]
+other = "Contexto Médico"
+
+[demo_type]
+other = "Tipo"
+
+[demo_level]
+other = "Nivel"
+
+[demo_scenario]
+other = "Escenario"
+
+[demo_how_it_works]
+other = "¿Cómo funciona esta herramienta?"
+
+[demo_step]
+other = "Paso"
+
+[demo_title_default]
+other = "Demo Interactiva de IA"
+
+# Spanish translations for terminal shortcode
+
+[terminal_started]
+other = "Terminal iniciado..."
+
+[terminal_clear]
+other = "Limpiar"
+
+# Spanish translations for ai-timeline shortcode
+
+[timeline_references]
+other = "Referencias"
+
+[timeline_caption]
+other = "La evolución de la Inteligencia Artificial"
+
+[timeline_headline]
+other = "Historia de la Inteligencia Artificial"
+
+[timeline_description]
+other = "Un recorrido por los eventos más importantes en el desarrollo de la IA"
+
+[timeline_legend_title]
+other = "Leyenda"
+
+[timeline_importance_levels]
+other = "Niveles de Importancia"
+
+[timeline_critical]
+other = "Crítico"
+
+[timeline_high]
+other = "Alta"
+
+[timeline_medium]
+other = "Media"
+
+[timeline_ai_phases]
+other = "Fases de la IA"
+
+[timeline_categories]
+other = "Categorías"
+
+[timeline_filter_categories]
+other = "Filtrar por Categorías"
+
+[timeline_show_all]
+other = "Mostrar Todas"
+
+[timeline_breakthrough]
+other = "Avance"
+
+[timeline_theory]
+other = "Teoría"
+
+[timeline_applications]
+other = "Aplicaciones"
+
+[timeline_infrastructure]
+other = "Infraestructura"
+
+[timeline_mathematics]
+other = "Matemáticas"
+
+[timeline_early_foundations]
+other = "Bases Tempranas (1763-1955)"
+
+[timeline_birth_of_ai]
+other = "Nacimiento de la IA (1956-1973)"
+
+[timeline_first_ai_winter]
+other = "Primer Invierno de la IA (1974-1979)"
+
+[timeline_expert_systems]
+other = "Era de Sistemas Expertos (1980-1986)"
+
+[timeline_second_ai_winter]
+other = "Segundo Invierno de la IA (1987-1996)"
+
+[timeline_ai_resurgence]
+other = "Resurgimiento de la IA (1997-2011)"
+
+[timeline_deep_learning_boom]
+other = "Auge del Deep Learning (2012-2019)"
+
+[timeline_ai_breakthrough]
+other = "Era de Avances de la IA (2020-presente)"
