@@ -2,7 +2,7 @@
 title: "2.5 - The Gradient Descent Method"
 description: "Learn how the gradient descent algorithm finds minimum points of complex functions to optimize machine learning models."
 weight: 51
-draft: true
+draft: false
 slug: "gradient-descent-method"
 ---
 

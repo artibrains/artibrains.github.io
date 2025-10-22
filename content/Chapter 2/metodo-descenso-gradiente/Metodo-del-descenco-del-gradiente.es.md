@@ -2,7 +2,7 @@
 title: "2.5 - El Método del Descenso del Gradiente"
 description: "Aprende cómo el algoritmo de descenso del gradiente encuentra puntos mínimos de funciones complejas para optimizar modelos de machine learning."
 weight: 51
-draft: true
+draft: false
 slug: "metodo-descenso-gradiente"
 ---
 

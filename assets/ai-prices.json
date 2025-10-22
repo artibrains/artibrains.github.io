@@ -1,0 +1,106 @@
+[
+    {
+        "title": "Premio Nobel de Física 2024",
+        "title_en": "Nobel Prize in Physics 2024",
+        "description": "Otorgado a John J. Hopfield y Geoffrey Hinton por descubrimientos e invenciones fundamentales que permiten el aprendizaje automático con redes neuronales artificiales.",
+        "description_en": "Awarded to John J. Hopfield and Geoffrey Hinton for foundational discoveries and inventions that enable machine learning with artificial neural networks.",
+        "year": 2024,
+        "category": "Nobel",
+        "link": "https://www.nobelprize.org/prizes/physics/2024/hinton/facts/",
+        "video1": "https://www.nobelprize.org/prizes/physics/2024/hinton/prize-presentation/",
+        "video2": "https://www.nobelprize.org/prizes/physics/2024/hopfield/prize-presentation/",
+        "relevant_links": [
+            "https://www.nobelprize.org/prizes/physics/2024/hinton/facts/",
+            "https://www.nobelprize.org/prizes/physics/2024/hinton/diploma/",
+            "https://www.nobelprize.org/prizes/physics/2024/hopfield/facts/",
+            "https://www.nobelprize.org/prizes/physics/2024/hopfield/lecture/",
+            "https://www.nobelprize.org/prizes/physics/2024/hopfield/interview/",
+            "https://www.nobelprize.org/prizes/physics/2024/hopfield/diploma/"
+        ]
+    },
+    {
+        "title": "Premio Nobel de Química 2024",
+        "title_en": "Nobel Prize in Chemistry 2024",
+        "description": "Otorgado a David Baker (diseño computacional de proteínas) y a Demis Hassabis y John Jumper (predicción de la estructura de proteínas).",
+        "description_en": "Awarded to David Baker (computational protein design) and Demis Hassabis and John Jumper (protein structure prediction).",
+        "year": 2024,
+        "category": "Nobel",
+        "link": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+        "video1": "https://www.nobelprize.org/prizes/chemistry/2024/prize-presentation/",
+        "relevant_links": [
+            "https://www.nobelprize.org/prizes/chemistry/2024/press-release/",
+            "https://www.nobelprize.org/prizes/chemistry/2024/facts/",
+            "https://www.nobelprize.org/prizes/chemistry/2024/summary/"
+        ]
+    },
+    {
+        "title": "Premio ACM A.M. Turing",
+        "title_en": "ACM A.M. Turing Award",
+        "description": "Premio anual de la ACM a contribuciones trascendentales en informática; es considerado el Nobel de la informática.",
+        "description_en": "Annual ACM award for groundbreaking contributions to computing; considered the Nobel Prize of Computing.",
+        "year": null,
+        "category": "Computing",
+        "link": "https://es.wikipedia.org/wiki/Premio_Turing",
+        "video1": "https://www.youtube.com/watch?v=nKIu9yen5nc",
+        "relevant_links": [
+            "https://awards.acm.org/turing",
+            "https://amturing.acm.org/"
+        ]
+    },
+    {
+        "title": "Premio IJCAI a la Excelencia en Investigación",
+        "title_en": "IJCAI Award for Research Excellence",
+        "description": "Premio bianual (ahora anual) otorgado en la conferencia IJCAI a investigadores en IA en reconocimiento a la excelencia de toda su trayectoria.",
+        "description_en": "Biannual (now annual) award given at the IJCAI conference to AI researchers in recognition of excellence throughout their career.",
+        "year": null,
+        "category": "Computing",
+        "link": "https://en.wikipedia.org/wiki/IJCAI_Award_for_Research_Excellence",
+        "video1": "https://www.youtube.com/watch?v=rVRcQpJYrPE",
+        "relevant_links": [
+            "https://www.ijcai.org/awards",
+            "https://en.wikipedia.org/wiki/IJCAI_Award_for_Research_Excellence"
+        ]
+    },
+    {
+        "title": "Premio Kyoto en Tecnología Avanzada 2025",
+        "title_en": "Kyoto Prize in Advanced Technology 2025",
+        "description": "Otorgado a Shun-ichi Amari por contribuciones pioneras a los fundamentos teóricos de la IA y a la geometría de la información.",
+        "description_en": "Awarded to Shun-ichi Amari for pioneering contributions to the theoretical foundations of AI and information geometry.",
+        "year": 2025,
+        "category": "International",
+        "link": "https://www.kyotoprize.org/en/laureates/shun-ichi_amari/",
+        "video1": "https://www.kyotoprize.org/en/video/",
+        "relevant_links": [
+            "https://www.kyotoprize.org/en/laureates/",
+            "https://www.kyotoprize.org/en/"
+        ]
+    },
+    {
+        "title": "Premio BBVA Fronteras del Conocimiento (TIC) 2024",
+        "title_en": "BBVA Foundation Frontiers of Knowledge Award (ICT) 2024",
+        "description": "Premio en Tecnologías de la Información y Comunicación a Anil Jain y Michael I. Jordan por contribuciones fundamentales al aprendizaje automático con aplicaciones de alto impacto.",
+        "description_en": "Information and Communication Technologies Award to Anil Jain and Michael I. Jordan for fundamental contributions to machine learning with high-impact applications.",
+        "year": 2024,
+        "category": "International",
+        "link": "https://www.premiosfronterasdelconocimiento.es/noticias/premio-fronteras-del-conocimiento-xvii-edicion-tecnologias-informacion-comunicacion/",
+        "video1": "https://www.youtube.com/watch?v=X-Y8Y8Y8Y8Y",
+        "relevant_links": [
+            "https://www.premiosfronterasdelconocimiento.es/",
+            "https://www.premiosfronterasdelconocimiento.es/categoria/tecnologias-de-la-informacion-y-la-comunicacion/"
+        ]
+    },
+    {
+        "title": "Premio Princesa de Asturias de Investigación Científica y Técnica 2022",
+        "title_en": "Princess of Asturias Award for Scientific and Technical Research 2022",
+        "description": "Otorgado a Geoffrey Hinton, Yann LeCun y Yoshua Bengio (padres del deep learning) y a Demis Hassabis, por sus contribuciones al aprendizaje profundo y redes neuronales.",
+        "description_en": "Awarded to Geoffrey Hinton, Yann LeCun and Yoshua Bengio (fathers of deep learning) and Demis Hassabis, for their contributions to deep learning and neural networks.",
+        "year": 2022,
+        "category": "International",
+        "link": "https://www.fpa.es/es/premios-princesa-de-asturias/premiados/2022-geoffrey-hinton-yann-lecun-yoshua-bengio-y-demis-hassabis/",
+        "video1": "https://www.fpa.es/es/premios-princesa-de-asturias/premiados/2022-geoffrey-hinton-yann-lecun-yoshua-bengio-y-demis-hassabis/videos/",
+        "relevant_links": [
+            "https://www.fpa.es/es/",
+            "https://www.fpa.es/en/"
+        ]
+    }
+]

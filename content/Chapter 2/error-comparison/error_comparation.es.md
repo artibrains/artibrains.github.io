@@ -3,7 +3,7 @@ title: "2.2 - Comparando Error Absoluto (L1) vs Error Cuadrático (L2)"
 weight: 21
 description: "Demostración interactiva para comprender las diferencias entre las funciones de error L1 y L2, y cómo afectan la evaluación de modelos de machine learning en contextos médicos."
 date: 2025-04-17
-draft: true
+draft: false
 slug: "comparacion-error-l1-vs-l2"
 ---
 

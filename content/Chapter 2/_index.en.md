@@ -1,7 +1,7 @@
 ---
 title: "2 - Machine Learning Models"
 weight: 2
-draft: true
+draft: false
 slug: "machine-learning-models"
 ---
 

@@ -2,7 +2,7 @@
 title: "2.1 - Juego de Regresión Lineal"
 description: "Aprende regresión lineal de forma interactiva encontrando la mejor línea que prediga resultados continuos."
 weight: 11
-draft: true
+draft: false
 slug: "juego-regresion-lineal"
 ---
 

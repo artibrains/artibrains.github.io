@@ -2,7 +2,7 @@
 title: "📚 Regresión lineal"
 description: "Referencias académicas, tutoriales y recursos adicionales para profundizar en los conceptos de Inteligencia Artificial presentados en este capítulo"
 weight: 101
-draft: true
+draft: false
 slug: "bibliografia-regresion-lineal"
 ---
 

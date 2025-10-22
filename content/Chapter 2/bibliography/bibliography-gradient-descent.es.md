@@ -2,7 +2,7 @@
 title: "📚 Descenso del Gradiente"
 description: "Materiales teóricos, prácticos y visuales para comprender e implementar el descenso del gradiente en aprendizaje automático"
 weight: 102
-draft: true
+draft: false
 slug: "bibliografia-descenso-gradiente"
 ---
 

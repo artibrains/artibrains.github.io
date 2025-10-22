@@ -2,7 +2,7 @@
 title: "2.1 - Linear Regression Game"
 description: "Learn linear regression interactively by finding the best line that predicts continuous outcomes."
 weight: 11
-draft: true
+draft: false
 slug: "linear-regression-game"
 ---
 

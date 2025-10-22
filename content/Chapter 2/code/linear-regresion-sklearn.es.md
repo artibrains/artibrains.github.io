@@ -3,7 +3,7 @@ title: "⚡ Regresión lineal con sklearn"
 weight: 62
 description: "Demostración interactiva: cómo crear un modelo de regresión lineal utilizando la biblioteca scikit-learn."
 date:
-draft: true 
+draft: false 
 slug: "regresion-lineal-sklearn"
 ---
 

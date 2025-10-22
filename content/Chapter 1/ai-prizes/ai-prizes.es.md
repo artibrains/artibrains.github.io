@@ -31,6 +31,10 @@ Premiados por sus descubrimientos fundamentales y sus invenciones que permiten e
 
 **Enlaces:** [Información Oficial](https://www.nobelprize.org/prizes/physics/2024/summary/) | [Datos](https://www.nobelprize.org/prizes/physics/2024/facts/) | [Conferencia](https://www.nobelprize.org/prizes/physics/2024/hinton/lecture/)
 
+**Enlaces por premiado:**
+- John J. Hopfield — [Info](https://www.nobelprize.org/prizes/physics/2024/hopfield/facts/) | [Conferencia](https://www.youtube.com/watch?v=8SffhDk4mdU)
+- Geoffrey E. Hinton — [Info](https://www.nobelprize.org/prizes/physics/2024/hinton/facts/) | [Conferencia](https://www.youtube.com/watch?v=XDE9DjpcSdI) | [Discurso en banquete](https://www.youtube.com/watch?v=-f5WQAk3dYo)
+
 ---
 
 #### Premio Nobel de Química 2024
@@ -45,7 +49,12 @@ Premiados por sus contribuciones al diseño computacional de proteínas y predic
 <div>{{< youtube ovHHNbvcT8k >}}</div>
 </div>
 
-**Enlaces:** [Información Oficial](https://www.nobelprize.org/prizes/chemistry/2024/summary/) | [Datos](https://www.nobelprize.org/prizes/chemistry/2024/facts/)
+**Enlaces:** [Información Oficial](https://www.nobelprize.org/prizes/chemistry/2024/summary/) | [Info](https://www.nobelprize.org/prizes/chemistry/2024/facts/)
+
+**Enlaces por premiado:**
+- Demis Hassabis — [Info](https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/) | [Conferencia](https://www.youtube.com/watch?v=YtPaZsasmNA)
+- John M. Jumper — [Info](https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/) | [Conferencia](https://www.youtube.com/watch?v=qX1aYUckvnY)
+- David Baker — [Info](https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/) | [Conferencia](https://www.youtube.com/watch?v=KbDvQgsOI-E) | [Discurso en banquete](https://www.youtube.com/watch?v=KbDvQgsOI-E&t=2s)
 
 ---
 

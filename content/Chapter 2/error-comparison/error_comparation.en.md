@@ -3,7 +3,7 @@ Title: "2.2 - Comparing Absolute Error (L1) vs. Mean Squared Error (L2)"
 Weight: 21
 Description: "Interactive demo to understand the differences between L1 and L2 error functions and how they affect the evaluation of machine learning models in medical contexts."
 Date: 2025-04-17
-draft: true
+draft: false
 slug: "error-comparison-l1-vs-l2"
 ---
 

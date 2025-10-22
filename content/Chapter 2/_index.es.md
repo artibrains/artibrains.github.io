@@ -1,7 +1,7 @@
 ---
 title: "2 - Modelos de aprendizaje automático"
 weight: 2
-draft: true
+draft: false
 slug: "modelos-aprendizaje-automatico"
 ---
 

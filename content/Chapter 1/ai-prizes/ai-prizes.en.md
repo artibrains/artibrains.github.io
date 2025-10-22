@@ -31,6 +31,10 @@ Awarded for foundational discoveries and inventions that enable machine learning
 
 **Links:** [Official Info](https://www.nobelprize.org/prizes/physics/2024/summary/) | [Facts](https://www.nobelprize.org/prizes/physics/2024/facts/) | [Lecture](https://www.nobelprize.org/prizes/physics/2024/hinton/lecture/)
 
+**Per-recipient links:**
+- John J. Hopfield — [Facts](https://www.nobelprize.org/prizes/physics/2024/hopfield/facts/) | [Lecture](https://www.youtube.com/watch?v=8SffhDk4mdU)
+- Geoffrey E. Hinton — [Facts](https://www.nobelprize.org/prizes/physics/2024/hinton/facts/) | [Lecture](https://www.youtube.com/watch?v=XDE9DjpcSdI) | [Banquet speech](https://www.youtube.com/watch?v=-f5WQAk3dYo)
+
 ---
 
 #### Nobel Prize in Chemistry 2024
@@ -46,6 +50,11 @@ Awarded for contributions to computational protein design and protein structure 
 </div>
 
 **Links:** [Official Info](https://www.nobelprize.org/prizes/chemistry/2024/summary/) | [Facts](https://www.nobelprize.org/prizes/chemistry/2024/facts/)
+
+**Per-recipient links:**
+- Demis Hassabis — [Facts](https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/) | [Lecture](https://www.youtube.com/watch?v=YtPaZsasmNA)
+- John M. Jumper — [Facts](https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/) | [Lecture](https://www.youtube.com/watch?v=qX1aYUckvnY)
+- David Baker — [Facts](https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/) | [Lecture](https://www.youtube.com/watch?v=KbDvQgsOI-E) | [Banquet speech](https://www.youtube.com/watch?v=KbDvQgsOI-E&t=2s)
 
 ---
 
