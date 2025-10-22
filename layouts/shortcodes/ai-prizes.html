@@ -1,0 +1,921 @@
+{{ $lang := .Page.Lang }}
+{{ $data := index .Site.Data "ai-prices" }}
+
+<div id="ai-prizes-container" class="mt-4">
+    <div class="prize-controls mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>{{ if eq $lang "es" }}Premios en Inteligencia Artificial{{ else }}Artificial Intelligence Awards{{ end
+                }}</h3>
+            <div class="view-toggle">
+                <button class="btn btn-sm btn-outline-primary active" id="category-view">
+                    <i class="fas fa-tags"></i> {{ if eq $lang "es" }}Por Categoría{{ else }}By Category{{ end }}
+                </button>
+                <button class="btn btn-sm btn-outline-primary ml-2" id="year-view">
+                    <i class="fas fa-calendar"></i> {{ if eq $lang "es" }}Por Año{{ else }}By Year{{ end }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category View -->
+    <div id="category-prizes" class="prizes-view active">
+        {{ range $data }}
+        <div class="prize-section mb-5">
+            <div class="prize-header mb-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3 class="prize-main-title mb-0">
+                        <i class="fas {{ if eq .category "Nobel" }}fa-medal text-warning{{ else if eq
+                            .category "Computing" }}fa-microchip text-info{{ else }}fa-globe text-success{{ end }}
+                            mr-2"></i>
+                        {{ if eq $lang "es" }}{{ .title }}{{ else }}{{ .title_en | default .title }}{{ end }}
+                    </h3>
+                    {{ if .year }}
+                    <span class="badge badge-{{ if eq .category "Nobel" }}warning{{ else if eq .category "Computing"
+                        }}info{{ else }}success{{ end }} badge-lg">
+                        {{ .year }}
+                    </span>
+                    {{ end }}
+                </div>
+            </div>
+
+            <div class="prize-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="prize-description">
+                            <p class="lead">{{ if eq $lang "es" }}{{ .description }}{{ else }}{{ .description_en |
+                                default .description }}{{ end }}</p>
+                        </div>
+
+                        <!-- Relevant Links -->
+                        {{ if .relevant_links }}
+                        <div class="prize-relevant-links mt-3">
+                            <h5>{{ if eq $lang "es" }}Enlaces relevantes{{ else }}Relevant Links{{ end }}</h5>
+                            <div class="links-grid">
+                                {{ range .relevant_links }}
+                                <a href="{{ . }}" target="_blank" class="btn btn-outline-secondary btn-sm mb-2 mr-2">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    {{ if strings.Contains . "nobelprize.org" }}
+                                    {{ if strings.Contains . "facts" }}{{ if eq $lang "es" }}Datos{{ else }}Facts{{ end
+                                    }}
+                                    {{ else if strings.Contains . "lecture" }}{{ if eq $lang "es" }}Conferencia{{ else
+                                    }}Lecture{{ end }}
+                                    {{ else if strings.Contains . "interview" }}{{ if eq $lang "es" }}Entrevista{{ else
+                                    }}Interview{{ end }}
+                                    {{ else if strings.Contains . "diploma" }}{{ if eq $lang "es" }}Diploma{{ else
+                                    }}Diploma{{ end }}
+                                    {{ else }}Nobel Prize{{ end }}
+                                    {{ else if strings.Contains . "acm.org" }}ACM
+                                    {{ else if strings.Contains . "ijcai.org" }}IJCAI
+                                    {{ else if strings.Contains . "kyotoprize.org" }}Kyoto Prize
+                                    {{ else if strings.Contains . "bbva" }}BBVA
+                                    {{ else if strings.Contains . "fpa.es" }}Princess of Asturias
+                                    {{ else }}{{ if eq $lang "es" }}Enlace{{ else }}Link{{ end }}{{ end }}
+                                </a>
+                                {{ end }}
+                            </div>
+                        </div>
+                        {{ end }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="prize-actions">
+                            {{ if .video1 }}
+                            <button class="btn btn-success btn-lg video-btn mb-3 w-100" data-video="{{ .video1 }}"
+                                data-title="{{ if eq $lang "es" }}{{ .title }}{{ else }}{{ .title_en | default .title
+                                }}{{ end }}">
+                                <i class="fas fa-play"></i> {{ if eq $lang "es" }}Ver Presentación{{ else }}Watch
+                                Presentation{{ end }}
+                            </button>
+                            {{ end }}
+
+                            {{ if .video2 }}
+                            <button class="btn btn-outline-success btn-lg video-btn mb-3 w-100"
+                                data-video="{{ .video2 }}" data-title="{{ if eq $lang "es" }}{{ .title }} - Video 2{{
+                                else }}{{ .title_en | default .title }} - Video 2{{ end }}">
+                                <i class="fas fa-play"></i> {{ if eq $lang "es" }}Video Adicional{{ else }}Additional
+                                Video{{ end }}
+                            </button>
+                            {{ end }}
+
+                            {{ if .link }}
+                            <a href="{{ .link }}" target="_blank" class="btn btn-primary btn-lg w-100 mb-2">
+                                <i class="fas fa-info-circle"></i> {{ if eq $lang "es" }}Información Oficial{{ else
+                                }}Official Information{{ end }}
+                            </a>
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="prize-divider">
+        </div>
+        {{ end }}
+    </div> <!-- Year View -->
+    <div id="year-prizes" class="prizes-view" style="display: none;">
+        <div class="year-timeline">
+            {{ $yearMap := dict }}
+            {{ range $data }}
+            {{ if .year }}
+            {{ $year := .year | string }}
+            {{ $yearPrizes := index $yearMap $year | default slice }}
+            {{ $yearPrizes = $yearPrizes | append . }}
+            {{ $yearMap = merge $yearMap (dict $year $yearPrizes) }}
+            {{ end }}
+            {{ end }}
+
+            {{ $years := slice }}
+            {{ range $year, $prizes := $yearMap }}
+            {{ $years = $years | append $year }}
+            {{ end }}
+            {{ $sortedYears := sort $years "desc" }}
+
+            {{ range $year := $sortedYears }}
+            {{ $prizes := index $yearMap $year }}
+            <div class="year-section-timeline mb-5" data-year="{{ $year }}">
+                <h3 class="year-title-timeline">{{ $year }}</h3>
+                {{ range $prizes }}
+                <div class="prize-section-year mb-4">
+                    <div class="prize-header-year mb-3">
+                        <h4 class="prize-title-year">
+                            <i class="fas {{ if eq .category "Nobel" }}fa-medal text-warning{{ else if eq
+                                .category "Computing" }}fa-microchip text-info{{ else }}fa-globe text-success{{ end }}
+                                mr-2"></i>
+                            {{ if eq $lang "es" }}{{ .title }}{{ else }}{{ .title_en | default .title }}{{ end }}
+                            <span class="badge badge-{{ if eq .category "Nobel" }}warning{{ else if eq
+                                .category "Computing" }}info{{ else }}success{{ end }} ml-2">
+                                {{ .category }}
+                            </span>
+                        </h4>
+                    </div>
+
+                    <div class="prize-content-year">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="prize-description-year">{{ if eq $lang "es" }}{{ .description }}{{ else }}{{
+                                    .description_en | default .description }}{{ end }}</p>
+
+                                {{ if .relevant_links }}
+                                <div class="prize-links-year mt-3">
+                                    <h6>{{ if eq $lang "es" }}Enlaces relevantes{{ else }}Relevant Links{{ end }}</h6>
+                                    <div class="links-grid-year">
+                                        {{ range .relevant_links }}
+                                        <a href="{{ . }}" target="_blank"
+                                            class="btn btn-outline-secondary btn-sm mb-1 mr-1">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            {{ if strings.Contains . "facts" }}{{ if eq $lang "es" }}Datos{{ else
+                                            }}Facts{{ end }}
+                                            {{ else if strings.Contains . "lecture" }}{{ if eq $lang "es"
+                                            }}Conferencia{{ else }}Lecture{{ end }}
+                                            {{ else if strings.Contains . "interview" }}{{ if eq $lang "es"
+                                            }}Entrevista{{ else }}Interview{{ end }}
+                                            {{ else if strings.Contains . "diploma" }}{{ if eq $lang "es" }}Diploma{{
+                                            else }}Diploma{{ end }}
+                                            {{ else }}{{ if eq $lang "es" }}Enlace{{ else }}Link{{ end }}{{ end }}
+                                        </a>
+                                        {{ end }}
+                                    </div>
+                                </div>
+                                {{ end }}
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="prize-actions-year">
+                                    {{ if .video1 }}
+                                    <button class="btn btn-success video-btn mb-2 w-100" data-video="{{ .video1 }}"
+                                        data-title="{{ if eq $lang "es" }}{{ .title }}{{ else }}{{ .title_en | default
+                                        .title }}{{ end }}">
+                                        <i class="fas fa-play"></i> {{ if eq $lang "es" }}Ver Video{{ else }}Watch
+                                        Video{{ end }}
+                                    </button>
+                                    {{ end }}
+
+                                    {{ if .video2 }}
+                                    <button class="btn btn-outline-success video-btn mb-2 w-100"
+                                        data-video="{{ .video2 }}" data-title="{{ if eq $lang "es" }}{{ .title }} -
+                                        Video 2{{ else }}{{ .title_en | default .title }} - Video 2{{ end }}">
+                                        <i class="fas fa-play"></i> {{ if eq $lang "es" }}Video 2{{ else }}Video 2{{ end
+                                        }}
+                                    </button>
+                                    {{ end }}
+
+                                    {{ if .link }}
+                                    <a href="{{ .link }}" target="_blank" class="btn btn-primary w-100">
+                                        <i class="fas fa-info-circle"></i> {{ if eq $lang "es" }}Info Oficial{{ else
+                                        }}Official Info{{ end }}
+                                    </a>
+                                    {{ end }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<!-- Video Modal -->
+<div class="modal" id="video-modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="video-modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="video-iframe" src="" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Info Modals -->
+<div class="modal" id="nobel-info-modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ if eq $lang "es" }}Premio Nobel{{ else }}Nobel Prize{{ end }}</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ if eq $lang "es" }}
+                    El Premio Nobel es un conjunto de galardones internacionales que se otorgan anualmente en
+                    reconocimiento a logros académicos, culturales o científicos. Establecido por Alfred Nobel en 1895,
+                    incluye categorías como Física, Química, Medicina, Literatura, Paz y Economía.
+                    {{ else }}
+                    The Nobel Prize is a set of international awards bestowed annually in recognition of academic,
+                    cultural, or scientific advances. Established by Alfred Nobel in 1895, it includes categories such
+                    as Physics, Chemistry, Medicine, Literature, Peace, and Economics.
+                    {{ end }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="computing-info-modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ if eq $lang "es" }}Premios de Computación{{ else }}Computing Awards{{ end }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ if eq $lang "es" }}
+                    Los premios de computación reconocen contribuciones excepcionales en ciencias de la computación e
+                    inteligencia artificial. El Premio Turing de ACM es considerado el "Nobel de la Computación",
+                    mientras que el Premio IJCAI reconoce la excelencia en investigación de IA.
+                    {{ else }}
+                    Computing awards recognize exceptional contributions in computer science and artificial
+                    intelligence. The ACM Turing Award is considered the "Nobel Prize of Computing," while the IJCAI
+                    Award recognizes excellence in AI research.
+                    {{ end }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="international-info-modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ if eq $lang "es" }}Premios Internacionales{{ else }}International Awards{{
+                    end }}</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ if eq $lang "es" }}
+                    Los premios internacionales incluyen reconocimientos como el Premio Kyoto, Premio BBVA Fronteras del
+                    Conocimiento y Premio Princesa de Asturias, que honran contribuciones significativas a la ciencia y
+                    tecnología a nivel mundial.
+                    {{ else }}
+                    International awards include recognitions such as the Kyoto Prize, BBVA Foundation Frontiers of
+                    Knowledge Award, and Princess of Asturias Award, which honor significant contributions to science
+                    and technology worldwide.
+                    {{ end }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Prize Section Styles */
+    .prize-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .prize-section:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .prize-main-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .prize-description .lead {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #495057;
+    }
+
+    .prize-actions .btn {
+        font-weight: 500;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .links-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .prize-divider {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #dee2e6, transparent);
+        margin: 2rem 0 0 0;
+    }
+
+    .prize-relevant-links h5 {
+        color: #6c757d;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .badge-lg {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .prize-section {
+            padding: 1.5rem;
+        }
+
+        .prize-main-title {
+            font-size: 1.5rem;
+        }
+
+        .view-toggle {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .view-toggle .btn {
+            width: 100%;
+        }
+
+        .links-grid {
+            justify-content: center;
+        }
+    }
+
+    .prize-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .prize-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-title {
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+    }
+
+    .year-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #495057;
+        border-left: 4px solid #007bff;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .year-title::before {
+        content: '';
+        position: absolute;
+        left: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-color: #007bff;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 0 2px #007bff;
+    }
+
+    .view-toggle .btn.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .prize-links {
+        margin-top: auto;
+        padding-top: 1rem;
+    }
+
+    .category-info {
+        padding: 0.25rem 0.5rem;
+        color: #6c757d;
+        border: none;
+        background: none;
+        font-size: 0.875rem;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+    }
+
+    .category-info:hover,
+    .category-info:focus {
+        color: #007bff;
+        background: rgba(0, 123, 255, 0.1);
+        text-decoration: none;
+        outline: none;
+        transform: scale(1.1);
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    .modal-body iframe {
+        border: none;
+        border-radius: 8px;
+    }
+
+    .year-section {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .year-section::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 3rem;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #007bff, rgba(0, 123, 255, 0.2));
+    }
+
+    .loading {
+        text-align: center;
+        padding: 2rem;
+        color: #6c757d;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 2rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Modal styles for fallback functionality */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1050;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        outline: 0;
+    }
+
+    .modal.show {
+        display: block !important;
+    }
+
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 0.5rem;
+        pointer-events: none;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 500px;
+            margin: 1.75rem auto;
+        }
+    }
+
+    .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: 0.3rem;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, .5);
+        outline: 0;
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: calc(0.3rem - 1px);
+        border-top-right-radius: calc(0.3rem - 1px);
+    }
+
+    .modal-title {
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+
+    .modal-body {
+        position: relative;
+        flex: 1 1 auto;
+        padding: 1rem;
+    }
+
+    .close {
+        padding: 1rem 1rem;
+        margin: -1rem -1rem -1rem auto;
+        background-color: transparent;
+        border: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: #000;
+        text-decoration: none;
+        opacity: .75;
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1040;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.5;
+    }
+
+    .modal-open {
+        overflow: hidden;
+    }
+
+    /* Video button styles */
+    .video-btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border: none;
+    }
+
+    .video-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-btn i {
+        margin-right: 0.5rem;
+    }
+
+    /* Badge styles */
+    .badge {
+        font-weight: 500;
+    }
+
+    .badge-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .badge-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    /* Year View Styles */
+    .year-section-timeline {
+        position: relative;
+        padding-left: 2rem;
+        border-left: 3px solid #007bff;
+    }
+
+    .year-title-timeline {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .year-title-timeline::before {
+        content: '';
+        position: absolute;
+        left: -2.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 0 0 3px #007bff;
+    }
+
+    .prize-section-year {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+    }
+
+    .prize-title-year {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .prize-description-year {
+        color: #495057;
+        line-height: 1.6;
+    }
+
+    .links-grid-year {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+
+    .prize-links-year h6 {
+        color: #6c757d;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // View toggle functionality
+        const categoryViewBtn = document.getElementById('category-view');
+        const yearViewBtn = document.getElementById('year-view');
+        const categoryPrizes = document.getElementById('category-prizes');
+        const yearPrizes = document.getElementById('year-prizes');
+
+        function switchView(activeBtn, inactiveBtn, activeView, inactiveView) {
+            activeBtn.classList.add('active');
+            inactiveBtn.classList.remove('active');
+            activeView.style.display = 'block';
+            inactiveView.style.display = 'none';
+
+            // Save user preference
+            localStorage.setItem('ai-prizes-view', activeBtn.id);
+        }
+
+        categoryViewBtn.addEventListener('click', function () {
+            switchView(categoryViewBtn, yearViewBtn, categoryPrizes, yearPrizes);
+        });
+
+        yearViewBtn.addEventListener('click', function () {
+            switchView(yearViewBtn, categoryViewBtn, yearPrizes, categoryPrizes);
+        });
+
+        // Restore user preference
+        const savedView = localStorage.getItem('ai-prizes-view');
+        if (savedView === 'year-view') {
+            yearViewBtn.click();
+        }
+
+        // Video modal functionality
+        const videoButtons = document.querySelectorAll('.video-btn');
+        const videoModal = document.getElementById('video-modal');
+        const videoIframe = document.getElementById('video-iframe');
+        const videoModalTitle = document.getElementById('video-modal-title');
+
+        videoButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const videoUrl = this.getAttribute('data-video');
+                const title = this.getAttribute('data-title');
+
+                if (!videoUrl) {
+                    console.warn('No video URL provided for:', title);
+                    return;
+                }
+
+                videoModalTitle.textContent = title;
+
+                // Show loading state
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                button.disabled = true;
+
+                // Convert various video URL formats to embed format
+                let embedUrl = videoUrl;
+                if (videoUrl.includes('youtube.com/watch?v=')) {
+                    const videoId = videoUrl.split('v=')[1].split('&')[0];
+                    embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                } else if (videoUrl.includes('youtu.be/')) {
+                    const videoId = videoUrl.split('youtu.be/')[1];
+                    embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                }
+
+                videoIframe.src = embedUrl;
+
+                // Reset button after a short delay
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-play"></i> {{ if eq $lang "es" }}Video{{ else }}Video{{ end }}';
+                    button.disabled = false;
+                }, 1000);
+
+                // Show modal
+                if (typeof $ !== 'undefined') {
+                    $(videoModal).modal('show');
+                } else {
+                    // Fallback for when Bootstrap jQuery is not available
+                    videoModal.style.display = 'block';
+                    videoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
+                }
+            });
+        });
+
+        // Clear video when modal is closed
+        if (typeof $ !== 'undefined') {
+            $(videoModal).on('hidden.bs.modal', function () {
+                videoIframe.src = '';
+            });
+        } else {
+            // Fallback for when Bootstrap jQuery is not available
+            const closeButtons = videoModal.querySelectorAll('[data-dismiss="modal"], .close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    videoModal.style.display = 'none';
+                    videoModal.classList.remove('show');
+                    document.body.classList.remove('modal-open');
+                    videoIframe.src = '';
+                });
+            });
+        }
+
+        // Add smooth scrolling to year sections
+        const yearTitles = document.querySelectorAll('.year-title');
+        yearTitles.forEach(title => {
+            title.style.cursor = 'pointer';
+            title.addEventListener('click', function () {
+                this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Category info modal functionality
+        const categoryInfoButtons = document.querySelectorAll('.category-info');
+        categoryInfoButtons.forEach(button => {
+            button.setAttribute('aria-label', button.getAttribute('title'));
+
+            button.addEventListener('click', function () {
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+
+                if (modal) {
+                    if (typeof $ !== 'undefined' && $.fn.modal) {
+                        // Use Bootstrap modal if available
+                        $(modal).modal('show');
+                    } else {
+                        // Fallback modal functionality
+                        showModal(modal);
+                    }
+                }
+            });
+        });
+
+        // Fallback modal functions
+        function showModal(modal) {
+            modal.style.display = 'block';
+            modal.classList.add('show');
+            document.body.classList.add('modal-open');
+
+            // Add backdrop
+            const backdrop = document.createElement('div');
+            backdrop.className = 'modal-backdrop fade show';
+            backdrop.id = 'modal-backdrop';
+            document.body.appendChild(backdrop);
+
+            // Close on backdrop click
+            backdrop.addEventListener('click', function () {
+                hideModal(modal);
+            });
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+
+            const backdrop = document.getElementById('modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+        }
+
+        // Add close button functionality for all modals
+        const allModals = document.querySelectorAll('.modal');
+        allModals.forEach(modal => {
+            const closeButtons = modal.querySelectorAll('[data-dismiss="modal"], .close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    if (typeof $ !== 'undefined' && $.fn.modal) {
+                        $(modal).modal('hide');
+                    } else {
+                        hideModal(modal);
+                    }
+                });
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    if (typeof $ !== 'undefined' && $.fn.modal) {
+                        $(modal).modal('hide');
+                    } else {
+                        hideModal(modal);
+                    }
+                }
+            });
+        });
+
+        // Add loading animation for video thumbnails
+        const videoThumbnails = document.querySelectorAll('.video-btn');
+        videoThumbnails.forEach(btn => {
+            btn.addEventListener('mouseenter', function () {
+                this.style.transform = 'scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>

@@ -1,0 +1,134 @@
+---
+title: "1.4 Premios y Reconocimientos en IA"
+description: "Un recorrido por los principales premios y reconocimientos que han marcado la historia de la Inteligencia Artificial"
+weight: 48
+slug: "premios-reconocimientos-ia"
+disableToc: true
+---
+
+La Dra. Carmen Ledesma se volvió hacia Alma García después de explorar la línea temporal de la IA: "Alma, después de ver toda esta evolución histórica, me pregunto... ¿cómo se reconocen oficialmente estas contribuciones extraordinarias?"
+
+Alma asintió. "Excelente pregunta, Carmen. Permíteme mostrarte los principales premios y reconocimientos que celebran la excelencia en IA. Desde los Nobel más recientes hasta galardones específicos de computación."
+
+## Premios y Reconocimientos en IA
+
+Los principales premios en Inteligencia Artificial reconocen contribuciones que han transformado el campo y la sociedad. Cada galardón representa un hito en el reconocimiento de la importancia de la IA.
+
+### 🏅 Premios Nobel
+
+---
+
+#### Premio Nobel de Física 2024
+**John J. Hopfield y Geoffrey E. Hinton**  
+**Año:** 2024
+
+Premiados por sus descubrimientos fundamentales y sus invenciones que permiten el aprendizaje automático con redes neuronales artificiales.
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0;">
+<div>{{< youtube d2p0zix5B_M >}}</div>
+<div>{{< youtube GWLPfZnxIOg >}}</div>
+</div>
+
+**Enlaces:** [Información Oficial](https://www.nobelprize.org/prizes/physics/2024/summary/) | [Datos](https://www.nobelprize.org/prizes/physics/2024/facts/) | [Conferencia](https://www.nobelprize.org/prizes/physics/2024/hinton/lecture/)
+
+---
+
+#### Premio Nobel de Química 2024
+**Demis Hassabis, John M. Jumper y David Baker**  
+**Año:** 2024
+
+Premiados por sus contribuciones al diseño computacional de proteínas y predicción de estructuras proteicas.
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0;">
+<div>{{< youtube -5SQxRDwgzA >}}</div>
+<div>{{< youtube IflzeIUltDg >}}</div>
+<div>{{< youtube ovHHNbvcT8k >}}</div>
+</div>
+
+**Enlaces:** [Información Oficial](https://www.nobelprize.org/prizes/chemistry/2024/summary/) | [Datos](https://www.nobelprize.org/prizes/chemistry/2024/facts/)
+
+---
+
+### 💻 Premios de Computación
+
+#### Premio Turing 2024
+**Andrew Barto y Richard Sutton**  
+**Año:** 2024
+
+Por desarrollar los fundamentos conceptuales y algorítmicos del Aprendizaje por Refuerzo (RL), un método fundamental que permitió logros como AlphaGo y el entrenamiento de Modelos de Lenguaje Grandes (LLMs).
+
+**Enlaces:** [Información Oficial](https://awards.acm.org/about/2024-turing)
+
+---
+
+#### Premio Turing 2018
+**Yoshua Bengio, Geoffrey Hinton y Yann LeCun**  
+**Año:** 2018
+
+Los "Padrinos del Aprendizaje Profundo" fueron honrados por sus avances conceptuales y de ingeniería que han hecho de las redes neuronales profundas un componente crítico de la computación moderna.
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0;">
+{{< youtube HzilDIhWhrE >}}
+</div>
+
+**Enlaces:** [Yoshua Bengio](https://amturing.acm.org/award_winners/bengio_3406375.cfm) | [Geoffrey Hinton](https://amturing.acm.org/award_winners/hinton_4791679.cfm) | [Yann LeCun](https://amturing.acm.org/award_winners/lecun_6017366.cfm)
+
+---
+
+#### Premio Turing 2011
+**Judea Pearl**  
+**Año:** 2011
+
+Por sus contribuciones fundamentales a la IA mediante el desarrollo de un cálculo para el razonamiento probabilístico y causal (redes bayesianas), esencial para los sistemas de IA modernos.
+
+**Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/pearl_2658896.cfm) | [Conferencia](https://amturing.acm.org/vp/pearl_2658896.cfm)
+
+---
+
+#### Premio Turing 1994
+**Edward Feigenbaum y Raj Reddy**  
+**Año:** 1994
+
+Por ser pioneros en el diseño y construcción de sistemas de IA a gran escala (Sistemas Expertos) y demostrar su importancia práctica y potencial impacto.
+
+**Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/feigenbaum_4167235.cfm)
+
+---
+
+#### Premio Turing 1975
+**Allen Newell y Herbert A. Simon**  
+**Año:** 1975
+
+Por sus contribuciones fundamentales a la IA, la psicología de la cognición humana y el procesamiento de listas. Crearon programas fundacionales como Logic Theorist y GPS (General Problem Solver).
+
+**Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/newell_3167755.cfm)
+
+**Enlaces:** [Allen Newell - Información Oficial](https://amturing.acm.org/award_winners/newell_3167755.cfm) | [Herbert A. Simon - Información Oficial](https://amturing.acm.org/award_winners/simon_1031467.cfm)
+
+---
+
+#### Premio Turing 1971
+**John McCarthy**  
+**Año:** 1971
+
+Por su trabajo en IA. McCarthy acuñó el término "Inteligencia Artificial" en 1955 e inventó el lenguaje de programación Lisp, una herramienta fundamental para la investigación temprana en IA.
+
+**Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/mccarthy_1118322.cfm)
+
+---
+
+#### Premio Turing 1969
+**Marvin Minsky**  
+**Año:** 1969
+
+Por su papel central en crear, dar forma, promover y avanzar el campo de la IA. Minsky cofundó el Laboratorio de IA del MIT.
+
+**Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/minsky_7440781.cfm)
+
+---
+
+## Reflexiones
+
+"Es impresionante ver cómo la IA ha alcanzado el reconocimiento de los Premios Nobel," observó Carmen. "La diversidad de contribuciones reconocidas muestra que no se trata solo de algoritmos, sino de aplicaciones que transforman múltiples campos."
+
+Alma concluyó: "Estos premios demuestran que la IA se ha convertido en una fuerza fundamental que está cambiando nuestro mundo, desde la medicina hasta la física."
