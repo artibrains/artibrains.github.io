@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>2.6 Regresión lineal</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2_6_Regresión_lineal</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7517,7 +7517,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="2.6---Notas-de-Luis-sobre-la-construcci%C3%B3n-de-nuestro-primer-modelo-predictivo">2.6 - Notas de Luis sobre la construcción de nuestro primer modelo predictivo<a class="anchor-link" href="#2.6---Notas-de-Luis-sobre-la-construcci%C3%B3n-de-nuestro-primer-modelo-predictivo">¶</a></h1>
+<h1 id="2.6---Notas-de-Luis---Nuestro-primer-modelo-predictivo">2.6 - Notas de Luis - Nuestro primer modelo predictivo<a class="anchor-link" href="#2.6---Notas-de-Luis---Nuestro-primer-modelo-predictivo">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7528,17 +7528,14 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>¡Muy bien equipo, aquí Luis!</p>
-<p>La sesión de pizarra de Carmen sobre regresión lineal fue un plan brillante. Ahora me toca a mí traducir eso a código real. Vamos a construir nuestro primer modelo predictivo para Minermont, desde cero. Inicialmente, no usaremos bibliotecas sofisticadas que hagan la magia por nosotros; quiero que entendamos <em>exactamente</em> cómo aprende esto.</p>
-<p>Este es nuestro primer proyecto de software real en nuestro viaje de IA. Manos a la obra y escribamos código que funcione, sea fácil de leer y resuelva un problema real: predecir las necesidades de mascarillas.</p>
-<p>Aquí está mi plan, paso a paso:</p>
+<p>Este documento detalla el desarrollo de nuestro primer proyecto de software de inteligencia artificial, centrado en la predicción de necesidades de mascarillas. El proceso se estructura en los siguientes pasos:</p>
 <ol>
-<li>Importando las bibliotecas necesarias</li>
-<li>Preparando los Datos (Preparando los Datos)</li>
-<li>El Cerebro de la Operación (Los Componentes del Modelo)</li>
-<li>Cómo Aprende el Código (El Bucle de Entrenamiento)</li>
-<li>Verificando Nuestro Trabajo (Visualizando los Resultados)</li>
-<li>Poniéndolo en Uso (Usando Nuestro Modelo para Predecir)</li>
+<li>Importación de bibliotecas necesarias.</li>
+<li>Preparación y preprocesamiento de los datos.</li>
+<li>Definición de los componentes del modelo.</li>
+<li>Implementación del bucle de entrenamiento.</li>
+<li>Visualización y análisis de los resultados.</li>
+<li>Aplicación del modelo para realizar predicciones.</li>
 </ol>
 </div>
 </div>
@@ -7550,11 +7547,11 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-1:-%C2%BFQu%C3%A9-Herramientas-Necesitamos?-(Importando-Bibliotecas)">Paso 1: ¿Qué Herramientas Necesitamos? (Importando Bibliotecas)<a class="anchor-link" href="#Paso-1:-%C2%BFQu%C3%A9-Herramientas-Necesitamos?-(Importando-Bibliotecas)">¶</a></h3><hr/>
-<p>Primero lo primero, tomemos nuestras herramientas. Lo mantendremos simple con solo dos bibliotecas principales de Python.</p>
+<h3 id="Paso-1:-Importaci%C3%B3n-de-bibliotecas-necesarias">Paso 1: Importación de bibliotecas necesarias<a class="anchor-link" href="#Paso-1:-Importaci%C3%B3n-de-bibliotecas-necesarias">¶</a></h3><hr/>
+<p>Para iniciar, procederemos a importar las bibliotecas de Python esenciales para este proyecto. Se han seleccionado dos bibliotecas principales por su idoneidad y simplicidad.</p>
 <ul>
-<li><code>numpy</code>: Este es nuestro caballo de batalla numérico. Lo usaremos para manejar arreglos de datos y hacer el trabajo pesado de las matemáticas. Piénsalo como la base.</li>
-<li><code>matplotlib</code>: Tenemos que ver lo que está pasando, ¿verdad? Esto es para graficar nuestros datos y visualizar los resultados. ¡No puedes arreglar lo que no puedes ver!</li>
+<li><code>numpy</code>: Biblioteca fundamental para la computación numérica en Python. Se utilizará para la manipulación de arreglos de datos y operaciones matemáticas.</li>
+<li><code>matplotlib</code>: Biblioteca para la creación de visualizaciones estáticas, interactivas y animadas en Python. Se empleará para visualizar los datos y los resultados del modelo.</li>
 </ul>
 </div>
 </div>
@@ -7564,7 +7561,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Bloque de Código 1: Importando nuestras bibliotecas</span>
@@ -7599,7 +7596,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-2:-Preparaci%C3%B3n-de-los-datos">Paso 2: Preparación de los datos<a class="anchor-link" href="#Paso-2:-Preparaci%C3%B3n-de-los-datos">¶</a></h3><hr/>
+<h3 id="Paso-2:-Preparaci%C3%B3n-y-preprocesamiento-de-los-datos">Paso 2: Preparación y preprocesamiento de los datos<a class="anchor-link" href="#Paso-2:-Preparaci%C3%B3n-y-preprocesamiento-de-los-datos">¶</a></h3><hr/>
 <p>Nuestro modelo necesita datos para aprender. Mientras Sophia y Ethan trabajan con la base de datos real del hospital, yo estoy creando un conjunto de datos "sintéticos". Actuará como si fuera real, imitando la relación entre pacientes (x) y mascarillas necesarias (y), pero con un toque aleatorio para que parezca real.</p>
 </div>
 </div>
@@ -7609,7 +7606,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Bloque de Código 2: Creando un conjunto de datos sintético y realista</span>
@@ -7623,7 +7620,7 @@ a.anchor-link {
 <span class="n">m</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># 'm' es el nombre de variable estándar para el número de ejemplos de entrenamiento.</span>
 
 <span class="c1"># X = Número de Pacientes. Creemos 50 valores aleatorios entre 50 y 150.</span>
-<span class="c1"># La forma (m, 1) lo convierte en un vector columna, lo cual es una buena práctica para ML.</span>
+<span class="c1"># La forma (m, 1) lo convierte en un vector columna.</span>
 <span class="n">X</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># y = Número de Mascarillas Usadas.</span>
@@ -7632,7 +7629,7 @@ a.anchor-link {
 <span class="n">y</span> <span class="o">=</span> <span class="mi">25</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
 
 <span class="c1"># Lo primero que debe hacer un desarrollador con los datos es mirarlos.</span>
-<span class="c1"># Grafiquémoslos para confirmar visualmente que se ven como esperamos.</span>
+<span class="c1"># Haagamos la gráfica para confirmar visualmente que se ven como esperamos.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Datos Diarios Simulados'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Hospital Minermont - Datos Sintéticos"</span><span class="p">)</span>
@@ -7666,15 +7663,15 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-3:-El-Cerebro-de-la-Operaci%C3%B3n-(Los-Componentes-del-Modelo)">Paso 3: El Cerebro de la Operación (Los Componentes del Modelo)<a class="anchor-link" href="#Paso-3:-El-Cerebro-de-la-Operaci%C3%B3n-(Los-Componentes-del-Modelo)">¶</a></h3><hr/>
-<p>Sophia nos dio el plano, ahora definamos las piezas centrales en nuestro código:</p>
+<h3 id="Paso-3:-Definici%C3%B3n-de-los-componentes-del-modelo">Paso 3: Definición de los componentes del modelo<a class="anchor-link" href="#Paso-3:-Definici%C3%B3n-de-los-componentes-del-modelo">¶</a></h3><hr/>
+<p>Marta nos dio el plano, ahora definamos las piezas centrales en nuestro código:</p>
 <ul>
 <li>La Hipótesis ($h(x)$): Esta es nuestra función de predicción. Para la regresión lineal, es solo la ecuación de una línea. La llamaré <code>prediction()</code>.
 $$prediction(x) = w * x + b$$
 $w$ (peso) y $b$ (sesgo) son los parámetros que nuestro modelo aprenderá. Estos son los "mandos" que ajustaremos.</li>
-<li>La Función de Costo ($J(w, b$)): Esto nos dice cuán "equivocadas" están las predicciones de nuestro modelo. Cuanto menor, mejor. Usaremos el Error Cuadrático Medio (MSE), una elección bastante estándar.
+<li>La Función de Costo ($J(w, b$)): Esto nos dice como de "equivocadas" están las predicciones de nuestro modelo. Cuanto menor, mejor. Usaremos el Error Cuadrático Medio (MSE), una elección bastante estándar.
 $$cost = averageOf( (prediction - actualvalue)^2 )$$</li>
-<li>Descenso de Gradiente: Este es el proceso de aprendizaje en sí. Ajusta automáticamente $w$ y $b$ para minimizar el costo. Descubre la "pendiente" de la función de costo y da pasos cuesta abajo.</li>
+<li>Descenso del Gradiente: Este es el proceso de aprendizaje en sí. Ajusta automáticamente $w$ y $b$ para minimizar el costo. Descubre la "pendiente" de la función de costo y da pasos cuesta abajo.</li>
 </ul>
 </div>
 </div>
@@ -7686,7 +7683,7 @@ $$cost = averageOf( (prediction - actualvalue)^2 )$$</li>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-4:-C%C3%B3mo-Aprende-el-C%C3%B3digo-(El-Bucle-de-Entrenamiento)">Paso 4: Cómo Aprende el Código (El Bucle de Entrenamiento)<a class="anchor-link" href="#Paso-4:-C%C3%B3mo-Aprende-el-C%C3%B3digo-(El-Bucle-de-Entrenamiento)">¶</a></h3><p>Este es el corazón de nuestro programa, la sala de máquinas. Inicializaremos nuestros parámetros y luego ejecutaremos un bucle que los refinará repetidamente utilizando el Descenso de Gradiente. Comentaré cada línea para que puedas ver exactamente lo que está sucediendo.</p>
+<h3 id="Paso-4:-Implementaci%C3%B3n-del-bucle-de-entrenamiento">Paso 4: Implementación del bucle de entrenamiento<a class="anchor-link" href="#Paso-4:-Implementaci%C3%B3n-del-bucle-de-entrenamiento">¶</a></h3><p>Este es el corazón de nuestro programa. Inicializaremos nuestros parámetros y luego ejecutaremos un bucle que los refinará repetidamente utilizando el Descenso del Gradiente.</p>
 <p><strong>Al tratarse de una muestra de datos muy pequeña con solo 50 elementos y para mantener el codigo senzillo, utilizaremos el descenso por lotes utilizando las 50 entradas en cada iteración.</strong></p>
 </div>
 </div>
@@ -7696,7 +7693,7 @@ $$cost = averageOf( (prediction - actualvalue)^2 )$$</li>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Bloque de Código 3: Construyendo y Entrenando el Modelo (con Detención Temprana)</span>
@@ -7710,7 +7707,7 @@ $$cost = averageOf( (prediction - actualvalue)^2 )$$</li>
 <span class="c1"># --- 2. Configuración de Hiperparámetros ---</span>
 <span class="c1"># Estos son ajustes para el algoritmo de aprendizaje, no aprendidos de los datos.</span>
 <span class="c1"># Tenemos que configurarlos nosotros mismos.</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.0001</span>     <span class="c1"># Qué tan grande es el paso a dar en cada actualización. Un valor pequeño es más seguro.</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.0001</span>     <span class="c1"># Como de grande es el paso a dar en cada actualización. Un valor pequeño es más seguro.</span>
 <span class="n">num_iterations</span> <span class="o">=</span> <span class="mi">10000</span>      <span class="c1"># El número máximo de iteraciones.</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>              <span class="c1"># Cambio mínimo en el costo para seguir adelante (umbral de detención temprana).</span>
 
@@ -7724,7 +7721,7 @@ $$cost = averageOf( (prediction - actualvalue)^2 )$$</li>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">b</span>
 
     <span class="c1"># b) Calcular el costo (MSE) para estas predicciones.</span>
-    <span class="c1"># Esto nos dice qué tan bien lo estamos haciendo en esta iteración.</span>
+    <span class="c1"># Esto nos dice como de bien lo estamos haciendo en esta iteración.</span>
     <span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">cost_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
 
@@ -7808,10 +7805,10 @@ Sesgo aprendido final (b): 0.3832
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-5:-Verificando-Nuestro-Trabajo-(Visualizando-los-Resultados)">Paso 5: Verificando Nuestro Trabajo (Visualizando los Resultados)<a class="anchor-link" href="#Paso-5:-Verificando-Nuestro-Trabajo-(Visualizando-los-Resultados)">¶</a></h3><hr/>
+<h3 id="Paso-5:-Visualizaci%C3%B3n-y-an%C3%A1lisis-de-los-resultados">Paso 5: Visualización y análisis de los resultados<a class="anchor-link" href="#Paso-5:-Visualizaci%C3%B3n-y-an%C3%A1lisis-de-los-resultados">¶</a></h3><hr/>
 <p>Okay, hemos construido el motor. Pero, ¿realmente está funcionando? En aprendizaje automático, tenemos que visualizar.</p>
-<p>Primero, grafiquemos la curva de aprendizaje. Esto muestra cómo el costo disminuye con el tiempo. ¡Si este gráfico no baja, algo anda mal!</p>
-<p>Luego, graficaremos la línea final que nuestro modelo aprendió sobre los datos originales. Esta es la verificación visual definitiva para ver qué tan bien se ajusta.</p>
+<p>Primero, hagamos una gráfica de la curva de aprendizaje. Esto muestra cómo el costo disminuye con el tiempo. Si esta gráfica no baja, algo hemos hecho mal.</p>
+<p>Luego, haremos la gráfica de la línea final que nuestro modelo aprendió sobre los datos originales. Esta es la verificación visual definitiva para ver como de bien se ajusta.</p>
 </div>
 </div>
 </div>
@@ -7820,7 +7817,7 @@ Sesgo aprendido final (b): 0.3832
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Bloque de Código 4: Visualizando el Rendimiento del Modelo</span>
@@ -7841,9 +7838,9 @@ Sesgo aprendido final (b): 0.3832
 <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># --- Gráfico 2: La Línea de Regresión Final ---</span>
-<span class="c1"># Primero, grafica los puntos de datos originales</span>
+<span class="c1"># Primero, añáde a la gráfica los puntos de datos originales</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Datos Originales'</span><span class="p">)</span>
-<span class="c1"># Luego, grafica la línea que nuestro modelo aprendió</span>
+<span class="c1"># Luego, añade a la gráfica la línea que nuestra el modelo aprendido</span>
 <span class="c1"># Generamos los valores y para la línea usando nuestros w y b finales</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Modelo Aprendido'</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Ajuste del Modelo Final"</span><span class="p">)</span>
@@ -7878,9 +7875,9 @@ Sesgo aprendido final (b): 0.3832
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Paso-6:-Poni%C3%A9ndolo-en-Uso-(Usando-Nuestro-Modelo-para-Predecir)">Paso 6: Poniéndolo en Uso (Usando Nuestro Modelo para Predecir)<a class="anchor-link" href="#Paso-6:-Poni%C3%A9ndolo-en-Uso-(Usando-Nuestro-Modelo-para-Predecir)">¶</a></h3><hr/>
+<h3 id="Paso-6:-Aplicaci%C3%B3n-del-modelo-para-realizar-predicciones">Paso 6: Aplicación del modelo para realizar predicciones<a class="anchor-link" href="#Paso-6:-Aplicaci%C3%B3n-del-modelo-para-realizar-predicciones">¶</a></h3><hr/>
 <p>¡Muy bien, el objetivo era construir algo útil! Ahora que nuestro modelo está entrenado, usémoslo para predecir las necesidades de mascarillas para nuevos escenarios.</p>
-<p>Esta es la recompensa: tomar nuestros <code>w</code> y <code>b</code> entrenados y conectarlos a nuestra simple ecuación de línea.</p>
+<p>Esta es la recompensa: tomar nuestros <code>w</code> y <code>b</code> entrenados y conectarlos a nuestra ecuación de la recta.</p>
 </div>
 </div>
 </div>
@@ -7889,12 +7886,12 @@ Sesgo aprendido final (b): 0.3832
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Bloque de Código 5: Haciendo una Predicción</span>
 
-<span class="c1"># Digamos que Ethan quiere saber cuántas mascarillas debe presupuestar si esperamos 100 pacientes mañana.</span>
+<span class="c1"># Digamos que queremos saber cuántas mascarillas debemos presupuestar si esperamos 100 pacientes mañana.</span>
 <span class="n">patients_tomorrow</span> <span class="o">=</span> <span class="mi">100</span>
 
 <span class="c1"># Usamos nuestros w y b finales entrenados para calcular la predicción.</span>
@@ -7940,9 +7937,8 @@ Nuestro modelo predice que necesitaremos aproximadamente 67 mascarillas.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Conclusi%C3%B3n">Conclusión<a class="anchor-link" href="#Conclusi%C3%B3n">¶</a></h1><p>Y ahí lo tienen. Construimos una máquina de aprendizaje desde cero. Tomamos un concepto teórico y diseñamos una solución funcional.</p>
-<p>Ahora tenemos una herramienta, ¡nuestra primera! – para ayudar a Minermont a tomar decisiones basadas en datos. Es simple, pero sólida. Y como la construimos nosotros mismos, sabemos exactamente cómo funciona, sus limitaciones y cómo mejorarla.</p>
-<p>Esto es solo el comienzo. Podemos construir cualquier cosa a partir de aquí.</p>
+<h1 id="Conclusi%C3%B3n-y-Pr%C3%B3ximos-Pasos">Conclusión y Próximos Pasos<a class="anchor-link" href="#Conclusi%C3%B3n-y-Pr%C3%B3ximos-Pasos">¶</a></h1><p>Hemos implementado con éxito un modelo predictivo inicial basado en regresión lineal para estimar la necesidad de mascarillas. Este enfoque fundamental, desarrollado desde cero.</p>
+<p>Este primer prototipo, aunque conceptualmente simple, es robusto y escalable. Su implementación interna nos permite comprender a fondo su funcionamiento. Este modelo es el punto de partida para desarrollos más complejos y precisos.</p>
 </div>
 </div>
 </div>
