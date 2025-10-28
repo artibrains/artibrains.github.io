@@ -25,4 +25,4 @@ Ejemplo de predicción para nuevos datos.
 
 
 ¿Quieres modificar el código y experimentar por tu cuenta?  
-[Abre el notebook en Google Colab](https://drive.google.com/file/d/1-qzaTrUynhvjiUbfQM7N3bBo60rSOUh3/view?usp=sharing)
+[Abre el notebook en Google Colab](https://colab.research.google.com/drive/1-qzaTrUynhvjiUbfQM7N3bBo60rSOUh3)

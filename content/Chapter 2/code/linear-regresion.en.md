@@ -20,4 +20,4 @@ The interactive notebook includes:
 {{< isolate name="26LinearRegresion" params=`lang="en"` width="100%" height="720" title="Linear Regression (isolated)" >}}
 
 Want to modify the code and experiment on your own?  
-[Open the notebook in Google Colab](https://drive.google.com/file/d/1ByemaftzReAXxfvmohqu_g1AZ1y9KrBA/view?usp=sharing)
+[Open the notebook in Google Colab](https://colab.research.google.com/drive/1ByemaftzReAXxfvmohqu_g1AZ1y9KrBA)

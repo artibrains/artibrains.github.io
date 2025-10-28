@@ -24,4 +24,4 @@ El notebook interactivo incluye:
 
 
 ¿Quieres modificar el código y experimentar por tu cuenta?  
-[Abre el notebook en Google Colab](https://drive.google.com/file/d/1wRMKXUnM-ftZRyaNNUip2ijsEFMFu4_J/view?usp=sharing)
+[Abre el notebook en Google Colab](https://colab.research.google.com/drive/1wRMKXUnM-ftZRyaNNUip2ijsEFMFu4_J)
