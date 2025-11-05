@@ -1,59 +1,82 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="demo-main-layout">
     <div class="controls-panel">
-        <div class="demo-control-group">
-            <label class="control-label" for="w1Slider">
-                <span>w1:</span>
-                <span id="w1Value" class="demo-range-value">1</span>
-            </label>
-            <input type="range" class="demo-range-input" id="w1Slider" min="-3" max="3" step="0.05" value="1">
+        <h3 class="controls-panel-title demo-mb-md">{{ if eq $lang "es" }}Controles y Configuración{{ else }}Controls
+            and
+            Configuration{{ end }}</h3>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label class="control-label" for="w1Slider">
+                    <span>w1:</span>
+                    <span id="w1Value" class="demo-range-value">1</span>
+                </label>
+                <input type="range" class="demo-range-input" id="w1Slider" min="-3" max="3" step="0.05" value="1">
+            </div>
+
+            <div class="demo-control-group">
+                <label class="control-label" for="w2Slider">
+                    <span>w2:</span>
+                    <span id="w2Value" class="demo-range-value">1</span>
+                </label>
+                <input type="range" class="demo-range-input" id="w2Slider" min="-3" max="3" step="0.05" value="1">
+            </div>
         </div>
 
-        <div class="demo-control-group">
-            <label class="control-label" for="w2Slider">
-                <span>w2:</span>
-                <span id="w2Value" class="demo-range-value">1</span>
-            </label>
-            <input type="range" class="demo-range-input" id="w2Slider" min="-3" max="3" step="0.05" value="1">
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label class="control-label" for="bSlider">
+                    <span>b:</span>
+                    <span id="bValue" class="demo-range-value">0</span>
+                </label>
+                <input type="range" class="demo-range-input" id="bSlider" min="-5" max="5" step="0.05" value="0">
+            </div>
+
+            <div class="demo-control-group">
+                <label class="control-label" for="thresholdSlider">
+                    <span>{{ if eq $lang "es" }}Umbral:{{ else }}Threshold:{{ end }}</span>
+                    <span id="thresholdValue" class="demo-range-value">0.5</span>
+                </label>
+                <input type="range" class="demo-range-input" id="thresholdSlider" min="0" max="1" step="0.05"
+                    value="0.5">
+            </div>
         </div>
 
-        <div class="demo-control-group">
-            <label class="control-label" for="bSlider">
-                <span>b:</span>
-                <span id="bValue" class="demo-range-value">0</span>
-            </label>
-            <input type="range" class="demo-range-input" id="bSlider" min="-5" max="5" step="0.05" value="0">
-        </div>
-
-        <div class="demo-control-group">
-            <label class="control-label" for="thresholdSlider">
-                <span>Umbral:</span>
-                <span id="thresholdValue" class="demo-range-value">0.5</span>
-            </label>
-            <input type="range" class="demo-range-input" id="thresholdSlider" min="0" max="1" step="0.05" value="0.5">
-        </div>
-
-        <div class="demo-control-group">
-            <button id="toggleSigmoid" class="demo-btn demo-btn-secondary demo-btn-full-width">
-                <span class="icon">🎨</span>
-                <span id="toggleText">Ver Probabilidades</span>
-            </button>
-            <div class="demo-info-card demo-mb-sm">
-                <span id="modeText" class="control-label">Modo actual: Clasificación Simple</span>
-                <div class="demo-control-description">
-                    <p><strong>Modo Clasificación Simple:</strong> Muestra en rojo los pacientes clasificados como "no
-                        asistirá" y en azul los que "asistirán".</p>
-                    <p><strong>Modo Probabilidades:</strong> Muestra un degradado de colores que indica la probabilidad
-                        de no asistencia (más rojo = mayor probabilidad).</p>
+        <div class="control-section">
+            <div class="demo-control-group">
+                <button id="toggleSigmoid" class="demo-btn demo-btn-secondary demo-btn-full-width">
+                    <span class="icon">🎨</span>
+                    <span id="toggleText">{{ if eq $lang "es" }}Ver Probabilidades{{ else }}Show Probabilities{{ end
+                        }}</span>
+                </button>
+                <div class="demo-info-card demo-mb-sm">
+                    <span id="modeText" class="control-label">{{ if eq $lang "es" }}Modo actual: Clasificación Simple{{
+                        else }}Current mode: Simple Classification{{ end }}</span>
+                    <div class="demo-control-description">
+                        <p><strong>{{ if eq $lang "es" }}Modo Clasificación Simple:{{ else }}Simple Classification
+                                Mode:{{ end }}</strong> {{ if eq $lang "es" }}Muestra en rojo los pacientes clasificados
+                            como "no asistirá" y en azul los que "asistirán".{{ else }}Shows in red the patients
+                            classified as "will not attend" and in blue those who "will attend".{{ end }}</p>
+                        <p><strong>{{ if eq $lang "es" }}Modo Probabilidades:{{ else }}Probabilities Mode:{{ end
+                                }}</strong> {{ if eq $lang "es" }}Muestra un degradado de colores que indica la
+                            probabilidad de no asistencia (más rojo = mayor probabilidad).{{ else }}Shows a color
+                            gradient indicating the probability of non-attendance (more red = higher probability).{{ end
+                            }}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="demo-control-group">
-            <button id="checkButton" class="demo-btn demo-btn-primary demo-btn-full-width">Comprobar
-                clasificación</button>
-            <button id="resetButton" class="demo-btn demo-btn-secondary demo-btn-full-width">Nueva partida</button>
+        <div class="control-section">
+            <div class="demo-control-group">
+                <button id="checkButton" class="demo-btn demo-btn-primary demo-btn-full-width">{{ if eq $lang "es"
+                    }}Comprobar clasificación{{ else }}Check classification{{ end }}</button>
+                <button id="resetButton" class="demo-btn demo-btn-secondary demo-btn-full-width">{{ if eq $lang "es"
+                    }}Nueva partida{{ else }}New game{{ end }}</button>
+            </div>
         </div>
     </div>
 
@@ -62,12 +85,16 @@
             <canvas id="gameChart"></canvas>
         </div>
         <div class="demo-info-card">
-            <p class="demo-text-center">Objetivo: Lograr una precisión superior al 80%</p>
+            <p class="demo-text-center">{{ if eq $lang "es" }}Objetivo: Lograr una precisión superior al 80%{{ else
+                }}Goal: Achieve accuracy above 80%{{ end }}</p>
         </div>
     </div>
 </div>
 
 <!-- Cargar Chart.js y el script interactivo -->
+<script>
+    window.gameLanguage = "{{ $lang }}";
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script src="/js/sigmoid-game/sigmoid-game.js"></script>

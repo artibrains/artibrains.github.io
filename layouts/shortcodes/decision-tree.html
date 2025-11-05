@@ -1,87 +1,113 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-
 <div id="setup-container">
-    <h2>Paso 1: Selecciona los Personajes (entre 2 y 49)</h2>
+    <h2>{{ if eq $lang "es" }}Paso 1: Selecciona los personajes (entre 2 y 49){{ else }}Step 1: Select the characters
+        (between 2 and 49){{ end }}</h2>
     <div class="description-block">
-        <h4>Características de los Personajes</h4>
-        <p>Cada personaje se define por un conjunto de características. Algunas son binarias (con respuestas
-            'Sí' o 'No'), mientras que otras son categóricas (con múltiples valores posibles). El algoritmo
-            utiliza estas características para encontrar las preguntas más eficientes.</p>
+        <h4>{{ if eq $lang "es" }}Características de los personajes{{ else }}Character features{{ end }}</h4>
+        <p>{{ if eq $lang "es" }}Cada personaje se define por un conjunto de características. Algunas son binarias (con
+            respuestas 'Sí' o 'No'), mientras que otras son categóricas (con múltiples valores posibles). El algoritmo
+            utiliza estas características para encontrar las preguntas más eficientes.{{ else }}Each character is
+            defined by a set of features. Some are binary (answered "Yes" or "No"), while others are categorical (with
+            multiple possible values). The algorithm uses these features to find the most efficient questions.{{ end }}
+        </p>
     </div>
     <div id="controls">
         <div class="control-group">
-            <label for="random-count">Seleccionar al azar:</label>
+            <label for="random-count">{{ if eq $lang "es" }}Seleccionar al azar:{{ else }}Select randomly:{{ end
+                }}</label>
             <input type="number" id="random-count" value="16" min="2" max="49">
-            <button id="random-select-btn">Selección Aleatoria</button>
+            <button id="random-select-btn">{{ if eq $lang "es" }}Selección Aleatoria{{ else }}Random selection{{ end
+                }}</button>
         </div>
     </div>
     <div id="character-grid">
-        <!-- Los personajes se cargarán aquí con JavaScript -->
+        <!-- Characters get injected via JS -->
     </div>
     <div id="training-controls">
         <div class="control-group">
             <input type="checkbox" id="binary-questions-only">
-            <label for="binary-questions-only">Solo preguntas Sí/No</label>
+            <label for="binary-questions-only">{{ if eq $lang "es" }}Solo preguntas Sí/No{{ else }}Only Yes/No
+                questions{{ end }}</label>
         </div>
         <div class="control-group">
-            <button id="train-btn" disabled>Entrenar Árbol</button>
+            <button id="train-btn" disabled>{{ if eq $lang "es" }}Entrenar Árbol{{ else }}Train Tree{{ end }}</button>
         </div>
     </div>
 </div>
 
 <div id="training-container" class="hidden">
-    <h2>Paso 2: Construyendo el Árbol...</h2>
-    <div id="current-step-display">
-        <p id="current-step-info">El árbol se está construyendo...</p>
-        <div id="current-group-display"></div>
-    </div>
+    <h2>{{ if eq $lang "es" }}Árbol de Decisión Completo{{ else }}Complete Decision Tree{{ end }}</h2>
     <div id="main-content-area">
         <div id="tree-container">
             <div id="cy-container"></div>
-            <div id="spinner" class="hidden"></div>
             <div id="tree-controls">
-                <button id="zoom-in-btn" title="Acercar">+</button>
-                <button id="zoom-out-btn" title="Alejar">-</button>
-                <button id="fit-btn" title="Centrar Vista">⛶</button>
+                <button id="zoom-in-btn" title="{{ if eq $lang " es" }}Acercar{{ else }}Zoom in{{ end }}">+</button>
+                <button id="zoom-out-btn" title="{{ if eq $lang " es" }}Alejar{{ else }}Zoom out{{ end }}">-</button>
+                <button id="fit-btn" title="{{ if eq $lang " es" }}Centrar vista{{ else }}Fit view{{ end }}">⛶</button>
             </div>
         </div>
         <div id="details-panel">
-            <h3>Detalles de la Decisión</h3>
+            <h3>{{ if eq $lang "es" }}Detalles de la decisión{{ else }}Decision details{{ end }}</h3>
             <div id="algorithm-description">
-                <h4>¿Cómo Funciona el Algoritmo?</h4>
-                <p>El árbol se construye usando un algoritmo de 'Divide y Vencerás'. En cada paso, el
-                    sistema
-                    evalúa todas las preguntas posibles y elige la que mejor divide al grupo actual de
-                    personajes.</p>
+                <h4>{{ if eq $lang "es" }}¿Cómo funciona el algoritmo?{{ else }}How does the algorithm work?{{ end }}
+                </h4>
+                <p>{{ if eq $lang "es" }}El árbol se construye usando un algoritmo de "Divide y vencerás". En cada paso,
+                    el sistema evalúa todas las preguntas posibles y elige la que mejor divide al grupo actual de
+                    personajes.{{ else }}The tree is built using a "Divide and conquer" strategy. At each step, the
+                    system evaluates all possible questions and selects the one that best splits the current group of
+                    characters.{{ end }}</p>
                 <ul>
-                    <li><strong>Modo Normal:</strong> Se prioriza la pregunta que genera el <strong>mayor
-                            número
-                            de subgrupos</strong>. Como desempate, se elige la que crea el subgrupo más
-                        pequeño.
-                    </li>
-                    <li><strong>Modo Sí/No:</strong> Se elige la pregunta que crea la partición más
-                        <strong>equilibrada</strong>, minimizando la diferencia de tamaño entre el grupo
-                        'Sí' y
-                        el 'No'.
-                    </li>
+                    <li><strong>{{ if eq $lang "es" }}Modo Normal:{{ else }}Standard mode:{{ end }}</strong> {{ if eq
+                        $lang "es" }}Prioriza la pregunta que crea el <strong>mayor número de subgrupos</strong>. Como
+                        desempate, elige la que produce el subgrupo más pequeño.{{ else }}It prioritizes the question
+                        that creates the <strong>largest number of subgroups</strong>. As a tiebreaker, it prefers the
+                        one that produces the smallest subgroup.{{ end }}</li>
+                    <li><strong>{{ if eq $lang "es" }}Modo Sí/No:{{ else }}Yes/No mode:{{ end }}</strong> {{ if eq $lang
+                        "es" }}Selecciona la pregunta que genera una partición más <strong>equilibrada</strong>,
+                        minimizando la diferencia de tamaño entre el grupo "Sí" y el "No".{{ else }}It selects the
+                        question that yields the most <strong>balanced split</strong>, minimizing the size difference
+                        between the "Yes" and "No" groups.{{ end }}</li>
+                </ul>
             </div>
             <div id="calculation-details">
-                <p>El árbol se está construyendo... o haz clic en un nodo de pregunta para ver sus cálculos.
-                </p>
+                <p>{{ if eq $lang "es" }}El árbol se está construyendo... o haz clic en un nodo de pregunta para ver sus
+                    cálculos.{{ else }}The tree is being built... or click a question node to inspect its
+                    calculations.{{ end }}</p>
             </div>
         </div>
     </div>
     <div class="actions-container">
-        <button id="reset-btn" class="hidden">Empezar de Nuevo</button>
+        <button id="reset-btn" class="hidden">{{ if eq $lang "es" }}Empezar de nuevo{{ else }}Start over{{ end
+            }}</button>
     </div>
 </div>
 
-
+<div id="training-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-content training-modal-content" role="dialog" aria-modal="true"
+        aria-labelledby="training-modal-title">
+        <h3 id="training-modal-title">{{ if eq $lang "es" }}Paso 2: Construyendo el árbol...{{ else }}Step 2: Building
+            the tree...{{ end }}</h3>
+        <p id="current-step-info" aria-live="polite">{{ if eq $lang "es" }}El árbol se está construyendo...{{ else }}The
+            tree is being built...{{ end }}</p>
+        <div id="current-group-display"></div>
+        <div class="spinner-container">
+            <div id="spinner" class="spinner"></div>
+        </div>
+    </div>
+</div>
 
 <div id="tooltip" class="hidden"></div>
 
-<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+<!-- Use local Cytoscape library instead of CDN for reliability -->
+<script src="/js/cytoscape.min.js"></script>
+
+<script>
+    window.decisionTreeLanguage = "{{ $lang }}";
+</script>
 
 <script src="/js/decision-tree/people-data.js"></script>
 <script src="/js/decision-tree/decision-tree.js"></script>

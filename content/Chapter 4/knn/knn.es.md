@@ -1,8 +1,8 @@
 ---
-title: "K-Nearest Neighbors (K-NN): Clasificación por Proximidad"
+title: "4.2 Un abanico de posibilidades: K-NN para clasificación multiclase"
 description: "Aprende cómo funciona el algoritmo K-NN para clasificación a través de una visualización interactiva"
 weight: 1
-draft: true
+draft: false
 slug: "knn-clasificacion-proximidad"
 ---
 
@@ -17,7 +17,7 @@ El algoritmo **K-Nearest Neighbors** (K-NN) es uno de los algoritmos de aprendiz
     medical_scenario="Un veterinario necesita clasificar automáticamente las radiografías de mascotas entre gatos y perros basándose en características anatómicas medidas. Dispone de un conjunto de radiografías ya etiquetadas como entrenamiento."
     medical_highlight="K-NN permite al veterinario clasificar nuevas radiografías comparándolas con las K radiografías más similares en su base de datos histórica, aprovechando patrones conocidos para diagnósticos rápidos y precisos."
     intro_text="El algoritmo **K-NN** clasifica nuevos datos basándose en la proximidad a datos conocidos. Es un método de **aprendizaje perezoso** que no construye un modelo explícito, sino que utiliza directamente los datos de entrenamiento."
-    steps="Selecciona el valor de K:Elige cuántos vecinos cercanos considerar para la clasificación. Un K pequeño es más sensible al ruido, mientras que un K grande suaviza las decisiones.|Observa las distancias:Haz clic en cualquier punto para ver cómo se calculan las distancias a todos los puntos de entrenamiento y cuáles son los K vecinos más cercanos.|Analiza la clasificación:El punto se clasifica según la clase mayoritaria entre sus K vecinos más cercanos. Experimenta con diferentes valores de K para ver cómo cambia la clasificación."
+    steps="Selecciona el valor de K: Elige cuántos vecinos cercanos considerar para la clasificación. Un K pequeño es más sensible al ruido, mientras que un K grande suaviza las decisiones.|Observa las distancias: Haz clic en cualquier punto para ver cómo se calculan las distancias a todos los puntos de entrenamiento y cuáles son los K vecinos más cercanos.|Analiza la clasificación: El punto se clasifica según la clase mayoritaria entre sus K vecinos más cercanos. Experimenta con diferentes valores de K para ver cómo cambia la clasificación."
 >}}
 
 ## Demostración Interactiva
@@ -26,7 +26,7 @@ El algoritmo **K-Nearest Neighbors** (K-NN) es uno de los algoritmos de aprendiz
 
 {{< knn_intro_es >}}
 
-{{< knn >}}
+{{< knn lang="es" >}}
 
 {{< /demo-wrapper >}}
 

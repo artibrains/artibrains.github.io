@@ -1,9 +1,9 @@
 ---
-title: "El Clasificador: Función Sigmoide"
+title: "3.1 El siguiente paso: Función sigmoide"
 weight: 2
 description: "Visualización interactiva para comprender cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1, convirtiéndose en la pieza clave de la regresión logística."
 date: 2025-04-17
-draft: true
+draft: false
 slug: "clasificador-funcion-sigmoide"
 ---
 
@@ -15,9 +15,10 @@ Comprende cómo la función sigmoide transforma cualquier combinación lineal en
     title="Simulador: Juego de la Función Sigmoide"
     algorithm_type="Clasificación logística"
     difficulty="intermediate"
-    medical_scenario="Has creado un modelo que estima la **probabilidad de complicaciones post‑operatorias** a partir de la edad y la presión arterial de cada paciente (cada punto en el gráfico)." medical_highlight="Tu objetivo es ajustar la línea de decisión y **garantizar** decisiones terapéuticas seguras separando correctamente a los pacientes de *bajo* y *alto* riesgo."
+    medical_scenario="Has creado un modelo que estima la **probabilidad de complicaciones post‑operatorias** a partir de la edad y la presión arterial de cada paciente (cada punto en el gráfico)."
+    medical_highlight="Tu objetivo es ajustar la línea de decisión y **garantizar** decisiones terapéuticas seguras separando correctamente a los pacientes de *bajo* y *alto* riesgo."
     intro_text="Ajusta la **pendiente** y la **altura inicial** de la curva sigmoide para que tu modelo clasifique con la mayor precisión posible. Observa en tiempo real cómo cambian las métricas de desempeño."
-    steps="Minimiza la Log‑Loss:Separa los puntos verdes (sin complicaciones) de los rojos (con complicaciones) ajustando los parámetros de la función sigmoide.|Usa los deslizadores:Modifica la curva sigmoide con los controles. La gráfica y las métricas se actualizarán al instante para mostrar el rendimiento.|Evalúa las métricas:Consulta la **exactitud** y la **pérdida logística** para evaluar la calidad de tu clasificación y encontrar el mejor ajuste."
+    steps="Minimiza la Log‑Loss: Separa los puntos verdes (sin complicaciones) de los rojos (con complicaciones) ajustando los parámetros de la función sigmoide.|Usa los deslizadores: Modifica la curva sigmoide con los controles. La gráfica y las métricas se actualizarán al instante para mostrar el rendimiento.|Evalúa las métricas: Consulta la **exactitud** y la **pérdida logística** para evaluar la calidad de tu clasificación y encontrar el mejor ajuste."
 >}}
 
 ## Demostración Interactiva
@@ -26,11 +27,23 @@ Comprende cómo la función sigmoide transforma cualquier combinación lineal en
 
 {{< sigmoid-legend >}}
 
-{{< sigmoid-game >}}
+{{< sigmoid-game lang="es" >}}
 
 {{< game-results >}}
 
 {{< /demo-wrapper >}}
+
+### Controles y configuración
+
+- **Deslizadores w₁ y w₂** inclinan la frontera de decisión para acercar la curva al grupo de mayor o menor riesgo.
+- **Sesgo (b)** desplaza la sigmoide hacia la izquierda o la derecha para recentrar el umbral sobre la nube de datos.
+- **Umbral** ajusta qué tan estricta es la clasificación al marcar pacientes como de alto riesgo.
+- **Botón de modo** alterna entre la vista de clasificación discreta y un mapa de calor de probabilidades.
+- **Comprobar clasificación / Nueva partida** evalúan la configuración actual o regeneran una nueva cohorte de pacientes.
+
+### Terminal en acción
+
+El terminal recoge cada reinicio y evaluación: anuncia cuando el simulador se inicializa, registra cada comprobación de precisión con el umbral vigente y confirma cuando se generan datos nuevos para seguir la mejora paso a paso.
 
 ## Conceptos Fundamentales
 

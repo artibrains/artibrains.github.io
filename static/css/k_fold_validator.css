@@ -90,6 +90,29 @@ h1 {
     display: inline-block;
 }
 
+.legend-label {
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.legend-item .train-color+.legend-label {
+    color: var(--train-color);
+}
+
+.legend-item .test-color+.legend-label {
+    color: var(--test-color);
+}
+
+.legend-item .fold-color+.legend-label {
+    background: linear-gradient(45deg,
+            color-mix(in srgb, var(--fold-color-1) 65%, #000) 0%,
+            color-mix(in srgb, var(--fold-color-5) 65%, #000) 50%,
+            color-mix(in srgb, var(--fold-color-6) 65%, #000) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
 .train-color {
     background-color: var(--train-color);
 }

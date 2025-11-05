@@ -1,4 +1,139 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const translations = {
+        es: {
+            terminal: {
+                init: 'KFoldValidator: Inicializado.',
+                dataGenerated: (count) => `KFoldValidator: Generados ${count} nuevos puntos de datos.`,
+                simpleStart: 'KFoldValidator: Iniciando validación simple (80/20 split).',
+                simpleComplete: (error) => `KFoldValidator: Validación simple completada. Error: ${error}%.`,
+                invalidK: (k) => `KFoldValidator: Intento de K-Fold cancelado por valor de K inválido: ${k}.`,
+                kfoldStart: (k) => `KFoldValidator: Iniciando validación K-Fold con K=${k}.`,
+                kfoldComplete: (error) => `KFoldValidator: K-Fold completado. Error promedio: ${error}%.`
+            },
+            ui: {
+                calculating: 'Calculando...',
+                dataRegenerated: '¡Datos Regenerados!',
+                simpleResult: (error) => `Último Error: ${error}%`,
+                foldRound: (round, error) => `Ronda ${round}: Error = ${error}%`,
+                averaging: 'Calculando promedio...',
+                kfoldResult: (error) => `Último Error Promedio: ${error}%`
+            },
+            alerts: {
+                invalidK: 'Por favor, elige un valor de K entre 2 y 10.'
+            }
+        },
+        en: {
+            terminal: {
+                init: 'KFoldValidator: Initialized.',
+                dataGenerated: (count) => `KFoldValidator: Generated ${count} new data points.`,
+                simpleStart: 'KFoldValidator: Starting simple validation (80/20 split).',
+                simpleComplete: (error) => `KFoldValidator: Simple validation finished. Error: ${error}%.`,
+                invalidK: (k) => `KFoldValidator: K-Fold attempt cancelled due to invalid K value: ${k}.`,
+                kfoldStart: (k) => `KFoldValidator: Starting K-Fold validation with K=${k}.`,
+                kfoldComplete: (error) => `KFoldValidator: K-Fold completed. Average error: ${error}%.`
+            },
+            ui: {
+                calculating: 'Calculating...',
+                dataRegenerated: 'Data regenerated!',
+                simpleResult: (error) => `Latest Error: ${error}%`,
+                foldRound: (round, error) => `Fold ${round}: Error = ${error}%`,
+                averaging: 'Calculating average...',
+                kfoldResult: (error) => `Latest Average Error: ${error}%`
+            },
+            alerts: {
+                invalidK: 'Please choose a K value between 2 and 10.'
+            }
+        }
+    };
+
+    function resolveLanguage() {
+        const sources = [
+            window.gameLanguage,
+            document.documentElement ? document.documentElement.lang : null,
+            document.documentElement ? document.documentElement.getAttribute('xml:lang') : null
+        ];
+
+        for (const source of sources) {
+            if (!source) continue;
+            const normalized = String(source).trim().toLowerCase();
+            if (translations[normalized]) {
+                return normalized;
+            }
+        }
+
+        return 'es';
+    }
+
+    function getStrings() {
+        const lang = resolveLanguage();
+        return translations[lang] || translations.es;
+    }
+
+    const strings = getStrings();
+
+    const terminalQueue = [];
+    let terminalBindingEstablished = false;
+
+    function flushTerminalQueue() {
+        if (!window.CustomTerminal || typeof window.CustomTerminal.write !== 'function' || !window.CustomTerminal.initialized) {
+            return false;
+        }
+
+        while (terminalQueue.length) {
+            window.CustomTerminal.write(terminalQueue.shift());
+        }
+
+        return true;
+    }
+
+    function bindTerminalReady() {
+        if (terminalBindingEstablished) {
+            return;
+        }
+
+        terminalBindingEstablished = true;
+
+        const deliverQueue = () => {
+            flushTerminalQueue();
+        };
+
+        if (window.CustomTerminal && typeof window.CustomTerminal.onReady === 'function') {
+            window.CustomTerminal.onReady(deliverQueue);
+        } else {
+            window.addEventListener('CustomTerminalReady', deliverQueue, { once: true });
+        }
+
+        let retries = 0;
+        const MAX_RETRIES = 80;
+
+        (function pollUntilReady() {
+            if (flushTerminalQueue()) {
+                return;
+            }
+
+            if (retries >= MAX_RETRIES) {
+                console.warn('[KFoldValidator] Terminal not ready after retries.');
+                return;
+            }
+
+            retries += 1;
+            setTimeout(pollUntilReady, 120);
+        })();
+    }
+
+    function logToTerminal(message) {
+        if (!message) {
+            return;
+        }
+
+        const formatted = message.endsWith('\n') ? message : `${message}\n`;
+        terminalQueue.push(formatted);
+
+        if (!flushTerminalQueue()) {
+            bindTerminalReady();
+        }
+    }
+
     // --- Constants ---
     const NUM_DATA_POINTS = 1000;
 
@@ -27,9 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         runSimpleSplitBtn.addEventListener('click', runSimpleSplitStandalone);
         runKFoldBtn.addEventListener('click', runKFoldStandalone);
         regenerateDataBtn.addEventListener('click', regenerateData);
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write("KFoldValidator: Inicializado.\n");
-        }
+        logToTerminal(strings.terminal.init);
     }
 
     function setControlsDisabled(disabled) {
@@ -48,16 +181,14 @@ document.addEventListener('DOMContentLoaded', () => {
             dataContainer.appendChild(point);
             dataPoints.push(point);
         }
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KFoldValidator: Generados ${NUM_DATA_POINTS} nuevos puntos de datos.\n`);
-        }
+        logToTerminal(strings.terminal.dataGenerated(NUM_DATA_POINTS));
     }
 
     function regenerateData() {
         clearAll();
         generateDataPoints();
         const originalText = regenerateDataBtn.textContent;
-        regenerateDataBtn.textContent = '¡Datos Regenerados!';
+        regenerateDataBtn.textContent = strings.ui.dataRegenerated;
         setControlsDisabled(true);
         setTimeout(() => {
             regenerateDataBtn.textContent = originalText;
@@ -109,10 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function runSimpleSplitStandalone() {
         setControlsDisabled(true);
         clearSpecificVisuals('kfold');
-        simpleResultLatestEl.textContent = 'Calculando...';
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write("KFoldValidator: Iniciando validación simple (80/20 split).\n");
-        }
+        simpleResultLatestEl.textContent = strings.ui.calculating;
+        logToTerminal(strings.terminal.simpleStart);
         await new Promise(res => setTimeout(res, 200));
         const shuffledPoints = [...dataPoints];
         shuffleArray(shuffledPoints);
@@ -125,12 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const error = simulateModelEvaluation(testPoints, trainPoints);
         simpleSplitHistory.push(error);
-        simpleResultLatestEl.textContent = `Último Error: ${error.toFixed(2)}%`;
+        simpleResultLatestEl.textContent = strings.ui.simpleResult(error.toFixed(2));
         updateHistoryDisplay('simple');
         setControlsDisabled(false);
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KFoldValidator: Validación simple completada. Error: ${error.toFixed(2)}%.\n`);
-        }
+        logToTerminal(strings.terminal.simpleComplete(error.toFixed(2)));
     }
 
     async function runKFoldStandalone() {
@@ -154,17 +281,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function runKFold() {
         const k = parseInt(kFoldsInput.value, 10);
         if (k < 2 || k > 10) {
-            alert("Por favor, elige un valor de K entre 2 y 10.");
+            alert(strings.alerts.invalidK);
             // Si el usuario cancela o pone un valor malo, ocultamos el cuadro.
             kFoldProcessEl.classList.remove('visible');
-            if (window.CustomTerminal) {
-                window.CustomTerminal.write(`KFoldValidator: Intento de K-Fold cancelado por valor de K inválido: ${k}.\n`);
-            }
+            logToTerminal(strings.terminal.invalidK(k));
             return;
         }
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KFoldValidator: Iniciando validación K-Fold con K=${k}.\n`);
-        }
+        logToTerminal(strings.terminal.kfoldStart(k));
 
         // --- LIMPIEZA PROBLEMÁTICA ELIMINADA DE AQUÍ ---
 
@@ -194,23 +317,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const error = simulateModelEvaluation(testPoints, trainPoints);
             totalError += error;
             const resultP = document.createElement('p');
-            resultP.textContent = `Ronda ${i + 1}: Error = ${error.toFixed(2)}%`;
+            resultP.textContent = strings.ui.foldRound(i + 1, error.toFixed(2));
             kFoldProcessEl.appendChild(resultP);
             kFoldProcessEl.scrollTop = kFoldProcessEl.scrollHeight;
             await new Promise(res => setTimeout(res, 800));
         }
 
-        kFoldFinalResultLatestEl.textContent = 'Calculando promedio...';
+        kFoldFinalResultLatestEl.textContent = strings.ui.averaging;
         await new Promise(res => setTimeout(res, 600));
 
         const avgError = totalError / k;
         kFoldHistory.push(avgError);
-        kFoldFinalResultLatestEl.textContent = `Último Error Promedio: ${avgError.toFixed(2)}%`;
+        kFoldFinalResultLatestEl.textContent = strings.ui.kfoldResult(avgError.toFixed(2));
         updateHistoryDisplay('kfold');
         dataPoints.forEach(point => point.classList.remove('is-training', 'is-testing'));
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KFoldValidator: K-Fold completado. Error promedio: ${avgError.toFixed(2)}%.\n`);
-        }
+        logToTerminal(strings.terminal.kfoldComplete(avgError.toFixed(2)));
     }
 
     function updateHistoryDisplay(type) {

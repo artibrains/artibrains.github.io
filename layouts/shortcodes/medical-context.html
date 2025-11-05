@@ -1,89 +1,94 @@
 {{/*
 Shortcode unificado para contextos médicos
 Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlight="...">}}
-Uses Hugo's native i18n system for translations
-*/}}
+    */}}
 
-{{ $type := .Get "type" | default "general" }}
-{{ $level := .Get "level" | default "beginner" }}
-{{ $scenario := .Get "scenario" }}
-{{ $highlight := .Get "highlight" }}
-{{ $intro_text := .Get "intro_text" | default "" }}
-{{ $steps := .Get "steps" | default "" }}
+    {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+    {{ $type := lower (.Get "type" | default "general") }}
+    {{ $level := lower (.Get "level" | default "beginner") }}
+    {{ $title := .Get "title" | default "" }}
+    {{ $scenario := .Get "scenario" }}
+    {{ $highlight := .Get "highlight" }}
+    {{ $intro_text := .Get "intro_text" | default "" }}
+    {{ $steps := .Get "steps" | default "" }}
+
+    {{ $type_icon := "⚕️" }}
+    {{ if eq $type "hospital" }}{{ $type_icon = "🏥" }}{{ else if eq $type "clinic" }}{{ $type_icon = "🩺" }}{{ else if
+    eq $type "research" }}{{ $type_icon = "🔬" }}{{ else if eq $type "emergency" }}{{ $type_icon = "🚨" }}{{ else if eq
+    $type "veterinary" }}{{ $type_icon = "🐾" }}{{ end }}
+
+    {{ $type_labels := dict "hospital" (dict "es" "Hospital" "en" "Hospital") "clinic" (dict "es" "Clínica" "en"
+    "Clinic") "research" (dict "es" "Investigación" "en" "Research") "emergency" (dict "es" "Emergencia" "en"
+    "Emergency") "veterinary" (dict "es" "Veterinaria" "en" "Veterinary") "general" (dict "es" "General" "en" "General")
+    }}
+    {{ $level_labels := dict "beginner" (dict "es" "Principiante" "en" "Beginner") "intermediate" (dict "es"
+    "Intermedio" "en" "Intermediate") "advanced" (dict "es" "Avanzado" "en" "Advanced") }}
+
+    {{ $type_label := $type }}
+    {{ with index $type_labels $type }}
+    {{ $type_label = index . $lang | default (index . "en") }}
+    {{ end }}
+
+    {{ $level_label := $level }}
+    {{ with index $level_labels $level }}
+    {{ $level_label = index . $lang | default (index . "en") }}
+    {{ end }}
 
     <link rel="stylesheet" href="/css/unified-demos.css">
-    <h3 class="medical-context__title">
-        Contexto
-    </h3>
-    <div class="medical-context medical-context--{{ $type }} medical-context--{{ $level }}">
 
+    <h3 class="medical-context__title">{{ if eq $lang "es" }}Contexto Médico{{ else }}Medical Context{{ end }}</h3>
+    <div class="medical-context medical-context--{{ $type }}">
         <div class="medical-context__header">
-
-            <div class="medical-context__icon">
-                {{ if eq $type "hospital" }}🏥
-                {{ else if eq $type "clinic" }}🩺
-                {{ else if eq $type "research" }}🔬
-                {{ else if eq $type "emergency" }}🚨
-                {{ else if eq $type "veterinary" }}🐾
-                {{ else }}⚕️{{ end }}
+            <div class="medical-context__icon">{{ $type_icon }}</div>
+            <div class="medical-context__heading">
+                {{ if $title }}
+                <p class="medical-context__subtitle">{{ $title }}</p>
+                {{ end }}
             </div>
-            <div class="medical-context__type">
-                <span class="mc-badge mc-badge--type">
-                    <span class="mc-badge__label">Tipo</span>
-                    <span class="mc-badge__value">
-                        {{ if eq $type "hospital" }}Hospital
-                        {{ else if eq $type "clinic" }}Clínica
-                        {{ else if eq $type "research" }}Investigación
-                        {{ else if eq $type "emergency" }}Emergencias
-                        {{ else if eq $type "veterinary" }}Veterinaria
-                        {{ else }}{{ $type }}{{ end }}
-                    </span>
+            <div class="medical-context__meta">
+                <span class="mc-chip mc-badge mc-badge--type">
+                    <span class="mc-badge__label">{{ i18n "demo_type" }}</span>
+                    <span class="mc-badge__value">{{ $type_label }}</span>
                 </span>
-            </div>
-            <div class="medical-context__level">
-                <span class="level-indicator level-indicator--{{ $level }}">
-                    {{ if eq $level "beginner" }}Principiante
-                    {{ else if eq $level "intermediate" }}Intermedio
-                    {{ else if eq $level "advanced" }}Avanzado
-                    {{ else }}{{ $level }}{{ end }}
+                <span class="mc-chip mc-chip--level level-indicator level-indicator--{{ $level }}">
+                    <span class="mc-badge__label">{{ i18n "demo_level" }}</span>
+                    <span class="mc-badge__value">{{ $level_label }}</span>
                 </span>
             </div>
         </div>
 
         <div class="medical-context__content">
-
-
             {{ if $scenario }}
             <div class="medical-context__scenario">
-                <h4>Escenario</h4>
+                <h4>{{ if eq $lang "es" }}Escenario{{ else }}Scenario{{ end }}</h4>
                 <p>{{ $scenario | markdownify }}</p>
             </div>
             {{ end }}
 
             {{ if $highlight }}
             <div class="medical-context__highlight">
-                <h4>Aplicación Clínica</h4>
+                <h4>{{ if eq $lang "es" }}Aplicación Clínica{{ else }}Clinical Application{{ end }}</h4>
                 <p>{{ $highlight | markdownify }}</p>
             </div>
             {{ end }}
         </div>
 
-        <div class="intro-text">
-            {{ if $intro_text }}
-            <p>{{ $intro_text | markdownify }}</p>
-            {{ end }}
-        </div>
+        {{ if $intro_text }}
+        <div class="intro-text">{{ $intro_text | markdownify }}</div>
+        {{ end }}
+
+        {{ if $steps }}
         <div class="steps">
-            {{ if $steps }}
             <h3>{{ i18n "medical_context_how_it_works" }}</h3>
             <ol>
                 {{ range (split $steps "|") }}
                 {{ $step := split . ":" }}
                 <li>
-                    <strong>{{ index $step 0 }}</strong>: {{ index $step 1 | markdownify }}
+                    <strong>{{ index $step 0 }}</strong>{{ if ge (len $step) 2 }}: {{ index $step 1 | markdownify }}{{
+                    end }}
                 </li>
                 {{ end }}
             </ol>
-            {{ end }}
         </div>
+        {{ end }}
     </div>

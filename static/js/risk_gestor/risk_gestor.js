@@ -29,6 +29,105 @@ document.addEventListener('DOMContentLoaded', () => {
     let patients = [];
     let costChart = null;
 
+    // --- Localization & Terminal Support ---
+    const translations = {
+        es: {
+            init: 'Gestor de Riesgo listo. Ajusta el umbral para equilibrar recordatorios y citas perdidas.',
+            reset: (missCount, missPercent) => `Simulación regenerada: ${NUM_PATIENTS} pacientes, ${missCount} posibles ausencias (~${missPercent}%).`,
+            optimal: (threshold, cost, reminders, fn) => `Umbral óptimo encontrado en ${threshold}%. Coste total: ${cost.toFixed(0)}€. Recordatorios: ${reminders}, Citas perdidas: ${fn}.`
+        },
+        en: {
+            init: 'Risk Manager ready. Tune the threshold to balance reminders and missed appointments.',
+            reset: (missCount, missPercent) => `Simulation refreshed: ${NUM_PATIENTS} patients, ${missCount} likely no-shows (~${missPercent}%).`,
+            optimal: (threshold, cost, reminders, fn) => `Optimal threshold found at ${threshold}%. Total cost: €${cost.toFixed(0)}. Reminders: ${reminders}, Missed appointments: ${fn}.`
+        }
+    };
+
+    function resolveLanguage() {
+        const sources = [
+            window.gameLanguage,
+            document.documentElement ? document.documentElement.lang : null,
+            document.documentElement ? document.documentElement.getAttribute('xml:lang') : null
+        ];
+
+        for (const source of sources) {
+            if (!source) continue;
+            const normalized = String(source).trim().toLowerCase();
+            if (translations[normalized]) {
+                return normalized;
+            }
+        }
+        return 'es';
+    }
+
+    function getStrings() {
+        const lang = resolveLanguage();
+        return translations[lang] || translations.es;
+    }
+
+    const terminalQueue = [];
+    let terminalBindingEstablished = false;
+
+    function flushTerminalQueue() {
+        if (!window.CustomTerminal || typeof window.CustomTerminal.write !== 'function' || !window.CustomTerminal.initialized) {
+            return false;
+        }
+
+        while (terminalQueue.length) {
+            window.CustomTerminal.write(terminalQueue.shift());
+        }
+
+        return true;
+    }
+
+    function bindTerminalReady() {
+        if (terminalBindingEstablished) {
+            return;
+        }
+
+        terminalBindingEstablished = true;
+
+        const deliverQueue = () => {
+            flushTerminalQueue();
+        };
+
+        if (window.CustomTerminal && typeof window.CustomTerminal.onReady === 'function') {
+            window.CustomTerminal.onReady(deliverQueue);
+        } else {
+            window.addEventListener('CustomTerminalReady', deliverQueue, { once: true });
+        }
+
+        let retries = 0;
+        const MAX_RETRIES = 80;
+
+        (function pollUntilReady() {
+            if (flushTerminalQueue()) {
+                return;
+            }
+
+            if (retries >= MAX_RETRIES) {
+                console.warn('[RiskManager] Terminal not ready after retries.');
+                return;
+            }
+
+            retries += 1;
+            setTimeout(pollUntilReady, 120);
+        })();
+    }
+
+    function logToTerminal(message) {
+        if (!message) {
+            return;
+        }
+
+        const formattedMessage = message.endsWith('\n') ? message : `${message}\n`;
+        terminalQueue.push(formattedMessage);
+
+        if (!flushTerminalQueue()) {
+            bindTerminalReady();
+        }
+    }
+
     /**
      * Generates simulation data for patients.
      */
@@ -184,6 +283,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show and render graph
         optimalGraphContainer.style.display = 'block';
         renderCostChart(costDetails, optimalThreshold, minCost);
+
+        const optimalData = costDetails[optimalThreshold];
+        const strings = getStrings();
+        if (optimalData) {
+            logToTerminal(strings.optimal(optimalThreshold, minCost, optimalData.reminders, optimalData.fn));
+        }
     }
 
     /**
@@ -298,6 +403,11 @@ document.addEventListener('DOMContentLoaded', () => {
             costChart.destroy();
             costChart = null;
         }
+
+        const missCount = patients.reduce((count, patient) => count + (patient.trueOutcome === 1 ? 1 : 0), 0);
+        const missPercent = Math.round((missCount / NUM_PATIENTS) * 100);
+        const strings = getStrings();
+        logToTerminal(strings.reset(missCount, missPercent));
     }
 
     /**
@@ -307,6 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
         thresholdSlider.addEventListener('input', handleSliderChange);
         resetBtn.addEventListener('click', resetSimulation);
         findOptimalBtn.addEventListener('click', findAndShowOptimal);
+        const strings = getStrings();
+        logToTerminal(strings.init);
         resetSimulation(); // Initial run
     }
 

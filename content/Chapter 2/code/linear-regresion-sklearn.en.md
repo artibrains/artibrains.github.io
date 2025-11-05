@@ -22,3 +22,10 @@ The interactive notebook includes:
 
 Want to modify the code and experiment on your own?  
 [Open the notebook in Google Colab](https://colab.research.google.com/drive/1_kpx_S6zrrAY2fGQnXMWtUfOBOPIg1nq)
+
+### Bibliography
+
+- **scikit-learn API Reference – `LinearRegression`**: Estimator parameters, attributes, and practical notes. [https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
+- **scikit-learn User Guide – Train/Test Split**: Best practices for `train_test_split` and validation strategies. [https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation)
+- **scikit-learn Metrics – Regression**: Definitions of R², MAE, and other metrics used in the example. [https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics](https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics)
+- **Pandas Documentation – DataFrame**: Data preparation utilities referenced in the notebook. [https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)

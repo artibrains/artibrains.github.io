@@ -3,7 +3,7 @@ title: "El Perceptrón: La Neurona Artificial"
 description: "Simulador interactivo del Perceptrón, el bloque de construcción fundamental de las redes neuronales."
 weight: 1
 date: 2025-04-17
-draft: true
+draft: false
 slug: "perceptron-neurona-artificial"
 ---
 

@@ -1,44 +1,77 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
-    <h2>🏥 Contexto Médico: Entrenando un "Ojo" Clínico Artificial</h2>
+    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Entrenando un "Ojo" Clínico Artificial{{ else }}🏥 Medical Context:
+        Training an Artificial "Clinical Eye"{{ end }}</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
-            <p><strong>Imagina:</strong> Estás entrenando una red neuronal para detectar signos de retinopatía diabética
+            <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
+                entrenando una red neuronal para detectar signos de retinopatía diabética
                 en imágenes de fondo de ojo. La red debe aprender a distinguir patrones sutiles que un ojo humano podría
-                pasar por alto.</p>
-            <p class="highlight">Cuando la red clasifica una imagen incorrectamente, Backpropagation actúa como un
+                pasar por alto.{{ else }}You're training a neural network to detect signs of diabetic retinopathy
+                in fundus images. The network must learn to distinguish subtle patterns that a human eye might
+                miss.{{ end }}</p>
+            <p class="highlight">{{ if eq $lang "es" }}Cuando la red clasifica una imagen incorrectamente,
+                Backpropagation actúa como un
                 "supervisor experto". Le indica a la red qué "neuronas" y conexiones interpretaron mal la imagen,
                 permitiendo que se ajusten para no cometer el mismo error en el futuro y, con el tiempo, desarrollar un
-                "ojo" clínico artificial altamente preciso.</p>
+                "ojo" clínico artificial altamente preciso.{{ else }}When the network misclassifies an image,
+                Backpropagation acts as an
+                "expert supervisor". It tells the network which "neurons" and connections misinterpreted the image,
+                allowing them to adjust to avoid making the same mistake in the future and, over time, develop a
+                highly accurate artificial clinical eye.{{ end }}</p>
         </div>
     </div>
 </div>
 
 <div id="app-explanation">
-    <p class="intro">La <strong>Retropropagación (Backpropagation)</strong> es el motor de aprendizaje de las redes
+    <p class="intro">{{ if eq $lang "es" }}La <strong>Retropropagación (Backpropagation)</strong> es el motor de
+        aprendizaje de las redes
         neuronales. Funciona como un sistema de "asignación de responsabilidades": cuando la red comete un error, este
         algoritmo calcula exactamente qué conexiones internas (pesos) contribuyeron al fallo y las ajusta en la
         dirección correcta. Este proceso iterativo de predicción, cálculo de error y ajuste es lo que permite a la red
-        refinar su "conocimiento" y volverse cada vez más precisa.</p>
+        refinar su "conocimiento" y volverse cada vez más precisa.{{ else }}<strong>Backpropagation</strong> is the
+        learning engine of neural
+        networks. It works as a "responsibility assignment" system: when the network makes an error, this
+        algorithm calculates exactly which internal connections (weights) contributed to the failure and adjusts them in
+        the
+        right direction. This iterative process of prediction, error calculation, and adjustment is what allows the
+        network to
+        refine its "knowledge" and become increasingly accurate.{{ end }}</p>
 
     <div class="how-it-works">
-        <h2>¿Cómo aprende la red de sus errores?</h2>
+        <h2>{{ if eq $lang "es" }}¿Cómo aprende la red de sus errores?{{ else }}How does the network learn from its
+            errors?{{ end }}</h2>
         <div class="explanation-columns">
             <div class="column">
-                <h3>1. Predicción y Cálculo del Error</h3>
-                <p>La red procesa los datos de entrada (la imagen) a través de sus capas para generar una predicción.
-                    Luego, se compara esta predicción con el resultado correcto para cuantificar el error total.</p>
+                <h3>{{ if eq $lang "es" }}1. Predicción y Cálculo del Error{{ else }}1. Prediction and Error
+                    Calculation{{ end }}</h3>
+                <p>{{ if eq $lang "es" }}La red procesa los datos de entrada (la imagen) a través de sus capas para
+                    generar una predicción.
+                    Luego, se compara esta predicción con el resultado correcto para cuantificar el error total.{{ else
+                    }}The network processes the input data (the image) through its layers to generate a prediction.
+                    Then, this prediction is compared with the correct result to quantify the total error.{{ end }}</p>
             </div>
             <div class="column">
-                <h3>2. Retropropagación de la "Culpa"</h3>
-                <p>El error se propaga hacia atrás, desde la salida hasta la entrada, calculando cuánto "contribuyó"
-                    cada neurona y conexión al error final. A esta medida se le llama gradiente o delta (δ).</p>
+                <h3>{{ if eq $lang "es" }}2. Retropropagación de la "Culpa"{{ else }}2. Backpropagation of "Blame"{{ end
+                    }}</h3>
+                <p>{{ if eq $lang "es" }}El error se propaga hacia atrás, desde la salida hasta la entrada, calculando
+                    cuánto "contribuyó"
+                    cada neurona y conexión al error final. A esta medida se le llama gradiente o delta (δ).{{ else
+                    }}The error propagates backward, from output to input, calculating how much each
+                    neuron and connection "contributed" to the final error. This measure is called gradient or delta
+                    (δ).{{ end }}</p>
             </div>
             <div class="column">
-                <h3>3. Ajuste de Pesos y Aprendizaje</h3>
-                <p>Las conexiones (pesos) se ajustan ligeramente en función de su "culpa" para reducir el error en la
-                    próxima iteración. La tasa de aprendizaje (η) controla la magnitud de este ajuste.</p>
+                <h3>{{ if eq $lang "es" }}3. Ajuste de Pesos y Aprendizaje{{ else }}3. Weight Adjustment and Learning{{
+                    end }}</h3>
+                <p>{{ if eq $lang "es" }}Las conexiones (pesos) se ajustan ligeramente en función de su "culpa" para
+                    reducir el error en la
+                    próxima iteración. La tasa de aprendizaje (η) controla la magnitud de este ajuste.{{ else
+                    }}Connections (weights) are slightly adjusted based on their "blame" to reduce the error in the
+                    next iteration. The learning rate (η) controls the magnitude of this adjustment.{{ end }}</p>
             </div>
         </div>
     </div>

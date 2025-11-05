@@ -1,6 +1,9 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/main.css">
 
 <div class="medical-context">
+    {{ if eq $lang "es" }}
     <h2>🏥 Contexto Médico: Optimización de Parámetros Terapéuticos</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
@@ -14,9 +17,22 @@
             </p>
         </div>
     </div>
+    {{ else }}
+    <h2>🏥 Medical Context: Therapeutic Parameter Optimization</h2>
+    <div class="medical-scenario">
+        <div class="scenario-text">
+            <p><strong>Imagine:</strong> Your AI model requires automatic parameter adjustment. To make precise
+                adjustments, it's crucial to find optimal values that minimize the model's loss function.</p>
+            <p class="highlight">Gradient descent helps identify values that minimize the loss function, reaching a
+                minimum. The minimum value achieved depends on the learning rate and the starting point.
+            </p>
+        </div>
+    </div>
+    {{ end }}
 </div>
 
 <div id="app-explanation">
+    {{ if eq $lang "es" }}
     <p class="intro">Explora en 1D y 2D cómo el descenso del gradiente converge hacia el mínimo de una función. Ajusta
         el tipo de tasa de aprendizaje y el punto de partida para comprender mejor su comportamiento en entornos médicos
         reales.</p>
@@ -61,4 +77,50 @@
         cómo afecta a la velocidad y estabilidad del proceso, un punto que Marta y Luis discutieron para afinar su
         modelo.
     </p>
+    {{ else }}
+    <p class="intro">Explore in 1D and 2D how gradient descent converges toward the minimum of a function. Adjust
+        the learning rate type and starting point to better understand its behavior in real medical environments.</p>
+
+    <div class="how-it-works">
+        <h2>How does it work?</h2>
+        <div class="explanation-columns">
+            <div class="column">
+                <h3>Select the function</h3>
+                <p>Enter a function that simulates the model's loss (e.g., error in blood levels) and choose a starting
+                    point.</p>
+            </div>
+            <div class="column">
+                <h3>Adjust the learning rate</h3>
+                <p>Try constant or decreasing rate (simple or exponential) and observe how it affects the speed and
+                    stability of convergence.</p>
+            </div>
+            <div class="column">
+                <h3>Observe the process</h3>
+                <p>Visualize step by step how the algorithm descends to the minimum, also controlling gradient
+                    normalization to stop at an optimal point.</p>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        After the team decided to use linear regression, Marta explained how the <strong>gradient descent
+            method</strong> would allow them to automatically find the best values for the parameters
+        <em>w</em> (weight) and <em>b</em> (bias). As she said, it's like "going down a mountain blindfolded," where at
+        each
+        step you look for the direction of maximum slope to descend.
+    </p>
+    <p>
+        In this simulation, you can visualize that process. The left graph shows the surface of the
+        cost function (in this case, Mean Squared Error or MSE). Each point on this surface represents the
+        total error for a specific combination of <em>w</em> and <em>b</em>. The goal is to find the lowest
+        point in the valley.
+    </p>
+    <p>
+        Use the controls to start the algorithm. Watch how the parameters are updated in each iteration
+        (right graph), following the direction opposite to the gradient, until converging on the optimal solution that
+        minimizes the error. You can experiment with different learning rates to see
+        how it affects the speed and stability of the process, a point that Marta and Luis discussed to fine-tune their
+        model.
+    </p>
+    {{ end }}
 </div>

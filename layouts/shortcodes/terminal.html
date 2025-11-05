@@ -1,11 +1,3 @@
 {{/* Terminal shortcode - Uses Hugo's native i18n system */}}
 
 {{ partial "terminal.html" . }}
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write("{{ i18n "terminal_started" }}");
-        }
-    });
-</script>

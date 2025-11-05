@@ -12,6 +12,116 @@ let trailSteps = []; // Stores the steps {estado, accion} for reinforcement in s
 let shortestTrailLength = Infinity; // Tracks the best path length found so far globally
 let simulationRunning = false; // Flag to prevent concurrent simulations/training
 
+// --- Translations ---
+const translations = {
+    es: {
+        errorStateNotFound: "ERROR: Estado {state} no existe en 'vasos'. Partida terminada.",
+        warningNoValidActions: "WARNING: No hay acciones válidas desde {state}. Partida terminada.",
+        infoLoopDetected: "INFO: 🌀 Bucle detectado volviendo a {state}. Corrigiendo camino visual.",
+        successNewShortestPath: "SUCCESS: 🎉 ¡Nuevo camino global más corto encontrado ({length} pasos)! Recompensa aumentada.",
+        successReachedCheese: "SUCCESS: ✅ Llegó al queso en {steps} pasos ({effective} efectivos). Reforzando camino con recompensa ≈ {reward}.",
+        warningDidNotReachCheese: "WARNING: ❌ No llegó al queso (límite de {max} pasos). No hay refuerzo positivo.",
+        infoStartingMultipleGames: "INFO: 🚀 Iniciando {num} partidas visualizadas (velocidad x{speed})...",
+        infoStartingGame: "INFO: --- Iniciando Partida visualizada {current} / {total} ---",
+        infoNextGame: "INFO: --- Siguiente partida en 0.5s ---",
+        infoMultipleGamesCompleted: "INFO: 🏁 Simulación de {num} partidas visualizadas completada.",
+        infoStartingBlock: "INFO:   -> Iniciando bloque {current}/{total}: {games} partidas...",
+        infoBlockCompleted: "INFO:   -> Bloque {current} finalizado. Éxito: {success}/{total} partidas.",
+        infoStartingTraining: "INFO: ⚡ Iniciando entrenamiento: {blocks} bloques de {games} partidas c/u...",
+        warningTrainingInterrupted: "WARNING: Entrenamiento interrumpido.",
+        infoTrainingCompleted: "INFO: 🏁 Entrenamiento de {blocks} bloques completado.",
+        warningCannotResetDuringSimulation: "WARNING: ⚠️ No se puede reiniciar mientras una simulación/entrenamiento está en curso.",
+        infoRestarting: "INFO: 🔄 Reiniciando simulación...",
+        infoBoardReset: "INFO: Tablero y aprendizaje reiniciados.",
+        infoGameLoaded: "INFO: Juego del Ratón y el Queso cargado y listo.",
+        progressTrainingBlocks: "Entrenando {blocks} bloques...",
+        progressTrainingBlock: "Entrenando bloque {current} de {total}...",
+        progressBlockCompleted: "Bloque {current} completado. Acumulando aprendizaje...",
+        progressTrainingComplete: "Entrenamiento completo. Aprendizaje acumulado.",
+        progressBlockDetail: "Bloque {current}/{total}, Partida {game}/{games}"
+    },
+    en: {
+        errorStateNotFound: "ERROR: State {state} does not exist in 'vasos'. Game terminated.",
+        warningNoValidActions: "WARNING: No valid actions from {state}. Game terminated.",
+        infoLoopDetected: "INFO: 🌀 Loop detected returning to {state}. Correcting visual path.",
+        successNewShortestPath: "SUCCESS: 🎉 New global shortest path found ({length} steps)! Increased reward.",
+        successReachedCheese: "SUCCESS: ✅ Reached cheese in {steps} steps ({effective} effective). Reinforcing path with reward ≈ {reward}.",
+        warningDidNotReachCheese: "WARNING: ❌ Did not reach cheese (limit of {max} steps). No positive reinforcement.",
+        infoStartingMultipleGames: "INFO: 🚀 Starting {num} visualized games (speed x{speed})...",
+        infoStartingGame: "INFO: --- Starting Visualized Game {current} / {total} ---",
+        infoNextGame: "INFO: --- Next game in 0.5s ---",
+        infoMultipleGamesCompleted: "INFO: 🏁 Simulation of {num} visualized games completed.",
+        infoStartingBlock: "INFO:   -> Starting block {current}/{total}: {games} games...",
+        infoBlockCompleted: "INFO:   -> Block {current} completed. Success: {success}/{total} games.",
+        infoStartingTraining: "INFO: ⚡ Starting training: {blocks} blocks of {games} games each...",
+        warningTrainingInterrupted: "WARNING: Training interrupted.",
+        infoTrainingCompleted: "INFO: 🏁 Training of {blocks} blocks completed.",
+        warningCannotResetDuringSimulation: "WARNING: ⚠️ Cannot reset while a simulation/training is in progress.",
+        infoRestarting: "INFO: 🔄 Restarting simulation...",
+        infoBoardReset: "INFO: Board and learning reset.",
+        infoGameLoaded: "INFO: Mouse and Cheese Game loaded and ready.",
+        progressTrainingBlocks: "Training {blocks} blocks...",
+        progressTrainingBlock: "Training block {current} of {total}...",
+        progressBlockCompleted: "Block {current} completed. Accumulating learning...",
+        progressTrainingComplete: "Training complete. Learning accumulated.",
+        progressBlockDetail: "Block {current}/{total}, Game {game}/{games}"
+    }
+};
+
+// Small label set for UI elements that are currently injected by JS
+const uiLabels = {
+    es: {
+        stateHeader: 'Estado',
+        actionHeader: 'Acción'
+    },
+    en: {
+        stateHeader: 'State',
+        actionHeader: 'Action'
+    }
+};
+
+function resolveLanguage() {
+    const sources = [
+        window.gameLanguage,
+        document.documentElement ? document.documentElement.lang : null,
+        document.documentElement ? document.documentElement.getAttribute('xml:lang') : null
+    ];
+
+    for (const source of sources) {
+        if (!source) continue;
+        const normalized = String(source).trim().toLowerCase();
+        if (translations[normalized]) {
+            return normalized;
+        }
+    }
+
+    return 'es';
+}
+
+// Helper function to get translated text
+function t(key, params = {}) {
+    const lang = resolveLanguage();
+
+    // Debug: log language on first call
+    if (!t.hasLogged) {
+        const debugMsg = `[DEBUG] Language: ${lang} | window.gameLanguage: ${window.gameLanguage}`;
+        console.log(debugMsg);
+        if (window.CustomTerminal) {
+            window.CustomTerminal.write(debugMsg + '\n');
+        }
+        t.hasLogged = true;
+    }
+
+    let text = translations[lang]?.[key] || translations['es'][key] || key;
+
+    // Replace parameters in the text
+    Object.keys(params).forEach(param => {
+        text = text.replace(`{${param}}`, params[param]);
+    });
+
+    return text + '\n';
+}
+
 // --- Grid and UI Functions ---
 
 function getGridSize() {
@@ -78,8 +188,10 @@ function renderTablero(ratonPos = [0, 0]) {
 function renderVasos(animPasos = [], tipoAnim = '') {
     const container = document.getElementById('estadoVasos');
     if (!container) return; // Safety check
+    const lang = resolveLanguage();
+    const stateLabel = (uiLabels[lang] && uiLabels[lang].stateHeader) ? uiLabels[lang].stateHeader : uiLabels['en'].stateHeader;
 
-    let html = `<table class="vasos-table"><thead><tr><th class="sticky top-0 z-10 bg-gray-200">Estado</th>`;
+    let html = `<table class="vasos-table"><thead><tr><th class="sticky top-0 z-10 bg-gray-200">${stateLabel}</th>`;
     acciones.forEach(a => html += `<th class="sticky top-0 z-10 bg-gray-200">${emojis[a]}<br>${a}</th>`);
     html += `</tr></thead><tbody>`;
     for (let i = 0; i < rows; i++) {
@@ -150,7 +262,13 @@ function setUIEnabled(enabled) {
 
 async function simularPartida(speedFactor = 1, isBatch = false) {
     if (simulationRunning && !isBatch) return;
-    if (!isBatch) setUIEnabled(false);
+    if (!isBatch) {
+        setUIEnabled(false);
+        if (window.CustomTerminal) window.CustomTerminal.write(t('infoStartingGame', {
+            current: 1,
+            total: 1
+        }));
+    }
     getGridSize(); // Ensure grid size is current
 
     // Reset state for this specific visual simulation run
@@ -174,13 +292,13 @@ async function simularPartida(speedFactor = 1, isBatch = false) {
         let keyActual = `S${estado[0]},${estado[1]}`;
 
         if (!vasos[keyActual]) {
-            if (window.CustomTerminal) window.CustomTerminal.write(`ERROR: Estado ${keyActual} no existe en 'vasos'. Partida terminada.`);
+            if (window.CustomTerminal) window.CustomTerminal.write(t('errorStateNotFound', { state: keyActual }));
             break;
         }
         let accion = elegirAccion(vasos[keyActual]);
 
         if (!accion) {
-            if (window.CustomTerminal) window.CustomTerminal.write(`WARNING: No hay acciones válidas desde ${keyActual}. Partida terminada.`);
+            if (window.CustomTerminal) window.CustomTerminal.write(t('warningNoValidActions', { state: keyActual }));
             break;
         }
 
@@ -256,7 +374,7 @@ async function simularPartida(speedFactor = 1, isBatch = false) {
                 if (!trail.includes(nuevoKey)) {
                     trail.push(nuevoKey);
                 }
-                if (window.CustomTerminal) window.CustomTerminal.write(`INFO: 🌀 Bucle detectado volviendo a ${nuevoKey}. Corrigiendo camino visual.`);
+                if (window.CustomTerminal) window.CustomTerminal.write(t('infoLoopDetected', { state: nuevoKey }));
                 // --- END CORRECTION ---
             }
             // Add the current step that completed the loop to trailSteps for reinforcement path
@@ -285,10 +403,14 @@ async function simularPartida(speedFactor = 1, isBatch = false) {
         if (effectivePathLen < shortestTrailLength && effectivePathLen > 0) {
             reward *= 1.5; // Bonus for new shortest path
             shortestTrailLength = effectivePathLen;
-            if (window.CustomTerminal) window.CustomTerminal.write(`SUCCESS: 🎉 ¡Nuevo camino global más corto encontrado (${effectivePathLen} pasos)! Recompensa aumentada.`);
+            if (window.CustomTerminal) window.CustomTerminal.write(t('successNewShortestPath', { length: effectivePathLen }));
         }
 
-        if (window.CustomTerminal) window.CustomTerminal.write(`SUCCESS: ✅ Llegó al queso en ${stepsInThisPartida} pasos (${effectivePathLen} efectivos). Reforzando camino con recompensa ≈ ${Math.round(reward)}.`);
+        if (window.CustomTerminal) window.CustomTerminal.write(t('successReachedCheese', {
+            steps: stepsInThisPartida,
+            effective: effectivePathLen,
+            reward: Math.round(reward)
+        }));
 
         for (const paso of trailSteps) {
             if (vasos[paso.estado]?.[paso.accion] !== undefined) {
@@ -299,11 +421,14 @@ async function simularPartida(speedFactor = 1, isBatch = false) {
         }
         await animarVasos(trailSteps, 'refuerzo');
     } else {
-        if (window.CustomTerminal) window.CustomTerminal.write(`WARNING: ❌ No llegó al queso (límite de ${maxPasos} pasos). No hay refuerzo positivo.`);
+        if (window.CustomTerminal) window.CustomTerminal.write(t('warningDidNotReachCheese', { max: maxPasos }));
         renderVasos(); // Update table without animation
     }
 
-    if (!isBatch) setUIEnabled(true);
+    if (!isBatch) {
+        if (window.CustomTerminal) window.CustomTerminal.write(t('infoMultipleGamesCompleted', { num: 1 }));
+        setUIEnabled(true);
+    }
 }
 
 
@@ -315,20 +440,26 @@ async function simularMultiplesPartidas() {
     numSim = (!isNaN(numSim) && numSim > 0) ? numSim : 1;
     let speedFactor = Math.min(20, Math.max(1, numSim / 5)); // Adjust speed based on number of simulations
 
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO: 🚀 Iniciando ${numSim} partidas visualizadas (velocidad x${speedFactor.toFixed(1)})...`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoStartingMultipleGames', {
+        num: numSim,
+        speed: speedFactor.toFixed(1)
+    }));
     setUIEnabled(false);
 
     for (let i = 0; i < numSim && simulationRunning !== false; i++) { // Check simulationRunning flag to allow interruption
-        if (window.CustomTerminal) window.CustomTerminal.write(`INFO: --- Iniciando Partida visualizada ${i + 1} / ${numSim} ---`);
+        if (window.CustomTerminal) window.CustomTerminal.write(t('infoStartingGame', {
+            current: i + 1,
+            total: numSim
+        }));
         await simularPartida(speedFactor, true); // Pass true for isBatch
 
         if (i < numSim - 1) {
-            if (window.CustomTerminal) window.CustomTerminal.write(`INFO: --- Siguiente partida en 0.5s ---`);
+            if (window.CustomTerminal) window.CustomTerminal.write(t('infoNextGame'));
             await sleep(500); // Brief pause between simulations
         }
     }
 
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO: 🏁 Simulación de ${numSim} partidas visualizadas completada.`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoMultipleGamesCompleted', { num: numSim }));
     renderVasos(); // Final render of vasos table
     setUIEnabled(true);
 }
@@ -336,7 +467,11 @@ async function simularMultiplesPartidas() {
 
 // --- Training Block Functions ---
 async function entrenarBloqueLocal(numPartidas, currentBlockNum, totalBlocks) {
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO:   -> Iniciando bloque ${currentBlockNum}/${totalBlocks}: ${numPartidas} partidas...`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoStartingBlock', {
+        current: currentBlockNum,
+        total: totalBlocks,
+        games: numPartidas
+    }));
     let vasosJuego = crearVasos(); // Local Q-table for this block
     let partidasCompletadas = 0;
     let partidasExitosas = 0;
@@ -344,7 +479,12 @@ async function entrenarBloqueLocal(numPartidas, currentBlockNum, totalBlocks) {
 
     for (let partida = 0; partida < numPartidas; partida++) {
         if (partida % 20 === 0) { // Update progress every 20 partidas
-            actualizarProgresoDetalle(`Bloque ${currentBlockNum}/${totalBlocks}, Partida ${partida + 1}/${numPartidas}`);
+            actualizarProgresoDetalle(t('progressBlockDetail', {
+                current: currentBlockNum,
+                total: totalBlocks,
+                game: partida + 1,
+                games: numPartidas
+            }));
             await sleep(1); // Allow UI to refresh
         }
 
@@ -415,7 +555,11 @@ async function entrenarBloqueLocal(numPartidas, currentBlockNum, totalBlocks) {
         partidasCompletadas++;
     }
 
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO:   -> Bloque ${currentBlockNum} finalizado. Éxito: ${partidasExitosas}/${partidasCompletadas} partidas.`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoBlockCompleted', {
+        current: currentBlockNum,
+        success: partidasExitosas,
+        total: partidasCompletadas
+    }));
     return vasosJuego; // Return the learned Q-table for this block
 }
 
@@ -452,21 +596,27 @@ async function simularBloquesDeEntrenamiento() {
     // para que el entrenamiento sea incremental sobre el estado actual.
     let acumuladorVasos = JSON.parse(JSON.stringify(vasos));
 
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO: ⚡ Iniciando entrenamiento: ${numBloques} bloques de ${numPartidasPorBloque} partidas c/u...`);
-    actualizarProgreso(`Entrenando ${numBloques} bloques...`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoStartingTraining', {
+        blocks: numBloques,
+        games: numPartidasPorBloque
+    }));
+    actualizarProgreso(t('progressTrainingBlocks', { blocks: numBloques }));
 
     for (let j = 0; j < numBloques; j++) {
-        actualizarProgreso(`Entrenando bloque ${j + 1} de ${numBloques}...`);
+        actualizarProgreso(t('progressTrainingBlock', {
+            current: j + 1,
+            total: numBloques
+        }));
         await sleep(10); // Allow UI to update
 
         let vasosBloqueResultado = await entrenarBloqueLocal(numPartidasPorBloque, j + 1, numBloques);
         acumularResultados(acumuladorVasos, vasosBloqueResultado);
 
-        actualizarProgreso(`Bloque ${j + 1} completado. Acumulando aprendizaje...`);
+        actualizarProgreso(t('progressBlockCompleted', { current: j + 1 }));
         await sleep(10); // Allow UI to update
 
         if (simulationRunning === false) { // Check if user interrupted (e.g., by hitting reset)
-            if (window.CustomTerminal) window.CustomTerminal.write("WARNING: Entrenamiento interrumpido.");
+            if (window.CustomTerminal) window.CustomTerminal.write(t('warningTrainingInterrupted'));
             break;
         }
     }
@@ -474,9 +624,9 @@ async function simularBloquesDeEntrenamiento() {
     vasos = acumuladorVasos; // Actualizar los vasos globales con el aprendizaje acumulado
 
     renderVasos();
-    actualizarProgreso("Entrenamiento completo. Aprendizaje acumulado.");
+    actualizarProgreso(t('progressTrainingComplete'));
     actualizarProgresoDetalle(""); // Clear detailed progress
-    if (window.CustomTerminal) window.CustomTerminal.write(`INFO: 🏁 Entrenamiento de ${numBloques} bloques completado.`);
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoTrainingCompleted', { blocks: numBloques }));
 
     await sleep(1500); // Keep modal open for a bit
     cerrarModal();
@@ -487,12 +637,12 @@ async function simularBloquesDeEntrenamiento() {
 // --- Initialization and Reset ---
 function reiniciar() {
     if (simulationRunning) {
-        if (window.CustomTerminal) window.CustomTerminal.write("WARNING: ⚠️ No se puede reiniciar mientras una simulación/entrenamiento está en curso.");
+        if (window.CustomTerminal) window.CustomTerminal.write(t('warningCannotResetDuringSimulation'));
         return;
     }
     if (window.CustomTerminal) {
         window.CustomTerminal.clear(); // Clear terminal before new session
-        window.CustomTerminal.write("INFO: 🔄 Reiniciando simulación...");
+        window.CustomTerminal.write(t('infoRestarting'));
     }
     getGridSize();
     updateGridLayout();
@@ -503,7 +653,7 @@ function reiniciar() {
     renderTablero([0, 0]); // Render initial board state
     renderVasos(); // Render initial vasos state
     setUIEnabled(true); // Re-enable UI elements
-    if (window.CustomTerminal) window.CustomTerminal.write("INFO: Tablero y aprendizaje reiniciados.");
+    if (window.CustomTerminal) window.CustomTerminal.write(t('infoBoardReset'));
 }
 
 
@@ -541,6 +691,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial Setup on Load
     reiniciar(); // Call reiniciar which includes getGridSize, updateGridLayout, etc.
     if (window.CustomTerminal) {
-        window.CustomTerminal.write("INFO: Juego del Ratón y el Queso cargado y listo.");
+        window.CustomTerminal.write(t('infoGameLoaded'));
     }
 });

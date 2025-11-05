@@ -14,6 +14,11 @@ theme = 'hugo-theme-relearn'
       table = true
       taskList = true
       typographer = false
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          inline = [['\\(', '\\)'], ['$', '$']]
+          block  = [['\\[', '\\]'], ['$$', '$$']]
     [markup.goldmark.parser]
       attribute = true
       autoHeadingID = true
@@ -80,4 +85,7 @@ defaultContentLanguageInSubdir = false
   showLanguageSwitcher = true
   alwaysopen = true
   disableSearch = true
+  
+  # Enable math rendering globally
+  math = true
 

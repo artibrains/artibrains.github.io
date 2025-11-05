@@ -2,7 +2,7 @@
 title: "Backpropagation: La Conversación del Aprendizaje"
 description: "Visualización interactiva del algoritmo de backpropagation para entender cómo aprenden las redes neuronales."
 weight: 2
-draft: true
+draft: false
 slug: "backpropagation-aprendizaje"
 ---
 
@@ -21,9 +21,9 @@ El algoritmo de **Backpropagation** (retropropagación del error) es el corazón
 
 {{< demo-wrapper title="Visualización de Backpropagation" >}}
 
-{{< backpropagation_intro_es >}}
+{{< backpropagation_intro_es lang="es" >}}
 
-{{< backpropagation >}}
+{{< backpropagation lang="es" >}}
 
 {{< /demo-wrapper >}}
 

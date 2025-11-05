@@ -2,7 +2,7 @@
 title: "3 - Sistemas de clasificación y evaluación de modelos"
 type: "chapter"
 weight: 3
-draft: true
+draft: false
 slug: "clasificacion-evaluacion-modelos"
 ---
 
@@ -12,10 +12,15 @@ Este capítulo te sumerge en las técnicas y dilemas que el equipo debe resolver
 
 A lo largo de las siguientes secciones interactivas, explorarás:
 
-1.  **[El Traductor de Probabilidades]({{< relref "Chapter 3/probabilities_translator/probabilities_translator.es.md" >}})**: Descubrirás la **regresión logística**, el motor del nuevo modelo del equipo. Verás cómo transforma los datos de un paciente en una probabilidad de ausencia.
-2.  **[El clasificador]({{< relref "Chapter 3/juego-sigmoide/juego-sigmoide.es.md" >}})**: Aprenderás a encontrar la frontera de clasificación óptima ajustando los diferentes parámetros del modelo. Experimentarás con el **umbral de decisión** y cómo afecta a las predicciones.
-3.  **[El Gestor de Riesgos]({{< relref "Chapter 3/risk_gestor/risk_gestor.es.md" >}})**: Te pondrás en la piel de un gestor y ajustarás el **umbral de decisión** del modelo. Experimentarás el equilibrio crítico entre el coste de los falsos positivos y los falsos negativos.
-4.  **[El Validador Honesto]({{< relref "Chapter 3/k_fold_validator/k_fold_validator.es.md" >}})**: Entenderás por qué una simple prueba no es suficiente. Compararás la validación simple con la **validación cruzada (K-Fold)**, el método que el equipo elige para obtener una medida de error estable y fiable.
-5.  **[El Domador de Complejidad]({{< relref "Chapter 3/complexity/complexity.es.md" >}})**: Lucharás contra el **sobreajuste (overfitting)**. Ajustarás la complejidad y la **regularización** para crear un modelo que aprenda patrones reales sin memorizar el ruido, asegurando que funcione bien con los futuros pacientes.
+1.  **[El Traductor de Probabilidades]({{% relref "Chapter 3/probabilities_translator/probabilities_translator.es.md" %}})**: Descubrirás la **regresión logística**, el motor del nuevo modelo del equipo. Verás cómo transforma los datos de un paciente en una probabilidad de ausencia.
+2.  **[El clasificador]({{% relref "Chapter 3/juego-sigmoide/juego-sigmoide.es.md" %}})**: Aprenderás a encontrar la frontera de clasificación óptima ajustando los diferentes parámetros del modelo. Experimentarás con el **umbral de decisión** y cómo afecta a las predicciones.
+3.  **[El Gestor de Riesgos]({{% relref "Chapter 3/risk_gestor/risk_gestor.es.md" %}})**: Te pondrás en la piel de un gestor y ajustarás el **umbral de decisión** del modelo. Experimentarás el equilibrio crítico entre el coste de los falsos positivos y los falsos negativos.
+4.  **[El Validador Honesto]({{% relref "Chapter 3/k_fold_validator/k_fold_validator.es.md" %}})**: Entenderás por qué una simple prueba no es suficiente. Compararás la validación simple con la **validación cruzada (K-Fold)**, el método que el equipo elige para obtener una medida de error estable y fiable.
+5.  **[El Domador de Complejidad]({{% relref "Chapter 3/complexity/complexity.es.md" %}})**: Lucharás contra el **sobreajuste (overfitting)**. Ajustarás la complejidad y la **regularización** para crear un modelo que aprenda patrones reales sin memorizar el ruido, asegurando que funcione bien con los futuros pacientes.
 
 Prepárate para profundizar en el arte de la clasificación y la evaluación, dos pilares fundamentales para cualquier aplicación de inteligencia artificial en el mundo real.
+
+### Bibliografía y recursos complementarios
+
+- **[Regresión logística y traductores de probabilidad]({{% relref "/Chapter 3/bibliography/bibliography-logistic-regression.es.md" %}})**: Fundamentos, guías prácticas e interpretabilidad clínica para El Traductor de Probabilidades.
+- **[Umbrales de clasificación, validación y regularización]({{% relref "/Chapter 3/bibliography/bibliography-classification-evaluation.es.md" %}})**: Métricas, estrategias de validación y control de complejidad que respaldan las demos del Gestor de Riesgos, Validador Honesto y Domador de la Complejidad.

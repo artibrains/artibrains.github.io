@@ -24,7 +24,7 @@ El **Método del Descenso del Gradiente** es el algoritmo fundamental que permit
 
 {{< demo-wrapper title="Explorador del Descenso del Gradiente" >}}
 
-{{< descenso-gradiente_intro_es >}}
+{{< descenso-gradiente_intro_es lang="es" >}}
 
 {{< descenso-gradiente >}}
 

@@ -74,6 +74,60 @@ let data = generateData();
 let showSigmoid = false; // Cambiar a false para empezar en modo clasificación
 let w1 = 1, w2 = 1, b = 0, threshold = 0.5;
 
+// Terminal logging support (queue until terminal is ready)
+const terminalQueue = [];
+let terminalBindingEstablished = false;
+
+function flushTerminalQueue() {
+    if (!window.CustomTerminal || typeof window.CustomTerminal.write !== 'function' || !window.CustomTerminal.initialized) {
+        return false;
+    }
+
+    while (terminalQueue.length) {
+        window.CustomTerminal.write(terminalQueue.shift());
+    }
+
+    return true;
+}
+
+function bindTerminalReady() {
+    if (terminalBindingEstablished) {
+        return;
+    }
+
+    terminalBindingEstablished = true;
+
+    const deliverQueue = () => {
+        flushTerminalQueue();
+    };
+
+    if (window.CustomTerminal && typeof window.CustomTerminal.onReady === 'function') {
+        window.CustomTerminal.onReady(deliverQueue);
+    } else {
+        window.addEventListener('CustomTerminalReady', deliverQueue, { once: true });
+    }
+
+    const pollUntilReady = () => {
+        if (!flushTerminalQueue()) {
+            setTimeout(pollUntilReady, 120);
+        }
+    };
+
+    pollUntilReady();
+}
+
+function logToTerminal(message) {
+    if (!message) {
+        return;
+    }
+
+    terminalQueue.push(message);
+
+    if (!flushTerminalQueue()) {
+        bindTerminalReady();
+    }
+}
+
 // Registrar el plugin datalabels
 Chart.register(ChartDataLabels);
 
@@ -269,9 +323,7 @@ document.getElementById('resetButton').addEventListener('click', () => {
     if (window.GameResultsModal) { // Hide modal on reset
         window.GameResultsModal.hide();
     }
-    if (window.CustomTerminal) {
-        window.CustomTerminal.write("Juego Sigmoide reiniciado. Nuevos datos generados y parámetros reseteados.\n");
-    }
+    logToTerminal("Juego Sigmoide reiniciado. Nuevos datos generados y parámetros reseteados.\n");
 });
 
 // Modificar el event listener del botón de comprobar
@@ -299,9 +351,7 @@ document.getElementById('checkButton').addEventListener('click', () => {
         summaryMessage = `Sigue intentándolo 💪 Tu precisión actual es del ${accuracy.toFixed(1)}%. Consejo: Observa cómo la línea verde separa los grupos de puntos y ajusta los parámetros para mejorar la clasificación.`;
     }
 
-    if (window.CustomTerminal) {
-        window.CustomTerminal.write(`Comprobación de clasificación: Precisión=${accuracy.toFixed(1)}%, Correctos=${correct}/${total}, Umbral=${currentThreshold.toFixed(2)}\n`);
-    }
+    logToTerminal(`Comprobación de clasificación: Precisión=${accuracy.toFixed(1)}%, Correctos=${correct}/${total}, Umbral=${currentThreshold.toFixed(2)}\n`);
 
     if (window.GameResultsModal) {
         window.GameResultsModal.show(
@@ -311,9 +361,7 @@ document.getElementById('checkButton').addEventListener('click', () => {
         );
     } else {
         console.error("GameResultsModal no está disponible.");
-        if (window.CustomTerminal) {
-            window.CustomTerminal.write("Error: GameResultsModal no disponible para mostrar resultados.\n");
-        }
+        logToTerminal("Error: GameResultsModal no disponible para mostrar resultados.\n");
         // Fallback to alert if modal is not available
         alert(`Resultados:\nPrecisión: ${accuracy.toFixed(1)}%\nCorrectos: ${correct}/${total}\nUmbral: ${currentThreshold.toFixed(2)}\n\n${summaryMessage}`);
     }
@@ -340,25 +388,11 @@ function updateChart() {
 
     // Logica de actualización del modal anterior eliminada de aquí.
     // El botón "Comprobar clasificación" se encargará de mostrar los resultados.
-    if (window.CustomTerminal) {
-        const currentW1 = parseFloat(document.getElementById('w1Slider').value);
-        const currentW2 = parseFloat(document.getElementById('w2Slider').value);
-        const currentB = parseFloat(document.getElementById('bSlider').value);
-        const currentThreshold = parseFloat(document.getElementById('thresholdSlider').value);
-        // Avoid logging too frequently if updateChart is called rapidly by sliders
-        // This simple check helps, but a debounce/throttle would be better for performance.
-        if (w1 !== currentW1 || w2 !== currentW2 || b !== currentB || threshold !== currentThreshold) {
-            // This log might be too verbose if sliders update very fast.
-            // window.CustomTerminal.write(`Parámetros actualizados: w1=${currentW1.toFixed(1)}, w2=${currentW2.toFixed(1)}, b=${currentB.toFixed(1)}, Umbral=${currentThreshold.toFixed(1)}. Gráfico actualizado.\n`);
-        }
-    }
 }
 
 // Inicialización
 updateChart();
-if (window.CustomTerminal) {
-    window.CustomTerminal.write("Juego Sigmoide: Gráfico inicializado.\n");
-}
+logToTerminal("Juego Sigmoide: Gráfico inicializado.\n");
 // Mostrar botón de resultados
 const showResultsButton = document.getElementById('showResultsButton');
 showResultsButton.classList.remove('hidden');

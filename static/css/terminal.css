@@ -1,46 +1,99 @@
+:root {
+    --terminal-bg: color-mix(in srgb, var(--demo-surface, #f6f8fe) 88%, #ffffff 12%);
+    --terminal-text: color-mix(in srgb, var(--demo-text, #1a2640) 95%, #1a2640);
+    --terminal-border: color-mix(in srgb, var(--demo-border, rgba(30, 64, 132, 0.16)) 80%, rgba(30, 64, 132, 0.18));
+    --terminal-border-strong: color-mix(in srgb, var(--demo-border, rgba(30, 64, 132, 0.16)) 55%, rgba(30, 64, 132, 0.34));
+    --terminal-header-bg: linear-gradient(90deg,
+            color-mix(in srgb, var(--demo-surface-alt, #eef3ff) 80%, #ffffff 20%) 0%,
+            color-mix(in srgb, var(--demo-surface, #eef3ff) 62%, #d9e4ff 38%) 100%);
+    --terminal-body-bg: linear-gradient(180deg,
+            color-mix(in srgb, var(--demo-surface, #ffffff) 92%, #ffffff 8%) 0%,
+            color-mix(in srgb, var(--demo-surface-alt, #f4f7ff) 82%, #ffffff 18%) 100%);
+    --terminal-button-bg: color-mix(in srgb, var(--demo-surface-alt, #eaf0ff) 65%, rgba(53, 83, 135, 0.12) 35%);
+    --terminal-button-text: color-mix(in srgb, var(--demo-text, #1a2640) 95%, #1a2640);
+    --terminal-button-hover: color-mix(in srgb, var(--terminal-button-bg) 60%, rgba(53, 83, 135, 0.28) 40%);
+    --terminal-button-active: color-mix(in srgb, var(--terminal-button-bg) 45%, rgba(53, 83, 135, 0.45) 55%);
+    --terminal-prompt: color-mix(in srgb, var(--demo-accent, #1f5ae2) 85%, #163075 15%);
+    --terminal-output: color-mix(in srgb, var(--demo-success, #1c7a54) 82%, #134832 18%);
+    --terminal-line-bg: color-mix(in srgb, var(--demo-surface, rgba(53, 83, 135, 0.06)) 80%, rgba(53, 83, 135, 0.06) 20%);
+    --terminal-line-border: color-mix(in srgb, var(--demo-border, rgba(53, 83, 135, 0.12)) 70%, rgba(53, 83, 135, 0.18) 30%);
+    --terminal-scrollbar-bg: color-mix(in srgb, var(--demo-surface, #e3e9f7) 78%, rgba(210, 219, 239, 0.6) 22%);
+    --terminal-scrollbar-thumb: color-mix(in srgb, var(--demo-border, #c4cee6) 70%, rgba(118, 137, 193, 0.5) 30%);
+    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--demo-border, #b0bede) 55%, rgba(86, 118, 189, 0.7) 45%);
+    --terminal-text-shadow: none;
+}
+
+[data-theme="dark"] {
+    --terminal-bg: color-mix(in srgb, var(--demo-bg, #0d141f) 92%, #10192b 8%);
+    --terminal-text: color-mix(in srgb, var(--demo-text, #dce6ff) 95%, #d7e6ff 5%);
+    --terminal-border: color-mix(in srgb, var(--demo-border, rgba(86, 100, 141, 0.32)) 80%, rgba(72, 84, 125, 0.42) 20%);
+    --terminal-border-strong: color-mix(in srgb, var(--terminal-border) 60%, rgba(104, 138, 207, 0.55) 40%);
+    --terminal-header-bg: linear-gradient(90deg,
+            color-mix(in srgb, var(--demo-surface-alt, #1b2a42) 84%, #0b1424 16%) 0%,
+            color-mix(in srgb, var(--demo-bg, #101a2c) 80%, #080f1d 20%) 100%);
+    --terminal-body-bg: linear-gradient(180deg,
+            color-mix(in srgb, var(--demo-bg, #121f35) 88%, #10182c 12%) 0%,
+            color-mix(in srgb, var(--demo-surface, #0b1424) 92%, #050a14 8%) 100%);
+    --terminal-button-bg: color-mix(in srgb, var(--demo-surface-alt, #182338) 60%, rgba(104, 138, 207, 0.22) 40%);
+    --terminal-button-text: color-mix(in srgb, var(--demo-text, #dce6ff) 96%, #f5f9ff 4%);
+    --terminal-button-hover: color-mix(in srgb, var(--terminal-button-bg) 55%, rgba(104, 138, 207, 0.36) 45%);
+    --terminal-button-active: color-mix(in srgb, var(--terminal-button-bg) 40%, rgba(104, 138, 207, 0.48) 60%);
+    --terminal-prompt: color-mix(in srgb, var(--demo-accent, #58a6ff) 88%, #1f5ae2 12%);
+    --terminal-output: color-mix(in srgb, var(--demo-success, #63e6be) 75%, #35a57b 25%);
+    --terminal-line-bg: color-mix(in srgb, var(--demo-surface-alt, #1a2336) 70%, rgba(53, 83, 135, 0.22) 30%);
+    --terminal-line-border: color-mix(in srgb, var(--demo-border, rgba(104, 138, 207, 0.3)) 65%, rgba(104, 138, 207, 0.46) 35%);
+    --terminal-scrollbar-bg: color-mix(in srgb, var(--demo-bg, rgba(10, 17, 30, 0.9)) 90%, rgba(17, 26, 44, 0.9) 10%);
+    --terminal-scrollbar-thumb: color-mix(in srgb, var(--demo-border, rgba(70, 92, 142, 0.55)) 70%, rgba(104, 138, 207, 0.5) 30%);
+    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--terminal-scrollbar-thumb) 50%, rgba(128, 155, 220, 0.8) 50%);
+    --terminal-text-shadow: 0 0 8px rgba(6, 14, 30, 0.45);
+}
+
 .terminal-container {
-    background: var(--terminal-bg, #181c20);
-    color: var(--terminal-text, #b6ffb6);
+    background: var(--terminal-bg);
+    color: var(--terminal-text);
     font-family: var(--demo-font-mono, 'Fira Mono', 'Consolas', monospace);
-    padding: 0;
-    border-radius: var(--demo-border-radius, 8px);
+    border-radius: 14px;
     min-height: 200px;
-    box-shadow: var(--demo-shadow-large, 0 4px 15px rgba(0, 0, 0, 0.1)),
-        0 1.5px 0 var(--terminal-border-inset, #333) inset;
+    box-shadow: 0 24px 60px -40px rgba(15, 23, 42, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
     overflow: hidden;
-    border: 2px solid var(--terminal-border, #333);
-    max-width: 700px;
-    margin: var(--demo-spacing-lg, 2rem) auto;
+    border: 1px solid var(--terminal-border);
+    max-width: min(820px, 95%);
+    margin: clamp(1.6rem, 3vw, 2.8rem) auto;
     position: relative;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: saturate(135%) blur(0px);
+}
+
+.terminal-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 28px 70px -38px rgba(15, 23, 42, 0.65);
+    border-color: var(--terminal-border-strong);
 }
 
 .terminal-header {
-    background: var(--terminal-header-bg, linear-gradient(90deg, #23272e 80%, #3a3f4b 100%));
-    height: 32px;
+    background: var(--terminal-header-bg);
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1em;
-    border-bottom: 1px solid var(--terminal-border, #333);
+    padding: 0 1.15em;
+    border-bottom: 1px solid var(--terminal-border-strong);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .terminal-buttons {
     display: flex;
     align-items: center;
+    gap: 7px;
 }
 
 .terminal-header .dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    margin-right: 7px;
     display: inline-block;
-    transition: all 0.2s ease;
-}
-
-.terminal-header .dot:hover {
-    transform: scale(1.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px -2px rgba(15, 23, 42, 0.35);
 }
 
 .terminal-header .dot.red {
@@ -55,84 +108,106 @@
     background: #27c93f;
 }
 
+.terminal-header .dot:hover {
+    transform: scale(1.12);
+    box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.45);
+}
+
 .terminal-clear-button {
-    background-color: var(--terminal-button-bg, #4a525a);
-    color: var(--terminal-button-text, #c0c5cb);
-    border: 1px solid var(--terminal-border, #333);
-    border-radius: var(--demo-border-radius, 4px);
-    padding: 3px 8px;
-    font-size: 0.8em;
+    background-color: var(--terminal-button-bg);
+    color: var(--terminal-button-text);
+    border: 1px solid var(--terminal-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.78em;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 0.3px;
 }
 
 .terminal-clear-button:hover {
-    background-color: var(--terminal-button-hover, #5a626a);
+    background-color: var(--terminal-button-hover);
     transform: translateY(-1px);
+    box-shadow: 0 6px 14px -10px rgba(15, 23, 42, 0.45);
 }
 
 .terminal-clear-button:active {
-    background-color: var(--terminal-button-active, #3a424a);
+    background-color: var(--terminal-button-active);
     transform: translateY(0);
 }
 
 .terminal-body {
-    padding: 1em;
+    padding: clamp(1rem, 2.4vw, 1.6rem);
     overflow-y: auto;
-    max-height: 350px;
-    min-height: 150px;
-    background: var(--terminal-body-bg, transparent);
+    max-height: 360px;
+    min-height: 160px;
+    background: var(--terminal-body-bg);
 }
 
 .terminal-container pre {
-    margin: 0;
-    line-height: 1.6;
-    font-size: 1.05em;
-    text-shadow: var(--terminal-text-shadow, 0 0 2px #0f0a, 0 0 8px #0f0a);
+    margin: 0 0 0.75rem;
+    padding: 0.55rem 0.8rem;
+    line-height: 1.55;
+    font-size: 0.95em;
+    text-shadow: var(--terminal-text-shadow);
     white-space: pre-wrap;
     word-break: break-word;
+    background: var(--terminal-line-bg);
+    border: 1px solid var(--terminal-line-border);
+    border-radius: 9px;
+    transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+
+.terminal-container pre:last-child {
+    margin-bottom: 0;
+}
+
+.terminal-container pre:hover {
+    transform: translateX(2px);
+    border-color: var(--terminal-border-strong);
 }
 
 .terminal-container pre.prompt {
-    color: var(--terminal-prompt, #000000);
-    font-weight: bold;
+    color: var(--terminal-prompt);
+    font-weight: 600;
+    background: color-mix(in srgb, var(--terminal-line-bg) 60%, transparent);
 }
 
 .terminal-container pre.output {
-    color: var(--terminal-output, #075c07);
+    color: var(--terminal-output);
+    font-weight: 500;
 }
 
 .terminal-container::-webkit-scrollbar,
 .terminal-body::-webkit-scrollbar {
     width: 8px;
-    background: var(--terminal-scrollbar-bg, #23272e);
+    background: var(--terminal-scrollbar-bg);
 }
 
 .terminal-container::-webkit-scrollbar-thumb,
 .terminal-body::-webkit-scrollbar-thumb {
-    background: var(--terminal-scrollbar-thumb, #333);
-    border-radius: 4px;
+    background: var(--terminal-scrollbar-thumb);
+    border-radius: 999px;
 }
 
-.terminal-container::-webkit-scrollbar-thumb:hover {
-    background: var(--terminal-scrollbar-thumb-hover, #555);
+.terminal-container::-webkit-scrollbar-thumb:hover,
+.terminal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--terminal-scrollbar-thumb-hover);
 }
 
-/* Variables CSS para modo oscuro del terminal */
-[data-theme="dark"] {
-    --terminal-bg: #0d1117;
-    --terminal-text: #c9d1d9;
-    --terminal-border: #30363d;
-    --terminal-border-inset: #21262d;
-    --terminal-header-bg: linear-gradient(90deg, #161b22 80%, #21262d 100%);
-    --terminal-button-bg: #21262d;
-    --terminal-button-text: #c9d1d9;
-    --terminal-button-hover: #30363d;
-    --terminal-button-active: #161b22;
-    --terminal-prompt: #58a6ff;
-    --terminal-output: #7ee787;
-    --terminal-scrollbar-bg: #161b22;
-    --terminal-scrollbar-thumb: #30363d;
-    --terminal-scrollbar-thumb-hover: #484f58;
-    --terminal-text-shadow: 0 0 2px rgba(126, 231, 135, 0.3);
+@media (max-width: 640px) {
+    .terminal-container {
+        border-radius: 12px;
+        max-width: 100%;
+    }
+
+    .terminal-header {
+        height: 36px;
+        padding: 0 0.9em;
+    }
+
+    .terminal-body {
+        max-height: 320px;
+    }
 }

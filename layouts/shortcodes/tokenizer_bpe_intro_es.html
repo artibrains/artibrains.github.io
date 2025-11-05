@@ -1,6 +1,9 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
+    {{ if eq $lang "es" }}
     <h2>🏥 Contexto: Descifrando las Notas Clínicas</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
@@ -15,9 +18,24 @@
                 verdad."</p>
         </div>
     </div>
+    {{ else }}
+    <h2>🏥 Context: Deciphering Clinical Notes</h2>
+    <div class="medical-scenario">
+        <div class="scenario-text">
+            <p><strong>Víctor's Challenge:</strong> "How can we make an AI understand thousands of discharge reports?
+                They're full of abbreviations like 'Rx' or 'ECG' and complex terms like 'hypercholesterolemia'".</p>
+            <p class="highlight"><strong>Alma's Solution:</strong> "Before understanding, AI must learn to read
+                our language. The <strong>Byte-Pair Encoding (BPE)</strong> algorithm is like a linguist learning
+                the hospital's 'dialect'. It identifies and merges the most common fragments ('cardio-', '-pathy',
+                '-itis')
+                to create an optimized medical vocabulary. It's the first step for the model to truly understand."</p>
+        </div>
+    </div>
+    {{ end }}
 </div>
 
 <div id="app-explanation">
+    {{ if eq $lang "es" }}
     <h1>Visualizador Interactivo de Byte-Pair Encoding (BPE)</h1>
     <p class="intro">El <strong>Byte-Pair Encoding (BPE)</strong> es un algoritmo de tokenización que aprende a
         "hablar" el lenguaje de un texto específico. En lugar de usar un diccionario fijo, comienza con caracteres
@@ -46,4 +64,33 @@
             </div>
         </div>
     </div>
+    {{ else }}
+    <h1>Interactive Byte-Pair Encoding (BPE) Visualizer</h1>
+    <p class="intro">The <strong>Byte-Pair Encoding (BPE)</strong> is a tokenization algorithm that learns to
+        "speak" the language of a specific text. Instead of using a fixed dictionary, it starts with individual
+        characters and intelligently builds a vocabulary by merging the most frequently co-occurring symbol pairs.
+        This method creates an optimized set of tokens capturing everything from morphemes (like prefixes and suffixes)
+        to full words, making it a key component in modern language models.</p>
+
+    <div class="how-it-works">
+        <h2>How will you replicate the team's work?</h2>
+        <div class="explanation-columns">
+            <div class="column">
+                <h3>1. Train with the Hospital Corpus</h3>
+                <p>The simulator loads by default a text about Minermont Hospital (the 'corpus'). The algorithm will
+                    analyze it to find the most common character pairs.</p>
+            </div>
+            <div class="column">
+                <h3>2. Build the Vocabulary</h3>
+                <p>Watch in the "Merge Log" how the vocabulary is built. At each step, the most frequent pair is
+                    merged into a new token. This process repeats until reaching the size you define.</p>
+            </div>
+            <div class="column">
+                <h3>3. Tokenize like an LLM</h3>
+                <p>Once trained, enter a new phrase. The tool will use the learned merge rules to split it into the
+                    most efficient tokens, showing you how an LLM would process it.</p>
+            </div>
+        </div>
+    </div>
+    {{ end }}
 </div>

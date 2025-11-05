@@ -1,4 +1,7 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/k_fold_validator.css">
 
 <div class="interactive-demo">
 
@@ -6,51 +9,66 @@
     <div id="data-container"></div>
 
     <div class="legend">
-        <div class="legend-item"><span class="legend-color train-color"></span><span>Entrenamiento</span></div>
-        <div class="legend-item"><span class="legend-color test-color"></span><span>Prueba</span></div>
-        <div class="legend-item"><span class="legend-color fold-color"></span><span>Grupos K-Fold</span></div>
+        <div class="legend-item"><span class="legend-color train-color"></span><span class="legend-label">{{ if eq $lang
+                "es"
+                }}Entrenamiento{{ else }}Training{{ end }}</span></div>
+        <div class="legend-item"><span class="legend-color test-color"></span><span class="legend-label">{{ if eq $lang
+                "es" }}Prueba{{ else
+                }}Test{{ end }}</span></div>
+        <div class="legend-item"><span class="legend-color fold-color"></span><span class="legend-label">{{ if eq $lang
+                "es" }}Grupos
+                K-Fold{{ else }}K-Fold Groups{{ end }}</span></div>
     </div>
 
     <div class="demo-controls">
         <div class="control-group">
-            <h3>Método 1: División Simple</h3>
-            <p>Pulsa varias veces. ¿Confiarías en una métrica tan volátil para un diagnóstico?</p>
+            <h3>{{ if eq $lang "es" }}Método 1: División Simple{{ else }}Method 1: Simple Split{{ end }}</h3>
+            <p>{{ if eq $lang "es" }}Pulsa varias veces. ¿Confiarías en una métrica tan volátil para un diagnóstico?{{
+                else }}Click several times. Would you trust such a volatile metric for a diagnosis?{{ end }}</p>
             <div class="button-group">
-                <button id="run-simple-split-btn">Ejecutar División Simple</button>
+                <button id="run-simple-split-btn">{{ if eq $lang "es" }}Ejecutar División Simple{{ else }}Run Simple
+                    Split{{ end }}</button>
             </div>
         </div>
         <div class="control-group">
-            <h3>Método 2: Validación Cruzada</h3>
-            <p>Selecciona 'K' y ejecuta varias veces. El resultado será estable y confiable.</p>
+            <h3>{{ if eq $lang "es" }}Método 2: Validación Cruzada{{ else }}Method 2: Cross-Validation{{ end }}</h3>
+            <p>{{ if eq $lang "es" }}Selecciona 'K' y ejecuta varias veces. El resultado será estable y confiable.{{
+                else }}Select 'K' and run several times. The result will be stable and reliable.{{ end }}</p>
             <div class="button-controls">
                 <div class="input-group">
                     <label for="k-folds-input">K-Folds:</label>
                     <input type="number" id="k-folds-input" value="5" min="2" max="10">
                 </div>
                 <div class="button-group">
-                    <button id="run-k-fold-btn">Ejecutar K-Fold</button>
+                    <button id="run-k-fold-btn">{{ if eq $lang "es" }}Ejecutar K-Fold{{ else }}Run K-Fold{{ end
+                        }}</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="global-controls">
-        <button id="regenerate-data-btn">Regenerar Datos y Limpiar Historial</button>
+        <button id="regenerate-data-btn">{{ if eq $lang "es" }}Regenerar Datos y Limpiar Historial{{ else }}Regenerate
+            Data and Clear History{{ end }}</button>
     </div>
 
     <div class="demo-results">
         <div class="result-group">
-            <h4>Resultados de la División Simple</h4>
+            <h4>{{ if eq $lang "es" }}Resultados de la División Simple{{ else }}Simple Split Results{{ end }}</h4>
             <h3 id="simple-result-latest" class="result-latest"></h3>
-            <h5>Historial de Errores (%):</h5>
+            <h5>{{ if eq $lang "es" }}Historial de Errores (%):{{ else }}Error History (%):{{ end }}</h5>
             <div id="simple-result-history" class="history-log"></div>
         </div>
         <div class="result-group">
-            <h4>Resultados de Validación Cruzada</h4>
+            <h4>{{ if eq $lang "es" }}Resultados de Validación Cruzada{{ else }}Cross-Validation Results{{ end }}</h4>
             <div id="k-fold-process"></div>
             <h3 id="k-fold-final-result-latest" class="result-latest"></h3>
-            <h5>Historial de Errores Promedio (%):</h5>
+            <h5>{{ if eq $lang "es" }}Historial de Errores Promedio (%):{{ else }}Average Error History (%):{{ end }}
+            </h5>
             <div id="k-fold-history" class="history-log"></div>
         </div>
     </div>
 </div>
+<script>
+    window.gameLanguage = "{{ $lang }}";
+</script>
 <script src="/js/k_fold_validator/k_fold_validator.js"></script>

@@ -22,9 +22,9 @@ steps="Observe the Exploration: See how the algorithm moves across the surface o
 
 ## Interactive Demo
 
-{{< demo-wrapper title="Explorador del Descenso del Gradiente" >}}
+{{< demo-wrapper title="Gradient Descent Explorer" >}}
 
-{{< descenso-gradiente_intro_es >}}
+{{< descenso-gradiente_intro_es lang="en" >}}
 
 {{< descenso-gradiente >}}
 

@@ -1,19 +1,23 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div id="app-container">
     <!-- Navegación por pestañas -->
     <div class="tab-navigation">
-        <button class="tab-button active" data-tab="overfitting">Explorar Sobreajuste</button>
-        <button class="tab-button" data-tab="regularization">Aplicar Regularización</button>
+        <button class="tab-button active" data-tab="overfitting">{{ if eq $lang "es" }}Explorar Sobreajuste{{ else
+            }}Explore Overfitting{{ end }}</button>
+        <button class="tab-button" data-tab="regularization">{{ if eq $lang "es" }}Aplicar Regularización{{ else }}Apply
+            Regularization{{ end }}</button>
     </div>
 
     <div id="main-content" class="complexity-layout">
         <div class="graph-panel">
-            <h3 id="chart-title">Ajuste del Modelo</h3>
+            <h3 id="chart-title">{{ if eq $lang "es" }}Ajuste del Modelo{{ else }}Model Fit{{ end }}</h3>
             <div class="chart-container">
                 <canvas id="model-fit-chart"></canvas>
             </div>
-            <h3>Curvas de Error</h3>
+            <h3>{{ if eq $lang "es" }}Curvas de Error{{ else }}Error Curves{{ end }}</h3>
             <div class="chart-container">
                 <canvas id="error-chart"></canvas>
             </div>
@@ -22,22 +26,31 @@
         <div class="controls-panel">
             <!-- Pestaña 1: Sobreajuste -->
             <div id="overfitting-tab" class="tab-content active">
-                <h2>Explorar el Sobreajuste</h2>
-                <p>Ajusta la complejidad del modelo y observa cómo el error de entrenamiento (azul) disminuye, pero
-                    el error de validación (naranja) eventualmente aumenta.</p>
+                <h2>{{ if eq $lang "es" }}Explorar el Sobreajuste{{ else }}Explore Overfitting{{ end }}</h2>
+                <p>{{ if eq $lang "es" }}Ajusta la complejidad del modelo y observa cómo el error de entrenamiento
+                    (azul) disminuye, pero el error de validación (naranja) eventualmente aumenta.{{ else }}Adjust the
+                    model complexity and observe how the training error (blue) decreases, but the validation error
+                    (orange) eventually increases.{{ end }}</p>
 
                 <div class="control-group">
-                    <label for="complexity-slider">Complejidad del Modelo: <span id="complexity-value">1</span></label>
+                    <label for="complexity-slider">{{ if eq $lang "es" }}Complejidad del Modelo{{ else }}Model
+                        Complexity{{ end }}: <span id="complexity-value">1</span></label>
                     <input type="range" id="complexity-slider" min="1" max="12" value="1">
                 </div>
 
                 <div class="info-box">
-                    <h4>¿Qué observas?</h4>
+                    <h4>{{ if eq $lang "es" }}¿Qué observas?{{ else }}What do you observe?{{ end }}</h4>
                     <ul>
-                        <li><strong>Complejidad baja:</strong> El modelo es muy simple y no captura los patrones.
+                        <li><strong>{{ if eq $lang "es" }}Complejidad baja:{{ else }}Low complexity:{{ end }}</strong>
+                            {{ if eq $lang "es" }}El modelo es muy simple y no captura los patrones.{{ else }}The model
+                            is too simple and doesn't capture the patterns.{{ end }}
                         </li>
-                        <li><strong>Complejidad media:</strong> Buen equilibrio entre sesgo y varianza.</li>
-                        <li><strong>Complejidad alta:</strong> El modelo memoriza los datos de entrenamiento.</li>
+                        <li><strong>{{ if eq $lang "es" }}Complejidad media:{{ else }}Medium complexity:{{ end
+                                }}</strong> {{ if eq $lang "es" }}Buen equilibrio entre sesgo y varianza.{{ else }}Good
+                            balance between bias and variance.{{ end }}</li>
+                        <li><strong>{{ if eq $lang "es" }}Complejidad alta:{{ else }}High complexity:{{ end }}</strong>
+                            {{ if eq $lang "es" }}El modelo memoriza los datos de entrenamiento.{{ else }}The model
+                            memorizes the training data.{{ end }}</li>
                     </ul>
                 </div>
 
@@ -46,22 +59,30 @@
 
             <!-- Pestaña 2: Regularización -->
             <div id="regularization-tab" class="tab-content">
-                <h2>Controlar con Regularización</h2>
-                <p>Ajusta la complejidad y la regularización para encontrar el modelo que mejor generaliza (menor
-                    error de validación).</p>
+                <h2>{{ if eq $lang "es" }}Controlar con Regularización{{ else }}Control with Regularization{{ end }}
+                </h2>
+                <p>{{ if eq $lang "es" }}Ajusta la complejidad y la regularización para encontrar el modelo que mejor
+                    generaliza (menor error de validación).{{ else }}Adjust the complexity and regularization to find
+                    the model that generalizes best (lowest validation error).{{ end }}</p>
 
                 <div class="control-group">
-                    <label>Complejidad del Modelo: <span id="current-complexity-display">10</span></label>
-                    <div class="readonly-indicator">Puedes cambiarla con el slider superior</div>
+                    <label>{{ if eq $lang "es" }}Complejidad del Modelo{{ else }}Model Complexity{{ end }}: <span
+                            id="current-complexity-display">10</span></label>
+                    <div class="readonly-indicator">{{ if eq $lang "es" }}Puedes cambiarla con el slider superior{{ else
+                        }}You can change it with the slider above{{ end }}</div>
                 </div>
 
                 <div class="control-group">
-                    <label for="lambda-slider">Fuerza de Regularización (λ, escala log): <span
-                            id="lambda-value">0.00</span></label>
+                    <label for="lambda-slider">{{ if eq $lang "es" }}Fuerza de Regularización (λ, escala log){{ else
+                        }}Regularization Strength (λ, log scale){{ end }}: <span id="lambda-value">0.00</span></label>
                     <input type="range" id="lambda-slider" min="0" max="1" step="0.001" value="0">
                 </div>
 
-                <button id="reset-regularization-btn">Reiniciar Regularización</button>
+                <div class="control-group demo-mt-sm">
+                    <button id="reset-regularization-btn" class="demo-btn secondary button-regularization">{{ if eq
+                        $lang "es" }}Reiniciar Regularización{{ else }}Reset
+                        Regularization{{ end }}</button>
+                </div>
             </div>
 
             <!-- Sección de Optimización -->
@@ -72,16 +93,25 @@
 
 
     <div class="optimization-section">
-        <button id="find-best-btn">🏆 Encontrar Mejor Modelo</button>
+        <button id="find-best-btn" class="demo-btn button-complexity">🏆 {{ if eq $lang "es" }}Encontrar Mejor Modelo{{
+            else }}Find Best Model{{ end
+            }}</button>
         <!-- NUEVO: Contenedor para mostrar los resultados -->
         <div id="best-model-results" class="info-box result-box" style="display: none;">
-            <h4>Mejor Modelo Encontrado</h4>
-            <p><strong>Complejidad:</strong> <span id="best-complexity-result"></span></p>
+            <h4>{{ if eq $lang "es" }}Mejor Modelo Encontrado{{ else }}Best Model Found{{ end }}</h4>
+            <p><strong>{{ if eq $lang "es" }}Complejidad:{{ else }}Complexity:{{ end }}</strong> <span
+                    id="best-complexity-result"></span></p>
             <p><strong>Lambda (λ):</strong> <span id="best-lambda-result"></span></p>
-            <p><strong>Error de Validación:</strong> <span id="best-error-result"></span></p>
+            <p><strong>{{ if eq $lang "es" }}Error de Validación:{{ else }}Validation Error:{{ end }}</strong> <span
+                    id="best-error-result"></span></p>
         </div>
     </div>
-    <button id="generate-new-data-btn">Generar Nuevos Datos</button>
+    <button id="generate-new-data-btn" class="demo-btn secondary">{{ if eq $lang "es" }}Generar Nuevos Datos{{ else
+        }}Generate New Data{{ end
+        }}</button>
 </div>
+<script>
+    window.gameLanguage = "{{ $lang }}";
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/complexity/complexity.js"></script>

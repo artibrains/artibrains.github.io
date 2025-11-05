@@ -1,43 +1,56 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div id="bpe-app">
     <section class="section">
-        <h2>Parte 1: Entrenar el Tokenizador</h2>
+        <h2>{{ if eq $lang "es" }}Parte 1: Entrenar el Tokenizador{{ else }}Part 1: Train the Tokenizer{{ end }}</h2>
         <div class="control-group">
             <div class="label-with-button">
-                <label for="corpus-input">1. Texto de entrenamiento (corpus):</label>
-                <button id="clear-corpus-btn" class="secondary-btn">Limpiar</button>
+                <label for="corpus-input">{{ if eq $lang "es" }}1. Texto de entrenamiento (corpus):{{ else }}1. Training
+                    text (corpus):{{ end }}</label>
+                <button id="clear-corpus-btn" class="secondary-btn">{{ if eq $lang "es" }}Limpiar{{ else }}Clear{{ end
+                    }}</button>
             </div>
             <textarea id="corpus-input"></textarea>
         </div>
         <div class="controls">
             <div class="control-group">
-                <label for="max-vocab-size">2. Tamaño máximo del vocabulario:</label>
+                <label for="max-vocab-size">{{ if eq $lang "es" }}2. Tamaño máximo del vocabulario:{{ else }}2. Maximum
+                    vocabulary size:{{ end }}</label>
                 <input type="number" id="max-vocab-size" value="300" min="20" max="1000">
             </div>
-            <button id="train-bpe-btn">3. Entrenar BPE</button>
+            <button id="train-bpe-btn">{{ if eq $lang "es" }}3. Entrenar BPE{{ else }}3. Train BPE{{ end }}</button>
         </div>
         <div id="status-box" class="status-box"></div>
         <div id="training-results" class="results-area" style="display: none;">
-            <h3>Registro de Fusiones (Merges)</h3>
+            <h3>{{ if eq $lang "es" }}Registro de Fusiones (Merges){{ else }}Merge Log{{ end }}</h3>
             <pre id="merge-log"></pre>
-            <h3>Vocabulario Final (ordenado por frecuencia)</h3>
+            <h3>{{ if eq $lang "es" }}Vocabulario Final (ordenado por frecuencia){{ else }}Final Vocabulary (sorted by
+                frequency){{ end }}</h3>
             <div id="final-vocab"></div>
             <div id="vocab-controls">
-                <button id="show-more-vocab-btn" class="secondary-btn">Mostrar más</button>
+                <button id="show-more-vocab-btn" class="secondary-btn">{{ if eq $lang "es" }}Mostrar más{{ else }}Show
+                    more{{ end }}</button>
             </div>
         </div>
     </section>
 
     <section class="section section-disabled" id="tokenization-section">
-        <h2>Parte 2: Visualizar Tokenización</h2>
-        <label for="sentence-input">Introduce una frase para tokenizar:</label>
+        <h2>{{ if eq $lang "es" }}Parte 2: Visualizar Tokenización{{ else }}Part 2: Visualize Tokenization{{ end }}</h2>
+        <label for="sentence-input">{{ if eq $lang "es" }}Introduce una frase para tokenizar:{{ else }}Enter a sentence
+            to tokenize:{{ end }}</label>
         <div class="controls">
-            <input type="text" id="sentence-input" placeholder="Prueba con: un hidalgo flaco...">
-            <button id="tokenize-btn">Tokenizar</button>
+            <input type="text" id="sentence-input" placeholder="{{ if eq $lang " es" }}Prueba con: un hidalgo flaco...{{
+                else }}Try with: a patient data...{{ end }}">
+            <button id="tokenize-btn">{{ if eq $lang "es" }}Tokenizar{{ else }}Tokenize{{ end }}</button>
         </div>
         <div id="tokenized-output"></div>
     </section>
 </div>
 
+<script>
+    // Configure language for JavaScript
+    window.tokenizerLanguage = "{{ $lang }}";
+</script>
 <script src="/js/tokenizer_bpe/tokenizer_bpe.js"></script>

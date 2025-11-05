@@ -252,6 +252,9 @@ other = "Demo Interactiva de IA"
 [terminal_started]
 other = "Terminal iniciado..."
 
+[terminal_cleared]
+other = "Terminal limpiado."
+
 [terminal_clear]
 other = "Limpiar"
 

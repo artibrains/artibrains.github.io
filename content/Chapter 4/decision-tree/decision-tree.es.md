@@ -1,8 +1,8 @@
 ---
-title: "Árbol de Decisión: El Juego del Triaje"
+title: "4.1 Triaje automático en urgencias: Árboles de decisión"
 description: "Visualización interactiva de cómo un árbol de decisión construye reglas para clasificar, inspirado en el juego 'Quién es Quién'."
 weight: 2
-draft: true
+draft: false
 slug: "arbol-decision-triaje"
 ---
 
@@ -17,7 +17,7 @@ Un **Árbol de Decisión** es un modelo predictivo que aprende una serie de regl
     medical_scenario="Un médico de urgencias necesita un sistema de triaje que le ayude a clasificar pacientes rápidamente. Basándose en síntomas y datos básicos, debe determinar la prioridad de atención sin revisar historiales completos."
     medical_highlight="Un Árbol de Decisión construye el 'protocolo de preguntas' perfecto. Aprende qué características son las más distintivas para clasificar a los pacientes, permitiendo al médico tomar decisiones rápidas y fundamentadas siguiendo un camino claro y explicable."
     intro_text="Un **Árbol de Decisión** es un modelo que crea una secuencia de preguntas para llegar a una conclusión, funcionando como un juego de '¿Qué Paciente Es?'. Su gran ventaja es la **interpretabilidad**: cada decisión se puede explicar paso a paso."
-    steps="Define el Grupo de Pacientes:Elige el conjunto de pacientes que el modelo debe aprender a diferenciar. Cada uno tiene un perfil único con distintos síntomas, historial y datos demográficos.|Construye el Protocolo de Preguntas:Pulsa 'Entrenar Árbol'. El algoritmo encontrará la secuencia de preguntas más eficiente, colocando la que mejor distingue a los pacientes en la raíz del árbol.|Sigue la Ruta de Identificación:Explora el árbol generado. Cada nodo es una pregunta clínica. Sigue las respuestas ('sí' o 'no') para ver cómo el modelo te guía hasta identificar al paciente correcto."
+    steps="Define el Grupo de Pacientes: Elige el conjunto de pacientes que el modelo debe aprender a diferenciar. Cada uno tiene un perfil único con distintos síntomas, historial y datos demográficos.|Construye el Protocolo de Preguntas: Pulsa 'Entrenar Árbol'. El algoritmo encontrará la secuencia de preguntas más eficiente, colocando la que mejor distingue a los pacientes en la raíz del árbol.|Sigue la Ruta de Identificación: Explora el árbol generado. Cada nodo es una pregunta clínica. Sigue las respuestas ('sí' o 'no') para ver cómo el modelo te guía hasta identificar al paciente correcto."
 >}}
     
 ## Demostración Interactiva
@@ -60,13 +60,6 @@ Para evitar que el árbol memorice los datos de entrenamiento:
 - **Poda**: Eliminar ramas que no mejoran la generalización
 - **Profundidad máxima**: Limitar cuántos niveles puede tener
 - **Mínimo de muestras**: Requerir un número mínimo de casos por hoja
-{{% /notice %}}
-
-
-{{< terminal >}}
-
-{{% notice style="warning" title="Control de la Complejidad" %}}
-Los árboles pueden crecer demasiado y sobreajustarse a los datos de entrenamiento. Por eso es importante controlar su profundidad máxima y el número mínimo de muestras por nodo.
 {{% /notice %}}
 
 {{< terminal >}}

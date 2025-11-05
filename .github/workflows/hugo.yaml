@@ -76,6 +76,42 @@ jobs:
           path: ${{ runner.temp }}/hugo_cache
           key: hugo-${{ github.run_id }}
           restore-keys: hugo-
+      - name: Check internal links
+        id: check-links
+        run: |
+          echo "🔍 Checking for broken internal links..."
+          chmod +x ./scripts/check-links.sh
+          ./scripts/check-links.sh
+        continue-on-error: true
+      - name: Report link check results
+        if: steps.check-links.outcome == 'failure'
+        run: |
+          echo "::error::❌ Link validation failed! Please check the logs above for details."
+          exit 1
+      - name: Send email notification on link check failure
+        if: steps.check-links.outcome == 'failure'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "⚠️ Hugo Site - Broken Links Detected"
+          to: ${{ secrets.MAIL_TO }}
+          from: GitHub Actions
+          body: |
+            The Hugo site build detected broken internal links.
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+
+            Please check the GitHub Actions logs for details:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            This is an automated message from GitHub Actions.
       - name: Build the site
         run: |
           hugo \

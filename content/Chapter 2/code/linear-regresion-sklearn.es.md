@@ -26,3 +26,10 @@ Ejemplo de predicción para nuevos datos.
 
 ¿Quieres modificar el código y experimentar por tu cuenta?  
 [Abre el notebook en Google Colab](https://colab.research.google.com/drive/1-qzaTrUynhvjiUbfQM7N3bBo60rSOUh3)
+
+### Bibliografía
+
+- **Referencia de scikit-learn – `LinearRegression`**: Parámetros, atributos y notas de uso del estimador. [https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html) 🇬🇧 (en inglés)
+- **scikit-learn – Validación y `train_test_split`**: Buenas prácticas para dividir conjuntos y validar modelos. [https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation) 🇬🇧 (en inglés)
+- **scikit-learn – Métricas de regresión**: Definiciones de R², MAE y MSE empleadas en el notebook. [https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics](https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics) 🇬🇧 (en inglés)
+- **Documentación de pandas – `DataFrame`**: Operaciones utilizadas para preparar los datos. [https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) 🇬🇧 (en inglés)

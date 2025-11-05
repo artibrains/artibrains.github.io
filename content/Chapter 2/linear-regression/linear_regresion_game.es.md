@@ -23,7 +23,7 @@ La regresión lineal nos permite encontrar la mejor relación entre diferentes v
 
 {{< game-results >}}
 
-{{< linear-regression-game >}}
+{{< linear-regression-game lang="es" >}}
 
 {{< /demo-wrapper >}}
 

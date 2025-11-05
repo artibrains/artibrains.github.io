@@ -1,4 +1,133 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const translations = {
+        es: {
+            terminal: {
+                init: 'Complexity: Inicializando visualizador de complejidad y regularización.',
+                dataGenerated: (numPoints, noise) => `Complexity: Generados ${numPoints} puntos de datos con ruido ${noise.toFixed(2)}.`,
+                regularizationView: (complexity, lambda) => `Complexity: Actualizando vista de regularización. Complejidad=${complexity}, Lambda=${lambda}.`,
+                overfittingView: (complexity) => `Complexity: Actualizando vista de sobreajuste. Complejidad=${complexity}.`,
+                searchingBest: 'Complexity: Iniciando búsqueda del mejor modelo...',
+                bestFound: (complexity, lambda, error) => `Complexity: Mejor modelo encontrado. Complejidad=${complexity}, Lambda=${lambda}, Error=${error}.`,
+                tabChanged: (label) => `Complexity: Cambiado a la pestaña de ${label}.`
+            },
+            buttons: {
+                findBestIdle: '🏆 Encontrar Mejor Modelo',
+                findBestSearching: 'Buscando...'
+            },
+            tabs: {
+                overfitting: 'Sobreajuste',
+                regularization: 'Regularización'
+            }
+        },
+        en: {
+            terminal: {
+                init: 'Complexity: Initializing complexity and regularization visualizer.',
+                dataGenerated: (numPoints, noise) => `Complexity: Generated ${numPoints} data points with ${noise.toFixed(2)} noise.`,
+                regularizationView: (complexity, lambda) => `Complexity: Updating regularization view. Complexity=${complexity}, Lambda=${lambda}.`,
+                overfittingView: (complexity) => `Complexity: Updating overfitting view. Complexity=${complexity}.`,
+                searchingBest: 'Complexity: Searching for the best model...',
+                bestFound: (complexity, lambda, error) => `Complexity: Best model found. Complexity=${complexity}, Lambda=${lambda}, Error=${error}.`,
+                tabChanged: (label) => `Complexity: Switched to the ${label} tab.`
+            },
+            buttons: {
+                findBestIdle: '🏆 Find Best Model',
+                findBestSearching: 'Searching...'
+            },
+            tabs: {
+                overfitting: 'Overfitting',
+                regularization: 'Regularization'
+            }
+        }
+    };
+
+    function resolveLanguage() {
+        const sources = [
+            window.gameLanguage,
+            document.documentElement ? document.documentElement.lang : null,
+            document.documentElement ? document.documentElement.getAttribute('xml:lang') : null
+        ];
+
+        for (const source of sources) {
+            if (!source) continue;
+            const normalized = String(source).trim().toLowerCase();
+            if (translations[normalized]) {
+                return normalized;
+            }
+        }
+
+        return 'es';
+    }
+
+    function getStrings() {
+        const lang = resolveLanguage();
+        return translations[lang] || translations.es;
+    }
+
+    const strings = getStrings();
+
+    const terminalQueue = [];
+    let terminalBindingEstablished = false;
+
+    function flushTerminalQueue() {
+        if (!window.CustomTerminal || typeof window.CustomTerminal.write !== 'function' || !window.CustomTerminal.initialized) {
+            return false;
+        }
+
+        while (terminalQueue.length) {
+            window.CustomTerminal.write(terminalQueue.shift());
+        }
+
+        return true;
+    }
+
+    function bindTerminalReady() {
+        if (terminalBindingEstablished) {
+            return;
+        }
+
+        terminalBindingEstablished = true;
+
+        const deliverQueue = () => {
+            flushTerminalQueue();
+        };
+
+        if (window.CustomTerminal && typeof window.CustomTerminal.onReady === 'function') {
+            window.CustomTerminal.onReady(deliverQueue);
+        } else {
+            window.addEventListener('CustomTerminalReady', deliverQueue, { once: true });
+        }
+
+        let retries = 0;
+        const MAX_RETRIES = 80;
+
+        (function pollUntilReady() {
+            if (flushTerminalQueue()) {
+                return;
+            }
+
+            if (retries >= MAX_RETRIES) {
+                console.warn('[ComplexityDemo] Terminal not ready after retries.');
+                return;
+            }
+
+            retries += 1;
+            setTimeout(pollUntilReady, 120);
+        })();
+    }
+
+    function logToTerminal(message) {
+        if (!message) {
+            return;
+        }
+
+        const formatted = message.endsWith('\n') ? message : `${message}\n`;
+        terminalQueue.push(formatted);
+
+        if (!flushTerminalQueue()) {
+            bindTerminalReady();
+        }
+    }
+
     // --- DOM Elements ---
     const complexitySlider = document.getElementById('complexity-slider');
     const lambdaSlider = document.getElementById('lambda-slider');
@@ -43,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function polynomialRegression(data, degree, lambda = 0) { const n = data.length; const X = []; const y = []; for (let i = 0; i < n; i++) { const row = []; const x = data[i][0]; y.push(data[i][1]); for (let j = 0; j <= degree; j++) { row.push(Math.pow(x, j)); } X.push(row); } const coefficients = solveNormalEquations(X, y, lambda); return { predict: (x) => { let result = 0; for (let i = 0; i <= degree; i++) { result += coefficients[i] * Math.pow(x, i); } return [x, result]; }, coefficients: coefficients }; }
     function solveNormalEquations(X, y, lambda) { const n = X.length; const p = X[0].length; const XtX = []; for (let i = 0; i < p; i++) { XtX[i] = []; for (let j = 0; j < p; j++) { let sum = 0; for (let k = 0; k < n; k++) { sum += X[k][i] * X[k][j]; } XtX[i][j] = sum; } } if (lambda > 0) { for (let i = 0; i < p; i++) { if (i > 0) { XtX[i][i] += lambda; } } } const Xty = []; for (let i = 0; i < p; i++) { let sum = 0; for (let k = 0; k < n; k++) { sum += X[k][i] * y[k]; } Xty[i] = sum; } return gaussianElimination(XtX, Xty); }
     function gaussianElimination(A, b) { const n = A.length; const augmented = []; for (let i = 0; i < n; i++) { augmented[i] = [...A[i], b[i]]; } for (let i = 0; i < n; i++) { let maxRow = i; for (let k = i + 1; k < n; k++) { if (Math.abs(augmented[k][i]) > Math.abs(augmented[maxRow][i])) { maxRow = k; } } [augmented[i], augmented[maxRow]] = [augmented[maxRow], augmented[i]]; for (let k = i + 1; k < n; k++) { if (Math.abs(augmented[i][i]) < 1e-10) continue; const c = augmented[k][i] / augmented[i][i]; for (let j = i; j <= n; j++) { if (i === j) { augmented[k][j] = 0; } else { augmented[k][j] -= c * augmented[i][j]; } } } } const x = new Array(n); for (let i = n - 1; i >= 0; i--) { x[i] = augmented[i][n]; for (let j = i + 1; j < n; j++) { x[i] -= augmented[i][j] * x[j]; } if (Math.abs(augmented[i][i]) > 1e-10) { x[i] /= augmented[i][i]; } else { x[i] = 0; } } return x; }
-    function generateData(numPoints, noise, seed = Math.random()) { let rng = seed; function random() { rng = (rng * 9301 + 49297) % 233280; return rng / 233280; } const data = []; for (let i = 0; i < numPoints; i++) { const x = i / (numPoints - 1); const trueY = Math.sin(x * 2 * Math.PI) * 0.8; const noiseComponent = (random() - 0.5) * 2 * noise; const y = trueY + noiseComponent; data.push({ x, y }); } if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Generados ${numPoints} puntos de datos con ruido ${noise.toFixed(2)}.\n`); } return data; }
+    function generateData(numPoints, noise, seed = Math.random()) { let rng = seed; function random() { rng = (rng * 9301 + 49297) % 233280; return rng / 233280; } const data = []; for (let i = 0; i < numPoints; i++) { const x = i / (numPoints - 1); const trueY = Math.sin(x * 2 * Math.PI) * 0.8; const noiseComponent = (random() - 0.5) * 2 * noise; const y = trueY + noiseComponent; data.push({ x, y }); } logToTerminal(strings.terminal.dataGenerated(numPoints, noise)); return data; }
     function toRegressionFormat(data) { return data.map(p => [p.x, p.y]); }
     function calculateMSE(model, data) { let error = 0; let count = 0; for (const point of data) { try { const prediction = model.predict(point.x)[1]; if (isFinite(prediction) && Math.abs(prediction) < 100) { error += Math.pow(point.y - prediction, 2); count++; } else { return Infinity; } } catch (e) { return Infinity; } } return count > 0 ? error / count : Infinity; }
 
@@ -75,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modelFitChart.data.datasets[2] = { label: 'Datos de Validación', data: validationData, backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 5 };
         const model = polynomialRegression(toRegressionFormat(trainingData), complexity, lambda);
-        if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Actualizando vista de regularización. Complejidad=${complexity}, Lambda=${lambda.toExponential(2)}.\n`); }
+        logToTerminal(strings.terminal.regularizationView(complexity, lambda.toExponential(2)));
         modelFitChart.data.datasets[1].data = getModelLine(model);
         modelFitChart.data.datasets[1].borderColor = REG_MODEL_LINE_COLOR;
         modelFitChart.update('none');
@@ -89,9 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function findBestModel() {
         findBestBtn.disabled = true;
-        findBestBtn.textContent = 'Buscando...';
+        findBestBtn.textContent = strings.buttons.findBestSearching;
         resultsBox.style.display = 'none';
-        if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Iniciando búsqueda del mejor modelo...\n`); }
+        logToTerminal(strings.terminal.searchingBest);
 
         let bestValidationError = Infinity;
         let bestComplexity = -1;
@@ -127,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
         switchTab('regularization');
 
         findBestBtn.disabled = false;
-        findBestBtn.textContent = '🏆 Encontrar Mejor Modelo';
-        if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Mejor modelo encontrado. Complejidad=${bestComplexity}, Lambda=${bestLambda.toExponential(2)}, Error=${bestValidationError.toFixed(4)}.\n`); }
+        findBestBtn.textContent = strings.buttons.findBestIdle;
+        logToTerminal(strings.terminal.bestFound(bestComplexity, bestLambda.toExponential(2), bestValidationError.toFixed(4)));
     }
 
     function generateNewData() {
@@ -151,13 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTab === 'overfitting' ? updateOverfittingView() : updateRegularizationView();
     }
 
-    function switchTab(tabName) { currentTab = tabName; tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName)); tabContents.forEach(content => content.classList.toggle('active', content.id === `${tabName}-tab`)); if (tabName === 'overfitting') { chartTitleEl.textContent = 'Ajuste del Modelo - Datos de Entrenamiento'; updateOverfittingView(); } else { chartTitleEl.textContent = 'Ajuste del Modelo - Entrenamiento vs Validación'; updateRegularizationView(); } if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Cambiado a la pestaña ${tabName}.\n`); } }
+    function switchTab(tabName) { currentTab = tabName; tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName)); tabContents.forEach(content => content.classList.toggle('active', content.id === `${tabName}-tab`)); if (tabName === 'overfitting') { chartTitleEl.textContent = 'Ajuste del Modelo - Datos de Entrenamiento'; updateOverfittingView(); } else { chartTitleEl.textContent = 'Ajuste del Modelo - Entrenamiento vs Validación'; updateRegularizationView(); } const tabLabel = strings.tabs[tabName] || tabName; logToTerminal(strings.terminal.tabChanged(tabLabel)); }
     function updateComplexityDisplays() { const complexity = parseInt(complexitySlider.value); complexityValueEl.textContent = complexity; currentComplexityDisplayEl.textContent = complexity; }
-    function updateOverfittingView() { updateComplexityDisplays(); const complexity = parseInt(complexitySlider.value); if (modelFitChart.data.datasets[2]) { modelFitChart.data.datasets[2].data = []; } const model = polynomialRegression(toRegressionFormat(trainingData), complexity); if (window.CustomTerminal) { window.CustomTerminal.write(`Complexity: Actualizando vista de sobreajuste. Complejidad=${complexity}.\n`); } modelFitChart.data.datasets[1].data = getModelLine(model); modelFitChart.data.datasets[1].borderColor = MODEL_LINE_COLOR; modelFitChart.update('none'); errorChart.data.datasets[2].data = [{ x: complexity, y: allErrors.train[complexity - 1] }]; errorChart.data.datasets[3].data = [{ x: complexity, y: allErrors.valid[complexity - 1] }]; errorChart.update('none'); }
+    function updateOverfittingView() { updateComplexityDisplays(); const complexity = parseInt(complexitySlider.value); if (modelFitChart.data.datasets[2]) { modelFitChart.data.datasets[2].data = []; } const model = polynomialRegression(toRegressionFormat(trainingData), complexity); logToTerminal(strings.terminal.overfittingView(complexity)); modelFitChart.data.datasets[1].data = getModelLine(model); modelFitChart.data.datasets[1].borderColor = MODEL_LINE_COLOR; modelFitChart.update('none'); errorChart.data.datasets[2].data = [{ x: complexity, y: allErrors.train[complexity - 1] }]; errorChart.data.datasets[3].data = [{ x: complexity, y: allErrors.valid[complexity - 1] }]; errorChart.update('none'); }
     function resetRegularization() { lambdaSlider.value = 0; updateRegularizationView(); resultsBox.style.display = 'none'; }
     function initializeCharts() { modelFitChart = new Chart(modelFitCanvas.getContext('2d'), { type: 'scatter', data: { datasets: [{ label: 'Datos de Entrenamiento', data: [], backgroundColor: TRAIN_COLOR, pointRadius: 5, }, { label: 'Línea del Modelo', data: [], borderColor: MODEL_LINE_COLOR, type: 'line', fill: false, borderWidth: 3, pointRadius: 0, tension: 0.1, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', min: 0, max: 1 }, y: { min: -2, max: 2 } }, plugins: { legend: { position: 'top' } } } }); errorChart = new Chart(errorCanvas.getContext('2d'), { type: 'line', data: { datasets: [{ label: 'Error de Entrenamiento (sin reg.)', data: [], borderColor: TRAIN_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: 'Error de Validación (sin reg.)', data: [], borderColor: VALID_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: 'Error Actual (Entrenamiento)', data: [], backgroundColor: TRAIN_COLOR, type: 'scatter', pointRadius: 8, }, { label: 'Error Actual (Validación)', data: [], backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 8, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', title: { display: true, text: 'Complejidad del Modelo' }, min: 0.5, max: MAX_COMPLEXITY + 0.5, ticks: { stepSize: 1, callback: (v) => Number.isInteger(v) && v >= 1 ? v : '' } }, y: { type: 'logarithmic', title: { display: true, text: 'Error (MSE, escala log)' }, min: 0.01 } }, plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false } }, interaction: { mode: 'index', intersect: false } } }); }
     function setupEventListeners() { tabButtons.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab))); complexitySlider.addEventListener('input', () => currentTab === 'overfitting' ? updateOverfittingView() : updateRegularizationView()); lambdaSlider.addEventListener('input', () => { if (currentTab === 'regularization') { updateRegularizationView(); resultsBox.style.display = 'none'; } }); generateNewDataBtn.addEventListener('click', generateNewData); resetRegularizationBtn.addEventListener('click', resetRegularization); findBestBtn.addEventListener('click', findBestModel); }
-    function init() { if (window.CustomTerminal) { window.CustomTerminal.write("Complexity: Inicializando visualizador de complejidad y regularización.\n"); } initializeCharts(); generateNewData(); setupEventListeners(); switchTab('overfitting'); }
+    function init() { logToTerminal(strings.terminal.init); initializeCharts(); generateNewData(); setupEventListeners(); switchTab('overfitting'); }
 
     init();
 });

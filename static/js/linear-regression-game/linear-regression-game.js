@@ -8,16 +8,96 @@ const MIN_INTERCEPT = 0;   // Minimum base stock
 const MAX_INTERCEPT = 30;  // Maximum base stock
 const NOISE_FACTOR = 0.3;
 
+// --- Translations ---
+const translations = {
+    es: {
+        generatingData: "LinearRegressionGame: Generando nuevos datos para el juego.",
+        generatingDataParams: "Generando nuevos datos. Parámetros reales: Pendiente (m) = {slope}, Intercepto (b) = {intercept}",
+        gameInitialized: "LinearRegressionGame: Juego de regresión lineal inicializado.",
+        gameStarted: "Juego de Regresión Lineal iniciado.",
+        userAdjustedLine: "Usuario ajustó línea: Pendiente={slope}, Intercepto={intercept}",
+        errorCalculationDetail: "Detalle cálculo error: Tipo={type}, Pendiente={slope}, Intercepto={intercept}",
+        errorL1Result: "Error L1 (MAE) resultante: {error}",
+        errorL2Result: "Error L2 (MSE) resultante: {error}",
+        startingGradientDescent: "Iniciando descenso de gradiente. Tipo Error: {type}, Tasa Aprendizaje: {rate}, Iteraciones: {iterations}",
+        startingAnimation: "Iniciando animación del descenso de gradiente...",
+        iteration: "Iteración {iter}: Pendiente={slope}, Intercepto={intercept}, Error={error}",
+        lineAfterReset: "Línea de predicción tras reseteo: Pendiente={slope}, Intercepto={intercept}",
+        gameReset: "Juego reiniciado.",
+        userChangedErrorType: "Usuario cambió tipo de error a: {type}",
+        userCheckedResult: "Usuario verificó resultado. Pendiente: {slope}, Intercepto: {intercept}, Tipo Error: {type}",
+        animationFinished: "Animación del descenso de gradiente finalizada. Solución óptima alcanzada: Pendiente={slope}, Intercepto={intercept}, Error={error}",
+        resultsForModal: "Resultados para modal: Usuario (Error: {userError}), Óptimo (Error: {optimalError})",
+        congratulations: "¡Felicidades! 🎉 Tu predicción es muy cercana a la óptima. Error de tu predicción: {error}.",
+        goodAttempt: "¡Buen intento! 👍 Tu predicción está cerca. Error óptimo: {optimal}, Tu error: {user}.",
+        canImprove: "Puedes mejorar. 📈 Error óptimo: {optimal}, Tu error: {user}. Intenta ajustar los parámetros.",
+        initialPredictionLine: "Línea de predicción inicial del usuario: Pendiente={slope}, Intercepto={intercept}",
+        comparisonTitle: "Comparación de Resultados",
+        parameter: "Parámetro",
+        yourSolution: "Tu Solución",
+        optimalSolution: "Solución Óptima ({type})",
+        slope: "Pendiente (m)",
+        intercept: "Intercepto (b)",
+        error: "Error ({type})"
+    },
+    en: {
+        generatingData: "LinearRegressionGame: Generating new game data.",
+        generatingDataParams: "Generating new data. True parameters: Slope (m) = {slope}, Intercept (b) = {intercept}",
+        gameInitialized: "LinearRegressionGame: Linear regression game initialized.",
+        gameStarted: "Linear Regression Game started.",
+        userAdjustedLine: "User adjusted line: Slope={slope}, Intercept={intercept}",
+        errorCalculationDetail: "Error calculation detail: Type={type}, Slope={slope}, Intercept={intercept}",
+        errorL1Result: "Resulting L1 error (MAE): {error}",
+        errorL2Result: "Resulting L2 error (MSE): {error}",
+        startingGradientDescent: "Starting gradient descent. Error Type: {type}, Learning Rate: {rate}, Iterations: {iterations}",
+        startingAnimation: "Starting gradient descent animation...",
+        iteration: "Iteration {iter}: Slope={slope}, Intercept={intercept}, Error={error}",
+        lineAfterReset: "Prediction line after reset: Slope={slope}, Intercept={intercept}",
+        gameReset: "Game reset.",
+        userChangedErrorType: "User changed error type to: {type}",
+        userCheckedResult: "User checked result. Slope: {slope}, Intercept: {intercept}, Error Type: {type}",
+        animationFinished: "Gradient descent animation finished. Optimal solution reached: Slope={slope}, Intercept={intercept}, Error={error}",
+        resultsForModal: "Results for modal: User (Error: {userError}), Optimal (Error: {optimalError})",
+        congratulations: "Congratulations! 🎉 Your prediction is very close to optimal. Your prediction error: {error}.",
+        goodAttempt: "Good attempt! 👍 Your prediction is close. Optimal error: {optimal}, Your error: {user}.",
+        canImprove: "You can improve. 📈 Optimal error: {optimal}, Your error: {user}. Try adjusting the parameters.",
+        initialPredictionLine: "User's initial prediction line: Slope={slope}, Intercept={intercept}",
+        comparisonTitle: "Results Comparison",
+        parameter: "Parameter",
+        yourSolution: "Your Solution",
+        optimalSolution: "Optimal Solution ({type})",
+        slope: "Slope (m)",
+        intercept: "Intercept (b)",
+        error: "Error ({type})"
+    }
+};
+
+// Helper function to get translated text
+function t(key, params = {}) {
+    const lang = window.gameLanguage || 'es';
+    let text = translations[lang]?.[key] || translations['es'][key] || key;
+
+    // Replace parameters in the text
+    Object.keys(params).forEach(param => {
+        text = text.replace(`{${param}}`, params[param]);
+    });
+
+    return text;
+}
+
 // Generate game data
 function generateData() {
     if (window.CustomTerminal) {
-        window.CustomTerminal.write("LinearRegressionGame: Generando nuevos datos para el juego.\n");
+        window.CustomTerminal.write(t('generatingData') + "\n");
     }
     const trueSlope = MIN_SLOPE + Math.random() * (MAX_SLOPE - MIN_SLOPE);
     const trueIntercept = MIN_INTERCEPT + Math.random() * (MAX_INTERCEPT - MIN_INTERCEPT);
 
     if (window.CustomTerminal) {
-        window.CustomTerminal.write(`Generando nuevos datos. Parámetros reales: Pendiente (m) = ${trueSlope.toFixed(2)}, Intercepto (b) = ${trueIntercept.toFixed(2)}\n`);
+        window.CustomTerminal.write(t('generatingDataParams', {
+            slope: trueSlope.toFixed(2),
+            intercept: trueIntercept.toFixed(2)
+        }) + "\n");
     }
 
     return Array.from({ length: POINT_COUNT }, () => {
@@ -32,7 +112,7 @@ function generateData() {
 // Initialize game
 const data = generateData();
 if (window.CustomTerminal) {
-    window.CustomTerminal.write("LinearRegressionGame: Juego de regresión lineal inicializado.\n");
+    window.CustomTerminal.write(t('gameInitialized') + "\n");
 }
 const chart = new Chart(document.getElementById('gameChart'), {
     type: 'scatter',
@@ -78,7 +158,7 @@ const chart = new Chart(document.getElementById('gameChart'), {
 });
 
 if (window.CustomTerminal) {
-    window.CustomTerminal.write("Juego de Regresión Lineal iniciado.\n");
+    window.CustomTerminal.write(t('gameStarted') + "\n");
 }
 
 // Event handlers and UI updates
@@ -104,7 +184,10 @@ function updateLine() {
     document.getElementById('interceptValue').textContent = intercept;
 
     if (window.CustomTerminal && (slopeSlider.value !== previousSlope || interceptSlider.value !== previousIntercept)) {
-        window.CustomTerminal.write(`Usuario ajustó línea: Pendiente=${slope.toFixed(1)}, Intercepto=${intercept}\n`);
+        window.CustomTerminal.write(t('userAdjustedLine', {
+            slope: slope.toFixed(1),
+            intercept: intercept
+        }) + "\n");
         previousSlope = slopeSlider.value;
         previousIntercept = interceptSlider.value;
     }
@@ -120,12 +203,16 @@ function calculateError(slope, intercept, errorType, logCalculationDetails = tru
     });
 
     if (logCalculationDetails && window.CustomTerminal) {
-        window.CustomTerminal.write(`Detalle cálculo error: Tipo=${errorType}, Pendiente=${slope.toFixed(2)}, Intercepto=${intercept.toFixed(2)}\n`);
+        window.CustomTerminal.write(t('errorCalculationDetail', {
+            type: errorType,
+            slope: slope.toFixed(2),
+            intercept: intercept.toFixed(2)
+        }) + "\n");
         const averageError = errors.reduce((sum, err) => sum + err, 0) / data.length;
         if (errorType === 'L1') {
-            window.CustomTerminal.write(`Error L1 (MAE) resultante: ${averageError.toFixed(3)}\n`);
+            window.CustomTerminal.write(t('errorL1Result', { error: averageError.toFixed(3) }) + "\n");
         } else {
-            window.CustomTerminal.write(`Error L2 (MSE) resultante: ${averageError.toFixed(3)}\n`);
+            window.CustomTerminal.write(t('errorL2Result', { error: averageError.toFixed(3) }) + "\n");
         }
     }
 
@@ -140,7 +227,11 @@ function gradientDescent(errorType) {
     const steps = [];
 
     if (window.CustomTerminal) {
-        window.CustomTerminal.write(`Iniciando descenso de gradiente. Tipo Error: ${errorType}, Tasa Aprendizaje: ${learningRate}, Iteraciones: ${iterations}\n`);
+        window.CustomTerminal.write(t('startingGradientDescent', {
+            type: errorType,
+            rate: learningRate,
+            iterations: iterations
+        }) + "\n");
     }
 
     for (let i = 0; i < iterations; i++) {
@@ -187,7 +278,7 @@ function animateGradientDescent(steps, finalCallback) {
     const animationSpeed = 50;
 
     if (window.CustomTerminal) {
-        window.CustomTerminal.write("Iniciando animación del descenso de gradiente...\n");
+        window.CustomTerminal.write(t('startingAnimation') + "\n");
     }
 
     if (chart.data.datasets.length === 2) {
@@ -211,7 +302,12 @@ function animateGradientDescent(steps, finalCallback) {
         const { slope, intercept, error } = steps[stepIndex]; // Destructure error as well
 
         if (window.CustomTerminal) {
-            window.CustomTerminal.write(`Iteración ${stepIndex + 1}: Pendiente=${slope.toFixed(2)}, Intercepto=${intercept.toFixed(2)}, Error=${error.toFixed(3)}\n`);
+            window.CustomTerminal.write(t('iteration', {
+                iter: stepIndex + 1,
+                slope: slope.toFixed(2),
+                intercept: intercept.toFixed(2),
+                error: error.toFixed(3)
+            }) + "\n");
         }
 
         const lineData = data.map(point => ({
@@ -278,7 +374,10 @@ function resetGame() {
     if (window.CustomTerminal) { // Log initial line after reset
         const currentSlope = parseFloat(slopeSlider.value);
         const currentIntercept = parseFloat(interceptSlider.value);
-        window.CustomTerminal.write(`Línea de predicción tras reseteo: Pendiente=${currentSlope.toFixed(1)}, Intercepto=${currentIntercept}\n`);
+        window.CustomTerminal.write(t('lineAfterReset', {
+            slope: currentSlope.toFixed(1),
+            intercept: currentIntercept
+        }) + "\n");
     }
     previousSlope = slopeSlider.value; // Update previous values
     previousIntercept = slopeSlider.value; // Corrected: should be interceptSlider.value
@@ -288,7 +387,7 @@ function resetGame() {
     slopeSlider.disabled = false;
     interceptSlider.disabled = false;
     if (window.CustomTerminal) {
-        window.CustomTerminal.write("Juego reiniciado.\n"); // Simplified message
+        window.CustomTerminal.write(t('gameReset') + "\n");
     }
 }
 
@@ -316,7 +415,7 @@ interceptSlider.addEventListener('input', () => {
 document.getElementById('errorType').addEventListener('change', () => {
     const errorType = document.getElementById('errorType').value;
     if (window.CustomTerminal) {
-        window.CustomTerminal.write(`Usuario cambió tipo de error a: ${errorType}\n`);
+        window.CustomTerminal.write(t('userChangedErrorType', { type: errorType }) + "\n");
     }
     const showResultsButton = document.getElementById('showResultsButton'); // This element no longer exists
     if (showResultsButton && !showResultsButton.classList.contains('hidden')) { // Check if it exists
@@ -330,7 +429,11 @@ checkButton.addEventListener('click', () => {
     const userIntercept = parseFloat(interceptSlider.value);
 
     if (window.CustomTerminal) {
-        window.CustomTerminal.write(`Usuario verificó resultado. Pendiente: ${userSlope.toFixed(2)}, Intercepto: ${userIntercept.toFixed(2)}, Tipo Error: ${errorType}\n`);
+        window.CustomTerminal.write(t('userCheckedResult', {
+            slope: userSlope.toFixed(2),
+            intercept: userIntercept.toFixed(2),
+            type: errorType
+        }) + "\n");
     }
 
     checkButton.disabled = true;
@@ -345,42 +448,52 @@ checkButton.addEventListener('click', () => {
     animateGradientDescent(optimization.steps, () => {
         document.getElementById('optimizationStatus').classList.add('hidden');
         if (window.CustomTerminal) {
-            window.CustomTerminal.write(`Animación del descenso de gradiente finalizada. Solución óptima alcanzada: Pendiente=${optimization.final.slope.toFixed(2)}, Intercepto=${optimization.final.intercept.toFixed(2)}, Error=${optimalError.toFixed(3)}\n`);
+            window.CustomTerminal.write(t('animationFinished', {
+                slope: optimization.final.slope.toFixed(2),
+                intercept: optimization.final.intercept.toFixed(2),
+                error: optimalError.toFixed(3)
+            }) + "\n");
         }
 
         const errorDiff = Math.abs(userError - optimalError); // Simpler difference for summary
         let summaryMessage;
         if (errorDiff < 0.1 * optimalError && errorDiff < 5) { // Be a bit more lenient if optimalError is very small
-            summaryMessage = `¡Felicidades! 🎉 Tu predicción es muy cercana a la óptima. Error de tu predicción: ${userError.toFixed(3)}.`;
+            summaryMessage = t('congratulations', { error: userError.toFixed(3) });
         } else if (userError < optimalError * 1.5) {
-            summaryMessage = `¡Buen intento! 👍 Tu predicción está cerca. Error óptimo: ${optimalError.toFixed(3)}, Tu error: ${userError.toFixed(3)}.`;
+            summaryMessage = t('goodAttempt', {
+                optimal: optimalError.toFixed(3),
+                user: userError.toFixed(3)
+            });
         }
         else {
-            summaryMessage = `Puedes mejorar. 📈 Error óptimo: ${optimalError.toFixed(3)}, Tu error: ${userError.toFixed(3)}. Intenta ajustar los parámetros.`;
+            summaryMessage = t('canImprove', {
+                optimal: optimalError.toFixed(3),
+                user: userError.toFixed(3)
+            });
         }
 
         const detailsHtml = `
             <table>
                 <thead>
                     <tr>
-                        <th>Parámetro</th>
-                        <th>Tu Solución</th>
-                        <th>Solución Óptima (${errorType})</th>
+                        <th>${t('parameter')}</th>
+                        <th>${t('yourSolution')}</th>
+                        <th>${t('optimalSolution', { type: errorType })}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Pendiente (m)</td>
+                        <td>${t('slope')}</td>
                         <td>${userSlope.toFixed(2)}</td>
                         <td>${optimization.final.slope.toFixed(2)}</td>
                     </tr>
                     <tr>
-                        <td>Intercepto (b)</td>
+                        <td>${t('intercept')}</td>
                         <td>${userIntercept.toFixed(2)}</td>
                         <td>${optimization.final.intercept.toFixed(2)}</td>
                     </tr>
                     <tr>
-                        <td>Error (${errorType})</td>
+                        <td>${t('error', { type: errorType })}</td>
                         <td>${userError.toFixed(3)}</td>
                         <td>${optimalError.toFixed(3)}</td>
                     </tr>
@@ -389,13 +502,16 @@ checkButton.addEventListener('click', () => {
         `;
 
         if (window.CustomTerminal) {
-            window.CustomTerminal.write(`Resultados para modal: Usuario (Error: ${userError.toFixed(3)}), Óptimo (Error: ${optimalError.toFixed(3)})\n`);
+            window.CustomTerminal.write(t('resultsForModal', {
+                userError: userError.toFixed(3),
+                optimalError: optimalError.toFixed(3)
+            }) + "\n");
             window.CustomTerminal.write(summaryMessage + "\n");
         }
 
         if (window.GameResultsModal) {
             window.GameResultsModal.show(
-                'Comparación de Resultados',
+                t('comparisonTitle'),
                 summaryMessage,
                 detailsHtml
             );
@@ -417,7 +533,10 @@ updateLine();
 if (window.CustomTerminal) {
     const initialSlope = parseFloat(slopeSlider.value);
     const initialIntercept = parseFloat(interceptSlider.value);
-    window.CustomTerminal.write(`Línea de predicción inicial del usuario: Pendiente=${initialSlope.toFixed(1)}, Intercepto=${initialIntercept}\n`);
+    window.CustomTerminal.write(t('initialPredictionLine', {
+        slope: initialSlope.toFixed(1),
+        intercept: initialIntercept
+    }) + "\n");
 }
 // Ensure previous values are set after initial updateLine call
 previousSlope = slopeSlider.value;

@@ -1,72 +1,127 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
-    <h2>🏥 Contexto Médico: Clasificación de Células Tumorales</h2>
+    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Clasificación de Células Tumorales{{ else }}🏥 Medical Context: Tumor
+        Cell Classification{{ end }}</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
-            <p><strong>Imagina:</strong> Estás analizando células de una biopsia para determinar si un tumor es benigno
+            <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
+                analizando células de una biopsia para determinar si un tumor es benigno
                 o maligno. Dispones de características medibles como el tamaño del núcleo, la textura de la membrana y
-                la uniformidad de la célula.</p>
-            <p class="highlight">El algoritmo K-NN puede clasificar una nueva célula (un caso desconocido) comparándola
+                la uniformidad de la célula.{{ else }}You're analyzing cells from a biopsy to determine if a tumor is
+                benign
+                or malignant. You have measurable characteristics such as nucleus size, membrane texture, and
+                cell uniformity.{{ end }}</p>
+            <p class="highlight">{{ if eq $lang "es" }}El algoritmo K-NN puede clasificar una nueva célula (un caso
+                desconocido) comparándola
                 con las células ya diagnosticadas. Si sus vecinos más cercanos son mayoritariamente malignos, el modelo
-                predecirá que la nueva célula también lo es.</p>
+                predecirá que la nueva célula también lo es.{{ else }}The K-NN algorithm can classify a new cell (an
+                unknown case) by comparing it
+                with already diagnosed cells. If its nearest neighbors are mostly malignant, the model
+                will predict that the new cell is also malignant.{{ end }}</p>
         </div>
     </div>
 </div>
 
 <div id="app-explanation">
-    <h1>Simulador Interactivo: K-Vecinos más Cercanos (K-NN)</h1>
-    <p class="intro">El algoritmo <strong>K-Vecinos más Cercanos (K-NN)</strong> es un método de clasificación intuitivo
+    <h1>{{ if eq $lang "es" }}Simulador Interactivo: K-Vecinos más Cercanos (K-NN){{ else }}Interactive Simulator:
+        K-Nearest Neighbors (K-NN){{ end }}</h1>
+    <p class="intro">{{ if eq $lang "es" }}El algoritmo <strong>K-Vecinos más Cercanos (K-NN)</strong> es un método de
+        clasificación intuitivo
         que funciona bajo la premisa de que "dime con quién andas y te diré quién eres". Para clasificar un nuevo caso,
         simplemente identifica a sus 'K' vecinos más cercanos en los datos existentes y adopta la clase más común entre
-        ellos, basándose en una votación mayoritaria.</p>
+        ellos, basándose en una votación mayoritaria.{{ else }}The <strong>K-Nearest Neighbors (K-NN)</strong> algorithm
+        is an intuitive classification method
+        that works under the premise of "tell me who you hang out with and I'll tell you who you are". To classify a new
+        case,
+        it simply identifies its 'K' nearest neighbors in the existing data and adopts the most common class among
+        them, based on majority voting.{{ end }}</p>
 
     <div class="how-it-works">
-        <h2>¿Cómo funciona la clasificación por proximidad?</h2>
+        <h2>{{ if eq $lang "es" }}¿Cómo funciona la clasificación por proximidad?{{ else }}How does proximity-based
+            classification work?{{ end }}</h2>
         <div class="explanation-columns">
             <div class="column">
-                <h3>Añade un Caso Nuevo</h3>
-                <p><strong>Haz clic en el gráfico</strong> para añadir un nuevo punto a clasificar (por ejemplo, una
-                    nueva célula). El modelo necesita decidir a qué grupo pertenece basándose en los datos ya conocidos.
+                <h3>{{ if eq $lang "es" }}Añade un Caso Nuevo{{ else }}Add a New Case{{ end }}</h3>
+                <p>{{ if eq $lang "es" }}<strong>Haz clic en el gráfico</strong> para añadir un nuevo punto a clasificar
+                    (por ejemplo, una
+                    nueva célula). El modelo necesita decidir a qué grupo pertenece basándose en los datos ya
+                    conocidos.{{ else }}<strong>Click on the chart</strong> to add a new point to classify (for example,
+                    a
+                    new cell). The model needs to decide which group it belongs to based on the known data.{{ end }}
                 </p>
             </div>
             <div class="column">
-                <h3>Encuentra a los Vecinos</h3>
-                <p>El algoritmo busca los <strong>'K' vecinos más cercanos</strong> al nuevo punto. Usa el control
+                <h3>{{ if eq $lang "es" }}Encuentra a los Vecinos{{ else }}Find the Neighbors{{ end }}</h3>
+                <p>{{ if eq $lang "es" }}El algoritmo busca los <strong>'K' vecinos más cercanos</strong> al nuevo
+                    punto. Usa el control
                     deslizante para cambiar el valor de 'K' y observa cómo se seleccionan diferentes vecinos en el
-                    gráfico.</p>
+                    gráfico.{{ else }}The algorithm searches for the <strong>'K' nearest neighbors</strong> to the new
+                    point. Use the
+                    slider to change the value of 'K' and observe how different neighbors are selected in the
+                    chart.{{ end }}</p>
             </div>
             <div class="column">
-                <h3>Toma una Decisión (Voto)</h3>
-                <p>La clase del nuevo punto se decide por <strong>votación mayoritaria</strong>. Si la mayoría de sus
+                <h3>{{ if eq $lang "es" }}Toma una Decisión (Voto){{ else }}Make a Decision (Vote){{ end }}</h3>
+                <p>{{ if eq $lang "es" }}La clase del nuevo punto se decide por <strong>votación mayoritaria</strong>.
+                    Si la mayoría de sus
                     'K' vecinos son del grupo "A", se clasificará como "A". Observa cómo la predicción cambia al ajustar
-                    'K'.</p>
+                    'K'.{{ else }}The class of the new point is decided by <strong>majority voting</strong>. If the
+                    majority of its
+                    'K' neighbors are from group "A", it will be classified as "A". Watch how the prediction changes
+                    when adjusting
+                    'K'.{{ end }}</p>
             </div>
         </div>
     </div>
     <p>
-        Cuando Alma introdujo el algoritmo <strong>K-Nearest Neighbors (K-NN)</strong>, Marta enseguida señaló el punto
+        {{ if eq $lang "es" }}Cuando Alma introdujo el algoritmo <strong>K-Nearest Neighbors (K-NN)</strong>, Marta
+        enseguida señaló el punto
         clave: "El concepto de 'distancia' es crucial aquí. ¿Cómo combinamos edad, temperatura y presión arterial?
         Necesitaríamos escalar todo cuidadosamente". Luis y Carlos añadieron la preocupación por el coste computacional
-        y la "maldición de la dimensionalidad".
+        y la "maldición de la dimensionalidad".{{ else }}When Alma introduced the <strong>K-Nearest Neighbors
+            (K-NN)</strong> algorithm, Marta quickly pointed out the key
+        point: "The concept of 'distance' is crucial here. How do we combine age, temperature, and blood pressure?
+        We would need to scale everything carefully". Luis and Carlos added concerns about computational cost
+        and the "curse of dimensionality".{{ end }}
     </p>
     <p>
-        Para ilustrar estos conceptos de forma sencilla, Alma les propuso un ejemplo simple antes de aplicarlo a los
+        {{ if eq $lang "es" }}Para ilustrar estos conceptos de forma sencilla, Alma les propuso un ejemplo simple antes
+        de aplicarlo a los
         datos médicos. Imagina que queremos clasificar mascotas (gatos 🐱 y perros 🐶) basándonos en dos
-        características: su <strong>agilidad</strong> (eje Y) y su <strong>sociabilidad</strong> (eje X).
+        características: su <strong>agilidad</strong> (eje Y) y su <strong>sociabilidad</strong> (eje X).{{ else }}To
+        illustrate these concepts simply, Alma proposed a simple example before applying it to the
+        medical data. Imagine we want to classify pets (cats 🐱 and dogs 🐶) based on two
+        characteristics: their <strong>agility</strong> (Y axis) and their <strong>sociability</strong> (X axis).{{ end
+        }}
     </p>
     <p>
-        En esta simulación, tú eres el algoritmo K-NN.
+        {{ if eq $lang "es" }}En esta simulación, tú eres el algoritmo K-NN.{{ else }}In this simulation, you are the
+        K-NN algorithm.{{ end }}
     </p>
     <ol>
-        <li><strong>Añade puntos de datos</strong> (gatos y perros) en el gráfico o usa los datos de ejemplo.</li>
-        <li>Cambia al modo <strong>"Clasificar"</strong> y haz clic en cualquier lugar del gráfico para introducir una
-            nueva mascota.</li>
-        <li>El algoritmo encontrará los <strong>K vecinos más cercanos</strong> y asignará la clase mayoritaria.</li>
+        <li>{{ if eq $lang "es" }}<strong>Añade puntos de datos</strong> (gatos y perros) en el gráfico o usa los datos
+            de ejemplo.{{ else }}<strong>Add data points</strong> (cats and dogs) on the chart or use the example
+            data.{{ end }}</li>
+        <li>{{ if eq $lang "es" }}Cambia al modo <strong>"Clasificar"</strong> y haz clic en cualquier lugar del gráfico
+            para introducir una
+            nueva mascota.{{ else }}Switch to <strong>"Classify"</strong> mode and click anywhere on the chart to
+            introduce a
+            new pet.{{ end }}</li>
+        <li>{{ if eq $lang "es" }}El algoritmo encontrará los <strong>K vecinos más cercanos</strong> y asignará la
+            clase mayoritaria.{{ else }}The algorithm will find the <strong>K nearest neighbors</strong> and assign the
+            majority class.{{ end }}</li>
     </ol>
     <p>
-        Juega con el valor de <strong>K</strong> y la <strong>métrica de distancia</strong> (Euclidiana vs. Manhattan)
+        {{ if eq $lang "es" }}Juega con el valor de <strong>K</strong> y la <strong>métrica de distancia</strong>
+        (Euclidiana vs. Manhattan)
         para ver cómo afectan a la clasificación. Activa "Mostrar Fronteras" para visualizar cómo cambia el mapa de
-        decisión del modelo. Esto te dará una intuición clara sobre las fortalezas y debilidades que el equipo discutió.
+        decisión del modelo. Esto te dará una intuición clara sobre las fortalezas y debilidades que el equipo
+        discutió.{{ else }}Play with the value of <strong>K</strong> and the <strong>distance metric</strong> (Euclidean
+        vs. Manhattan)
+        to see how they affect classification. Enable "Show Boundaries" to visualize how the model's decision map
+        changes. This will give you a clear intuition about the strengths and weaknesses the team discussed.{{ end }}
     </p>
 </div>

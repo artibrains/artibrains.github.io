@@ -1,8 +1,8 @@
 ---
-title: "El Domador de Complejidad"
+title: "3.3 La regularización: Domador de complejidad"
 description: "Explora visualmente el sobreajuste, la regularización y cómo encontrar el equilibrio perfecto en modelos de IA."
 weight: 5
-draft: true
+draft: false
 slug: "domador-complejidad-regularizacion"
 ---
 
@@ -10,16 +10,23 @@ slug: "domador-complejidad-regularizacion"
 
 El sobreajuste (overfitting) y la regularización son conceptos clave para afrontar un desafío fundamental en el modelado: mientras que un modelo busca la mejor relación en los datos, debe evitar ajustarse en exceso a las particularidades o el ruido de la muestra de entrenamiento. La regularización es precisamente la técnica que nos permite controlar esta complejidad, asegurando que el modelo generalice correctamente y sus predicciones sean fiables con nuevos datos.
 
-{{< demo-intro 
-    title="Simulador Interactivo: Sobreajuste y Regularización" medical_scenario="Estás desarrollando un modelo para predecir el riesgo de una enfermedad basándose en datos de pacientes (analíticas, historial, síntomas). El modelo debe aprender patrones útiles sin 'memorizar' los casos específicos de tu conjunto de datos de entrenamiento." 
-    medical_highlight="Un modelo demasiado complejo podría aprender el 'ruido' de los datos (sobreajuste) y fallar al predecir el riesgo en nuevos pacientes. Uno demasiado simple podría ignorar indicadores clave (subajuste). El objetivo es crear un modelo que generalice bien su conocimiento a pacientes que nunca ha visto."
-    intro_text="Explora visualmente cómo la complejidad de un modelo afecta su capacidad para aprender patrones y generalizar a nuevos datos. Ajusta la complejidad y la fuerza de regularización para encontrar el equilibrio óptimo entre un modelo demasiado simple y uno que sobreajusta."
-    steps="Ajusta la Complejidad del Modelo:Usa el control para aumentar o reducir la complejidad del modelo. Observa en los gráficos cómo un modelo más complejo se ajusta perfectamente a los datos de entrenamiento, pero puede fallar con los de validación.|Aplica Regularización:Cambia a la pestaña de 'Regularización' para aplicar una penalización (lambda) a los modelos complejos. Esto ayuda a prevenir el sobreajuste, forzando al modelo a ser más simple y generalizable.|Encuentra el Modelo Óptimo:Pulsa el botón **'Encontrar Mejor Modelo'** para que la aplicación pruebe combinaciones y encuentre la que tiene el menor error de validación: el modelo que mejor predice en nuevos datos sin sobreajustar." 
+{{< demo-intro
+    title="Simulador Interactivo: Sobreajuste y Regularización"
+    algorithm_type="Generalización de modelos"
+    difficulty="intermediate"
+    medical_scenario="Estás desarrollando un modelo para predecir el riesgo de una enfermedad basándote en datos de pacientes (analíticas, historial, síntomas). El modelo debe aprender patrones útiles sin 'memorizar' los casos específicos de tu conjunto de entrenamiento."
+    medical_highlight="Un modelo demasiado complejo puede aprender el ruido de los datos (sobreajuste) y fallar con pacientes nuevos. Uno demasiado simple puede ignorar indicadores clave (subajuste). La meta es generalizar correctamente a casos inéditos."
+    intro_text="Explora visualmente cómo la complejidad del modelo impacta su capacidad de aprendizaje y generalización. Ajusta la complejidad y la fuerza de regularización para encontrar el equilibrio óptimo entre simplicidad y exceso de ajuste."
+    steps="Ajusta la complejidad: Usa el control para aumentar o reducir la flexibilidad del modelo y compara el error de entrenamiento frente al de validación.|Aplica regularización: Cambia a la pestaña Regularización para añadir una penalización (lambda) que frene a los modelos demasiado complejos.|Encuentra el equilibrio óptimo: Pulsa **Encontrar Mejor Modelo** para que la herramienta busque la combinación que minimiza el error de validación."
 >}}
 
 ## Demostración Interactiva
 
-{{< complexity >}}
+{{< demo-wrapper title="Laboratorio de Regularización" >}}
+
+{{< complexity lang="es" >}}
+
+{{< /demo-wrapper >}}
 
 ## Conceptos Clave
 

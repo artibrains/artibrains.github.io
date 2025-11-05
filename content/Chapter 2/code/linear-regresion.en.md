@@ -21,3 +21,10 @@ The interactive notebook includes:
 
 Want to modify the code and experiment on your own?  
 [Open the notebook in Google Colab](https://colab.research.google.com/drive/1ByemaftzReAXxfvmohqu_g1AZ1y9KrBA)
+
+### Bibliography
+
+- **scikit-learn Documentation – Linear Models**: Ordinary least squares, assumptions, and API usage. [https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares](https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares)
+- **NumPy Reference – `numpy.linalg.lstsq`**: Linear algebra solver leveraged for implementing least squares fits. [https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html](https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html)
+- **Matplotlib Tutorials – Pyplot**: Guidelines for creating the diagnostic plots used in the notebook. [https://matplotlib.org/stable/tutorials/introductory/pyplot.html](https://matplotlib.org/stable/tutorials/introductory/pyplot.html)
+- **Google ML Crash Course – Linear Regression**: Conceptual refresher on gradient descent and error analysis. [https://developers.google.com/machine-learning/crash-course/linear-regression](https://developers.google.com/machine-learning/crash-course/linear-regression)

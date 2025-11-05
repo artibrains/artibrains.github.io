@@ -175,6 +175,98 @@ document.addEventListener('DOMContentLoaded', () => {
         chart.data.datasets[3].data = [];
 
         chart.update();
+
+        // Output model parameters to terminal
+        printModelParameters();
+    }
+
+    /**
+     * Imprime los parámetros del modelo en el terminal.
+     */
+    function printModelParameters() {
+        const canWriteToTerminal = () => Boolean(window.CustomTerminal &&
+            typeof window.CustomTerminal.write === 'function' &&
+            window.CustomTerminal.initialized);
+
+        let hasPrinted = false;
+
+        const emitToTerminal = () => {
+            if (hasPrinted || !canWriteToTerminal()) {
+                return hasPrinted;
+            }
+
+            hasPrinted = true;
+
+            if (!window.CustomTerminal) {
+                return false;
+            }
+
+            const lang = window.gameLanguage || 'es';
+            const { b0, b1, b2 } = modelParams;
+
+            if (lang === 'es') {
+                window.CustomTerminal.write('Nuevos datos generados:', true);
+                window.CustomTerminal.write(`  Pacientes generados: ${rawData.length}`);
+                window.CustomTerminal.write('');
+                window.CustomTerminal.write('Parámetros del modelo de regresión logística:');
+                window.CustomTerminal.write(`  β₀ (intercepto): ${b0.toFixed(4)}`);
+                window.CustomTerminal.write(`  β₁ (días desde última cita): ${b1.toFixed(4)}`);
+                window.CustomTerminal.write(`  β₂ (edad): ${b2.toFixed(4)}`);
+                window.CustomTerminal.write('');
+                window.CustomTerminal.write(`Ecuación: z = ${b0.toFixed(4)} + ${b1.toFixed(4)}·días + ${b2.toFixed(4)}·edad`);
+                window.CustomTerminal.write('Probabilidad: p = 1 / (1 + e^(-z))');
+                window.CustomTerminal.write('');
+            } else {
+                window.CustomTerminal.write('New data generated:', true);
+                window.CustomTerminal.write(`  Patients generated: ${rawData.length}`);
+                window.CustomTerminal.write('');
+                window.CustomTerminal.write('Logistic regression model parameters:');
+                window.CustomTerminal.write(`  β₀ (intercept): ${b0.toFixed(4)}`);
+                window.CustomTerminal.write(`  β₁ (days since last visit): ${b1.toFixed(4)}`);
+                window.CustomTerminal.write(`  β₂ (age): ${b2.toFixed(4)}`);
+                window.CustomTerminal.write('');
+                window.CustomTerminal.write(`Equation: z = ${b0.toFixed(4)} + ${b1.toFixed(4)}·days + ${b2.toFixed(4)}·age`);
+                window.CustomTerminal.write('Probability: p = 1 / (1 + e^(-z))');
+                window.CustomTerminal.write('');
+            }
+
+            return true;
+        };
+
+        if (emitToTerminal()) {
+            return;
+        }
+
+        let retries = 0;
+        const maxRetries = 80; // ~6 seconds of retries as a safeguard
+
+        const scheduleFallback = () => {
+            if (hasPrinted) {
+                return;
+            }
+
+            if (emitToTerminal()) {
+                return;
+            }
+
+            if (retries >= maxRetries) {
+                console.warn('[ProbabilityTranslator] Terminal not ready after retries.');
+                return;
+            }
+
+            retries += 1;
+            setTimeout(scheduleFallback, 75);
+        };
+
+        if (window.CustomTerminal && typeof window.CustomTerminal.onReady === 'function') {
+            window.CustomTerminal.onReady(emitToTerminal);
+        } else {
+            window.addEventListener('CustomTerminalReady', () => {
+                emitToTerminal();
+            }, { once: true });
+        }
+
+        scheduleFallback();
     }
 
     /**
@@ -182,23 +274,33 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function init() {
         const ctx = canvas.getContext('2d');
+
+        // Get language for axis labels
+        const lang = window.gameLanguage || 'es';
+        const xAxisLabel = lang === 'es' ? 'Días desde la última cita' : 'Days since last visit';
+        const yAxisLabel = lang === 'es' ? 'Edad del Paciente' : 'Patient Age';
+        const attendedLabel = lang === 'es' ? 'Acudió a la Cita' : 'Attended Appointment';
+        const missedLabel = lang === 'es' ? 'No Acudió a la Cita' : 'Missed Appointment';
+        const boundaryLabel = lang === 'es' ? 'Frontera de Decisión' : 'Decision Boundary';
+        const newPatientLabel = lang === 'es' ? 'Nuevo Paciente' : 'New Patient';
+
         chart = new Chart(ctx, {
             type: 'scatter',
             plugins: [backgroundPlugin], // Register the custom plugin
             data: {
                 datasets: [
-                    { label: 'Acudió a la Cita', data: [], backgroundColor: CLASS_0_COLOR, borderColor: 'white', borderWidth: 1 },
-                    { label: 'No Acudió a la Cita', data: [], backgroundColor: CLASS_1_COLOR, borderColor: 'white', borderWidth: 1 },
-                    { label: 'Frontera de Decisión', data: [], type: 'line', borderColor: BOUNDARY_LINE_COLOR, borderWidth: 3, fill: false, pointRadius: 0 },
-                    { label: 'Nuevo Paciente', data: [], backgroundColor: PREDICTION_MARKER_COLOR, pointStyle: 'crossRot', radius: 10, borderWidth: 3 }
+                    { label: attendedLabel, data: [], backgroundColor: CLASS_0_COLOR, borderColor: 'white', borderWidth: 1 },
+                    { label: missedLabel, data: [], backgroundColor: CLASS_1_COLOR, borderColor: 'white', borderWidth: 1 },
+                    { label: boundaryLabel, data: [], type: 'line', borderColor: BOUNDARY_LINE_COLOR, borderWidth: 3, fill: false, pointRadius: 0 },
+                    { label: newPatientLabel, data: [], backgroundColor: PREDICTION_MARKER_COLOR, pointStyle: 'crossRot', radius: 10, borderWidth: 3 }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: { title: { display: true, text: 'Días desde la última cita' }, min: 0, max: 220 },
-                    y: { title: { display: true, text: 'Edad del Paciente' }, min: 15, max: 80 }
+                    x: { title: { display: true, text: xAxisLabel }, min: 0, max: 220 },
+                    y: { title: { display: true, text: yAxisLabel }, min: 15, max: 80 }
                 },
                 plugins: {
                     legend: { display: false },

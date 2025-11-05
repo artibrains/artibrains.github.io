@@ -12,16 +12,16 @@ This chapter chronicles the first step of their journey: a visit to the Artifici
 ## What Will You Learn?
 Throughout this chapter, you will immerse yourself in the history of AI and its practical applications, understanding how fundamental concepts are applied in the real world.
 
-1. **[Light and Shadow in AI]({{< relref "Chapter 1/ai-timeline/ai-timeline.en.md" >}})**: You will travel through the interactive timeline that highlights the most important milestones in the history of AI. From its beginnings to modern advances to understand how AI has evolved and overcome challenges over the decades.
+1. **[Light and Shadow in AI]({{% relref "Chapter 1/ai-timeline/ai-timeline.en.md" %}})**: You will travel through the interactive timeline that highlights the most important milestones in the history of AI. From its beginnings to modern advances to understand how AI has evolved and overcome challenges over the decades.
 
-2. **[AI Awards and Recognition]({{< relref "Chapter 1/ai-prizes/ai-prizes.en.md" >}})**: You will discover the major awards and recognitions that have marked AI history, from the most recent Nobel Prizes to specific computing awards. A unique perspective on how society recognizes excellence in artificial intelligence.
+2. **[AI Awards and Recognition]({{% relref "Chapter 1/ai-prizes/ai-prizes.en.md" %}})**: You will discover the major awards and recognitions that have marked AI history, from the most recent Nobel Prizes to specific computing awards. A unique perspective on how society recognizes excellence in artificial intelligence.
 
-3. **[Alma's Notes]({{< relref "Chapter 1/deep-blue-vs-alphago/deep-blue-vs-alphago.en.md" >}})**: Deep Blue vs. AlphaGo: You will analyze the fundamental difference between classical AI (brute force) and modern learning, a key point that Alma García, the director of AIA, used to illustrate the potential of new technologies.
+3. **[Alma's Notes]({{% relref "Chapter 1/deep-blue-vs-alphago/deep-blue-vs-alphago.en.md" %}})**: Deep Blue vs. AlphaGo: You will analyze the fundamental difference between classical AI (brute force) and modern learning, a key point that Alma García, the director of AIA, used to illustrate the potential of new technologies.
 
-4.  **[The Lighthill Report]({{< relref "Chapter 1/lighthill/lighthill.en.md" >}})**: You will reflect on historical criticisms of AI and how these have shaped its development. You will learn that, although AI has faced challenges, its evolution has been constant and resilient.
+4.  **[The Lighthill Report]({{% relref "Chapter 1/lighthill/lighthill.en.md" %}})**: You will reflect on historical criticisms of AI and how these have shaped its development. You will learn that, although AI has faced challenges, its evolution has been constant and resilient.
 
-5. **[The Cheese and Mouse Game]({{< relref "Chapter 1/cheese-mouse-game/cheese-mouse-game.en.md" >}})**: You will experiment with reinforcement learning through the same practical exercise that convinced Dr. Carmen. You will intuitively understand how a machine can "learn" from experience through rewards.
+5. **[The Cheese and Mouse Game]({{% relref "Chapter 1/cheese-mouse-game/cheese-mouse-game.en.md" %}})**: You will experiment with reinforcement learning through the same practical exercise that convinced Dr. Carmen. You will intuitively understand how a machine can "learn" from experience through rewards.
 
-6. **[MENACE: The Matchbox Learning Machine]({{< relref "Chapter 1/menace/menace.en.md" >}})**: You will discover how Donald Michie created one of the first machine learning systems in 1961 using only matchboxes and colored beads. This fascinating example demonstrates that the principles of AI learning can be understood through physical, tangible systems.
+6. **[MENACE: The Matchbox Learning Machine]({{% relref "Chapter 1/menace/menace.en.md" %}})**: You will discover how Donald Michie created one of the first machine learning systems in 1961 using only matchboxes and colored beads. This fascinating example demonstrates that the principles of AI learning can be understood through physical, tangible systems.
 
 Prepare to join the Minermont Hospital team as they embark on an adventure that will lead them to question their methods, overcome their prejudices, and discover the power of artificial intelligence.

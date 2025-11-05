@@ -3,7 +3,7 @@ title: "El Perceptrón: expectativas y realidades"
 description: "Explorando las promesas y limitaciones del perceptrón en el contexto del aprendizaje automático."
 weight: 1
 date: 2025-04-17
-draft: true
+draft: false
 slug: "perceptron-expectativas-realidades"
 ---
 

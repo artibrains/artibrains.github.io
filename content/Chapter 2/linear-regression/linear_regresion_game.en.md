@@ -24,7 +24,7 @@ steps="Adjust Parameters: Move the sliders to change the slope and intercept of 
 
 {{< game-results >}}
 
-{{< linear-regression-game >}}
+{{< linear-regression-game lang="en" >}}
 
 {{< /demo-wrapper >}}
 

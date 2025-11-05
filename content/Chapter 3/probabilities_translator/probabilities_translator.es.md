@@ -1,9 +1,9 @@
 ---
-title: "El Traductor de Probabilidades: Regresión Logística"
+title: "3.1 El siguiente paso: Regresión logística"
 weight: 1
 description: "Demostración interactiva de cómo la regresión logística convierte combinaciones lineales en probabilidades para clasificar pacientes y predecir asistencia a citas médicas."
 date: 2025-04-17
-draft: true
+draft: false
 slug: "traductor-probabilidades-regresion-logistica"
 ---
 
@@ -22,7 +22,7 @@ La **Regresión Logística** es un modelo fundamental para predecir resultados c
 
 {{< demo-wrapper title="Predictor de Asistencia a Citas Médicas" >}}
 
-{{< probabilities_translator >}}
+{{< probabilities_translator lang="es" >}}
 
 {{< /demo-wrapper >}}
 

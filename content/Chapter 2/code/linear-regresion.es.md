@@ -25,3 +25,10 @@ El notebook interactivo incluye:
 
 ¿Quieres modificar el código y experimentar por tu cuenta?  
 [Abre el notebook en Google Colab](https://colab.research.google.com/drive/1wRMKXUnM-ftZRyaNNUip2ijsEFMFu4_J)
+
+### Bibliografía
+
+- **Documentación de scikit-learn – Modelos lineales**: Formulación de mínimos cuadrados ordinarios, supuestos y API. [https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares](https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares) 🇬🇧 (en inglés)
+- **Referencia de NumPy – `numpy.linalg.lstsq`**: Resolución matricial que respalda la implementación desde cero. [https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html](https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html) 🇬🇧 (en inglés)
+- **Tutoriales de Matplotlib – Pyplot**: Guía para producir las gráficas de seguimiento del entrenamiento. [https://matplotlib.org/stable/tutorials/introductory/pyplot.html](https://matplotlib.org/stable/tutorials/introductory/pyplot.html) 🇬🇧 (en inglés)
+- **Curso intensivo de Google – Regresión lineal**: Repaso conceptual de descenso por gradiente y análisis de error. [https://developers.google.com/machine-learning/crash-course/linear-regression?hl=es](https://developers.google.com/machine-learning/crash-course/linear-regression?hl=es)

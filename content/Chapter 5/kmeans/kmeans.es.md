@@ -1,8 +1,8 @@
 ---
-title: "El Descubridor de Grupos Ocultos: K-Means Interactivo"
+title: "5.2 El poder del clustering: Descubriendo grupos ocultos"
 description: "Visualizador interactivo del algoritmo K-Means para descubrir perfiles de pacientes ocultos, inspirado en el proyecto del Hospital Minermont."
 weight: 1
-draft: true
+draft: false
 slug: "kmeans-grupos-ocultos"
 ---
 
@@ -23,7 +23,7 @@ El algoritmo **K-Means** es una poderosa herramienta de aprendizaje no supervisa
 
 {{< kmeans_intro_es >}}
 
-{{< kmeans >}}
+{{< kmeans lang="es" >}}
 
 {{< /demo-wrapper >}}
 

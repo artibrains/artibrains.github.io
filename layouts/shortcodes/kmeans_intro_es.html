@@ -1,77 +1,133 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
-    <h2>🏥 Contexto Médico: Descubriendo Subtipos de Enfermedades</h2>
+    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Descubriendo Subtipos de Enfermedades{{ else }}🏥 Medical Context:
+        Discovering Disease Subtypes{{ end }}</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
-            <p><strong>Imagina:</strong> Estás analizando datos de cientos de pacientes diagnosticados con "diabetes
+            <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
+                analizando datos de cientos de pacientes diagnosticados con "diabetes
                 tipo 2". Sospechas que no todos los casos son iguales y que existen subgrupos con diferentes perfiles de
-                riesgo o respuesta a tratamientos.</p>
-            <p class="highlight">K-Means puede analizar estos datos (niveles de glucosa, biomarcadores, edad) y
+                riesgo o respuesta a tratamientos.{{ else }}You're analyzing data from hundreds of patients diagnosed
+                with "type 2
+                diabetes". You suspect that not all cases are the same and that there are subgroups with different risk
+                profiles or treatment responses.{{ end }}</p>
+            <p class="highlight">{{ if eq $lang "es" }}K-Means puede analizar estos datos (niveles de glucosa,
+                biomarcadores, edad) y
                 encontrar "clusters" o grupos de pacientes con perfiles similares. Esto permite descubrir subtipos de la
-                enfermedad que no eran evidentes a simple vista, abriendo la puerta a la medicina personalizada.</p>
+                enfermedad que no eran evidentes a simple vista, abriendo la puerta a la medicina personalizada.{{ else
+                }}K-Means can analyze this data (glucose levels, biomarkers, age) and
+                find "clusters" or groups of patients with similar profiles. This allows discovering disease subtypes
+                that weren't evident at first glance, opening the door to personalized medicine.{{ end }}</p>
         </div>
     </div>
 </div>
 
 <div id="app-explanation">
-    <h1>El Descubridor de Grupos Ocultos (K-Means)</h1>
-    <p class="intro">El algoritmo <strong>K-Means</strong> es una poderosa herramienta de aprendizaje no supervisado
+    <h1>{{ if eq $lang "es" }}El Descubridor de Grupos Ocultos (K-Means){{ else }}The Hidden Groups Discoverer
+        (K-Means){{ end }}</h1>
+    <p class="intro">{{ if eq $lang "es" }}El algoritmo <strong>K-Means</strong> es una poderosa herramienta de
+        aprendizaje no supervisado
         cuya misión es explorar un conjunto de datos y descubrir "grupos" o "clusters" ocultos sin necesidad de
         etiquetas previas. Funciona agrupando los puntos de datos que son más similares entre sí, permitiendo revelar la
-        estructura inherente de la información, como distintos perfiles de pacientes dentro de una misma patología.</p>
+        estructura inherente de la información, como distintos perfiles de pacientes dentro de una misma patología.{{
+        else }}The <strong>K-Means</strong> algorithm is a powerful unsupervised learning tool
+        whose mission is to explore a dataset and discover hidden "groups" or "clusters" without requiring
+        prior labels. It works by grouping data points that are most similar to each other, revealing the
+        inherent structure of the information, such as different patient profiles within the same pathology.{{ end }}
+    </p>
 
     <div class="how-it-works">
-        <h2>¿Cómo se descubren los grupos ocultos?</h2>
+        <h2>{{ if eq $lang "es" }}¿Cómo se descubren los grupos ocultos?{{ else }}How are hidden groups discovered?{{
+            end }}</h2>
         <div class="explanation-columns">
             <div class="column">
-                <h3>1. Elige el Número de Grupos (K)</h3>
-                <p>Empieza eligiendo el número de grupos (K) que crees que existen. La inicialización
+                <h3>{{ if eq $lang "es" }}1. Elige el Número de Grupos (K){{ else }}1. Choose the Number of Groups (K){{
+                    end }}</h3>
+                <p>{{ if eq $lang "es" }}Empieza eligiendo el número de grupos (K) que crees que existen. La
+                    inicialización
                     <strong>K-Means++</strong> ayuda a colocar los "centroides" iniciales de forma inteligente para
-                    empezar la búsqueda de forma más eficiente.
+                    empezar la búsqueda de forma más eficiente.{{ else }}Start by choosing the number of groups (K) you
+                    think exist. The
+                    <strong>K-Means++</strong> initialization helps place the initial "centroids" intelligently to
+                    start the search more efficiently.{{ end }}
                 </p>
             </div>
             <div class="column">
-                <h3>2. Ejecuta el Algoritmo</h3>
-                <p>Ejecuta el algoritmo paso a paso o automáticamente. Observa cómo los puntos se asignan al centroide
+                <h3>{{ if eq $lang "es" }}2. Ejecuta el Algoritmo{{ else }}2. Run the Algorithm{{ end }}</h3>
+                <p>{{ if eq $lang "es" }}Ejecuta el algoritmo paso a paso o automáticamente. Observa cómo los puntos se
+                    asignan al centroide
                     más cercano (Asignación) y luego los centroides se mueven al centro de sus nuevos grupos
-                    (Actualización).</p>
+                    (Actualización).{{ else }}Run the algorithm step by step or automatically. Watch how points are
+                    assigned to the nearest
+                    centroid (Assignment) and then centroids move to the center of their new groups
+                    (Update).{{ end }}</p>
             </div>
             <div class="column">
-                <h3>3. Encuentra el 'K' Óptimo</h3>
-                <p>Usa el <strong>Método del Codo</strong> para encontrar el número ideal de clusters. El gráfico te
+                <h3>{{ if eq $lang "es" }}3. Encuentra el 'K' Óptimo{{ else }}3. Find the Optimal 'K'{{ end }}</h3>
+                <p>{{ if eq $lang "es" }}Usa el <strong>Método del Codo</strong> para encontrar el número ideal de
+                    clusters. El gráfico te
                     mostrará el "punto de inflexión" donde añadir más grupos ya no aporta una mejora significativa,
-                    revelando el K más eficiente.</p>
+                    revelando el K más eficiente.{{ else }}Use the <strong>Elbow Method</strong> to find the ideal
+                    number of clusters. The chart will
+                    show you the "inflection point" where adding more groups no longer provides a significant
+                    improvement,
+                    revealing the most efficient K.{{ end }}</p>
             </div>
         </div>
     </div>
 </div>
 
 <p>
-    Inspirado por el desafío de la directora Elena, el equipo se adentró en el aprendizaje no supervisado. Su
+    {{ if eq $lang "es" }}Inspirado por el desafío de la directora Elena, el equipo se adentró en el aprendizaje no
+    supervisado. Su
     herramienta elegida fue <strong>K-Means</strong>, un algoritmo para descubrir agrupaciones naturales en los datos.
     Como explicó Marta, "es como pedirle a la máquina que encuentre tribus de pacientes con características similares,
-    sin decirle de antemano cuáles son esas tribus".
+    sin decirle de antemano cuáles son esas tribus".{{ else }}Inspired by director Elena's challenge, the team delved
+    into unsupervised learning. Their
+    tool of choice was <strong>K-Means</strong>, an algorithm to discover natural groupings in the data.
+    As Marta explained, "it's like asking the machine to find tribes of patients with similar characteristics,
+    without telling it beforehand what those tribes are".{{ end }}
 </p>
 <p>
-    En esta simulación, puedes replicar su proceso de descubrimiento:
+    {{ if eq $lang "es" }}En esta simulación, puedes replicar su proceso de descubrimiento:{{ else }}In this simulation,
+    you can replicate their discovery process:{{ end }}
 </p>
 <ol>
-    <li><strong>Genera Datos de Pacientes</strong>: Usa el botón "Reiniciar" para crear un nuevo conjunto de datos de
+    <li><strong>{{ if eq $lang "es" }}Genera Datos de Pacientes{{ else }}Generate Patient Data{{ end }}</strong>: {{ if
+        eq $lang "es" }}Usa el botón "Reiniciar" para crear un nuevo conjunto de datos de
         pacientes, donde cada punto representa a una persona en un espacio de características (por ejemplo, edad y nivel
-        de colesterol).</li>
-    <li><strong>Encuentra el K Óptimo</strong>: El primer reto del equipo fue elegir el número correcto de clusters (K).
+        de colesterol).{{ else }}Use the "Reset" button to create a new patient dataset,
+        where each point represents a person in a feature space (e.g., age and cholesterol
+        level).{{ end }}</li>
+    <li><strong>{{ if eq $lang "es" }}Encuentra el K Óptimo{{ else }}Find the Optimal K{{ end }}</strong>: {{ if eq
+        $lang "es" }}El primer reto del equipo fue elegir el número correcto de clusters (K).
         Usa el botón <strong>"Calcular Método del Codo"</strong> para generar el gráfico que les guio. El "codo" de la
-        curva sugiere el número óptimo de grupos y ajustará el slider de K por ti.</li>
-    <li><strong>Agrupa a los Pacientes</strong>: Con el K óptimo seleccionado, pulsa <strong>"Agrupar
+        curva sugiere el número óptimo de grupos y ajustará el slider de K por ti.{{ else }}The team's first challenge
+        was choosing the correct number of clusters (K).
+        Use the <strong>"Calculate Elbow Method"</strong> button to generate the chart that guided them. The "elbow" of
+        the
+        curve suggests the optimal number of groups and will adjust the K slider for you.{{ end }}</li>
+    <li><strong>{{ if eq $lang "es" }}Agrupa a los Pacientes{{ else }}Group the Patients{{ end }}</strong>: {{ if eq
+        $lang "es" }}Con el K óptimo seleccionado, pulsa <strong>"Agrupar
             (Animado)"</strong> para ver cómo el algoritmo K-Means asigna iterativamente a los pacientes a los clusters
-        y mueve los centroides hasta que convergen.</li>
-    <li><strong>Explora Paso a Paso</strong>: Para un análisis más detallado, como el que hizo Marta con Luis, usa
+        y mueve los centroides hasta que convergen.{{ else }}With the optimal K selected, press <strong>"Group
+            (Animated)"</strong> to see how the K-Means algorithm iteratively assigns patients to clusters
+        and moves centroids until they converge.{{ end }}</li>
+    <li><strong>{{ if eq $lang "es" }}Explora Paso a Paso{{ else }}Explore Step by Step{{ end }}</strong>: {{ if eq
+        $lang "es" }}Para un análisis más detallado, como el que hizo Marta con Luis, usa
         <strong>"Iniciar Paso a Paso"</strong> y avanza con "Siguiente Paso" para ver cómo se mueven los centroides en
-        cada iteración.
+        cada iteración.{{ else }}For a more detailed analysis, like the one Marta did with Luis, use
+        <strong>"Start Step by Step"</strong> and advance with "Next Step" to see how centroids move in
+        each iteration.{{ end }}
     </li>
 </ol>
 <p>
-    Experimenta con la inicialización <strong>K-Means++</strong>, una mejora que el equipo adoptó para obtener mejores
-    resultados. ¿Puedes descubrir los grupos ocultos en los datos, tal como lo hizo el equipo del Hospital Minermont?
+    {{ if eq $lang "es" }}Experimenta con la inicialización <strong>K-Means++</strong>, una mejora que el equipo adoptó
+    para obtener mejores
+    resultados. ¿Puedes descubrir los grupos ocultos en los datos, tal como lo hizo el equipo del Hospital Minermont?{{
+    else }}Experiment with <strong>K-Means++</strong> initialization, an improvement the team adopted to get better
+    results. Can you discover the hidden groups in the data, just like the Minermont Hospital team did?{{ end }}
 </p>

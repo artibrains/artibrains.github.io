@@ -2,7 +2,7 @@
 title: "El Artesano de Palabras: El Tokenizador BPE"
 description: "Visualizador interactivo del algoritmo de tokenización Byte-Pair Encoding (BPE), la base de los LLMs."
 weight: 1
-draft: true
+draft: false
 slug: "tokenizador-bpe"
 ---
 
@@ -21,9 +21,9 @@ El **Byte-Pair Encoding (BPE)** es un algoritmo de tokenización que aprende a "
 
 {{< demo-wrapper title="Tokenizador BPE Interactivo" >}}
 
-{{< tokenizer_bpe_intro_es >}}
+{{< tokenizer_bpe_intro_es lang="es" >}}
 
-{{< tokenizer_bpe >}}
+{{< tokenizer_bpe lang="es" >}}
 
 {{< /demo-wrapper >}}
 

@@ -1,3 +1,5 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div id="main-container">
@@ -10,26 +12,33 @@
                 style="position:absolute; top:0.3em; right:0.7em; background:none; border:none; font-size:1.3em; color:#888; cursor:pointer;">&times;</button>
 
             <div style="display: flex; align-items: center;">
-                <h2 style="margin-right: 10px; margin-top: 0; margin-bottom: 1rem;">Predicción del Paciente</h2>
+                <h2 style="margin-right: 10px; margin-top: 0; margin-bottom: 1rem;">{{ if eq $lang "es" }}Predicción del
+                    Paciente{{ else }}Patient Prediction{{ end }}</h2>
             </div>
             <div id="prediction-container">
                 <div class="prediction-box linear">
-                    <h4>Puntuación Lineal (Z)</h4>
+                    <h4>{{ if eq $lang "es" }}Puntuación Lineal (Z){{ else }}Linear Score (Z){{ end }}</h4>
                     <p id="linear-output">N/A</p>
                 </div>
                 <div class="prediction-box logistic">
-                    <h4>Probabilidad de No Acudir (Sigmoid)</h4>
+                    <h4>{{ if eq $lang "es" }}Probabilidad de No Acudir (Sigmoid){{ else }}Probability of Non-Attendance
+                        (Sigmoid){{ end }}</h4>
                     <p id="logistic-output">N/A</p>
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="controls-panel">
-        <button id="regenerate-btn">Generar Nuevos Datos de Pacientes</button>
+    <div class="controls-panel demo-controls">
+        <button id="regenerate-btn" class="demo-button">{{ if eq $lang "es" }}Generar Nuevos Datos de Pacientes{{ else
+            }}Generate New
+            Patient Data{{ end }}</button>
     </div>
 </div>
 
+<script>
+    window.gameLanguage = "{{ $lang }}";
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/probabilities_translator/probabilities_translator.js"></script>
 <script>
