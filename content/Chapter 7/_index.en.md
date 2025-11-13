@@ -18,6 +18,8 @@ In this chapter, you will join the team in exploring the fundamental pillars on 
 
 3.  **[LLM Visualization: Seeing AI from the Inside]({{% relref "Chapter 7/llm-visualization/llm-visualization.en.md" %}})**: You will discover the inner workings of a large language model through an **interactive 3D visualization**. You can observe how information flows through layers, how the attention mechanism works, and how the model finally predicts the next word. This tool connects everything learned in the chapter in a unique visual experience.
 
+4.  **[Traditional LLMs vs Reasoning LLMs]({{% relref "Chapter 7/reasoning-llms/reasoning-llms.en.md" %}})**: A concise guide to what explicit reasoning adds (Chain‑of‑Thought, verification and extra test‑time compute) compared to classic LLMs, with an intro video and curated references.
+
 Get ready for the first steps on the journey toward understanding artificial language, a skill that is transforming medicine and the world.
 
 ### Mathematical Foundations

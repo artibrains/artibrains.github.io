@@ -2,7 +2,7 @@
 title: "7 - La Revolución del Lenguaje - Entendiendo los LLMs "
 type: "chapter"
 weight: 7
-draft: true
+draft: false
 slug: "revolucion-lenguaje-llms"
 ---
 
@@ -17,6 +17,8 @@ En este capítulo, te unirás al equipo en la exploración de los pilares fundam
 2.  **[Embedding Projector: Visualizando Vectores de Palabras]({{% relref "Chapter 7/embedding-projector/embedding-projector.es.md" %}})**: Explorarás cómo las palabras se transforman en vectores matemáticos en espacios de alta dimensión, donde el significado emerge de la geometría. Usando el **TensorFlow Embedding Projector**, visualizarás cómo los modelos de lenguaje organizan el conocimiento médico, agrupando términos relacionados y capturando relaciones semánticas complejas.
 
 3.  **[Visualización de LLMs: Ver la IA por Dentro]({{% relref "Chapter 7/llm-visualization/llm-visualization.es.md" %}})**: Descubrirás el funcionamiento interno de un modelo de lenguaje grande mediante una **visualización 3D interactiva**. Podrás observar cómo fluye la información a través de las capas, cómo funciona el mecanismo de atención, y cómo el modelo finalmente predice la siguiente palabra. Esta herramienta conecta todo lo aprendido en el capítulo en una experiencia visual única.
+
+4.  **[LLMs tradicionales vs LLMs de razonamiento]({{% relref "Chapter 7/reasoning-llms/reasoning-llms.es.md" %}})**: Una guía clara para entender qué añade el razonamiento explícito (Chain‑of‑Thought, verificación y más cómputo en inferencia) frente a los LLMs clásicos, con un vídeo introductorio y bibliografía.
 
 Prepárate para dar los primeros pasos en el viaje hacia la comprensión del lenguaje artificial, una habilidad que está transformando la medicina y el mundo.
 
