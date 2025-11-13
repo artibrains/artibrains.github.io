@@ -7,3 +7,6 @@ resources/_gen/
 
 # Hugo cache
 .hugo_build.lock
+
+# Book pdf
+book.pdf
