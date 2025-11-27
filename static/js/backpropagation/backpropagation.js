@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURACIÓN Y ESTADO INICIAL ---
     const networkStructure = [2, 3, 2, 3]; // [Input, Hidden1, Hidden2, Output]
-    const learningRate = 0.3;
+    let learningRate = 0.3;
     const MAX_EPOCHS = 200;
     const classColors = ['#dc3545', '#198754', '#0d6efd']; // Colores para las 3 clases de salida
 
     let network = null;
     let dataset = [];
     let lastPredictionPoint = null;
+    let lossHistory = [];
 
     const trainingState = {
         epoch: 0,
@@ -40,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const runBtn = document.getElementById('run-btn');
     const resetBtn = document.getElementById('reset-btn');
     const turboModeCheckbox = document.getElementById('turbo-mode-checkbox');
+    const lrSlider = document.getElementById('learning-rate-slider');
+    const lrValue = document.getElementById('lr-value');
+    const lossGraphSvg = document.getElementById('loss-graph');
     const defaultPlotInfoText = "Pasa el ratón sobre un punto para ver sus detalles.";
 
 
@@ -263,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const line = document.getElementById(`c-${i - 1}-${k}-to-${i}-${j}`);
                         const weightText = document.getElementById(`w-${i - 1}-${k}-to-${i}-${j}`);
                         if (line) {
-                            line.style.stroke = weight > 0 ? 'var(--positive-weight)' : 'var(--negative-weight)';
+                            line.style.stroke = weight > 0 ? 'var(--bp-positive-weight)' : 'var(--bp-negative-weight)';
                             line.style.opacity = Math.min(1, Math.abs(weight) * 1.5);
                         }
                         if (weightText) weightText.textContent = weight.toFixed(3);
@@ -317,6 +321,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (plotInfoBox) plotInfoBox.innerHTML = defaultPlotInfoText;
             });
         });
+    }
+
+    function drawLossGraph() {
+        if (!lossGraphSvg) return;
+        lossGraphSvg.innerHTML = '';
+        const width = lossGraphSvg.clientWidth || 300;
+        const height = lossGraphSvg.clientHeight || 100;
+        const padding = 20;
+
+        // Ejes
+        const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        xAxis.setAttribute('x1', padding);
+        xAxis.setAttribute('y1', height - padding);
+        xAxis.setAttribute('x2', width - padding);
+        xAxis.setAttribute('y2', height - padding);
+        xAxis.setAttribute('stroke', '#ccc');
+        lossGraphSvg.appendChild(xAxis);
+
+        const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        yAxis.setAttribute('x1', padding);
+        yAxis.setAttribute('y1', padding);
+        yAxis.setAttribute('x2', padding);
+        yAxis.setAttribute('y2', height - padding);
+        yAxis.setAttribute('stroke', '#ccc');
+        lossGraphSvg.appendChild(yAxis);
+
+        if (lossHistory.length < 2) return;
+
+        const maxEpoch = Math.max(MAX_EPOCHS, lossHistory.length);
+        const maxLoss = Math.max(...lossHistory, 0.5); // Escala mínima 0.5
+
+        let pathD = `M ${padding} ${height - padding - (lossHistory[0] / maxLoss) * (height - 2 * padding)}`;
+
+        lossHistory.forEach((loss, i) => {
+            if (i === 0) return;
+            const x = padding + (i / maxEpoch) * (width - 2 * padding);
+            const y = height - padding - (loss / maxLoss) * (height - 2 * padding);
+            pathD += ` L ${x} ${y}`;
+        });
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute('d', pathD);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'var(--bp-error-delta)');
+        path.setAttribute('stroke-width', '2');
+        lossGraphSvg.appendChild(path);
     }
 
     function updateDataPlot() {
@@ -449,7 +499,16 @@ document.addEventListener('DOMContentLoaded', () => {
             totalLoss += calculateLoss(predicted, sample.output);
         });
         network = JSON.parse(JSON.stringify(tempNetwork));
-        lossValue.textContent = (totalLoss / dataset.length).toFixed(5);
+        const avgLoss = totalLoss / dataset.length;
+        lossValue.textContent = avgLoss.toFixed(5);
+        
+        // Solo añadir al historial si estamos en una nueva época o al inicio
+        if (lossHistory.length <= trainingState.epoch) {
+             lossHistory.push(avgLoss);
+        } else {
+             lossHistory[trainingState.epoch] = avgLoss;
+        }
+        drawLossGraph();
     }
 
     function updateExplanation(step, running = false) {
@@ -637,10 +696,12 @@ document.addEventListener('DOMContentLoaded', () => {
         trainingState.sampleIndex = 0;
         trainingState.step = 0;
         lastPredictionPoint = null;
+        lossHistory = []; // Reset loss history
         initializeNetwork();
         drawNetwork();
         updateVisualization();
         drawDataPlot();
+        drawLossGraph(); // Clear graph
         updateUIState();
         lossValue.textContent = 'N/A';
         explanationContent.innerHTML = 'Presiona "Avanzar un Paso" para iniciar el entrenamiento.';
@@ -685,6 +746,14 @@ document.addEventListener('DOMContentLoaded', () => {
     stepBtn.addEventListener('click', nextStep);
     resetBtn.addEventListener('click', reset);
     runBtn.addEventListener('click', () => trainingState.running ? stopFullTraining() : runFullTraining());
+    
+    if (lrSlider) {
+        lrSlider.addEventListener('input', (e) => {
+            learningRate = parseFloat(e.target.value);
+            if (lrValue) lrValue.textContent = learningRate.toFixed(2);
+        });
+    }
+
     dataPlot.addEventListener('click', handlePlotClick);
     window.addEventListener('resize', debounce(handleResize, 250));
     document.addEventListener('click', (e) => {

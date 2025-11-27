@@ -4,6 +4,18 @@
 
 /* Backpropagation specific variables extending the unified system */
 :root {
+    /* Core variables fallback */
+    --primary-color: var(--INTERNAL-PRIMARY-color, #0d6efd);
+    --primary-hover: var(--INTERNAL-SECONDARY-color, #0b5ed7);
+    --text-color: var(--INTERNAL-MAIN-TEXT-color, #212529);
+    --text-muted: var(--INTERNAL-MAIN-TEXT-color, #6c757d);
+    /* Fallback to main text if muted not avail, or specific color */
+    --panel-bg: var(--INTERNAL-BOX-BG-color, #ffffff);
+    --border-color: var(--INTERNAL-BORDER-color, #dee2e6);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* Backpropagation specific variables */
     --bp-positive-weight: #198754;
     --bp-negative-weight: #dc3545;
     --bp-neuron-activation: #ffc107;
@@ -14,8 +26,9 @@
 /* Override body styling for backpropagation */
 body {
     font-family: 'Fira Sans', var(--demo-font-family);
-    background: linear-gradient(135deg, #eef2f3, #f8f9fa);
-    color: var(--demo-secondary);
+    /* Use theme background or fallback to light gradient if not defined */
+    background: var(--INTERNAL-MAIN-BG-color, linear-gradient(135deg, #eef2f3, #f8f9fa));
+    color: var(--text-color);
     margin: 0;
     padding: 30px 20px;
     font-size: 16px;
@@ -30,10 +43,10 @@ h2,
 h3 {
     font-weight: 600;
     text-align: center;
+    color: var(--text-color);
 }
 
 h1 {
-    color: var(--text-color);
     margin-bottom: 30px;
     font-size: 2.8rem;
     font-weight: 700;
@@ -74,7 +87,7 @@ h1 {
 .intro-panel li {
     font-size: 17px;
     line-height: 1.7;
-    color: #343a40;
+    color: var(--text-color);
 }
 
 .intro-panel ul {
@@ -83,19 +96,19 @@ h1 {
 }
 
 .intro-panel code {
-    background-color: #e9ecef;
+    background-color: var(--INTERNAL-CODE-BG-color, #e9ecef);
     padding: 3px 6px;
     border-radius: 4px;
     font-family: var(--font-mono);
     font-size: 0.9em;
-    color: var(--negative-weight);
+    color: var(--bp-negative-weight);
     font-weight: 600;
 }
 
 /* --- PANELES CON ESTILO DE TARJETA --- */
 .panel {
     background-color: var(--panel-bg);
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     box-shadow: var(--shadow);
     padding: 25px;
@@ -130,6 +143,7 @@ h1 {
     padding-bottom: 15px;
     margin-bottom: 20px;
     font-size: 1.5rem;
+    color: var(--text-color);
 }
 
 .panel-subtitle {
@@ -138,6 +152,7 @@ h1 {
     margin-top: -15px;
     margin-bottom: 20px;
     font-style: italic;
+    opacity: 0.8;
 }
 
 /* --- VISUALIZACIÓN DE LA RED MEJORADA --- */
@@ -148,7 +163,7 @@ h1 {
 }
 
 .neuron {
-    stroke: #333;
+    stroke: var(--text-color);
     stroke-width: 2.5px;
     transition: fill 0.3s ease, fill-opacity 0.3s ease;
     filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));
@@ -156,7 +171,7 @@ h1 {
 
 .neuron-label {
     font-size: 14px;
-    fill: #fff;
+    fill: var(--text-color);
     font-weight: bold;
     text-anchor: middle;
     pointer-events: none;
@@ -174,7 +189,7 @@ h1 {
 
 .delta-value {
     font-size: 13px;
-    fill: var(--error-delta);
+    fill: var(--bp-error-delta);
     font-weight: bold;
     text-anchor: middle;
     pointer-events: none;
@@ -219,7 +234,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     border-radius: 8px;
     border: 1px solid var(--border-color);
     cursor: crosshair;
@@ -229,7 +244,7 @@ h1 {
 #data-plot-info {
     margin-top: 20px;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     min-height: 85px;
@@ -262,7 +277,7 @@ h1 {
 }
 
 .axis-line {
-    stroke: #ccc;
+    stroke: var(--border-color);
     stroke-width: 2px;
 }
 
@@ -274,8 +289,8 @@ h1 {
 /* --- Tooltip & Popup --- */
 .tooltip {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #fff;
+    background-color: var(--INTERNAL-BOX-BG-color, rgba(0, 0, 0, 0.85));
+    color: var(--INTERNAL-MAIN-TEXT-color, #fff);
     padding: 12px 15px;
     border-radius: 8px;
     font-size: 14px;
@@ -286,13 +301,15 @@ h1 {
     word-wrap: break-word;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 9999;
+    border: 1px solid var(--border-color);
 }
 
 .tooltip code {
-    background-color: #444;
+    background-color: var(--INTERNAL-CODE-BG-color, #444);
     padding: 2px 4px;
     border-radius: 3px;
     font-family: var(--font-mono);
+    color: var(--text-color);
 }
 
 #prediction-popup {
@@ -302,7 +319,8 @@ h1 {
 #prediction-popup h4 {
     margin: 0 0 10px 0;
     padding-bottom: 5px;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 #prediction-popup .popup-detail {
@@ -324,7 +342,8 @@ h1 {
 
 button {
     background-color: var(--primary-color);
-    color: white;
+    color: #ffffff;
+    /* Always white for contrast on primary color */
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
@@ -343,6 +362,7 @@ button:hover {
 
 button#reset-btn {
     background-color: var(--text-muted);
+    color: #ffffff;
 }
 
 button#reset-btn:hover {
@@ -411,23 +431,26 @@ button:disabled {
 }
 
 #dataset-table th {
-    background-color: #f8f9fa;
+    background-color: var(--panel-bg);
     position: sticky;
     top: -1px;
     font-weight: 600;
     color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 #dataset-table tbody tr {
     transition: background-color 0.15s ease-in-out;
+    color: var(--text-color);
 }
 
 #dataset-table tbody tr:hover {
-    background-color: #f1f3f5;
+    background-color: var(--INTERNAL-BOX-BG-color, #f1f3f5);
+    filter: brightness(0.95);
 }
 
 #dataset-table tr.active-sample {
-    background-color: #cfe2ff;
+    background-color: color-mix(in srgb, var(--primary-color) 20%, var(--panel-bg));
     font-weight: bold;
 }
 
@@ -439,12 +462,13 @@ button:disabled {
 .explanation-content {
     font-family: var(--font-mono);
     white-space: pre-wrap;
-    background-color: #f1f3f5;
+    background-color: var(--INTERNAL-CODE-BG-color, #f1f3f5);
     padding: 20px;
     border-radius: 8px;
     font-size: 14px;
     line-height: 1.7;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 .formula {
@@ -453,22 +477,72 @@ button:disabled {
 }
 
 .value {
-    color: var(--negative-weight);
+    color: var(--bp-negative-weight);
     font-weight: 600;
 }
 
 .highlight {
-    background-color: #fff3cd;
+    background-color: color-mix(in srgb, var(--bp-neuron-activation) 20%, var(--panel-bg));
     padding: 2px 4px;
     border-radius: 4px;
-    border: 1px solid #ffeeba;
+    border: 1px solid color-mix(in srgb, var(--bp-neuron-activation) 40%, var(--panel-bg));
 }
 
 .math-detail {
-    background-color: #fff;
+    background-color: var(--panel-bg);
     padding: 10px 15px;
     margin-top: 10px;
     border-radius: 4px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--border-color);
     font-size: 13px;
+}
+
+/* --- NUEVOS ESTILOS --- */
+.control-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.loss-graph-container {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.loss-graph-container h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.plot-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.color-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-block;
 }

@@ -16,6 +16,13 @@
                 <button id="run-btn">Ejecutar Completo</button>
                 <button id="reset-btn">Resetear Red</button>
             </div>
+
+            <div class="control-group">
+                <label for="learning-rate-slider">Tasa de Aprendizaje (Learning Rate): <span
+                        id="lr-value">0.3</span></label>
+                <input type="range" id="learning-rate-slider" min="0.01" max="1.0" step="0.01" value="0.3">
+            </div>
+
             <div class="turbo-mode">
                 <input type="checkbox" id="turbo-mode-checkbox">
                 <label for="turbo-mode-checkbox">Modo Turbo (procesa una época por fotograma)</label>
@@ -33,6 +40,11 @@
                     <span>Error Medio (MSE)</span>
                     <span id="loss-value">N/A</span>
                 </div>
+            </div>
+
+            <div class="loss-graph-container">
+                <h3>Historial de Error</h3>
+                <svg id="loss-graph" width="100%" height="100"></svg>
             </div>
         </div>
         <div class="panel" id="dataset-panel">
@@ -72,6 +84,13 @@
     <div id="data-plot-container">
         <svg id="data-plot"></svg>
     </div>
+
+    <div class="plot-legend">
+        <div class="legend-item"><span class="color-box" style="background-color: #dc3545;"></span> Clase 0</div>
+        <div class="legend-item"><span class="color-box" style="background-color: #198754;"></span> Clase 1</div>
+        <div class="legend-item"><span class="color-box" style="background-color: #0d6efd;"></span> Clase 2</div>
+    </div>
+
     <!-- NUEVO PANEL DE INFORMACIÓN -->
     <div id="data-plot-info">
         Pasa el ratón sobre un punto para ver sus detalles.
