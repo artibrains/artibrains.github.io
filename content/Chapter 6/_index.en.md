@@ -2,7 +2,7 @@
 title: "6 - Inside the Machine's Mind: Neural Networks"
 type: "chapter"
 weight: 6
-draft: true
+draft: false
 slug: "neural-networks"
 ---
 

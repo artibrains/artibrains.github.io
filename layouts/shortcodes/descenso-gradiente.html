@@ -1,5 +1,8 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+{{ $isEs := eq $lang "es" }}
+
 <link rel="stylesheet" href="/css/gradient-descens-graphs.css">
-<div class="container responsive-container">
+<div class="container responsive-container" id="gradient-descent-container" data-lang="{{ $lang }}">
     <!-- Parámetros y Explicaciones -->
     <div class="tabs" style="margin-left: 10px;">
         <button class="tab-button active" onclick="showTab('1d')">1D (y = f(x))</button>
@@ -8,52 +11,69 @@
     <div class="controls-panel">
 
 
-        <h3 class="controls-panel-title  demo-mb-md">Controles y Configuración</h3>
+        <h3 class="controls-panel-title  demo-mb-md">{{ if $isEs }}Controles y Configuración{{ else }}Controls & Configuration{{ end }}</h3>
 
-        <div id="controls-1d" class="active ">
+        <div id="controls-1d" class="active tab-content">
             <div class="control-section">
                 <div class="demo-control-group">
-                    <label for="functionInput1D" class="control-label">Función f(x):</label>
+                    <label for="preset1D" class="control-label">{{ if $isEs }}Ejemplo Predefinido:{{ else }}Preset Example:{{ end }}</label>
+                    <select id="preset1D" class="demo-select">
+                        <option value="custom">{{ if $isEs }}Personalizado{{ else }}Custom{{ end }}</option>
+                        <option value="parabola">{{ if $isEs }}Parábola Simple (Convergencia Rápida){{ else }}Simple Parabola (Fast Convergence){{ end }}</option>
+                        <option value="quartic">{{ if $isEs }}Doble Pozo (Mínimos Locales){{ else }}Double Well (Local Minima){{ end }}</option>
+                        <option value="sinusoidal">{{ if $isEs }}Superficie Ondulada (Difícil){{ else }}Wavy Surface (Hard){{ end }}</option>
+                    </select>
+                </div>
+                <div class="demo-control-group">
+                    <label for="functionInput1D" class="control-label">{{ if $isEs }}Función f(x):{{ else }}Function f(x):{{ end }}</label>
                     <input type="text" id="functionInput1D" value="x^2">
                 </div>
                 <div class="demo-control-group">
-                    <label for="startPointInputX" class="control-label">Punto Inicial (x₀):</label>
+                    <label for="startPointInputX" class="control-label">{{ if $isEs }}Punto Inicial (x₀):{{ else }}Start Point (x₀):{{ end }}</label>
                     <input type="number" id="startPointInputX" value="8" step="any">
                 </div>
             </div>
         </div>
         <!-- Controles para 2D -->
-        <div id="controls-2d">
+        <div id="controls-2d" class="tab-content">
             <div class="control-section">
                 <div class="demo-control-group">
-                    <label for="functionInput2D" class="control-label">Función f(x, y):</label>
+                    <label for="preset2D" class="control-label">{{ if $isEs }}Ejemplo Predefinido:{{ else }}Preset Example:{{ end }}</label>
+                    <select id="preset2D" class="demo-select">
+                        <option value="custom">{{ if $isEs }}Personalizado{{ else }}Custom{{ end }}</option>
+                        <option value="bowl">{{ if $isEs }}Cuenco Simple (Convergencia Segura){{ else }}Simple Bowl (Safe Convergence){{ end }}</option>
+                        <option value="valley">{{ if $isEs }}Valle Alargado (Requiere paso pequeño){{ else }}Elongated Valley (Small step needed){{ end }}</option>
+                        <option value="himmelblau">{{ if $isEs }}Función Himmelblau (4 Mínimos){{ else }}Himmelblau Function (4 Minima){{ end }}</option>
+                    </select>
+                </div>
+                <div class="demo-control-group">
+                    <label for="functionInput2D" class="control-label">{{ if $isEs }}Función f(x, y):{{ else }}Function f(x, y):{{ end }}</label>
                     <input type="text" id="functionInput2D" value="(x^2 + y - 11)^2 + (x + y^2 - 7)^2">
                 </div>
                 <div class="demo-control-group">
-                    <label for="startPointInputX2D">Punto Inicial (x₀):</label>
+                    <label for="startPointInputX2D">{{ if $isEs }}Punto Inicial (x₀):{{ else }}Start Point (x₀):{{ end }}</label>
                     <input type="number" id="startPointInputX2D" value="-4" step="any">
                 </div>
                 <div class="demo-control-group">
-                    <label for="startPointInputY2D">Punto Inicial (y₀):</label>
+                    <label for="startPointInputY2D">{{ if $isEs }}Punto Inicial (y₀):{{ else }}Start Point (y₀):{{ end }}</label>
                     <input type="number" id="startPointInputY2D" value="4" step="any">
                 </div>
             </div>
         </div>
         <div class="control-section">
-            <div class="demo-control-group"><label for="learningRateType">Tipo de Tasa de Aprendizaje
-                    (α):</label>
+            <div class="demo-control-group"><label for="learningRateType">{{ if $isEs }}Tipo de Tasa de Aprendizaje (α):{{ else }}Learning Rate Type (α):{{ end }}</label>
                 <select id="learningRateType">
-                    <option value="constant" selected>Constante</option>
-                    <option value="decaySimple">Decreciente (Simple: α₀ / √iter)</option>
-                    <option value="decayExponential">Decreciente (Exponencial: α₀ * γ^iter)</option>
+                    <option value="constant" selected>{{ if $isEs }}Constante{{ else }}Constant{{ end }}</option>
+                    <option value="decaySimple">{{ if $isEs }}Decreciente (Simple: α₀ / √iter){{ else }}Decaying (Simple: α₀ / √iter){{ end }}</option>
+                    <option value="decayExponential">{{ if $isEs }}Decreciente (Exponencial: α₀ * γ^iter){{ else }}Decaying (Exponential: α₀ * γ^iter){{ end }}</option>
                 </select>
             </div>
             <!-- Mover la explicación dentro de controls y separar el texto del botón -->
             <div id="lrExplanationDiv" class="explanation-box" style="margin: 20px 0;">
                 <div id="lrExplanationText" style="margin-bottom: 15px;">
-                    Selecciona un tipo de tasa de aprendizaje para ver su descripción.
+                    {{ if $isEs }}Selecciona un tipo de tasa de aprendizaje para ver su descripción.{{ else }}Select a learning rate type to see its description.{{ end }}
                 </div>
-                <button id="showLrModalBtn">Comparar modos</button>
+                <button id="showLrModalBtn">{{ if $isEs }}Comparar modos{{ else }}Compare modes{{ end }}</button>
             </div>
 
         </div>
@@ -61,33 +81,31 @@
         <div class="control-section">
             <div class="demo-control-group">
                 <div id="lrConstantDiv">
-                    <label for="learningRateConstant">Valor de α (Constante o Inicial α₀):</label>
+                    <label for="learningRateConstant">{{ if $isEs }}Valor de α (Constante o Inicial α₀):{{ else }}Value of α (Constant or Initial α₀):{{ end }}</label>
                     <input type="number" id="learningRateConstant" value="0.1" step="any" min="0">
                 </div>
             </div>
             <div class="demo-control-group">
                 <div id="lrExponentialDiv" style="display: none;">
-                    <label for="learningRateDecayRate">Factor Decaimiento Exponencial (γ):</label>
+                    <label for="learningRateDecayRate">{{ if $isEs }}Factor Decaimiento Exponencial (γ):{{ else }}Exponential Decay Factor (γ):{{ end }}</label>
                     <input type="number" id="learningRateDecayRate" value="0.95" step="0.01" min="0.1" max="1.0">
-                    <small>Valor entre 0 y 1 (e.g., 0.95). Más cercano a 1, más lento decae.</small>
+                    <small>{{ if $isEs }}Valor entre 0 y 1 (e.g., 0.95). Más cercano a 1, más lento decae.{{ else }}Value between 0 and 1 (e.g., 0.95). Closer to 1 means slower decay.{{ end }}</small>
                 </div>
             </div>
             <div class="demo-control-group">
-                <label for="maxIterations">Máx. Iteraciones (N):</label>
+                <label for="maxIterations">{{ if $isEs }}Máx. Iteraciones (N):{{ else }}Max Iterations (N):{{ end }}</label>
                 <input type="number" id="maxIterations" value="50" min="1" step="1">
             </div>
             <div class="demo-control-group">
-                <label for="tolerance">Tolerancia (|∇f|):</label>
+                <label for="tolerance">{{ if $isEs }}Tolerancia (|∇f|):{{ else }}Tolerance (|∇f|):{{ end }}</label>
                 <input type="number" id="tolerance" value="0.001" step="any" min="0">
             </div>
         </div>
 
         <div class="button-group controls-below-plot">
-            <button class="demo-btn demo-btn-primary demo-btn-full-width" id="startButton">Iniciar /
-                Continuar</button>
-            <button class="demo-btn demo-btn-primary demo-btn-full-width" id="stepButton">Paso
-                Siguiente</button>
-            <button class="demo-btn demo-btn-secondary demo-btn-full-width" id="resetButton">Reiniciar</button>
+            <button class="demo-btn demo-btn-primary demo-btn-full-width" id="startButton">{{ if $isEs }}Iniciar / Continuar{{ else }}Start / Continue{{ end }}</button>
+            <button class="demo-btn demo-btn-primary demo-btn-full-width" id="stepButton">{{ if $isEs }}Paso Siguiente{{ else }}Next Step{{ end }}</button>
+            <button class="demo-btn demo-btn-secondary demo-btn-full-width" id="resetButton">{{ if $isEs }}Reiniciar{{ else }}Reset{{ end }}</button>
         </div>
     </div>
 
@@ -96,59 +114,59 @@
     <div id="lrModal" class="modal-lr" style="display:none;">
         <div class="modal-lr-content">
             <span id="closeLrModalBtn" class="modal-lr-close">&times;</span>
-            <h2>Comparativa de Modos de Convergencia</h2>
+            <h2>{{ if $isEs }}Comparativa de Modos de Convergencia{{ else }}Convergence Modes Comparison{{ end }}</h2>
             <table class="lr-compare-table">
                 <thead>
                     <tr>
-                        <th>Modo</th>
-                        <th>Ventajas</th>
-                        <th>Inconvenientes</th>
+                        <th>{{ if $isEs }}Modo{{ else }}Mode{{ end }}</th>
+                        <th>{{ if $isEs }}Ventajas{{ else }}Advantages{{ end }}</th>
+                        <th>{{ if $isEs }}Inconvenientes{{ else }}Disadvantages{{ end }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Constante</strong><br><small>α fijo</small></td>
+                        <td><strong>{{ if $isEs }}Constante{{ else }}Constant{{ end }}</strong><br><small>{{ if $isEs }}α fijo{{ else }}fixed α{{ end }}</small></td>
                         <td>
                             <ul>
-                                <li>Fácil de entender y configurar.</li>
-                                <li>Puede ser eficiente si se elige bien α.</li>
+                                <li>{{ if $isEs }}Fácil de entender y configurar.{{ else }}Easy to understand and configure.{{ end }}</li>
+                                <li>{{ if $isEs }}Puede ser eficiente si se elige bien α.{{ else }}Can be efficient if α is chosen well.{{ end }}</li>
                             </ul>
                         </td>
                         <td>
                             <ul>
-                                <li>Si α es muy grande, puede diverger (no converge).</li>
-                                <li>Si α es muy pequeño, la convergencia es muy lenta.</li>
-                                <li>No se adapta a la cercanía del mínimo.</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Decreciente Simple</strong><br><small>α₀ / √iter</small></td>
-                        <td>
-                            <ul>
-                                <li>Empieza con pasos grandes y los reduce automáticamente.</li>
-                                <li>Reduce el riesgo de saltarse el mínimo al final.</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <li>Puede reducir demasiado rápido y estancarse lejos del mínimo.</li>
-                                <li>La velocidad de reducción depende mucho de α₀.</li>
+                                <li>{{ if $isEs }}Si α es muy grande, puede diverger (no converge).{{ else }}If α is too large, it may diverge.{{ end }}</li>
+                                <li>{{ if $isEs }}Si α es muy pequeño, la convergencia es muy lenta.{{ else }}If α is too small, convergence is very slow.{{ end }}</li>
+                                <li>{{ if $isEs }}No se adapta a la cercanía del mínimo.{{ else }}Does not adapt to proximity of minimum.{{ end }}</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Decreciente Exponencial</strong><br><small>α₀ · γ^iter</small></td>
+                        <td><strong>{{ if $isEs }}Decreciente Simple{{ else }}Decaying Simple{{ end }}</strong><br><small>α₀ / √iter</small></td>
                         <td>
                             <ul>
-                                <li>Permite controlar con precisión la velocidad de reducción.</li>
-                                <li>Puede ajustarse para converger rápido y luego afinar despacio.</li>
+                                <li>{{ if $isEs }}Empieza con pasos grandes y los reduce automáticamente.{{ else }}Starts with large steps and reduces them automatically.{{ end }}</li>
+                                <li>{{ if $isEs }}Reduce el riesgo de saltarse el mínimo al final.{{ else }}Reduces risk of overshooting minimum at the end.{{ end }}</li>
                             </ul>
                         </td>
                         <td>
                             <ul>
-                                <li>Requiere ajustar dos parámetros (α₀ y γ).</li>
-                                <li>Si γ es muy bajo, puede dejar de avanzar pronto.</li>
+                                <li>{{ if $isEs }}Puede reducir demasiado rápido y estancarse lejos del mínimo.{{ else }}Can reduce too fast and stall far from minimum.{{ end }}</li>
+                                <li>{{ if $isEs }}La velocidad de reducción depende mucho de α₀.{{ else }}Reduction speed depends heavily on α₀.{{ end }}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ if $isEs }}Decreciente Exponencial{{ else }}Decaying Exponential{{ end }}</strong><br><small>α₀ · γ^iter</small></td>
+                        <td>
+                            <ul>
+                                <li>{{ if $isEs }}Permite controlar con precisión la velocidad de reducción.{{ else }}Allows precise control of reduction speed.{{ end }}</li>
+                                <li>{{ if $isEs }}Puede ajustarse para converger rápido y luego afinar despacio.{{ else }}Can be tuned to converge fast then refine slowly.{{ end }}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>{{ if $isEs }}Requiere ajustar dos parámetros (α₀ y γ).{{ else }}Requires tuning two parameters (α₀ and γ).{{ end }}</li>
+                                <li>{{ if $isEs }}Si γ es muy bajo, puede dejar de avanzar pronto.{{ else }}If γ is too low, it may stop advancing too soon.{{ end }}</li>
                             </ul>
                         </td>
                     </tr>
@@ -160,7 +178,7 @@
     <!-- Área de Visualización Principal -->
     <main class="main-panel responsive-main" style="grid-area: visualization;">
         <div class="main-content-wrapper">
-            <h2 class="main-title">Gráfica de la Función</h2>
+            <h2 class="main-title">{{ if $isEs }}Gráfica de la Función{{ else }}Function Plot{{ end }}</h2>
             <div id="plotDiv1D" class="plot-container tab-content active" style="height:500px; min-height:300px;">
             </div>
             <div id="plotDiv2D" class="plot-container tab-content" style="height:500px; min-height:300px;"></div>
@@ -169,7 +187,7 @@
 
         <div class="bottom-panels">
             <div class="error-plot-area">
-                <h2 class="main-title">Evolución del Error (|∇f|)</h2>
+                <h2 class="main-title">{{ if $isEs }}Evolución del Error (|∇f|){{ else }}Error Evolution (|∇f|){{ end }}</h2>
                 <div id="errorPlotDiv" class="plot-container"></div>
             </div>
         </div>

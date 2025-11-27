@@ -1,4 +1,75 @@
 // --- Variables Globales y Referencias a Elementos del DOM ---
+const container = document.getElementById('gradient-descent-container');
+const lang = container ? container.getAttribute('data-lang') : 'es';
+const isEs = lang === 'es';
+
+const translations = {
+    es: {
+        lrConstant: `<strong>Tasa Constante:</strong><br>Es como bajar una colina dando siempre pasos del mismo tamaño (α).<br><em>Ventaja:</em> Simple de entender.<br><em>Desventaja:</em> Difícil encontrar el tamaño ideal. Si α es muy grande, puedes pasarte del mínimo o ¡incluso empezar a subir de nuevo (diverger)! Si es muy pequeño, tardarás mucho en llegar abajo.`,
+        lrDecaySimple: `<strong>Decreciente (Simple: α₀ / √iter):</strong><br>Empezamos con pasos más grandes (α₀) y los hacemos más pequeños a medida que avanzamos (dividimos por la raíz cuadrada de la iteración + 1).<br><em>Ventaja:</em> Ayuda a no pasarse del mínimo cuando estamos cerca.<br><em>Desventaja:</em> La reducción puede ser muy rápida inicialmente, y luego muy lenta. Sensible a α₀.`,
+        lrDecayExponential: `<strong>Decreciente (Exponencial: α₀ * γ^iter):</strong><br>También empezamos con pasos de tamaño α₀, pero ahora los reducimos multiplicando por un factor γ (gamma, 0 < γ < 1) en cada paso.<br><em>Ventaja:</em> Permite un control más fino de la reducción (con γ cercano a 1 decae lento, cercano a 0 decae rápido).<br><em>Desventaja:</em> Hay que ajustar dos parámetros: α₀ y γ.`,
+        stopConvergence: "Convergencia",
+        stopMaxIter: "Máx. Iteraciones",
+        stopErrorGrad: "Error en gradiente",
+        stopErrorAlpha: "Error en tasa α",
+        stopErrorPoint: "Error calculando punto",
+        stopReset: "Reseteado Silencioso",
+        finalResult: "Resultado final del método",
+        finalPoint: "Punto final",
+        funcValue: "Valor de la función",
+        finalGrad: "|∇f| final",
+        iterations: "Iteraciones",
+        stopReason: "Motivo de parada",
+        unknown: "Desconocido",
+        errorFuncEmpty: "Función f(x) vacía.",
+        errorPointX: "Punto inicial X inválido.",
+        errorPointY: "Punto inicial Y inválido.",
+        errorInitGrad: "No se pudo calcular gradiente inicial.",
+        errorGradNaN: "∇f inválido (NaN/Inf)",
+        errorNewPointNaN: "Punto nuevo NaN/Inf",
+        pause: "Pausar",
+        continue: "Continuar",
+        start: "Iniciar",
+        pausedMsg: "<strong>Descenso del Gradiente Pausado</strong>",
+        selectType: "Selecciona un tipo para ver descripción.",
+        lrLabel: "Tasa de Aprendizaje (α):",
+        lrInitialLabel: "Tasa Inicial (α₀):"
+    },
+    en: {
+        lrConstant: `<strong>Constant Rate:</strong><br>Like going down a hill taking steps of the same size (α).<br><em>Advantage:</em> Simple to understand.<br><em>Disadvantage:</em> Hard to find the ideal size. If α is too large, you might overshoot the minimum or even start going up (diverge)! If too small, it will take a long time.`,
+        lrDecaySimple: `<strong>Decaying (Simple: α₀ / √iter):</strong><br>Start with larger steps (α₀) and make them smaller as we go (divide by square root of iteration + 1).<br><em>Advantage:</em> Helps not to overshoot the minimum when close.<br><em>Disadvantage:</em> Reduction can be too fast initially, then very slow. Sensitive to α₀.`,
+        lrDecayExponential: `<strong>Decaying (Exponential: α₀ * γ^iter):</strong><br>Start with steps of size α₀, but reduce them by multiplying by a factor γ (gamma, 0 < γ < 1) each step.<br><em>Advantage:</em> Allows finer control of reduction (γ close to 1 decays slowly, close to 0 decays fast).<br><em>Disadvantage:</em> Requires tuning two parameters: α₀ and γ.`,
+        stopConvergence: "Convergence",
+        stopMaxIter: "Max Iterations",
+        stopErrorGrad: "Gradient Error",
+        stopErrorAlpha: "Alpha Rate Error",
+        stopErrorPoint: "Point Calculation Error",
+        stopReset: "Silent Reset",
+        finalResult: "Final Result",
+        finalPoint: "Final Point",
+        funcValue: "Function Value",
+        finalGrad: "Final |∇f|",
+        iterations: "Iterations",
+        stopReason: "Stop Reason",
+        unknown: "Unknown",
+        errorFuncEmpty: "Function f(x) empty.",
+        errorPointX: "Invalid Start Point X.",
+        errorPointY: "Invalid Start Point Y.",
+        errorInitGrad: "Could not calculate initial gradient.",
+        errorGradNaN: "Invalid ∇f (NaN/Inf)",
+        errorNewPointNaN: "New Point NaN/Inf",
+        pause: "Pause",
+        continue: "Continue",
+        start: "Start",
+        pausedMsg: "<strong>Gradient Descent Paused</strong>",
+        selectType: "Select a type to see description.",
+        lrLabel: "Learning Rate (α):",
+        lrInitialLabel: "Initial Rate (α₀):"
+    }
+};
+
+const t = isEs ? translations.es : translations.en;
+
 let currentMode = '1d'; // '1d' o '2d'
 let gradientDescentState = {
     isRunning: false, isPaused: false, intervalId: null,
@@ -15,6 +86,8 @@ const startPointInputX = document.getElementById('startPointInputX');
 const functionInput2D = document.getElementById('functionInput2D');
 const startPointInputX2D = document.getElementById('startPointInputX2D');
 const startPointInputY2D = document.getElementById('startPointInputY2D');
+const preset1DSelect = document.getElementById('preset1D');
+const preset2DSelect = document.getElementById('preset2D');
 const learningRateTypeSelect = document.getElementById('learningRateType');
 const lrConstantDiv = document.getElementById('lrConstantDiv');
 const learningRateConstantInput = document.getElementById('learningRateConstant');
@@ -68,41 +141,31 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // --- Textos Explicativos ---
 const lrExplanations = {
-    constant: `<strong>Tasa Constante:</strong><br>Es como bajar una colina dando siempre pasos del mismo tamaño (α).<br><em>Ventaja:</em> Simple de entender.<br><em>Desventaja:</em> Difícil encontrar el tamaño ideal. Si α es muy grande, puedes pasarte del mínimo o ¡incluso empezar a subir de nuevo (diverger)! Si es muy pequeño, tardarás mucho en llegar abajo.`,
-    decaySimple: `<strong>Decreciente (Simple: α₀ / √iter):</strong><br>Empezamos con pasos más grandes (α₀) y los hacemos más pequeños a medida que avanzamos (dividimos por la raíz cuadrada de la iteración + 1).<br><em>Ventaja:</em> Ayuda a no pasarse del mínimo cuando estamos cerca.<br><em>Desventaja:</em> La reducción puede ser muy rápida inicialmente, y luego muy lenta. Sensible a α₀.`,
-    decayExponential: `<strong>Decreciente (Exponencial: α₀ * γ^iter):</strong><br>También empezamos con pasos de tamaño α₀, pero ahora los reducimos multiplicando por un factor γ (gamma, 0 < γ < 1) en cada paso.<br><em>Ventaja:</em> Permite un control más fino de la reducción (con γ cercano a 1 decae lento, cercano a 0 decae rápido).<br><em>Desventaja:</em> Hay que ajustar dos parámetros: α₀ y γ.`
+    constant: t.lrConstant,
+    decaySimple: t.lrDecaySimple,
+    decayExponential: t.lrDecayExponential
 };
 
 // --- Definición de Presets (Actualizados) ---
-const presets = {
-    simple1d: {
-        name: "1D Básico (x²)", mode: '1d', func: 'x^2', startX: 8,
-        lrType: 'constant', lrConst: 0.1, lrDecay: 0.95, maxIter: 50, tol: 0.001
+const presetConfigs = {
+    '1d': {
+        'parabola': { func: 'x^2', startX: 8, lrType: 'constant', lrConst: 0.1, lrDecay: 0.95, maxIter: 50, tol: 0.001 },
+        'quartic': { func: 'x^4 - 2*x^2', startX: -1.5, lrType: 'constant', lrConst: 0.05, lrDecay: 0.95, maxIter: 100, tol: 0.001 },
+        'sinusoidal': { func: 'x^2 + 5*sin(x)', startX: 8, lrType: 'decaySimple', lrConst: 0.8, lrDecay: 0.95, maxIter: 100, tol: 0.001 }
     },
-    highAlpha: {
-        name: "1D α Alta (Oscila)", mode: '1d', func: 'x^2', startX: 8,
-        lrType: 'constant', lrConst: 0.98, lrDecay: 0.95, maxIter: 50, tol: 0.001
-    },
-    lowAlphaDecay: {
-        name: "1D α Baja (Dec. Simple)", mode: '1d', func: 'x^2 + 5*sin(x)', startX: 8,
-        lrType: 'decaySimple', lrConst: 0.8, lrDecay: 0.95, maxIter: 100, tol: 0.001
-    },
-    expDecay: {
-        name: "1D Dec. Exponencial", mode: '1d', func: 'x^2 + 5*sin(x)', startX: 8,
-        lrType: 'decayExponential', lrConst: 0.8, lrDecay: 0.96, maxIter: 100, tol: 0.001
-    },
-    complex2d: {
-        name: "2D Mínimos Locales", mode: '2d', func: '(x^2 + y - 11)^2 + (x + y^2 - 7)^2',
-        startX: -4, startY: 4, lrType: 'constant', lrConst: 0.005, lrDecay: 0.95, maxIter: 200, tol: 0.01
+    '2d': {
+        'bowl': { func: 'x^2 + y^2', startX: 4, startY: 4, lrType: 'constant', lrConst: 0.1, lrDecay: 0.95, maxIter: 50, tol: 0.001 },
+        'valley': { func: 'x^2 + 10*y^2', startX: 4, startY: 1, lrType: 'constant', lrConst: 0.05, lrDecay: 0.95, maxIter: 100, tol: 0.001 },
+        'himmelblau': { func: '(x^2 + y - 11)^2 + (x + y^2 - 7)^2', startX: -4, startY: 4, lrType: 'decayExponential', lrConst: 0.01, lrDecay: 0.99, maxIter: 200, tol: 0.001 }
     }
 };
 
 // --- Inicialización ---
 window.onload = () => {
     setupEventListeners();
-    setupPresetButtons();
     updateLearningRateVisibility();
-    loadPreset('simple1d');
+    // Cargar preset inicial por defecto si se desea, o dejar los valores del HTML
+    // loadPresetConfig('1d', 'parabola'); 
 };
 
 // --- Configuración de Event Listeners ---
@@ -111,6 +174,7 @@ function setupEventListeners() {
     stepButton.addEventListener('click', handleStep);
     resetButton.addEventListener('click', handleReset);
     learningRateTypeSelect.addEventListener('change', updateLearningRateVisibility);
+    
     learningRateConstantInput.addEventListener('input', () => {
         if (!gradientDescentState.isRunning || gradientDescentState.isPaused) {
             gradientDescentState.learningRateConstant = parseFloat(learningRateConstantInput.value) || 0.1;
@@ -121,48 +185,82 @@ function setupEventListeners() {
             gradientDescentState.learningRateDecayRate = parseFloat(learningRateDecayRateInput.value) || 0.95;
         }
     });
-}
 
-function setupPresetButtons() {
-    document.querySelectorAll('.preset-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const presetName = button.getAttribute('data-preset');
-            if (presets[presetName]) loadPreset(presetName);
+    // Listeners para los desplegables de presets
+    if (preset1DSelect) {
+        preset1DSelect.addEventListener('change', (e) => {
+            if (e.target.value !== 'custom') loadPresetConfig('1d', e.target.value);
         });
+    }
+    if (preset2DSelect) {
+        preset2DSelect.addEventListener('change', (e) => {
+            if (e.target.value !== 'custom') loadPresetConfig('2d', e.target.value);
+        });
+    }
+
+    // Resetear desplegables a "custom" si se editan los inputs manualmente
+    const inputs1D = [functionInput1D, startPointInputX];
+    inputs1D.forEach(input => {
+        input.addEventListener('input', () => { if(preset1DSelect) preset1DSelect.value = 'custom'; });
+    });
+
+    const inputs2D = [functionInput2D, startPointInputX2D, startPointInputY2D];
+    inputs2D.forEach(input => {
+        input.addEventListener('input', () => { if(preset2DSelect) preset2DSelect.value = 'custom'; });
     });
 }
 
 // --- Función para Cargar Preset ---
-function loadPreset(presetName) {
-    const preset = presets[presetName]; if (!preset) return;
+function loadPresetConfig(mode, presetName) {
+    const config = presetConfigs[mode][presetName];
+    if (!config) return;
+
     handleReset(false);
 
-    updateInputsFromPreset(preset);
-
-    if (currentMode !== preset.mode) {
-        switchMode(preset.mode);
+    // Actualizar inputs
+    if (mode === '1d') {
+        functionInput1D.value = config.func;
+        startPointInputX.value = config.startX;
     } else {
-        if (initializeAlgorithm()) {
-            plotInitialFunction(); plotPath(); plotErrorHistory();
-        } else { clearPlotPath(true); plotErrorHistory(); }
+        functionInput2D.value = config.func;
+        startPointInputX2D.value = config.startX;
+        startPointInputY2D.value = config.startY;
     }
 
-    updateLearningRateVisibility();
-    gradientDescentState.learningRateType = preset.lrType;
-    gradientDescentState.learningRateConstant = preset.lrConst;
-    gradientDescentState.learningRateDecayRate = preset.lrDecay;
-    gradientDescentState.maxIterations = preset.maxIter;
-    gradientDescentState.tolerance = preset.tol;
+    learningRateTypeSelect.value = config.lrType;
+    learningRateConstantInput.value = config.lrConst;
+    learningRateDecayRateInput.value = config.lrDecay;
+    maxIterationsInput.value = config.maxIter;
+    toleranceInput.value = config.tol;
 
+    updateLearningRateVisibility();
+
+    // Actualizar estado interno
+    gradientDescentState.learningRateType = config.lrType;
+    gradientDescentState.learningRateConstant = config.lrConst;
+    gradientDescentState.learningRateDecayRate = config.lrDecay;
+    gradientDescentState.maxIterations = config.maxIter;
+    gradientDescentState.tolerance = config.tol;
+
+    // Reinicializar visualización
+    if (initializeAlgorithm()) {
+        plotInitialFunction();
+        plotPath();
+        plotErrorHistory();
+    } else {
+        clearPlotPath(true);
+        plotErrorHistory();
+    }
+    
     updateUI();
 }
 
-function updateInputsFromPreset(preset) {
-    if (preset.mode === '1d') { functionInput1D.value = preset.func; startPointInputX.value = preset.startX; }
-    else { functionInput2D.value = preset.func; startPointInputX2D.value = preset.startX; startPointInputY2D.value = preset.startY; }
-    learningRateTypeSelect.value = preset.lrType; learningRateConstantInput.value = preset.lrConst;
-    learningRateDecayRateInput.value = preset.lrDecay; maxIterationsInput.value = preset.maxIter; toleranceInput.value = preset.tol;
-}
+/* 
+// --- Función Antigua (Eliminada/Reemplazada) ---
+function setupPresetButtons() { ... }
+function loadPreset(presetName) { ... }
+function updateInputsFromPreset(preset) { ... }
+*/
 
 // --- Manejo de Pestañas ---
 function showTab(mode) { if (currentMode === mode || (gradientDescentState.isRunning && !gradientDescentState.isPaused)) return; switchMode(mode); }
@@ -190,14 +288,14 @@ function initializeAlgorithm() {
 
         let funcStr, startX, startY, node;
         if (currentMode === '1d') {
-            funcStr = functionInput1D.value; if (!funcStr) throw new Error("Función f(x) vacía.");
-            startX = parseFloat(startPointInputX.value); if (isNaN(startX)) throw new Error("Punto inicial X inválido.");
+            funcStr = functionInput1D.value; if (!funcStr) throw new Error(t.errorFuncEmpty);
+            startX = parseFloat(startPointInputX.value); if (isNaN(startX)) throw new Error(t.errorPointX);
             gradientDescentState.initialPoint = { x: startX }; node = math.parse(funcStr);
             gradientDescentState.funcCompiled = node.compile(); gradientDescentState.gradCompiled = { x: math.derivative(node, 'x').compile() };
         } else { // 2d
-            funcStr = functionInput2D.value; if (!funcStr) throw new Error("Función f(x, y) vacía.");
-            startX = parseFloat(startPointInputX2D.value); if (isNaN(startX)) throw new Error("Punto inicial X inválido.");
-            startY = parseFloat(startPointInputY2D.value); if (isNaN(startY)) throw new Error("Punto inicial Y inválido.");
+            funcStr = functionInput2D.value; if (!funcStr) throw new Error(t.errorFuncEmpty);
+            startX = parseFloat(startPointInputX2D.value); if (isNaN(startX)) throw new Error(t.errorPointX);
+            startY = parseFloat(startPointInputY2D.value); if (isNaN(startY)) throw new Error(t.errorPointY);
             gradientDescentState.initialPoint = { x: startX, y: startY }; node = math.parse(funcStr);
             gradientDescentState.funcCompiled = node.compile(); gradientDescentState.gradCompiled = { x: math.derivative(node, 'x').compile(), y: math.derivative(node, 'y').compile() };
         }
@@ -205,7 +303,7 @@ function initializeAlgorithm() {
         gradientDescentState.history = [gradientDescentState.currentPoint]; gradientDescentState.gradientMagnitudes = [];
         gradientDescentState.isRunning = false; gradientDescentState.isPaused = false; gradientDescentState.stopReason = null;
         const initialGradResult = calculateGradient(gradientDescentState.currentPoint);
-        if (initialGradResult) { gradientDescentState.gradientMagnitudes.push(initialGradResult.magnitude); } else { throw new Error("No se pudo calcular gradiente inicial."); }
+        if (initialGradResult) { gradientDescentState.gradientMagnitudes.push(initialGradResult.magnitude); } else { throw new Error(t.errorInitGrad); }
         return true;
     } catch (error) {
         console.error("Error en initializeAlgorithm:", error);
@@ -219,17 +317,17 @@ function calculateGradient(point) {
     let grad = {}, gradMagnitude = 0;
     try {
         if (currentMode === '1d') {
-            grad.x = gradientDescentState.gradCompiled.x.evaluate({ x: point.x }); if (isNaN(grad.x) || !isFinite(grad.x)) throw new Error(`∇f inválido (NaN/Inf) en x=${point.x.toFixed(4)}`);
+            grad.x = gradientDescentState.gradCompiled.x.evaluate({ x: point.x }); if (isNaN(grad.x) || !isFinite(grad.x)) throw new Error(`${t.errorGradNaN} x=${point.x.toFixed(4)}`);
             gradMagnitude = Math.abs(grad.x);
         } else {
             grad.x = gradientDescentState.gradCompiled.x.evaluate({ x: point.x, y: point.y }); grad.y = gradientDescentState.gradCompiled.y.evaluate({ x: point.x, y: point.y });
-            if (isNaN(grad.x) || !isFinite(grad.x) || isNaN(grad.y) || !isFinite(grad.y)) throw new Error(`∇f inválido (NaN/Inf) en (${point.x.toFixed(4)}, ${point.y.toFixed(4)})`);
+            if (isNaN(grad.x) || !isFinite(grad.x) || isNaN(grad.y) || !isFinite(grad.y)) throw new Error(`${t.errorGradNaN} (${point.x.toFixed(4)}, ${point.y.toFixed(4)})`);
             gradMagnitude = Math.sqrt(grad.x ** 2 + grad.y ** 2);
         }
         return { vector: grad, magnitude: gradMagnitude };
     } catch (error) {
         console.error("Error en calculateGradient:", error);
-        gradientDescentState.stopReason = "Error en gradiente"; stopAlgorithm(); updateUI(); return null;
+        gradientDescentState.stopReason = t.stopErrorGrad; stopAlgorithm(); updateUI(); return null;
     }
 }
 
@@ -240,8 +338,8 @@ function performStep() {
     const grad = gradResult.vector; const gradMagnitude = gradResult.magnitude;
     if (gradientDescentState.gradientMagnitudes.length <= currentIteration) gradientDescentState.gradientMagnitudes.push(gradMagnitude); else gradientDescentState.gradientMagnitudes[currentIteration] = gradMagnitude;
 
-    if (gradMagnitude < gradientDescentState.tolerance) { gradientDescentState.stopReason = "Convergencia"; stopAlgorithm(); updateUI(); return; }
-    if (currentIteration >= gradientDescentState.maxIterations) { gradientDescentState.stopReason = "Máx. Iteraciones"; stopAlgorithm(); updateUI(); return; }
+    if (gradMagnitude < gradientDescentState.tolerance) { gradientDescentState.stopReason = t.stopConvergence; stopAlgorithm(); updateUI(); return; }
+    if (currentIteration >= gradientDescentState.maxIterations) { gradientDescentState.stopReason = t.stopMaxIter; stopAlgorithm(); updateUI(); return; }
 
     let alpha = 0;
     switch (gradientDescentState.learningRateType) {
@@ -250,13 +348,13 @@ function performStep() {
         case 'decayExponential': alpha = gradientDescentState.learningRateConstant * Math.pow(gradientDescentState.learningRateDecayRate, currentIteration); break;
         default: alpha = gradientDescentState.learningRateConstant;
     }
-    if (isNaN(alpha) || !isFinite(alpha) || alpha < 0) { gradientDescentState.stopReason = "Error en tasa α"; stopAlgorithm(); updateUI(); return; }
+    if (isNaN(alpha) || !isFinite(alpha) || alpha < 0) { gradientDescentState.stopReason = t.stopErrorAlpha; stopAlgorithm(); updateUI(); return; }
 
     let nextPoint = {};
     try {
-        if (currentMode === '1d') { nextPoint.x = currentPoint.x - alpha * grad.x; if (isNaN(nextPoint.x) || !isFinite(nextPoint.x)) throw new Error(`x_nuevo NaN/Inf`); }
-        else { nextPoint.x = currentPoint.x - alpha * grad.x; nextPoint.y = currentPoint.y - alpha * grad.y; if (isNaN(nextPoint.x) || !isFinite(nextPoint.x) || isNaN(nextPoint.y) || !isFinite(nextPoint.y)) throw new Error(`(x,y)_nuevo NaN/Inf`); }
-    } catch (error) { gradientDescentState.stopReason = "Error calculando punto"; stopAlgorithm(); updateUI(); return; }
+        if (currentMode === '1d') { nextPoint.x = currentPoint.x - alpha * grad.x; if (isNaN(nextPoint.x) || !isFinite(nextPoint.x)) throw new Error(t.errorNewPointNaN); }
+        else { nextPoint.x = currentPoint.x - alpha * grad.x; nextPoint.y = currentPoint.y - alpha * grad.y; if (isNaN(nextPoint.x) || !isFinite(nextPoint.x) || isNaN(nextPoint.y) || !isFinite(nextPoint.y)) throw new Error(t.errorNewPointNaN); }
+    } catch (error) { gradientDescentState.stopReason = t.stopErrorPoint; stopAlgorithm(); updateUI(); return; }
 
     gradientDescentState.iteration++; gradientDescentState.currentPoint = nextPoint; gradientDescentState.history.push(nextPoint);
     updatePlot(); plotErrorHistory();
@@ -264,7 +362,7 @@ function performStep() {
 
 function stopAlgorithm() {
     if (gradientDescentState.intervalId) { clearInterval(gradientDescentState.intervalId); gradientDescentState.intervalId = null; }
-    if (gradientDescentState.isRunning && gradientDescentState.stopReason && gradientDescentState.stopReason !== "Reseteado Silencioso") {
+    if (gradientDescentState.isRunning && gradientDescentState.stopReason && gradientDescentState.stopReason !== t.stopReset) {
         const finalPoint = gradientDescentState.currentPoint || gradientDescentState.initialPoint;
         const lastMag = gradientDescentState.gradientMagnitudes.slice(-1)[0];
         showFinalResultBox(finalPoint, gradientDescentState.funcCompiled, gradientDescentState.stopReason, gradientDescentState.iteration, lastMag);
@@ -277,20 +375,20 @@ function stopAlgorithm() {
 
 function showFinalResultBox(point, funcCompiled, stopReason, iterations, gradMag) {
     if (!finalResultBox) return;
-    let html = `<strong>Resultado final del método:</strong><br>`;
+    let html = `<strong>${t.finalResult}:</strong><br>`;
     html += `<ul style="margin:0 0 0 18px;padding:0;">`;
-    html += `<li><strong>Punto final:</strong> ${formatPoint(point)}</li>`;
+    html += `<li><strong>${t.finalPoint}:</strong> ${formatPoint(point)}</li>`;
     if (funcCompiled && point) {
         try {
             const val = funcCompiled.evaluate(point);
-            html += `<li><strong>Valor de la función:</strong> ${typeof val === 'number' ? val.toFixed(6) : val}</li>`;
+            html += `<li><strong>${t.funcValue}:</strong> ${typeof val === 'number' ? val.toFixed(6) : val}</li>`;
         } catch (e) { }
     }
     if (typeof gradMag === 'number') {
-        html += `<li><strong>|∇f| final:</strong> ${gradMag.toFixed(6)}</li>`;
+        html += `<li><strong>${t.finalGrad}:</strong> ${gradMag.toFixed(6)}</li>`;
     }
-    html += `<li><strong>Iteraciones:</strong> ${iterations}</li>`;
-    html += `<li><strong>Motivo de parada:</strong> ${stopReason || 'Desconocido'}</li>`;
+    html += `<li><strong>${t.iterations}:</strong> ${iterations}</li>`;
+    html += `<li><strong>${t.stopReason}:</strong> ${stopReason || t.unknown}</li>`;
     html += `</ul>`;
     finalResultBox.innerHTML = html;
     finalResultBox.style.display = '';
@@ -355,14 +453,14 @@ function handleReset(log = true) {
 // --- Actualización de la Interfaz de Usuario (UI) ---
 function updateUI() {
 
-    if (gradientDescentState.isRunning && !gradientDescentState.isPaused) { startButton.textContent = 'Pausar'; startButton.disabled = false; stepButton.disabled = true; }
+    if (gradientDescentState.isRunning && !gradientDescentState.isPaused) { startButton.textContent = t.pause; startButton.disabled = false; stepButton.disabled = true; }
     else if (gradientDescentState.isRunning && gradientDescentState.isPaused) {
-        startButton.textContent = 'Continuar';
-        window.CustomTerminal.write(`<strong>Descenso del Gradiente Pausado</strong>`, true);
+        startButton.textContent = t.continue;
+        window.CustomTerminal.write(t.pausedMsg, true);
 
         startButton.disabled = false; stepButton.disabled = false;
     }
-    else { startButton.textContent = 'Iniciar'; const canStart = !!(currentMode === '1d' ? functionInput1D.value : functionInput2D.value); startButton.disabled = !canStart; stepButton.disabled = !canStart; }
+    else { startButton.textContent = t.start; const canStart = !!(currentMode === '1d' ? functionInput1D.value : functionInput2D.value); startButton.disabled = !canStart; stepButton.disabled = !canStart; }
     resetButton.disabled = gradientDescentState.history.length === 0 && !gradientDescentState.currentPoint;
     const controlsDisabled = gradientDescentState.isRunning && !gradientDescentState.isPaused;
     [functionInput1D, startPointInputX, functionInput2D, startPointInputX2D, startPointInputY2D, learningRateTypeSelect, learningRateConstantInput, learningRateDecayRateInput, maxIterationsInput, toleranceInput].forEach(el => el.disabled = controlsDisabled);
@@ -375,13 +473,13 @@ function updateLearningRateVisibility() {
 
     const explanationTextElem = document.getElementById('lrExplanationText');
     if (explanationTextElem) {
-        explanationTextElem.innerHTML = lrExplanations[type] || "Selecciona un tipo para ver descripción.";
+        explanationTextElem.innerHTML = lrExplanations[type] || t.selectType;
     }
 
     lrExponentialDiv.style.display = (type === 'decayExponential') ? 'block' : 'none';
 
     const constantLabel = lrConstantDiv.querySelector('label');
-    constantLabel.textContent = (type === 'constant') ? 'Tasa de Aprendizaje (α):' : 'Tasa Inicial (α₀):';
+    constantLabel.textContent = (type === 'constant') ? t.lrLabel : t.lrInitialLabel;
 
     if (!isRunningAuto) {
         learningRateConstantInput.disabled = false;

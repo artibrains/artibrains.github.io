@@ -2,7 +2,7 @@
 title: "6 - Dentro de la Mente de la Máquina: Redes Neuronales"
 type: "chapter"
 weight: 6
-draft: true
+draft: false
 slug: "redes-neuronales"
 ---
 
