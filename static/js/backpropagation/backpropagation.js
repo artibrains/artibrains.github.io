@@ -240,6 +240,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateVisualization() {
         if (!network) return;
+
+        // Detect dark mode - robust check for Relearn theme
+        const themeAttr = document.documentElement.getAttribute('data-theme');
+        const isDark = themeAttr === 'dark' || 
+                      ((themeAttr === 'auto' || !themeAttr) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        
+        // Define colors based on theme for better contrast
+        const colors = {
+            positive: isDark ? '#4ade80' : '#198754', // Brighter green for dark mode
+            negative: isDark ? '#f87171' : '#dc3545', // Brighter red for dark mode
+            input: isDark ? '#60a5fa' : '#0d6efd',    // Brighter blue
+            hidden: isDark ? '#facc15' : '#ffc107',   // Brighter yellow
+            minOpacity: isDark ? 0.5 : 0.3
+        };
+
         network.layers.forEach((layer, i) => {
             layer.neurons.forEach((neuron, j) => {
                 const circle = document.getElementById(neuron.id);
@@ -248,29 +263,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isOutputLayer = (i === network.layers.length - 1);
 
                 if (circle) {
+                    // Ensure stroke is visible and high contrast
+                    circle.style.stroke = isDark ? '#ffffff' : '#dee2e6';
+                    circle.style.strokeWidth = '2px';
+
                     if (isOutputLayer) {
                         circle.style.fill = classColors[j];
-                        circle.style.fillOpacity = neuron.activation;
+                        circle.style.fillOpacity = Math.max(colors.minOpacity, neuron.activation);
                     } else if (i === 0) {
-                        circle.style.fill = `hsla(211, 100%, 50%, ${neuron.activation})`;
-                        circle.style.fillOpacity = 1;
+                        // Input layer
+                        const intensity = Math.max(0.4, neuron.activation);
+                        circle.style.fill = colors.input;
+                        circle.style.fillOpacity = intensity;
                     } else {
-                        circle.style.fill = `hsla(39, 96%, 65%, ${neuron.activation})`;
-                        circle.style.fillOpacity = 1;
+                        // Hidden layers
+                        const intensity = Math.max(0.4, neuron.activation);
+                        circle.style.fill = colors.hidden;
+                        circle.style.fillOpacity = intensity;
                     }
                 }
 
-                if (activationText) activationText.textContent = `a: ${neuron.activation.toFixed(3)}`;
-                if (deltaText) deltaText.textContent = neuron.delta !== 0 ? `δ: ${neuron.delta.toFixed(4)}` : '';
+                if (activationText) {
+                    activationText.textContent = `a: ${neuron.activation.toFixed(3)}`;
+                    activationText.style.fill = isDark ? '#e5e7eb' : '#212529';
+                }
+                if (deltaText) {
+                    deltaText.textContent = neuron.delta !== 0 ? `δ: ${neuron.delta.toFixed(4)}` : '';
+                    deltaText.style.fill = isDark ? '#fb923c' : '#fd7e14';
+                }
+                
                 if (i > 0) {
                     neuron.weights.forEach((weight, k) => {
                         const line = document.getElementById(`c-${i - 1}-${k}-to-${i}-${j}`);
                         const weightText = document.getElementById(`w-${i - 1}-${k}-to-${i}-${j}`);
                         if (line) {
-                            line.style.stroke = weight > 0 ? 'var(--bp-positive-weight)' : 'var(--bp-negative-weight)';
-                            line.style.opacity = Math.min(1, Math.abs(weight) * 1.5);
+                            line.style.stroke = weight > 0 ? colors.positive : colors.negative;
+                            // Boost opacity calculation
+                            line.style.opacity = Math.max(colors.minOpacity, Math.min(1, Math.abs(weight) * 2.0));
+                            line.style.strokeWidth = isDark ? '2.5px' : '2px';
                         }
-                        if (weightText) weightText.textContent = weight.toFixed(3);
+                        if (weightText) {
+                            weightText.textContent = weight.toFixed(3);
+                            weightText.style.fill = isDark ? '#d1d5db' : '#6c757d';
+                        }
                     });
                 }
             });

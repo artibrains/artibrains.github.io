@@ -163,15 +163,16 @@ h1 {
 }
 
 .neuron {
-    stroke: var(--text-color);
+    stroke: var(--border-color);
     stroke-width: 2.5px;
+    fill: var(--primary-color);
     transition: fill 0.3s ease, fill-opacity 0.3s ease;
-    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
 }
 
 .neuron-label {
     font-size: 14px;
-    fill: var(--text-color);
+    fill: #ffffff;
     font-weight: bold;
     text-anchor: middle;
     pointer-events: none;
@@ -197,12 +198,33 @@ h1 {
 }
 
 .connection {
+    stroke: #6c757d;
     stroke-width: 2px;
+    opacity: 0.6;
     transition: stroke 0.3s ease, stroke-width 0.2s ease, opacity 0.3s ease;
+}
+
+[data-theme='dark'] .connection {
+    stroke: #adb5bd;
+    opacity: 0.8;
+}
+
+[data-theme='dark'] .data-point {
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+}
+
+[data-theme='dark'] .axis-line {
+    stroke: #adb5bd;
+}
+
+[data-theme='dark'] .axis-label {
+    fill: #ced4da;
 }
 
 .connection:hover {
     stroke-width: 6px;
+    opacity: 1;
 }
 
 .weight-value {
@@ -266,13 +288,14 @@ h1 {
 }
 
 .data-point {
-    stroke: rgba(0, 0, 0, 0.2);
+    stroke: var(--border-color);
     stroke-width: 1px;
+    fill: var(--text-muted);
     transition: fill 0.4s ease, fill-opacity 0.4s ease;
 }
 
 .prediction-point {
-    stroke: black;
+    stroke: var(--text-color);
     stroke-width: 2px;
 }
 
