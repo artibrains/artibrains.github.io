@@ -36,59 +36,69 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
 
     <link rel="stylesheet" href="/css/unified-demos.css">
 
-    <h3 class="medical-context__title">{{ if eq $lang "es" }}Contexto Médico{{ else }}Medical Context{{ end }}</h3>
     <div class="medical-context medical-context--{{ $type }}">
         <div class="medical-context__header">
-            <div class="medical-context__icon">{{ $type_icon }}</div>
-            <div class="medical-context__heading">
-                {{ if $title }}
-                <p class="medical-context__subtitle">{{ $title }}</p>
-                {{ end }}
+            <div class="medical-context__title-group">
+                <div class="medical-context__icon">{{ $type_icon }}</div>
+                <div class="medical-context__titles">
+                    <h3 class="medical-context__main-title">{{ if eq $lang "es" }}Contexto Médico{{ else }}Medical
+                        Context{{ end }}</h3>
+                    {{ if $title }}
+                    <div class="medical-context__subtitle">{{ $title }}</div>
+                    {{ end }}
+                </div>
             </div>
             <div class="medical-context__meta">
-                <span class="mc-chip mc-badge mc-badge--type">
-                    <span class="mc-badge__label">{{ i18n "demo_type" }}</span>
-                    <span class="mc-badge__value">{{ $type_label }}</span>
-                </span>
-                <span class="mc-chip mc-chip--level level-indicator level-indicator--{{ $level }}">
-                    <span class="mc-badge__label">{{ i18n "demo_level" }}</span>
-                    <span class="mc-badge__value">{{ $level_label }}</span>
-                </span>
+                <span class="mc-badge mc-badge--type">{{ $type_label }}</span>
+                <span class="mc-badge mc-badge--level mc-badge--{{ $level }}">{{ $level_label }}</span>
             </div>
         </div>
 
-        <div class="medical-context__content">
+        <div class="medical-context__body">
             {{ if $scenario }}
-            <div class="medical-context__scenario">
-                <h4>{{ if eq $lang "es" }}Escenario{{ else }}Scenario{{ end }}</h4>
-                <p>{{ $scenario | markdownify }}</p>
+            <div class="medical-context__section medical-context__section--scenario">
+                <div class="medical-context__section-title">
+                    <span class="medical-context__section-icon">🎯</span>
+                    <span>{{ if eq $lang "es" }}Escenario{{ else }}Scenario{{ end }}</span>
+                </div>
+                <div class="medical-context__section-content">
+                    {{ $scenario | markdownify }}
+                </div>
             </div>
             {{ end }}
 
             {{ if $highlight }}
-            <div class="medical-context__highlight">
-                <h4>{{ if eq $lang "es" }}Aplicación Clínica{{ else }}Clinical Application{{ end }}</h4>
-                <p>{{ $highlight | markdownify }}</p>
+            <div class="medical-context__section medical-context__section--highlight">
+                <div class="medical-context__section-title">
+                    <span class="medical-context__section-icon">💡</span>
+                    <span>{{ if eq $lang "es" }}Aplicación Clínica{{ else }}Clinical Application{{ end }}</span>
+                </div>
+                <div class="medical-context__section-content">
+                    {{ $highlight | markdownify }}
+                </div>
+            </div>
+            {{ end }}
+
+            {{ if $intro_text }}
+            <div class="medical-context__intro">
+                {{ $intro_text | markdownify }}
+            </div>
+            {{ end }}
+
+            {{ if $steps }}
+            <div class="medical-context__steps">
+                <h4>{{ i18n "medical_context_how_it_works" }}</h4>
+                <ol>
+                    {{ range (split $steps "|") }}
+                    {{ $step := split . ":" }}
+                    <li>
+                        <strong>{{ index $step 0 }}</strong>{{ if ge (len $step) 2 }}: {{ index $step 1 | markdownify
+                        }}{{
+                        end }}
+                    </li>
+                    {{ end }}
+                </ol>
             </div>
             {{ end }}
         </div>
-
-        {{ if $intro_text }}
-        <div class="intro-text">{{ $intro_text | markdownify }}</div>
-        {{ end }}
-
-        {{ if $steps }}
-        <div class="steps">
-            <h3>{{ i18n "medical_context_how_it_works" }}</h3>
-            <ol>
-                {{ range (split $steps "|") }}
-                {{ $step := split . ":" }}
-                <li>
-                    <strong>{{ index $step 0 }}</strong>{{ if ge (len $step) 2 }}: {{ index $step 1 | markdownify }}{{
-                    end }}
-                </li>
-                {{ end }}
-            </ol>
-        </div>
-        {{ end }}
     </div>

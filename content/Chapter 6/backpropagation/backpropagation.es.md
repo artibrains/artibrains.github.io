@@ -21,7 +21,7 @@ El algoritmo de **Backpropagation** (retropropagación del error) es el corazón
 
 {{< demo-wrapper title="Visualización de Backpropagation" >}}
 
-{{< backpropagation_intro_es lang="es" >}}
+{{< backpropagation_intro lang="es" >}}
 
 {{< backpropagation lang="es" >}}
 

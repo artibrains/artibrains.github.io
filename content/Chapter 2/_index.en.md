@@ -1,29 +1,36 @@
 ---
-title: "2 - Machine Learning Models"
+title: "2. Machine Learning Models"
+description: "From theory to practice: Building the first predictive models."
 weight: 2
-draft: false
 slug: "machine-learning-models"
 ---
 
-In this chapter, we delve into the heart of machine learning through the experience of the hospital team. After a failed first attempt with an overly complex system, Victor, Marta, Luis, and Carlos learn a fundamental lesson: sometimes, the simplest solution is the most powerful.
+{{< medical-context 
+    type="hospital" 
+    level="intermediate" 
+    scenario="After a failed first attempt with an overly complex system, Victor, Marta, Luis, and Carlos learn a fundamental lesson: sometimes, the simplest solution is the most powerful. Guided by the advice of Alma García of AIA, the team embarks on implementing a linear regression model to predict the need for medical supplies."
+    highlight="This new approach is not only more manageable but also transparent and interpretable, gaining the trust of even the most skeptical, like Dr. Javier."
+>}}
 
-Guided by the advice of Alma García of AIA, the team embarks on implementing a **linear regression** model to predict the need for medical supplies. This new approach is not only more manageable but also transparent and interpretable, gaining the trust of even the most skeptical, like Dr. Javier.
+## What Will You Learn?
 
-Throughout the following interactive sections, you will follow the team's steps:
+In this chapter, we delve into the heart of machine learning through the experience of the hospital team. You will follow their steps from manual adjustments to automated learning.
 
-1. **[Fit a Linear Regression Model]({{% relref "/Chapter 2/linear-regression/linear_regresion_game.en.md" %}})**: You will put yourself in the shoes of Marta and Luis, manually adjusting the parameters of a model to predict mask consumption.
-2. **[Visualize Gradient Descent]({{% relref "/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.en.md" %}})**: You will understand the intuition behind the algorithm the team used to automatically train their model, finding the optimal parameters to minimize error.
-3. **[You will compare cost functions]({{% relref "Chapter 2/error-comparison/error_comparation.en.md" %}})**: You will explore why the choice of cost function (MSE vs. MAE) was a key point in the team's discussion and how it affects model behavior.
+1. **[Fit a Linear Regression Model]({{% relref "/Chapter 2/linear-regression/linear_regresion_game.en.md" %}})**  
+   Put yourself in the shoes of Marta and Luis, manually adjusting the parameters of a model to predict mask consumption. Understand the relationship between slope, intercept, and prediction.
 
-Get ready to experience the team's challenges and discoveries, moving from theory to practice and building a solid foundation in machine learning models.
+2. **[Visualize Gradient Descent]({{% relref "/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.en.md" %}})**  
+   Grasp the intuition behind the algorithm the team used to automatically train their model. See how the system "descends" the error mountain to find the optimal parameters.
+
+3. **[Comparing Cost Functions]({{% relref "Chapter 2/error-comparison/error_comparation.en.md" %}})**  
+   Explore why the choice of cost function (MSE vs. MAE) was a key point in the team's discussion and how it affects model behavior, especially when dealing with outliers.
 
 ### Practical Implementation
 
-- **[Linear regression from scratch]({{% relref "/Chapter 2/code/linear-regresion.en.md" %}})**: Build a linear regression model from scratch, applying the concepts learned to a real problem.
-
-- **[Linear regression with sklearn]({{% relref "/Chapter 2/code/linear-regresion-sklearn.en.md" %}})**: Use the scikit-learn library to implement a linear regression model efficiently and simply.
+- **[Linear Regression from Scratch]({{% relref "/Chapter 2/code/linear-regresion.en.md" %}})**: Build a linear regression model from scratch, applying the concepts learned to a real problem.
+- **[Linear Regression with Scikit-Learn]({{% relref "/Chapter 2/code/linear-regresion-sklearn.en.md" %}})**: Use the industry-standard library to implement a linear regression model efficiently.
 
 ### Bibliography and Additional Resources
 
-- **[Linear Regression]({{% relref "/Chapter 2/bibliography/bibliography-linear-regresion.en.md" %}})**: A collection of materials to deepen your understanding of linear regression, from theory to practical implementation.
-- **[Gradient Descent]({{% relref "/Chapter 2/bibliography/bibliography-gradient-descent.en.md" %}})**: Resources to understand and apply gradient descent, from fundamentals to advanced optimization.
+- **[Linear Regression Resources]({{% relref "/Chapter 2/bibliography/bibliography-linear-regresion.en.md" %}})**: Deepen your understanding from theory to practice.
+- **[Gradient Descent Resources]({{% relref "/Chapter 2/bibliography/bibliography-gradient-descent.en.md" %}})**: From fundamentals to advanced optimization techniques.

@@ -12,8 +12,11 @@ Guiados por Alma, el equipo se embarca en un viaje hacia los fundamentos del apr
 
 En este capítulo te unirás a ellos para desmitificar el funcionamiento interno de las redes neuronales:
 
-1. **[El Perceptrón: La Neurona Artificial]({{% relref "Chapter 6/perceptron/perceptron.es.md" %}})**: Empezarás con el bloque de construcción más básico. Con un sencillo simulador de diagnóstico entrenarás un Perceptrón para clasificar pacientes y descubrirás cómo esta “neurona” aprende a tomar decisiones binarias.
-2. **[Backpropagation: La Conversación del Aprendizaje]({{% relref "Chapter 6/backpropagation/backpropagation.es.md" %}})**: Visualizarás el algoritmo de **backpropagation**, el motor del aprendizaje en las redes neuronales. Entenderás cómo el error se propaga hacia atrás por la red para que cada neurona ajuste sus conexiones y mejore el rendimiento general, tal como imaginó el equipo en su discusión.
+1. **[El Perceptrón: La Neurona Artificial]({{% relref "Chapter 6/perceptron/perceptron.es.md" %}})**: Empezarás con el bloque de construcción más básico. Con un sencillo simulador de diagnóstico entrenarás un Perceptrón para clasificar pacientes y descubrirás cómo esta "neurona" aprende a tomar decisiones binarias.
+
+2. **[Backpropagation: El Motor del Aprendizaje]({{% relref "Chapter 6/backpropagation/backpropagation.es.md" %}})**: Visualizarás el algoritmo de **backpropagation**, el motor del aprendizaje en las redes neuronales. Entenderás cómo el error se propaga hacia atrás por la red para que cada neurona ajuste sus conexiones y mejore el rendimiento general.
+
+3. **[Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
 
 ### Fundamentos Matemáticos
 

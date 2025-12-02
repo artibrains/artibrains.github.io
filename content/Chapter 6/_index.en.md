@@ -14,7 +14,9 @@ In this chapter, you will join them to demystify the inner workings of neural ne
 
 1. **[The Perceptron: The Artificial Neuron]({{% relref "Chapter 6/perceptron/perceptron.en.md" %}})**: You will start with the most basic building block. Using a simple diagnostic simulator, you will train a Perceptron to classify patients, discovering how this "neuron" learns to make binary decisions.
 
-2. **[Backpropagation: The Conversation of Learning]({{% relref "Chapter 6/backpropagation/backpropagation.en.md" %}})**: You will visualize the **backpropagation** algorithm, the engine of learning in neural networks. You will understand how errors propagate backward through the network, allowing each neuron to adjust its connections and improve overall model performance, just as the team envisioned in their discussion.
+2. **[Backpropagation: The Engine of Learning]({{% relref "Chapter 6/backpropagation/backpropagation.en.md" %}})**: You will visualize the **backpropagation** algorithm, the engine of learning in neural networks. You will understand how errors propagate backward through the network, allowing each neuron to adjust its connections and improve overall model performance.
+
+3. **[Neural Network Playground: Experimenting with Deep Learning]({{% relref "Chapter 6/neural-network-playground/neural-network-playground.en.md" %}})**: Experience hands-on experimentation with TensorFlow Playground. Build, train, and visualize neural networks in your browser, exploring how architecture, hyperparameters, and data affect learning in real time.
 
 ### Mathematical Foundations
 
