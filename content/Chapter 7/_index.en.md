@@ -2,7 +2,7 @@
 title: "7 - The Language Revolution: Understanding LLMs"
 type: "chapter"
 weight: 7
-draft: true
+draft: false
 slug: "language-revolution-llms"
 ---
 
