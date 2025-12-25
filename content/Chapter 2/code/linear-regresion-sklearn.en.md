@@ -1,6 +1,6 @@
 ---
 title: "⚡ Linear Regression with sklearn"
-weight: 62
+weight: 66
 description: "Interactive demonstration: how to build a linear regression model using the scikit-learn library."
 date:
 draft: false 

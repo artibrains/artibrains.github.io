@@ -20,17 +20,17 @@
 /* KNN specific panel adaptations */
 #info-panel {
     /* Usar .info-panel del sistema unificado */
-    order: 1;
+    /* order removed to respect DOM order */
 }
 
 .canvas-container {
     /* Usar .canvas-container del sistema unificado */
-    order: 2;
+    /* order removed to respect DOM order */
 }
 
 .controls-panel {
     /* Usar .controls-panel del sistema unificado */
-    order: 3;
+    /* order removed to respect DOM order */
 }
 
 /* KNN specific responsive adjustments */
@@ -42,15 +42,15 @@
 
     /* En móvil, mantener el orden lógico */
     #info-panel {
-        order: 1;
+        /* order removed */
     }
 
     .canvas-container {
-        order: 2;
+        /* order removed */
     }
 
     .controls-panel {
-        order: 3;
+        /* order removed */
     }
 }
 
@@ -661,32 +661,32 @@
 }
 
 .quadrant.top-left {
-    top: 28px;
-    left: 38px;
+    top: 10%;
+    left: 10%;
     color: var(--cat-color);
     border-color: rgba(231, 76, 60, 0.3);
     background: rgba(231, 76, 60, 0.1);
 }
 
 .quadrant.top-right {
-    top: 28px;
-    right: 28px;
+    top: 10%;
+    right: 10%;
     color: #9b59b6;
     border-color: rgba(155, 89, 182, 0.3);
     background: rgba(155, 89, 182, 0.1);
 }
 
 .quadrant.bottom-left {
-    bottom: 38px;
-    left: 38px;
+    bottom: 12%;
+    left: 10%;
     color: #95a5a6;
     border-color: rgba(149, 165, 166, 0.3);
     background: rgba(149, 165, 166, 0.1);
 }
 
 .quadrant.bottom-right {
-    bottom: 38px;
-    right: 28px;
+    bottom: 12%;
+    right: 10%;
     color: var(--dog-color);
     border-color: rgba(243, 156, 18, 0.3);
     background: rgba(243, 156, 18, 0.1);
@@ -1501,6 +1501,9 @@
     overflow: hidden;
     border: 1px solid var(--demo-border);
     box-shadow: var(--demo-shadow-sm);
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .knn-demo #knn-canvas {
@@ -1565,5 +1568,166 @@
     .knn-demo .controls-panel,
     .knn-demo .canvas-container {
         padding: var(--demo-spacing);
+    }
+}
+
+/* New Vertical Layout Styles */
+.knn-vertical-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Explicit ordering to ensure correct layout */
+.knn-vertical-layout .steps {
+    order: 0;
+}
+
+.knn-vertical-layout .top-controls {
+    order: 1;
+}
+
+.knn-vertical-layout .canvas-container {
+    order: 2;
+}
+
+.knn-vertical-layout .bottom-controls {
+    order: 3;
+}
+
+/* Match linear regression controls styling */
+.knn-vertical-layout .controls-panel {
+    background: var(--demo-surface);
+    border: 1px solid var(--demo-border);
+    border-radius: var(--demo-radius);
+    padding: 1.5rem;
+    box-shadow: var(--demo-shadow-sm);
+}
+
+.knn-vertical-layout .control-section {
+    margin-bottom: 1rem;
+}
+
+.knn-vertical-layout .control-section:last-child {
+    margin-bottom: 0;
+}
+
+.knn-vertical-layout .mode-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Adjust canvas container for vertical layout */
+.knn-vertical-layout .canvas-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Switch Styles */
+.knn-switch-group {
+    margin-bottom: 0.75rem;
+}
+
+.knn-switch-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.knn-switch-text {
+    font-size: 0.95rem;
+    color: var(--demo-text);
+}
+
+.knn-switch-wrapper {
+    position: relative;
+    width: 50px;
+    height: 26px;
+}
+
+.knn-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.knn-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--demo-border);
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.knn-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.knn-switch-input:checked+.knn-switch-slider {
+    background-color: var(--demo-accent);
+}
+
+.knn-switch-input:checked+.knn-switch-slider:before {
+    transform: translateX(24px);
+}
+
+.knn-switch-input:focus+.knn-switch-slider {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--demo-accent) 30%, transparent);
+}
+
+/* New Layout Styles for Buttons and Switches */
+.buttons-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.buttons-row button {
+    flex: 1;
+}
+
+.switches-row {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.knn-switch-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.knn-switch-text {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .knn-vertical-layout .controls-panel {
+        padding: 1rem;
     }
 }

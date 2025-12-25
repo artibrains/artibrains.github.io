@@ -1,11 +1,13 @@
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
 
 <link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/decision-tree.css?v=2">
 
-<div id="setup-container">
-    <h2>{{ if eq $lang "es" }}Paso 1: Selecciona los personajes (entre 2 y 49){{ else }}Step 1: Select the characters
+<div class="decision-tree-demo">
+<div id="setup-container" class="demo-content-panel">
+    <h2 class="demo-section-title">{{ if eq $lang "es" }}Paso 1: Selecciona los personajes (entre 2 y 49){{ else }}Step 1: Select the characters
         (between 2 and 49){{ end }}</h2>
-    <div class="description-block">
+    <div class="demo-info-card">
         <h4>{{ if eq $lang "es" }}Características de los personajes{{ else }}Character features{{ end }}</h4>
         <p>{{ if eq $lang "es" }}Cada personaje se define por un conjunto de características. Algunas son binarias (con
             respuestas 'Sí' o 'No'), mientras que otras son categóricas (con múltiples valores posibles). El algoritmo
@@ -14,45 +16,52 @@
             multiple possible values). The algorithm uses these features to find the most efficient questions.{{ end }}
         </p>
     </div>
-    <div id="controls">
-        <div class="control-group">
-            <label for="random-count">{{ if eq $lang "es" }}Seleccionar al azar:{{ else }}Select randomly:{{ end
+    <div class="demo-control-section">
+        <div class="demo-control-group">
+            <label for="random-count" class="control-label">{{ if eq $lang "es" }}Seleccionar al azar:{{ else }}Select randomly:{{ end
                 }}</label>
-            <input type="number" id="random-count" value="16" min="2" max="49">
-            <button id="random-select-btn">{{ if eq $lang "es" }}Selección Aleatoria{{ else }}Random selection{{ end
-                }}</button>
+            <div class="inline-controls">
+                <input type="number" id="random-count" class="demo-control-input" value="16" min="2" max="49">
+                <button id="random-select-btn" class="demo-btn demo-btn-secondary">{{ if eq $lang "es" }}Selección Aleatoria{{ else }}Random selection{{ end
+                    }}</button>
+            </div>
         </div>
     </div>
     <div id="character-grid">
         <!-- Characters get injected via JS -->
     </div>
-    <div id="training-controls">
-        <div class="control-group">
-            <input type="checkbox" id="binary-questions-only">
-            <label for="binary-questions-only">{{ if eq $lang "es" }}Solo preguntas Sí/No{{ else }}Only Yes/No
-                questions{{ end }}</label>
+    <div id="training-controls" class="demo-control-section">
+        <div class="demo-control-group dt-switch-group">
+            <label class="dt-switch-label">
+                <span class="dt-switch-text">{{ if eq $lang "es" }}Solo preguntas Sí/No{{ else }}Only Yes/No
+                questions{{ end }}</span>
+                <div class="dt-switch-wrapper">
+                    <input type="checkbox" id="binary-questions-only" class="dt-switch-input">
+                    <span class="dt-switch-slider"></span>
+                </div>
+            </label>
         </div>
-        <div class="control-group">
-            <button id="train-btn" disabled>{{ if eq $lang "es" }}Entrenar Árbol{{ else }}Train Tree{{ end }}</button>
+        <div class="demo-control-group">
+            <button id="train-btn" class="demo-btn demo-btn-primary demo-btn-full-width" disabled>{{ if eq $lang "es" }}Entrenar Árbol{{ else }}Train Tree{{ end }}</button>
         </div>
     </div>
 </div>
 
-<div id="training-container" class="hidden">
-    <h2>{{ if eq $lang "es" }}Árbol de Decisión Completo{{ else }}Complete Decision Tree{{ end }}</h2>
-    <div id="main-content-area">
-        <div id="tree-container">
+<div id="training-container" class="hidden demo-content-panel">
+    <h2 class="demo-section-title">{{ if eq $lang "es" }}Árbol de Decisión Completo{{ else }}Complete Decision Tree{{ end }}</h2>
+    <div id="main-content-area" class="dt-main-layout">
+        <div id="tree-container" class="demo-card">
             <div id="cy-container"></div>
             <div id="tree-controls">
-                <button id="zoom-in-btn" title="{{ if eq $lang " es" }}Acercar{{ else }}Zoom in{{ end }}">+</button>
-                <button id="zoom-out-btn" title="{{ if eq $lang " es" }}Alejar{{ else }}Zoom out{{ end }}">-</button>
-                <button id="fit-btn" title="{{ if eq $lang " es" }}Centrar vista{{ else }}Fit view{{ end }}">⛶</button>
+                <button id="zoom-in-btn" class="tree-control-btn" title="{{ if eq $lang " es" }}Acercar{{ else }}Zoom in{{ end }}">+</button>
+                <button id="zoom-out-btn" class="tree-control-btn" title="{{ if eq $lang " es" }}Alejar{{ else }}Zoom out{{ end }}">-</button>
+                <button id="fit-btn" class="tree-control-btn" title="{{ if eq $lang " es" }}Centrar vista{{ else }}Fit view{{ end }}">⛶</button>
             </div>
         </div>
-        <div id="details-panel">
-            <h3>{{ if eq $lang "es" }}Detalles de la decisión{{ else }}Decision details{{ end }}</h3>
-            <div id="algorithm-description">
-                <h4>{{ if eq $lang "es" }}¿Cómo funciona el algoritmo?{{ else }}How does the algorithm work?{{ end }}
+        <div id="details-panel" class="demo-card">
+            <h3 class="demo-subsection-title">{{ if eq $lang "es" }}Detalles de la decisión{{ else }}Decision details{{ end }}</h3>
+            <div id="algorithm-description" class="demo-info-card">
+                <h4 class="demo-card-title">{{ if eq $lang "es" }}¿Cómo funciona el algoritmo?{{ else }}How does the algorithm work?{{ end }}
                 </h4>
                 <p>{{ if eq $lang "es" }}El árbol se construye usando un algoritmo de "Divide y vencerás". En cada paso,
                     el sistema evalúa todas las preguntas posibles y elige la que mejor divide al grupo actual de
@@ -79,11 +88,14 @@
             </div>
         </div>
     </div>
-    <div class="actions-container">
-        <button id="reset-btn" class="hidden">{{ if eq $lang "es" }}Empezar de nuevo{{ else }}Start over{{ end
+    <div class="demo-control-section actions-container">
+        <button id="reset-btn" class="demo-btn demo-btn-secondary hidden">{{ if eq $lang "es" }}Empezar de nuevo{{ else }}Start over{{ end
             }}</button>
     </div>
 </div>
+</div>
+
+{{ partial "terminal.html" . }}
 
 <div id="training-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-overlay"></div>
@@ -110,4 +122,4 @@
 </script>
 
 <script src="/js/decision-tree/people-data.js"></script>
-<script src="/js/decision-tree/decision-tree.js"></script>
+<script src="/js/decision-tree/decision-tree.js?v=3"></script>

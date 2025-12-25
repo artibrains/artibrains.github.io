@@ -15,13 +15,24 @@ La regresión lineal nos permite encontrar la mejor relación entre diferentes v
     difficulty="beginner"
     scenario="Un investigador médico quiere predecir la dosis óptima de un medicamento basándose en el peso del paciente. Usando datos históricos de pacientes anteriores, necesita encontrar la relación matemática que mejor describa esta relación."
     highlight="La regresión lineal permite encontrar la 'línea de mejor ajuste' que minimiza los errores de predicción. En medicina, esto se traduce en protocolos de dosificación más precisos, reduciendo tanto el riesgo de subdosificación (ineficacia) como de sobredosificación (toxicidad)."
-    intro_text="La **regresión lineal** es uno de los algoritmos fundamentales en machine learning. Encuentra la mejor línea recta que pase lo más cerca posible de todos los puntos de datos, permitiendo hacer predicciones precisas sobre nuevos casos."
-    steps="Ajusta los Parámetros:Mueve los controles deslizantes para cambiar la pendiente y la intersección de la línea. Observa cómo cambia el error total y la calidad del ajuste.|Compara Métricas de Error:Experimenta con diferentes métricas (L1 vs L2) para entender cómo cada una evalúa la calidad del modelo de manera diferente.|Encuentra la Solución Óptima:Usa el botón 'Encontrar Mejor Ajuste' para que el algoritmo calcule automáticamente los parámetros óptimos que minimizan el error."
+    steps="Ajusta los Parámetros: Mueve los controles deslizantes para cambiar la pendiente y la intersección de la línea. Observa cómo cambia el error total y la calidad del ajuste.|Compara Métricas de Error: Experimenta con diferentes métricas (L1 vs L2) para entender cómo cada una evalúa la calidad del modelo de manera diferente.|Encuentra la Solución Óptima: Usa el botón 'Encontrar Mejor Ajuste' para que el algoritmo calcule automáticamente los parámetros óptimos que minimizan el error."
 >}}
+
+## Demostración Interactiva
+
+El gráfico muestra puntos de datos de pacientes (puntos azules) donde cada punto representa el peso en el eje x y la dosis del medicamento en el eje y. La línea rosa es tu modelo de predicción. Tu objetivo es ajustar la pendiente y la altura inicial de la línea para que pase lo más cerca posible de todos los puntos, minimizando el error entre los valores predichos y reales.
 
 {{< demo-wrapper title="Optimizador de Regresión Lineal" >}}
 
 {{< game-results >}}
+
+<h3>Cómo usar la simulación</h3>
+
+<ul>
+<li><strong>Ajusta la pendiente e intersección</strong> con los controles para ver cómo cambia la línea y el <strong>error total</strong>.</li>
+<li><strong>Prueba L1 y L2</strong> para comparar la sensibilidad a valores atípicos: L1 es más robusto, L2 penaliza más errores grandes.</li>
+<li><strong>Pulsa "Encontrar Mejor Ajuste"</strong> para que el sistema busque automáticamente los parámetros que minimizan la métrica elegida.</li>
+</ul>
 
 {{< linear-regression-game lang="es" >}}
 

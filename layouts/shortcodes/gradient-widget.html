@@ -1,0 +1,96 @@
+<div class="gradient-widget">
+  <div style="margin-bottom:0.5rem;">
+    <label for="gw-function">f(variables) =</label>
+    <input id="gw-function" type="text" placeholder="e.g. x^2*y + sin(x*y)" style="min-width: 360px;" />
+  </div>
+  <div style="margin-bottom:0.5rem;">
+    <label for="gw-vars">Variables (comma-separated):</label>
+    <input id="gw-vars" type="text" placeholder="e.g. x, y" value="x, y" />
+  </div>
+  <button id="gw-compute">Compute ∇f</button>
+  <button id="gw-walpha">Open in WolframAlpha</button>
+  <div id="gw-result" style="margin-top: 0.75rem;"></div>
+  <div id="gw-error" style="margin-top: 0.5rem; color: var(--ERROR-fg, #b00020);"></div>
+  <small style="display:block; margin-top:0.5rem; opacity:0.8;">Symbolic gradient via math.js. For step-by-step derivations, use WolframAlpha.</small>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.1/lib/browser/math.min.js"></script>
+<script>
+  (function(){
+    const $ = (id) => document.getElementById(id);
+    const finput = $("gw-function");
+    const vinput = $("gw-vars");
+    const btnCompute = $("gw-compute");
+    const btnWA = $("gw-walpha");
+    const out = $("gw-result");
+    const err = $("gw-error");
+
+    function renderLatex(latex) {
+      out.innerHTML = '';
+      const block = document.createElement('div');
+      out.appendChild(block);
+      if (window.katex) {
+        try { katex.render(latex, block, { throwOnError:false, displayMode:true }); }
+        catch(e) { block.textContent = latex; }
+      } else {
+        block.textContent = latex;
+      }
+    }
+
+    function toMMA(expr) {
+      // Convert common functions to Wolfram Language syntax (opening bracket only)
+      // WolframAlpha is tolerant of parentheses for arguments, so we avoid global ') -> ]'
+      return expr
+        .replace(/\bln\s*\(/gi, 'Log[')
+        .replace(/\blog\s*\(/gi, 'Log[')
+        .replace(/\bsin\s*\(/gi, 'Sin[')
+        .replace(/\bcos\s*\(/gi, 'Cos[')
+        .replace(/\btan\s*\(/gi, 'Tan[')
+        .replace(/\bcot\s*\(/gi, 'Cot[')
+        .replace(/\bsec\s*\(/gi, 'Sec[')
+        .replace(/\bcsc\s*\(/gi, 'Csc[')
+        .replace(/\bexp\s*\(/gi, 'Exp[')
+        .replace(/\bsqrt\s*\(/gi, 'Sqrt[');
+    }
+
+    btnCompute.addEventListener('click', () => {
+      err.textContent = '';
+      out.innerHTML = '';
+      const expr = (finput.value || '').trim();
+      const vars = (vinput.value || '').split(',').map(s => s.trim()).filter(Boolean);
+      if (!expr) { err.textContent = 'Enter a function (e.g., x^2*y + sin(x*y)).'; return; }
+      if (!vars.length) { err.textContent = 'Specify at least one variable (e.g., x, y).'; return; }
+      try {
+        const fnode = math.parse(expr);
+        const parts = [];
+        for (const v of vars) {
+          const d = math.derivative(fnode, v);
+          const ds = math.simplify(d);
+          parts.push(ds.toTex({parenthesis:'auto'}));
+        }
+        const fLatex = `f(${vars.join(',')}) = \\; ${fnode.toTex({parenthesis:'auto'})}`;
+        const grad = parts.join(' \\ \\ ');
+        const gradLatex = `\\nabla f = \\begin{bmatrix} ${grad} \\end{bmatrix}`;
+        renderLatex(`${fLatex}\\\\ ${gradLatex}`);
+      } catch(e) {
+        err.textContent = 'Could not parse or differentiate. Try simpler syntax and variable names.';
+      }
+    });
+
+    btnWA.addEventListener('click', () => {
+      const rawExpr = (finput.value || '').trim() || 'x^2*y + sin(x*y)';
+      const mmaExpr = toMMA(rawExpr);
+      const rawVars = (vinput.value || '').trim() || 'x, y';
+      const varList = rawVars.split(',').map(s => s.trim()).filter(Boolean).join(', ');
+      // Mathematica-style query using Grad
+      const q = `Grad[${mmaExpr}, {${varList}}]`;
+      const url = `https://www.wolframalpha.com/input?i=${encodeURIComponent(q)}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  })();
+</script>
+
+<style>
+.gradient-widget button { margin-right: 0.25rem; }
+.gradient-widget input { margin-left: 0.25rem; }
+</style>

@@ -4,6 +4,7 @@ description: "Precision, recall, F-score, ROC curves, and multiclass extensions.
 weight: 90
 draft: false
 slug: "evaluation-metrics"
+math: true
 ---
 
 ## Why Metrics Matter

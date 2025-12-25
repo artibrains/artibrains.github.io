@@ -22,6 +22,14 @@ highlight="The choice between L1 and L2 as the error function determines how the
 
 {{< error-comparison-game >}}
 
+<h3>How to use the simulation</h3>
+
+<ul>
+<li><strong>Toggle between L1 and L2</strong> to compare how the error penalty changes.</li>
+<li><strong>Adjust the controls</strong> to modify the data and watch the metrics respond.</li>
+<li><strong>Read the curves</strong>: L2 grows faster with large errors; L1 is more stable under outliers.</li>
+</ul>
+
 {{< /demo-wrapper >}}
 
 ## Fundamental Concepts

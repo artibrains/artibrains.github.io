@@ -30,6 +30,11 @@ In this chapter, we delve into the heart of machine learning through the experie
 - **[Linear Regression from Scratch]({{% relref "/Chapter 2/code/linear-regresion.en.md" %}})**: Build a linear regression model from scratch, applying the concepts learned to a real problem.
 - **[Linear Regression with Scikit-Learn]({{% relref "/Chapter 2/code/linear-regresion-sklearn.en.md" %}})**: Use the industry-standard library to implement a linear regression model efficiently.
 
+### Mathematical Foundations
+
+- **[Taking Derivatives]({{% relref "Chapter 2/math/derivatives.en.md" %}})**: A concise reference of common derivative rules and an interactive widget to compute $f'(x)$ and explore step-by-step explanations via WolframAlpha.
+- **[Partial Derivatives and Gradients]({{% relref "Chapter 2/math/gradients.en.md" %}})**: From partial derivatives to the gradient vector, geometric intuition, and a widget to compute $\nabla f$ symbolically.
+
 ### Bibliography and Additional Resources
 
 - **[Linear Regression Resources]({{% relref "/Chapter 2/bibliography/bibliography-linear-regresion.en.md" %}})**: Deepen your understanding from theory to practice.

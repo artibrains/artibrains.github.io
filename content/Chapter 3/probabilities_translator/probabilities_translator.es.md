@@ -1,6 +1,6 @@
 ---
-title: "3.1 El siguiente paso: Regresión logística"
-weight: 1
+title: "3.2 El siguiente paso: Regresión logística"
+weight: 2
 description: "Demostración interactiva de cómo la regresión logística convierte combinaciones lineales en probabilidades para clasificar pacientes y predecir asistencia a citas médicas."
 date: 2025-04-17
 draft: false
@@ -22,7 +22,11 @@ La **Regresión Logística** es un modelo fundamental para predecir resultados c
 
 {{< demo-wrapper title="Predictor de Asistencia a Citas Médicas" >}}
 
+<p>El gráfico muestra cómo la regresión logística convierte las características del paciente (edad y días desde la última visita) en probabilidades de asistencia. Cada punto representa un paciente: <strong>azul</strong> indica que acudió a su cita, <strong>rojo</strong> que no asistió. El fondo coloreado representa la probabilidad predicha por el modelo en diferentes combinaciones de características—las áreas rojas más oscuras indican mayor riesgo de inasistencia, mientras que las áreas azules más oscuras sugieren mayor probabilidad de asistencia. La frontera de decisión (donde probabilidad = 0.5) separa estas dos regiones.</p>
+
 {{< probabilities_translator lang="es" >}}
+
+{{% notice style="tip" title="Consejo" %}}Haz clic en cualquier punto del gráfico para ver la edad del paciente, días desde la última visita, la probabilidad predicha y el resultado real.{{% /notice %}}
 
 {{< /demo-wrapper >}}
 

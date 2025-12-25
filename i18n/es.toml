@@ -337,3 +337,46 @@ other = "Auge del Deep Learning (2012-2019)"
 
 [timeline_ai_breakthrough]
 other = "Era de Avances de la IA (2020-presente)"
+
+# Perceptron translations
+[perceptron_class1]
+other = "Clase 1 (Roja)"
+
+[perceptron_class2]
+other = "Clase 2 (Azul)"
+
+[perceptron_train_epoch]
+other = "Entrenar 1 Época"
+
+[perceptron_train_auto]
+other = "Entrenar Automático"
+
+[perceptron_reset]
+other = "Reiniciar Modelo"
+
+[perceptron_learning_rate]
+other = "Tasa Aprendizaje (η)"
+
+[perceptron_speed]
+other = "Velocidad (ms)"
+
+[perceptron_model_state]
+other = "Estado del Modelo"
+
+[perceptron_epoch]
+other = "Época"
+
+[perceptron_epoch_error]
+other = "Error Época"
+
+[perceptron_best_error]
+other = "Mejor Error"
+
+[perceptron_weight]
+other = "Peso"
+
+[perceptron_bias]
+other = "Sesgo"
+
+[perceptron_controls_title]
+other = "Controles"

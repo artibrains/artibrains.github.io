@@ -20,6 +20,15 @@ El **Perceptrón** es el modelo más simple de una neurona artificial y el bloqu
 
 ## Demostración Interactiva
 
+<div style="margin-bottom: 1.5rem;">
+<h3>Cómo usar la simulación</h3>
+<ul>
+<li><strong>Mueve los controles</strong> para ajustar la pendiente y el umbral de decisión.</li>
+<li><strong>Haz clic en la gráfica</strong> para inspeccionar cómo cambia la clasificación de los puntos.</li>
+<li><strong>Entrena automáticamente</strong> si está disponible y observa cómo varían las métricas.</li>
+</ul>
+</div>
+
 {{< demo-wrapper title="Simulador del Perceptrón" >}}
 
 {{< perceptron >}}

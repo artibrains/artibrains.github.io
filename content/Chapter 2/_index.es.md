@@ -22,6 +22,11 @@ A lo largo de las siguientes secciones interactivas, seguirás los pasos del equ
 
 - **[Regresión lineal con sklearn]({{% relref "/Chapter 2/code/linear-regresion-sklearn.es.md" %}})**: Utilizar la biblioteca scikit-learn para implementar un modelo de regresión lineal de manera eficiente y sencilla.
 
+### Fundamentos Matemáticos
+
+- **[Derivadas básicas]({{% relref "Chapter 2/math/derivatives.es.md" %}})**: Referencia concisa de reglas de derivación y un widget interactivo para calcular $f'(x)$, con acceso a explicaciones paso a paso en WolframAlpha.
+- **[Derivadas parciales y gradiente]({{% relref "Chapter 2/math/gradients.es.md" %}})**: Del concepto de derivada parcial al vector gradiente, intuición geométrica y un widget para calcular $\nabla f$ de forma simbólica.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[Regresión Lineal]({{% relref "/Chapter 2/bibliography/bibliography-linear-regresion.es.md" %}})**: Una colección de materiales para profundizar en la regresión lineal, desde teoría hasta implementación práctica.

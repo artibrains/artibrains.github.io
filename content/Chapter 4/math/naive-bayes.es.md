@@ -4,6 +4,7 @@ description: "Deriva el clasificador Naive Bayes, las estrategias de suavizado y
 weight: 91
 draft: false
 slug: "fundamentos-naive-bayes"
+math: true
 ---
 
 ## Contexto

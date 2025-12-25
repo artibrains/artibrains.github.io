@@ -1,6 +1,6 @@
 ---
-title: "3.1 El siguiente paso: Función sigmoide"
-weight: 2
+title: "3.3 El siguiente paso: Función sigmoide"
+weight: 3
 description: "Visualización interactiva para comprender cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1, convirtiéndose en la pieza clave de la regresión logística."
 date: 2025-04-17
 draft: false
@@ -11,19 +11,28 @@ slug: "clasificador-funcion-sigmoide"
 
 Comprende cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1 y se convierte en la pieza clave de la regresión logística. En esta simulación interactiva jugarás a separar pacientes de alto y bajo riesgo ajustando la pendiente y la altura inicial de la curva.
 
-{{< demo-intro 
-    title="Simulador: Juego de la Función Sigmoide"
-    algorithm_type="Clasificación logística"
+{{< medical-context 
+    type="research"
     difficulty="intermediate"
-    medical_scenario="Has creado un modelo que estima la **probabilidad de complicaciones post‑operatorias** a partir de la edad y la presión arterial de cada paciente (cada punto en el gráfico)."
-    medical_highlight="Tu objetivo es ajustar la línea de decisión y **garantizar** decisiones terapéuticas seguras separando correctamente a los pacientes de *bajo* y *alto* riesgo."
-    intro_text="Ajusta la **pendiente** y la **altura inicial** de la curva sigmoide para que tu modelo clasifique con la mayor precisión posible. Observa en tiempo real cómo cambian las métricas de desempeño."
-    steps="Minimiza la Log‑Loss: Separa los puntos verdes (sin complicaciones) de los rojos (con complicaciones) ajustando los parámetros de la función sigmoide.|Usa los deslizadores: Modifica la curva sigmoide con los controles. La gráfica y las métricas se actualizarán al instante para mostrar el rendimiento.|Evalúa las métricas: Consulta la **exactitud** y la **pérdida logística** para evaluar la calidad de tu clasificación y encontrar el mejor ajuste."
+    scenario="Has creado un modelo que estima la **probabilidad de complicaciones post‑operatorias** a partir de la edad y la presión arterial de cada paciente. Tu objetivo es ajustar la línea de decisión para separar correctamente a los pacientes de bajo y alto riesgo."
+    highlight="La función sigmoide transforma cualquier valor numérico en una probabilidad entre 0 y 1, permitiendo tomar decisiones terapéuticas seguras. Ajustar correctamente la curva garantiza que los pacientes de alto riesgo reciban la atención preventiva necesaria, mientras se evitan intervenciones innecesarias en pacientes de bajo riesgo."
+    steps="Ajusta los parámetros: Usa los deslizadores w₁, w₂ y sesgo (b) para modificar la pendiente y posición de la curva sigmoide. Observa cómo cambian las métricas de desempeño en tiempo real.|Minimiza la Log-Loss: Separa los puntos verdes (sin complicaciones) de los rojos (con complicaciones) ajustando los parámetros de la función sigmoide para lograr la mejor clasificación.|Evalúa las métricas: Consulta la exactitud y la pérdida logística para evaluar la calidad de tu clasificación. Ajusta el umbral para ser más o menos estricto en la clasificación de alto riesgo."
 >}}
 
 ## Demostración Interactiva
 
+El gráfico muestra datos de pacientes (puntos) donde cada punto representa la edad y la presión arterial. Los puntos verdes indican pacientes sin complicaciones post-operatorias y los rojos con complicaciones. La curva sigmoide es tu modelo de clasificación. Tu objetivo es ajustar los parámetros de la curva para que separe lo mejor posible ambos grupos, minimizando el error entre las clasificaciones predichas y reales.
+
 {{< demo-wrapper title="Simulador de Función Sigmoide" >}}
+
+<h3>Cómo usar la simulación</h3>
+
+<ul>
+<li><strong>Ajusta los parámetros w₁, w₂ y sesgo (b)</strong> con los deslizadores para modificar la pendiente y posición de la curva sigmoide.</li>
+<li><strong>Observa las métricas en tiempo real</strong>: La exactitud y la pérdida logística (log-loss) se actualizan instantáneamente mostrando la calidad de tu clasificación.</li>
+<li><strong>Experimenta con el umbral</strong> para ajustar qué tan estricta es la clasificación de alto riesgo.</li>
+<li><strong>Alterna entre modos</strong> para ver la clasificación discreta o el mapa de calor de probabilidades.</li>
+</ul>
 
 {{< sigmoid-legend >}}
 

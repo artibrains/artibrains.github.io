@@ -4,6 +4,7 @@ description: "Formaliza la matriz de confusión, las variantes de precisión/rec
 weight: 90
 draft: false
 slug: "algebra-metricas-evaluacion"
+math: true
 ---
 
 ## Por qué importan las métricas

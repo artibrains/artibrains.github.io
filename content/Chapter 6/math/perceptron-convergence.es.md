@@ -4,6 +4,7 @@ description: "Demostración de Rosenblatt–Novikoff que acota los errores del p
 weight: 90
 draft: false
 slug: "teorema-convergencia-perceptron"
+math: true
 ---
 
 ## Contexto

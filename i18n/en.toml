@@ -337,3 +337,46 @@ other = "Deep Learning Boom (2012-2019)"
 
 [timeline_ai_breakthrough]
 other = "AI Breakthrough Era (2020-present)"
+
+# Perceptron translations
+[perceptron_class1]
+other = "Class 1 (Red)"
+
+[perceptron_class2]
+other = "Class 2 (Blue)"
+
+[perceptron_train_epoch]
+other = "Train 1 Epoch"
+
+[perceptron_train_auto]
+other = "Train Automatically"
+
+[perceptron_reset]
+other = "Reset Model"
+
+[perceptron_learning_rate]
+other = "Learning Rate (η)"
+
+[perceptron_speed]
+other = "Speed (ms)"
+
+[perceptron_model_state]
+other = "Model State"
+
+[perceptron_epoch]
+other = "Epoch"
+
+[perceptron_epoch_error]
+other = "Epoch Error"
+
+[perceptron_best_error]
+other = "Best Error"
+
+[perceptron_weight]
+other = "Weight"
+
+[perceptron_bias]
+other = "Bias"
+
+[perceptron_controls_title]
+other = "Controls"

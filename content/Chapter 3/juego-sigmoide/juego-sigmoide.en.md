@@ -1,6 +1,6 @@
 ---
-title: "3.1 The Next Step: Sigmoid Decision Function"
-weight: 2
+title: "3.3 The Next Step: Sigmoid Decision Function"
+weight: 3
 description: "Interactive visualization to understand how the sigmoid function turns any linear combination into a probability between 0 and 1, becoming the key component of logistic regression."
 date: 2025-04-17
 draft: false
@@ -11,19 +11,28 @@ slug: "sigmoid-function-classifier"
 
 Explore how the sigmoid function transforms any linear combination into a probability between 0 and 1, becoming the cornerstone of logistic regression. In this interactive simulation you will separate high- and low-risk patients by adjusting the slope and the initial height of the curve.
 
-{{< demo-intro
-    title="Simulator: Sigmoid Function Game"
-    algorithm_type="Logistic classification"
+{{< medical-context
+    type="research"
     difficulty="intermediate"
-    medical_scenario="You have built a model that estimates the **probability of post-operative complications** using each patient's age and blood pressure (every point on the chart)."
-    medical_highlight="Your goal is to tune the decision boundary and **guarantee** safe therapeutic decisions by separating *low*- and *high*-risk patients correctly."
-    intro_text="Adjust the **slope** and the **offset** of the sigmoid curve to reach the highest possible accuracy. Watch how the performance metrics react in real time."
-    steps="Minimize the Log-Loss: Separate the green points (no complications) from the red points (complications) by tuning the sigmoid parameters.|Use the sliders: Modify the curve with the controls. The plot and metrics update instantly so you can see the impact.|Evaluate the metrics: Check **accuracy** and **log-loss** to judge classification quality and discover the best fit."
+    scenario="You have built a model that estimates the **probability of post-operative complications** using each patient's age and blood pressure. Your goal is to tune the decision boundary to correctly separate low- and high-risk patients."
+    highlight="The sigmoid function transforms any numerical value into a probability between 0 and 1, enabling safe therapeutic decisions. Properly adjusting the curve ensures that high-risk patients receive necessary preventive care, while avoiding unnecessary interventions for low-risk patients."
+    steps="Adjust Parameters: Use the w₁, w₂, and bias (b) sliders to modify the slope and position of the sigmoid curve. Observe how the performance metrics react in real time.|Minimize Log-Loss: Separate the green points (no complications) from the red points (complications) by tuning the sigmoid parameters to achieve the best classification.|Evaluate Metrics: Check accuracy and log-loss to judge classification quality. Adjust the threshold to be more or less strict when flagging high-risk patients."
 >}}
 
 ## Interactive Demonstration
 
+The graph shows patient data points where each point represents age and blood pressure. Green points indicate patients without post-operative complications and red points show patients with complications. The sigmoid curve is your classification model. Your goal is to adjust the curve's parameters so it separates both groups as accurately as possible, minimizing the error between predicted and actual classifications.
+
 {{< demo-wrapper title="Sigmoid Function Simulator" >}}
+
+<h3>How to use the simulation</h3>
+
+<ul>
+<li><strong>Adjust the w₁, w₂, and bias (b) parameters</strong> using the sliders to modify the slope and position of the sigmoid curve.</li>
+<li><strong>Watch the metrics in real time</strong>: Accuracy and log-loss update instantly, showing the quality of your classification.</li>
+<li><strong>Experiment with the threshold</strong> to adjust how strict the high-risk classification should be.</li>
+<li><strong>Toggle between modes</strong> to view discrete classification or the probability heatmap.</li>
+</ul>
 
 {{< sigmoid-legend >}}
 {{< sigmoid-game lang="en" >}}

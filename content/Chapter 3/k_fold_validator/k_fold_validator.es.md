@@ -1,6 +1,6 @@
 ---
 title: "3.5 Notas de Luis: Validación cruzada K-Fold eficiente"
-weight: 4
+weight: 5
 description: "Comprende la importancia de una evaluación robusta de modelos y cómo la validación cruzada proporciona estimaciones más confiables que las divisiones simples de datos."
 date: 2025-04-17
 draft: false
@@ -11,18 +11,12 @@ slug: "validador-honesto-k-fold"
 
 La validación cruzada (K-Fold) es una técnica fundamental para evaluar el rendimiento de un modelo de forma robusta. En lugar de depender de una única división de datos para prueba, cuyo resultado puede ser poco fiable por pura suerte, este método promedia múltiples mediciones sobre diferentes subconjuntos de datos, ofreciendo una estimación mucho más estable y realista de cómo se comportará el modelo con casos nuevos.
 
-{{% notice style="tip" title="¿Por qué es crucial en medicina?" %}}
-En aplicaciones médicas, la estabilidad en la evaluación es crítica. Un modelo que aparenta funcionar bien por casualidad puede fallar en casos reales, poniendo en riesgo la seguridad del paciente.
-{{% /notice %}}
-
-{{< demo-intro
-    title="Simulador: División Simple vs. Validación Cruzada (K-Fold)"
-    algorithm_type="Evaluación de modelos"
+{{< medical-context
+    type="research"
     difficulty="intermediate"
-    medical_scenario="Has desarrollado un modelo de IA para detectar una anomalía cardiaca a partir de electrocardiogramas. Tienes 1000 casos de pacientes y necesitas saber qué tan confiable es tu modelo antes de usarlo en un entorno clínico."
-    medical_highlight="La clave es asegurar la **estabilidad** de la evaluación. Un resultado que cambia drásticamente cada vez que se mide no es fiable para tomar decisiones médicas críticas."
-    intro_text="La **validación cruzada (K-Fold)** sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento. Así obtenemos una estimación mucho más estable y realista de cómo se comportará el modelo con pacientes nuevos."
-    steps="Haz una división simple: Calcula el rendimiento con un solo train/test y observa cómo puede fluctuar.|Repite la división: Prueba varias particiones aleatorias para notar lo inestable que puede ser el error.|Activa K-Fold: Cambia a la validación cruzada y comprueba cómo el error promedio se estabiliza entre los folds."
+    scenario="Has desarrollado un modelo de IA para detectar una anomalía cardiaca a partir de electrocardiogramas. Tienes 1000 casos de pacientes y necesitas saber qué tan confiable es tu modelo antes de usarlo en un entorno clínico."
+    highlight="En aplicaciones médicas, la estabilidad en la evaluación es crítica. Un modelo que aparenta funcionar bien por casualidad puede fallar en casos reales, poniendo en riesgo la seguridad del paciente. La validación cruzada K-Fold sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento, obteniendo una estimación mucho más estable y realista."
+    steps="Haz una división simple: Calcula el rendimiento con un solo train/test y observa cómo puede fluctuar significativamente según la partición aleatoria.|Repite la división: Prueba varias particiones aleatorias para notar lo inestable que puede ser el error. Vers como cada división da resultados diferentes.|Activa K-Fold: Cambia a la validación cruzada y comprueba cómo el error promedio se estabiliza entre los folds, proporcionando una medida más confiable del rendimiento real del modelo."
 >}}
 
 ## Demostración Interactiva

@@ -4,6 +4,7 @@ description: "Deriva la recursión estándar de backpropagation con notación ja
 weight: 91
 draft: false
 slug: "backpropagation-regla-cadena"
+math: true
 ---
 
 ## Contexto

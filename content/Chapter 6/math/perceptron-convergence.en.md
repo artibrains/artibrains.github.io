@@ -4,6 +4,7 @@ description: "Rosenblatt–Novikoff mistake bound proving single-layer perceptro
 weight: 90
 draft: false
 slug: "perceptron-convergence"
+math: true
 ---
 
 ## Context

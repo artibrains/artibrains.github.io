@@ -20,6 +20,15 @@ The **Perceptron** is the simplest model of an artificial neuron and the histori
 
 ## Interactive Demonstration
 
+<div style="margin-bottom: 1.5rem;">
+<h3>How to use the simulation</h3>
+<ul>
+<li><strong>Move the controls</strong> to adjust the slope and decision threshold.</li>
+<li><strong>Click on the graph</strong> to inspect how the classification of points changes.</li>
+<li><strong>Train automatically</strong> if available and observe how the metrics vary.</li>
+</ul>
+</div>
+
 {{< demo-wrapper title="Perceptron Simulator" >}}
 
 {{< perceptron >}}

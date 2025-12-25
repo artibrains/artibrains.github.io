@@ -1,0 +1,9 @@
+# Hugo generated files
+public/
+resources/
+
+# Build artifacts
+.hugo_build.lock
+
+# Theme files
+themes/

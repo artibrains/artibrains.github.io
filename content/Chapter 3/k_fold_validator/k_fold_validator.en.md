@@ -1,6 +1,6 @@
 ---
 title: "3.5 Notes from Luis: Efficient K-Fold Cross-Validation"
-weight: 4
+weight: 5
 description: "Understand why robust evaluation matters and how cross-validation delivers more reliable estimates than simple train/test splits."
 date: 2025-04-17
 draft: false
@@ -12,19 +12,12 @@ slug: "honest-validator-k-fold"
 **K-Fold cross-validation** is a cornerstone technique for evaluating a model in a robust way.
 Instead of relying on a single train/test split—whose outcome may be unreliable due to randomness—it averages multiple measurements across different subsets of the data, yielding a far more stable and realistic estimate of how the model will behave on new cases.
 
-{{% notice style="tip" title="Why Is This Critical in Medicine?" %}}
-In clinical applications, stability in evaluation is essential.
-A model that appears to work by chance can fail catastrophically with real patients, putting their safety at risk.
-{{% /notice %}}
-
-{{< demo-intro
-    title="Simulator: Train/Test Split vs. K-Fold Cross-Validation"
-    algorithm_type="Model evaluation"
+{{< medical-context
+    type="research"
     difficulty="intermediate"
-    medical_scenario="You have developed an AI model to detect a cardiac anomaly from electrocardiograms. With 1,000 patient records, you must know how trustworthy the model is before deploying it in a clinical workflow."
-    medical_highlight="Evaluation **stability** is the key. A result that swings wildly every time you measure it cannot be trusted for high-stakes medical decisions."
-    intro_text="**K-Fold cross-validation** replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average their performance. The result is a much more stable and realistic estimate of how the model will behave on new patients."
-    steps="Run a single split: Measure performance with a simple train/test split and notice how it fluctuates.|Repeat the split: Try multiple random splits to see how unstable the error can be.|Activate K-Fold: Switch to cross-validation and observe how the average error stabilizes across folds."
+    scenario="You have developed an AI model to detect a cardiac anomaly from electrocardiograms. With 1,000 patient records, you must know how trustworthy the model is before deploying it in a clinical workflow."
+    highlight="In clinical applications, stability in evaluation is essential. A model that appears to work by chance can fail catastrophically with real patients, putting their safety at risk. K-Fold cross-validation replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average their performance, yielding a much more stable and realistic estimate."
+    steps="Run a single split: Measure performance with a simple train/test split and notice how it fluctuates significantly depending on the random partition.|Repeat the split: Try multiple random splits to see how unstable the error can be. You'll see how each split gives different results.|Activate K-Fold: Switch to cross-validation and observe how the average error stabilizes across folds, providing a more reliable measure of the model's true performance."
 >}}
 
 ## Interactive Demonstration

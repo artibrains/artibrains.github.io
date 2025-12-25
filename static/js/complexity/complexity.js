@@ -17,6 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
             tabs: {
                 overfitting: 'Sobreajuste',
                 regularization: 'Regularización'
+            },
+            chartTitles: {
+                trainingOnly: 'Ajuste del Modelo - Datos de Entrenamiento',
+                trainingAndValidation: 'Ajuste del Modelo - Entrenamiento vs Validación'
+            },
+            labels: {
+                trainingData: 'Datos de Entrenamiento',
+                validationData: 'Datos de Validación',
+                modelLine: 'Línea del Modelo',
+                trainingErrorNoReg: 'Error de Entrenamiento (sin reg.)',
+                validationErrorNoReg: 'Error de Validación (sin reg.)',
+                currentTrainingError: 'Error Actual (Entrenamiento)',
+                currentValidationError: 'Error Actual (Validación)',
+                modelComplexity: 'Complejidad del Modelo',
+                errorMSE: 'Error (MSE, escala log)'
             }
         },
         en: {
@@ -36,6 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
             tabs: {
                 overfitting: 'Overfitting',
                 regularization: 'Regularization'
+            },
+            chartTitles: {
+                trainingOnly: 'Model Fit - Training Data',
+                trainingAndValidation: 'Model Fit - Training vs Validation'
+            },
+            labels: {
+                trainingData: 'Training Data',
+                validationData: 'Validation Data',
+                modelLine: 'Model Line',
+                trainingErrorNoReg: 'Training Error (no reg.)',
+                validationErrorNoReg: 'Validation Error (no reg.)',
+                currentTrainingError: 'Current Error (Training)',
+                currentValidationError: 'Current Error (Validation)',
+                modelComplexity: 'Model Complexity',
+                errorMSE: 'Error (MSE, log scale)'
             }
         }
     };
@@ -156,8 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const NOISE_LEVEL = 0.7;        // Mucho más ruido
 
     const MAX_COMPLEXITY = 12;
-    const MIN_LAMBDA_POWER = -9; // 10^-9
-    const MAX_LAMBDA_POWER = -1;  // 10^-1 (Rango más enfocado)
+    const MIN_LAMBDA_POWER = -5; // 10^-5 (increased from -9)
+    const MAX_LAMBDA_POWER = 0;  // 10^0 = 1 (increased from -1)
 
     let currentTab = 'overfitting';
     let trainingData, validationData;
@@ -202,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lambda = sliderValueToLambda(sliderVal);
         lambdaValueEl.textContent = lambda.toExponential(2);
 
-        modelFitChart.data.datasets[2] = { label: 'Datos de Validación', data: validationData, backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 5 };
+        modelFitChart.data.datasets[2] = { label: strings.labels.validationData, data: validationData, backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 5 };
         const model = polynomialRegression(toRegressionFormat(trainingData), complexity, lambda);
         logToTerminal(strings.terminal.regularizationView(complexity, lambda.toExponential(2)));
         modelFitChart.data.datasets[1].data = getModelLine(model);
@@ -225,35 +255,71 @@ document.addEventListener('DOMContentLoaded', () => {
         let bestValidationError = Infinity;
         let bestComplexity = -1;
         let bestLambda = -1;
+        let bestScore = Infinity;  // Combined score considering validation error and overfitting
         const trainRegData = toRegressionFormat(trainingData);
 
+        // Build a more granular list of lambda values to test
         const lambdaValuesToTest = [0];
-        for (let p = MIN_LAMBDA_POWER; p <= MAX_LAMBDA_POWER; p += 0.5) {
+        for (let p = MIN_LAMBDA_POWER; p <= MAX_LAMBDA_POWER; p += 0.2) {
             lambdaValuesToTest.push(10 ** p);
         }
 
+        // Search through all combinations
         for (let complexity = 1; complexity <= MAX_COMPLEXITY; complexity++) {
             for (const currentLambda of lambdaValuesToTest) {
-                const model = polynomialRegression(trainRegData, complexity, currentLambda);
-                const validError = calculateMSE(model, validationData);
-                if (validError < bestValidationError) {
-                    bestValidationError = validError;
-                    bestComplexity = complexity;
-                    bestLambda = currentLambda;
+                try {
+                    const model = polynomialRegression(trainRegData, complexity, currentLambda);
+                    const trainError = calculateMSE(model, trainingData);
+                    const validError = calculateMSE(model, validationData);
+
+                    // Only consider if we have valid, finite errors
+                    if (isFinite(validError) && isFinite(trainError)) {
+                        // Calculate overfitting gap (how much worse validation is than training)
+                        const overfittingGap = validError - trainError;
+
+                        // Score combines validation error with a penalty for overfitting
+                        // Penalize if validation error is much higher than training error
+                        const overfittingPenalty = overfittingGap > 0 ? overfittingGap * 0.3 : 0;
+                        const score = validError + overfittingPenalty;
+
+                        // Update best if this is better
+                        if (score < bestScore) {
+                            bestScore = score;
+                            bestValidationError = validError;
+                            bestComplexity = complexity;
+                            bestLambda = currentLambda;
+                        }
+                    }
+                } catch (e) {
+                    // Skip invalid models
+                    continue;
                 }
             }
             await new Promise(resolve => setTimeout(resolve, 5));
         }
 
+        // Ensure we found a valid model
+        if (bestComplexity === -1 || !isFinite(bestValidationError)) {
+            // Fallback: use medium complexity with moderate regularization
+            bestComplexity = Math.floor(MAX_COMPLEXITY / 2);
+            bestLambda = 10 ** ((MIN_LAMBDA_POWER + MAX_LAMBDA_POWER) / 2);
+            const fallbackModel = polynomialRegression(trainRegData, bestComplexity, bestLambda);
+            bestValidationError = calculateMSE(fallbackModel, validationData);
+        }
+
+        // Update sliders
         complexitySlider.value = bestComplexity;
         lambdaSlider.value = lambdaToSliderValue(bestLambda);
 
+        // Display results
         bestComplexityEl.textContent = bestComplexity;
         bestLambdaEl.textContent = bestLambda.toExponential(2);
         bestErrorEl.textContent = bestValidationError.toFixed(4);
         resultsBox.style.display = 'block';
 
+        // Switch to regularization tab and update the visualization
         switchTab('regularization');
+        updateRegularizationView();
 
         findBestBtn.disabled = false;
         findBestBtn.textContent = strings.buttons.findBestIdle;
@@ -280,11 +346,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTab === 'overfitting' ? updateOverfittingView() : updateRegularizationView();
     }
 
-    function switchTab(tabName) { currentTab = tabName; tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName)); tabContents.forEach(content => content.classList.toggle('active', content.id === `${tabName}-tab`)); if (tabName === 'overfitting') { chartTitleEl.textContent = 'Ajuste del Modelo - Datos de Entrenamiento'; updateOverfittingView(); } else { chartTitleEl.textContent = 'Ajuste del Modelo - Entrenamiento vs Validación'; updateRegularizationView(); } const tabLabel = strings.tabs[tabName] || tabName; logToTerminal(strings.terminal.tabChanged(tabLabel)); }
+    function switchTab(tabName) { currentTab = tabName; tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName)); tabContents.forEach(content => content.classList.toggle('active', content.id === `${tabName}-tab`)); if (tabName === 'overfitting') { chartTitleEl.textContent = strings.chartTitles.trainingOnly; updateOverfittingView(); } else { chartTitleEl.textContent = strings.chartTitles.trainingAndValidation; updateRegularizationView(); } const tabLabel = strings.tabs[tabName] || tabName; logToTerminal(strings.terminal.tabChanged(tabLabel)); }
     function updateComplexityDisplays() { const complexity = parseInt(complexitySlider.value); complexityValueEl.textContent = complexity; currentComplexityDisplayEl.textContent = complexity; }
     function updateOverfittingView() { updateComplexityDisplays(); const complexity = parseInt(complexitySlider.value); if (modelFitChart.data.datasets[2]) { modelFitChart.data.datasets[2].data = []; } const model = polynomialRegression(toRegressionFormat(trainingData), complexity); logToTerminal(strings.terminal.overfittingView(complexity)); modelFitChart.data.datasets[1].data = getModelLine(model); modelFitChart.data.datasets[1].borderColor = MODEL_LINE_COLOR; modelFitChart.update('none'); errorChart.data.datasets[2].data = [{ x: complexity, y: allErrors.train[complexity - 1] }]; errorChart.data.datasets[3].data = [{ x: complexity, y: allErrors.valid[complexity - 1] }]; errorChart.update('none'); }
     function resetRegularization() { lambdaSlider.value = 0; updateRegularizationView(); resultsBox.style.display = 'none'; }
-    function initializeCharts() { modelFitChart = new Chart(modelFitCanvas.getContext('2d'), { type: 'scatter', data: { datasets: [{ label: 'Datos de Entrenamiento', data: [], backgroundColor: TRAIN_COLOR, pointRadius: 5, }, { label: 'Línea del Modelo', data: [], borderColor: MODEL_LINE_COLOR, type: 'line', fill: false, borderWidth: 3, pointRadius: 0, tension: 0.1, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', min: 0, max: 1 }, y: { min: -2, max: 2 } }, plugins: { legend: { position: 'top' } } } }); errorChart = new Chart(errorCanvas.getContext('2d'), { type: 'line', data: { datasets: [{ label: 'Error de Entrenamiento (sin reg.)', data: [], borderColor: TRAIN_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: 'Error de Validación (sin reg.)', data: [], borderColor: VALID_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: 'Error Actual (Entrenamiento)', data: [], backgroundColor: TRAIN_COLOR, type: 'scatter', pointRadius: 8, }, { label: 'Error Actual (Validación)', data: [], backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 8, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', title: { display: true, text: 'Complejidad del Modelo' }, min: 0.5, max: MAX_COMPLEXITY + 0.5, ticks: { stepSize: 1, callback: (v) => Number.isInteger(v) && v >= 1 ? v : '' } }, y: { type: 'logarithmic', title: { display: true, text: 'Error (MSE, escala log)' }, min: 0.01 } }, plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false } }, interaction: { mode: 'index', intersect: false } } }); }
+    function initializeCharts() { modelFitChart = new Chart(modelFitCanvas.getContext('2d'), { type: 'scatter', data: { datasets: [{ label: strings.labels.trainingData, data: [], backgroundColor: TRAIN_COLOR, pointRadius: 5, }, { label: strings.labels.modelLine, data: [], borderColor: MODEL_LINE_COLOR, type: 'line', fill: false, borderWidth: 3, pointRadius: 0, tension: 0.1, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', min: 0, max: 1 }, y: { min: -2, max: 2 } }, plugins: { legend: { position: 'top' } } } }); errorChart = new Chart(errorCanvas.getContext('2d'), { type: 'line', data: { datasets: [{ label: strings.labels.trainingErrorNoReg, data: [], borderColor: TRAIN_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: strings.labels.validationErrorNoReg, data: [], borderColor: VALID_COLOR, borderWidth: 3, fill: false, tension: 0.1, }, { label: strings.labels.currentTrainingError, data: [], backgroundColor: TRAIN_COLOR, type: 'scatter', pointRadius: 8, }, { label: strings.labels.currentValidationError, data: [], backgroundColor: VALID_COLOR, type: 'scatter', pointRadius: 8, }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', title: { display: true, text: strings.labels.modelComplexity }, min: 0.5, max: MAX_COMPLEXITY + 0.5, ticks: { stepSize: 1, callback: (v) => Number.isInteger(v) && v >= 1 ? v : '' } }, y: { type: 'logarithmic', title: { display: true, text: strings.labels.errorMSE }, min: 0.001, ticks: { callback: function (value) { if (value >= 1) return value.toFixed(1); if (value >= 0.1) return value.toFixed(2); if (value >= 0.01) return value.toFixed(3); return value.toExponential(1); } } } }, plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false, callbacks: { label: function (context) { let label = context.dataset.label || ''; if (label) { label += ': '; } label += context.parsed.y.toFixed(4); return label; } } } }, interaction: { mode: 'index', intersect: false } } }); }
     function setupEventListeners() { tabButtons.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab))); complexitySlider.addEventListener('input', () => currentTab === 'overfitting' ? updateOverfittingView() : updateRegularizationView()); lambdaSlider.addEventListener('input', () => { if (currentTab === 'regularization') { updateRegularizationView(); resultsBox.style.display = 'none'; } }); generateNewDataBtn.addEventListener('click', generateNewData); resetRegularizationBtn.addEventListener('click', resetRegularization); findBestBtn.addEventListener('click', findBestModel); }
     function init() { logToTerminal(strings.terminal.init); initializeCharts(); generateNewData(); setupEventListeners(); switchTab('overfitting'); }
 

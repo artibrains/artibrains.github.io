@@ -17,14 +17,11 @@ The **K-Nearest Neighbors** (K-NN) algorithm is one of the simplest and most eff
     medical_scenario="A veterinarian needs to automatically classify pet X-rays as either cats or dogs based on measured anatomical features. They have a labeled set of X-rays available for training."
     medical_highlight="K-NN allows the veterinarian to classify new X-rays by comparing them to the K most similar X-rays in the historical database, leveraging known patterns for fast and accurate diagnostics."
     intro_text="The **K-NN** algorithm classifies new data based on its proximity to known data points. It is a form of **lazy learning** that does not build an explicit model but instead uses the training data directly."
-    steps="Select the value of K: Choose how many nearby neighbors to consider for classification. A small K is more sensitive to noise, while a large K smooths decisions.|Observe the distances: Click any point to see how distances are computed to all training points and which are the K nearest neighbors.|Analyze the classification: The point is classified according to the majority class among its K nearest neighbors. Try different K values to see how the classification changes."
 >}}
 
 ## Interactive Demonstration
 
 {{< demo-wrapper title="K-NN Classifier: Cat or Dog?" >}}
-
-{{< knn_intro_es lang="en" >}}
 
 {{< knn lang="en" >}}
 

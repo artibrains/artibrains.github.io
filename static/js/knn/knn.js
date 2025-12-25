@@ -1,4 +1,46 @@
+// --- Translations ---
+const translations = {
+    es: {
+        initialized: "KNN: Aplicación K-NN inicializada.",
+        modeChanged: "KNN: Modo cambiado a {mode}.",
+        dataGenerated: "KNN: Generados 30 puntos de datos aleatorios.",
+        dataCleared: "KNN: Todos los datos han sido borrados.",
+        showingBoundaries: "KNN: Mostrando fronteras de decisión.",
+        hidingBoundaries: "KNN: Ocultando fronteras de decisión.",
+        showingDistances: "KNN: Mostrando distancias a vecinos.",
+        hidingDistances: "KNN: Ocultando distancias a vecinos.",
+        pointAdded: "KNN: Punto de {type} añadido en ({x}, {y}).",
+        classified: "KNN: Punto clasificado como {class} con confianza {conf}%."
+    },
+    en: {
+        initialized: "KNN: K-NN application initialized.",
+        modeChanged: "KNN: Mode changed to {mode}.",
+        dataGenerated: "KNN: Generated 30 random data points.",
+        dataCleared: "KNN: All data has been cleared.",
+        showingBoundaries: "KNN: Showing decision boundaries.",
+        hidingBoundaries: "KNN: Hiding decision boundaries.",
+        showingDistances: "KNN: Showing distances to neighbors.",
+        hidingDistances: "KNN: Hiding distances to neighbors.",
+        pointAdded: "KNN: {type} point added at ({x}, {y}).",
+        classified: "KNN: Point classified as {class} with {conf}% confidence."
+    }
+};
+
+let lang = 'en';
+
+function t(key, params = {}) {
+    // Ensure we use the current lang from window if available, or fallback to local var
+    const currentLang = window.gameLanguage || lang;
+    let text = (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;
+    Object.keys(params).forEach(k => {
+        text = text.replace(`{${k}}`, params[k]);
+    });
+    return text;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    lang = window.gameLanguage || 'en';
+    console.log("KNN Language detected:", lang);
 
     // --- VARIABLES GLOBALES Y CONSTANTES ---
 
@@ -24,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modeButtons = document.querySelectorAll('.mode-btn');
     const generateDataBtn = document.getElementById('generate-data-btn');
     const clearDataBtn = document.getElementById('clear-data-btn');
-    const showBoundariesBtn = document.getElementById('show-boundaries-btn');
-    const showDistancesBtn = document.getElementById('show-distances-btn');
+    const showBoundariesBtn = document.getElementById('show-boundaries-switch');
+    const showDistancesBtn = document.getElementById('show-distances-switch');
     const classificationResult = document.getElementById('classification-result');
     const resultDetails = document.getElementById('result-details');
     const totalPoints = document.getElementById('total-points');
@@ -69,18 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Aplicación K-NN inicializada');
         if (window.CustomTerminal) {
-            window.CustomTerminal.write("KNN: Aplicación K-NN inicializada.\n");
+            window.CustomTerminal.write(t('initialized') + "\n");
         }
     }
 
     function resizeCanvas() {
         const container = canvas.parentElement;
         const containerWidth = container.clientWidth;
-        const maxWidth = Math.min(600, containerWidth - 40); // 40px para padding
+        const maxWidth = Math.min(600, containerWidth);
         const aspectRatio = 400 / 600;
 
-        canvas.width = maxWidth;
-        canvas.height = maxWidth * aspectRatio;
+        canvas.width = 600;
+        canvas.height = 400;
         canvas.style.width = maxWidth + 'px';
         canvas.style.height = (maxWidth * aspectRatio) + 'px';
     }
@@ -103,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Action buttons
         if (generateDataBtn) generateDataBtn.addEventListener('click', generateRandomData);
         if (clearDataBtn) clearDataBtn.addEventListener('click', clearAllData);
-        if (showBoundariesBtn) showBoundariesBtn.addEventListener('click', toggleBoundaries);
-        if (showDistancesBtn) showDistancesBtn.addEventListener('click', toggleDistances);
+        if (showBoundariesBtn) showBoundariesBtn.addEventListener('change', toggleBoundaries);
+        if (showDistancesBtn) showDistancesBtn.addEventListener('change', toggleDistances);
 
         // Window resize
         window.addEventListener('resize', () => {
@@ -227,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KNN: Modo cambiado a ${mode}.\n`);
+            window.CustomTerminal.write(t('modeChanged', { mode }) + "\n");
         }
 
         // Cambiar cursor del canvas
@@ -311,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (window.CustomTerminal) {
-            window.CustomTerminal.write("KNN: Generados 30 puntos de datos aleatorios.\n");
+            window.CustomTerminal.write(t('dataGenerated') + "\n");
         }
 
         updateStats();
@@ -329,14 +371,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showingBoundaries = false;
         showingDistances = false;
 
-        // Resetear botones
-        if (showBoundariesBtn) showBoundariesBtn.textContent = '🗺️ Mostrar Fronteras';
-        if (showDistancesBtn) showDistancesBtn.textContent = '📏 Mostrar Distancias';
+        // Resetear switches
+        if (showBoundariesBtn) showBoundariesBtn.checked = false;
+        if (showDistancesBtn) showDistancesBtn.checked = false;
 
         updateStats();
         drawCanvas();
         if (window.CustomTerminal) {
-            window.CustomTerminal.write("KNN: Todos los datos han sido borrados.\n");
+            window.CustomTerminal.write(t('dataCleared') + "\n");
         }
     }
 
@@ -593,37 +635,34 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
     }
 
-    function toggleBoundaries() {
-        showingBoundaries = !showingBoundaries;
+    function toggleBoundaries(e) {
+        showingBoundaries = e.target.checked;
 
         if (showingBoundaries) {
             if (trainingData.length < 3) {
                 alert('Necesitas al menos 3 puntos para mostrar fronteras de decisión');
                 showingBoundaries = false;
+                e.target.checked = false;
                 return;
             }
-            if (showBoundariesBtn) showBoundariesBtn.textContent = '🗺️ Ocultar Fronteras';
             drawDecisionBoundaries();
             if (window.CustomTerminal) {
-                window.CustomTerminal.write("KNN: Mostrando fronteras de decisión.\n");
+                window.CustomTerminal.write(t('showingBoundaries') + "\n");
             }
         } else {
-            if (showBoundariesBtn) showBoundariesBtn.textContent = '🗺️ Mostrar Fronteras';
             drawCanvas();
             if (window.CustomTerminal) {
-                window.CustomTerminal.write("KNN: Ocultando fronteras de decisión.\n");
+                window.CustomTerminal.write(t('hidingBoundaries') + "\n");
             }
         }
     }
 
-    function toggleDistances() {
-        showingDistances = !showingDistances;
-        if (showDistancesBtn) {
-            showDistancesBtn.textContent = showingDistances ? '📏 Ocultar Distancias' : '📏 Mostrar Distancias';
-        }
+    function toggleDistances(e) {
+        showingDistances = e.target.checked;
         drawCanvas();
         if (window.CustomTerminal) {
-            window.CustomTerminal.write(`KNN: ${showingDistances ? 'Mostrando' : 'Ocultando'} distancias a vecinos.\n`);
+            const key = showingDistances ? 'showingDistances' : 'hidingDistances';
+            window.CustomTerminal.write(t(key) + "\n");
         }
     }
 

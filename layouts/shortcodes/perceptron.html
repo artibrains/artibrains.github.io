@@ -1,32 +1,74 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-<div class="interactive-description">
-    <!-- (puedes omitir si ya está en el markdown) -->
-</div>
-<div class="controls">
-    <div class="control-group"><label for="species1">Clase 1 (Roja)</label><select id="species1" disabled></select>
+<script>
+    // Keep the JS language in sync with Hugo i18n.
+    window.perceptronLanguage = "{{ .Page.Language.Lang }}";
+</script>
+
+<div class="demo-main-layout">
+    <div class="demo-content-panel">
+        <div class="demo-chart-container">
+            <canvas id="perceptronCanvas" width="600" height="400"></canvas>
+        </div>
+
+        <div id="info-panel" class="info-box">
+            <h3>{{ i18n "perceptron_model_state" | default "Model State" }}</h3>
+            <p>{{ i18n "perceptron_epoch" | default "Epoch" }}: <span id="epochDisplay">0</span></p>
+            <p>{{ i18n "perceptron_epoch_error" | default "Epoch Error" }}: <span id="errorDisplay">N/A</span></p>
+            <p>{{ i18n "perceptron_best_error" | default "Best Error" }}: <span id="minErrorDisplay">N/A</span></p>
+            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₁: <span id="w1Display">N/A</span></p>
+            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₂: <span id="w2Display">N/A</span></p>
+            <p>{{ i18n "perceptron_bias" | default "Bias" }} b: <span id="bDisplay">N/A</span></p>
+        </div>
     </div>
-    <div class="control-group"><label for="species2">Clase 2 (Azul)</label><select id="species2" disabled></select>
-    </div>
-    <div class="control-group"><button id="trainEpochBtn" disabled>Entrenar 1 Época</button></div>
-    <div class="control-group"><button id="trainAutoBtn" disabled>Entrenar Automático</button></div>
-    <div class="control-group"><button id="resetBtn" disabled>Reiniciar Modelo</button></div>
-    <div class="control-group"><label for="lrSlider">Tasa Aprendizaje (η): <span id="lrValue">0.1</span></label><input
-            type="range" id="lrSlider" min="0.01" max="1" step="0.01" value="0.1" disabled></div>
-    <div class="control-group"><label for="speedSlider">Velocidad (ms): <span id="speedValue">100</span></label><input
-            type="range" id="speedSlider" min="10" max="500" step="10" value="100" disabled></div>
-</div>
-<div class="canvas-area">
-    <div class="canvas-container"><canvas id="perceptronCanvas" width="600" height="400"></canvas></div>
-    <div id="info-panel">
-        <h3>Estado del Modelo</h3>
-        <p>Época: <span id="epochDisplay">0</span></p>
-        <p>Error Época: <span id="errorDisplay">N/A</span></p>
-        <p>Mejor Error: <span id="minErrorDisplay">N/A</span></p>
-        <p>Peso w₁: <span id="w1Display">N/A</span></p>
-        <p>Peso w₂: <span id="w2Display">N/A</span></p>
-        <p>Sesgo b: <span id="bDisplay">N/A</span></p>
+
+    <div class="controls-panel">
+        <h3 class="demo-text-center demo-mb-md">{{ i18n "perceptron_controls_title" | default "Controls" }}</h3>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label for="species1" class="control-label">{{ i18n "perceptron_class1" | default "Class 1 (Red)" }}</label>
+                <select id="species1" class="demo-control-input" disabled></select>
+            </div>
+            <div class="demo-control-group">
+                <label for="species2" class="control-label">{{ i18n "perceptron_class2" | default "Class 2 (Blue)" }}</label>
+                <select id="species2" class="demo-control-input" disabled></select>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <button id="trainEpochBtn" class="demo-btn demo-btn-primary demo-btn-full-width" disabled>
+                    {{ i18n "perceptron_train_epoch" | default "Train 1 Epoch" }}
+                </button>
+            </div>
+            <div class="demo-control-group">
+                <button id="trainAutoBtn" class="demo-btn demo-btn-primary demo-btn-full-width" disabled>
+                    {{ i18n "perceptron_train_auto" | default "Train Automatically" }}
+                </button>
+            </div>
+            <div class="demo-control-group">
+                <button id="resetBtn" class="demo-btn demo-btn-secondary demo-btn-full-width" disabled>
+                    {{ i18n "perceptron_reset" | default "Reset Model" }}
+                </button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label for="lrSlider" class="control-label">
+                    {{ i18n "perceptron_learning_rate" | default "Learning Rate (η)" }}: <span id="lrValue" class="demo-range-value">0.1</span>
+                </label>
+                <input type="range" id="lrSlider" min="0.01" max="1" step="0.01" value="0.1" class="demo-range-input" disabled>
+            </div>
+            <div class="demo-control-group">
+                <label for="speedSlider" class="control-label">
+                    {{ i18n "perceptron_speed" | default "Speed (ms)" }}: <span id="speedValue" class="demo-range-value">100</span>
+                </label>
+                <input type="range" id="speedSlider" min="10" max="500" step="10" value="100" class="demo-range-input" disabled>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="/js/perceptron/perceptron.js"></script>
+<script defer src="/js/perceptron/perceptron.js"></script>

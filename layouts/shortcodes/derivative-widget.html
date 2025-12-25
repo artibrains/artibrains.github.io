@@ -1,0 +1,71 @@
+<div class="derivative-widget">
+  <label for="dw-function">f(x) =</label>
+  <input id="dw-function" type="text" placeholder="e.g. sin(x)^2 * ln(x)" style="min-width: 320px;" />
+  <button id="dw-compute">Compute f′(x)</button>
+  <button id="dw-walpha">Open in WolframAlpha</button>
+  <div id="dw-result" style="margin-top: 0.75rem;"></div>
+  <div id="dw-error" style="margin-top: 0.5rem; color: var(--ERROR-fg, #b00020);"></div>
+  <small style="display:block; margin-top:0.5rem; opacity:0.8;">This widget uses math.js for symbolic differentiation. For step-by-step explanations, use the WolframAlpha button.</small>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.1/lib/browser/math.min.js"></script>
+<script>
+  (function(){
+    const $ = (id) => document.getElementById(id);
+    const input = $("dw-function");
+    const btnCompute = $("dw-compute");
+    const btnWA = $("dw-walpha");
+    const out = $("dw-result");
+    const err = $("dw-error");
+
+    function renderLatex(latex) {
+      // Try KaTeX if present; else just show plain text
+      out.innerHTML = '';
+      const block = document.createElement('div');
+      block.style.padding = '0.5rem 0';
+      out.appendChild(block);
+      if (window.katex) {
+        try {
+          katex.render(latex, block, { throwOnError: false, displayMode: true });
+        } catch(e) {
+          block.textContent = latex;
+        }
+      } else {
+        block.textContent = latex;
+      }
+    }
+
+    btnCompute.addEventListener('click', () => {
+      err.textContent = '';
+      out.innerHTML = '';
+      const expr = input.value && input.value.trim();
+      if (!expr) {
+        err.textContent = 'Please enter a function of x (e.g., sin(x)*x^2).';
+        return;
+      }
+      try {
+        const x = math.parse('x');
+        const node = math.parse(expr);
+        const dnode = math.derivative(node, x);
+        // Attempt a simplified form
+        const simplified = math.simplify(dnode);
+        const fLatex = `f(x) = \\; ${node.toTex({parenthesis:'auto'})}`;
+        const dLatex = `f'(x) = \\; ${simplified.toTex({parenthesis:'auto'})}`;
+        renderLatex(`${fLatex}\\\\ ${dLatex}`);
+      } catch(e) {
+        err.textContent = 'Could not parse or differentiate the expression. Try simpler syntax.';
+      }
+    });
+
+    btnWA.addEventListener('click', () => {
+      const expr = input.value && input.value.trim();
+      const q = expr ? `derivative of ${expr}` : 'derivative of x^2';
+      const url = `https://www.wolframalpha.com/input?i=${encodeURIComponent(q)}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  })();
+</script>
+
+<style>
+.derivative-widget button { margin-left: 0.25rem; }
+</style>

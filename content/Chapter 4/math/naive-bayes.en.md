@@ -4,6 +4,7 @@ description: "Derives the Naive Bayes classifier, smoothing strategies, and inte
 weight: 91
 draft: false
 slug: "naive-bayes-foundations"
+math: true
 ---
 
 ## Context

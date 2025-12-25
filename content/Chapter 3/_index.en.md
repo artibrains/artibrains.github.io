@@ -12,7 +12,8 @@ This chapter immerses you in the techniques and dilemmas the team must solve to 
 
 Throughout the following interactive sections, you’ll explore:
 
-1. **[The Probability Translator]({{% relref "Chapter 3/probabilities_translator/probabilities_translator.en.md" %}})**: Discover **logistic regression**, the engine behind the team’s new model. See how it transforms patient data into a probability of absence.  
+1. **[SVM Classification Game]({{% relref "Chapter 3/svm-game/svm_game.en.md" %}})**: Learn about **Support Vector Machines**, one of the most powerful classification algorithms. Find the optimal decision boundary that separates two classes by maximizing the margin.
+2. **[The Probability Translator]({{% relref "Chapter 3/probabilities_translator/probabilities_translator.en.md" %}})**: Discover **logistic regression**, the engine behind the team’s new model. See how it transforms patient data into a probability of absence.  
 2. **[The Classifier]({{% relref "Chapter 3/juego-sigmoide/juego-sigmoide.en.md" %}})**: Learn to find the optimal classification boundary by tuning the model’s different parameters. Experiment with the **decision threshold** and observe how it affects predictions.  
 3. **[The Risk Manager]({{% relref "Chapter 3/risk_gestor/risk_gestor.en.md" %}})**: Step into the shoes of a manager and adjust the model’s **decision threshold**. Experience the critical balance between the cost of false positives and false negatives.  
 4. **[The Honest Validator]({{% relref "Chapter 3/k_fold_validator/k_fold_validator.en.md" %}})**: Understand why a single test isn’t enough. Compare simple validation with **cross-validation (K-Fold)** — the method the team uses to obtain a stable and reliable error estimate.  

@@ -14,7 +14,7 @@ Reinforcement Learning is a type of AI that learns to make decisions through tri
     lang="en"
     title="Mouse and Cheese: Reinforcement Learning"
     medical_scenario="The mouse must learn to find the cheese on a board."
-    medical_highlight="explores different strategies, focusing on actions that lead to getting cheese. When a sequence leads to success, that route is positively reinforced. Over time, it learns the most efficient strategy."
+    medical_highlight="The mouse explores different strategies, focusing on actions that lead to getting cheese. When a sequence leads to success, that route is positively reinforced. Over time, it learns the most efficient strategy."
     intro_text="**Reinforcement Learning** allows AI to discover the best strategies by itself without needing pre-labeled examples, only through experience and environmental feedback."
     steps="The agent must choose a sequence of actions to reach an objective, navigating through a space of possible states.|Actions that lead to success are positively reinforced, becoming more likely in the future.|Extensive training allows finding consistently effective and robust strategies."
 >}}

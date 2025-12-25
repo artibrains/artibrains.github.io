@@ -1,6 +1,6 @@
 ---
-title: "3.2 La decisión crucial: Gestor de riesgos"
-weight: 2
+title: "3.4 La decisión crucial: Gestor de riesgos"
+weight: 4
 draft: false
 slug: "gestor-riesgos"
 ---
@@ -9,14 +9,12 @@ slug: "gestor-riesgos"
 
 Ajustar los umbrales de decisión es esencial para que los modelos predictivos funcionen realmente en el mundo clínico. Aunque la IA pueda señalar pacientes de alto riesgo, el impacto final depende de elegir el punto exacto en el que los recordatorios, las intervenciones y los costes operativos se mantienen en equilibrio. La simulación **Gestor de Riesgos** te permite experimentar con ese compromiso y observar cómo responde la curva de coste en tiempo real.
 
-{{< demo-intro
-	title="Gestor de Riesgos: Calibrando Umbrales de Decisión"
-	algorithm_type="Optimización de umbrales"
-	difficulty="intermediate"
-	medical_scenario="Gestionas una clínica que quiere reducir las ausencias a las citas. Un modelo estima la probabilidad de que cada paciente falte, pero tú decides a partir de qué umbral se envía un recordatorio."
-	medical_highlight="Si el umbral es demasiado bajo, el personal se satura con recordatorios innecesarios; si es demasiado alto, se pierden citas y se desaprovechan recursos. El objetivo es minimizar el coste operativo total."
-	intro_text="Explora cómo el punto de corte convierte las probabilidades en acciones concretas. Observa cómo se mueven los verdaderos positivos, los falsos negativos y los costes mientras ajustas el deslizador."
-	steps="Explora las probabilidades: Revisa cómo se distribuyen los pacientes simulados según su riesgo.|Ajusta el umbral de decisión: Mueve el deslizador y observa qué pacientes reciben recordatorios y cuáles no.|Compara el coste total: Sigue el gasto en recordatorios y la penalización por ausencias hasta encontrar el mínimo."
+{{< medical-context
+    type="clinic"
+    difficulty="intermediate"
+    scenario="Gestionas una clínica que quiere reducir las ausencias a las citas. Un modelo estima la probabilidad de que cada paciente falte, pero tú decides a partir de qué umbral se envía un recordatorio."
+    highlight="Si el umbral es demasiado bajo, el personal se satura con recordatorios innecesarios; si es demasiado alto, se pierden citas y se desaprovechan recursos. El objetivo es minimizar el coste operativo total encontrando el punto de equilibrio óptimo entre recordatorios y ausencias."
+    steps="Explora las probabilidades: Revisa cómo se distribuyen los pacientes simulados según su riesgo de inasistencia.|Ajusta el umbral de decisión: Mueve el deslizador y observa qué pacientes reciben recordatorios y cuáles no. Observa cómo cambian los verdaderos positivos y los falsos negativos.|Compara el coste total: Sigue el gasto en recordatorios (5€ cada uno) y la penalización por ausencias (25€ cada una) hasta encontrar el mínimo coste operativo."
 >}}
 
 ## Demostración Interactiva

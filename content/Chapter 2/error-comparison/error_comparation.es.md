@@ -19,9 +19,17 @@ Cuando desarrollamos modelos de machine learning para aplicaciones médicas, la 
 >}}
 
 
-{{< demo-wrapper title="Comparador de Funciones de Error L1 vs L2" >}}
+{{< demo-wrapper title="Comparador L1 vs L2" >}}
 
 {{< error-comparison-game >}}
+
+<h3>Cómo usar la simulación</h3>
+
+<ul>
+<li><strong>Alterna entre L1 y L2</strong> para comparar cómo cambia la penalización del error.</li>
+<li><strong>Ajusta los controles</strong> para modificar los datos y observa cómo reaccionan las métricas.</li>
+<li><strong>Interpreta las curvas</strong>: L2 crece más rápido con errores grandes; L1 es más estable ante outliers.</li>
+</ul>
 
 {{< /demo-wrapper >}}
 

@@ -1,6 +1,6 @@
 ---
-title: "3.1 The Next Step: Logistic Regression as the Probability Translator"
-weight: 1
+title: "3.2 The Next Step: Logistic Regression as the Probability Translator"
+weight: 2
 description: "Interactive demonstration of how logistic regression converts linear combinations into probabilities to classify patients and predict appointment attendance."
 date: 2025-04-17
 draft: false
@@ -22,7 +22,11 @@ slug: "probability-translator-logistic-regression"
 
 {{< demo-wrapper title="Medical Appointment Attendance Predictor" >}}
 
+<p>The graph below shows how logistic regression converts patient characteristics (age and days since last visit) into attendance probabilities. Each point represents a patient: <strong>blue</strong> indicates they attended their appointment, <strong>red</strong> means they missed it. The colored background represents the model's predicted probability across different combinations of features—darker red areas indicate higher risk of missing the appointment, while darker blue areas suggest higher likelihood of attendance. The decision boundary (where probability = 0.5) separates these two regions.</p>
+
 {{< probabilities_translator lang="en" >}}
+
+{{% notice style="tip" title="Tip" %}}Click any point on the graph to see the patient's age, days since last visit, predicted probability, and actual outcome.{{% /notice %}}
 
 {{< /demo-wrapper >}}
 

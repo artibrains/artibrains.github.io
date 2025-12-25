@@ -2867,8 +2867,41 @@ canvas:hover {
     display: flex;
     gap: var(--demo-spacing-lg);
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     box-shadow: var(--demo-shadow);
+}
+
+/* Controls panel specific styling */
+.controls-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+}
+
+.controls-panel h3 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: var(--demo-spacing);
+}
+
+/* Regenerate / single-button centering */
+#regenerate-btn {
+    display: block;
+    margin: 0 auto;
+    min-width: 220px;
+    padding-top: 0.6rem;
+    margin-top: var(--demo-spacing);
+}
+
+/* Mobile: full width button */
+@media (max-width: 520px) {
+    #regenerate-btn {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 .control-section {

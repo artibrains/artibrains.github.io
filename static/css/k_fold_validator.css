@@ -58,15 +58,18 @@ h1 {
 
 #data-container {
     display: grid;
-    grid-template-columns: repeat(25, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(50, 1fr);
+    grid-auto-flow: column;
+    gap: 3px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #f8f9fa;
-    min-height: 500px;
-    /* Reduced height a bit */
+    height: 200px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .legend {
@@ -130,11 +133,12 @@ h1 {
 
 .data-point {
     width: 100%;
-    padding-bottom: 100%;
-    height: 0;
+    height: 100%;
     border-radius: 50%;
     background-color: #ccc;
     transition: all 0.3s ease;
+    min-width: 8px;
+    min-height: 8px;
 }
 
 .data-point.train {
@@ -196,8 +200,9 @@ h1 {
     background-color: var(--fold-color-10);
 }
 
-#controls {
+.demo-controls {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
@@ -208,6 +213,8 @@ h1 {
 
 .control-group {
     flex: 1;
+    min-width: 300px;
+    max-width: 500px;
     padding: 15px;
     background-color: #f8f9fa;
     border-radius: 8px;
@@ -306,8 +313,9 @@ h1 {
     text-align: center;
 }
 
-#results {
+.demo-results {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: space-around;
     text-align: left;
@@ -318,13 +326,23 @@ h1 {
     padding: 20px;
 }
 
-#results>div {
+.demo-results>.result-group {
     flex: 1;
+    min-width: 300px;
     padding: 0 15px;
 }
 
-#results>div:first-child {
+.demo-results>.result-group:first-child {
     border-right: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .demo-results>.result-group:first-child {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
 }
 
 #results h4 {

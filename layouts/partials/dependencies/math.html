@@ -1,0 +1,86 @@
+{{- $page := .page }}
+{{- $location := .location }}
+{{- if eq $location "footer" }}
+  {{- with $page }}
+    {{- $assetBusting := partialCached "assetbusting.gotmpl" . }}
+    {{- $init := "{}" }}
+    {{- if isset .Params "mathjaxinitialize" }}
+      {{- $init = .Params.mathJaxInitialize }}
+    {{- else if isset .Site.Params "mathjaxinitialize" }}
+      {{- $init = .Site.Params.mathJaxInitialize }}
+    {{- end }}
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  // inline
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], // block
+        },
+        options: {
+          enableMenu: false // avoid translation hassle for context menu
+        }
+      }, JSON.parse({{ $init }}) );
+    </script>
+    {{- if and (isset .Params "custommathjaxurl") .Params.customMathJaxURL }}
+    <script id="MathJax-script" async src="{{ .Params.customMathJaxURL }}"></script>
+    {{- else if and (isset .Site.Params "custommathjaxurl") .Site.Params.customMathJaxURL }}
+    <script id="MathJax-script" async src="{{ .Site.Params.customMathJaxURL }}"></script>
+    {{- else }}
+      {{- with resources.Get "/js/mathjax/tex-mml-chtml.js" }}
+    <script id="MathJax-script" async src="{{ .RelPermalink }}{{ $assetBusting }}"></script>
+      {{- end }}
+      {{- range resources.Match "/js/mathjax/**" }}
+        {{- /* the following code causes Hugo to generate our file in public */}}
+        {{- $url := .RelPermalink }}
+      {{- end }}
+    {{- end }}
+
+    <script>
+      (function () {
+        function typeset() {
+          if (!window.MathJax || typeof window.MathJax.typesetPromise !== 'function') {
+            return;
+          }
+          try {
+            if (typeof window.MathJax.typesetClear === 'function') {
+              window.MathJax.typesetClear();
+            }
+            window.MathJax.typesetPromise();
+          } catch (e) {
+            // swallow to avoid breaking page scripts
+          }
+        }
+
+        function typesetWhenReady(triesLeft) {
+          if (triesLeft <= 0) {
+            return;
+          }
+          if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+            typeset();
+            return;
+          }
+          window.setTimeout(function () {
+            typesetWhenReady(triesLeft - 1);
+          }, 100);
+        }
+
+        // Initial render (covers async MathJax load)
+        typesetWhenReady(50);
+
+        // Re-render on common theme updates
+        document.addEventListener('themeVariantLoaded', function () {
+          typesetWhenReady(50);
+        });
+
+        // Re-render on history navigation
+        window.addEventListener('popstate', function () {
+          typesetWhenReady(50);
+        });
+
+        // Re-render after full load as a fallback
+        window.addEventListener('load', function () {
+          typesetWhenReady(50);
+        });
+      })();
+    </script>
+  {{- end }}
+{{- end }}

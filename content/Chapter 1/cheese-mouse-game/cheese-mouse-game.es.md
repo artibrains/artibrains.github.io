@@ -14,7 +14,7 @@ El Aprendizaje por Refuerzo (Reinforcement Learning) es un tipo de IA que aprend
     type="research" 
     level="basic"
     scenario="El ratón debe aprender a encontrar el queso en un tablero. Para ello, el ratón debe elegir una secuencia de acciones para alcanzar un objetivo, navegando por un espacio de posibles estados. Las acciones que llevan al éxito se refuerzan positivamente, volviéndose más probables en el futuro. El entrenamiento extensivo permite encontrar estrategias consistentemente efectivas y robustas."
-    highlight="explora diferentes estrategias, centrándose en las acciones que hacen conseguir queso. Cuando una secuencia lleva al éxito, esa ruta se refuerza positivamente. Con el tiempo, aprende la estrategia más eficiente."
+    highlight="El ratón explora diferentes estrategias, centrándose en las acciones que hacen conseguir queso. Cuando una secuencia lleva al éxito, esa ruta se refuerza positivamente. Con el tiempo, aprende la estrategia más eficiente."
     intro_text="El **Aprendizaje por Refuerzo** permite que la IA descubra por sí misma las mejores estrategias sin necesidad de ejemplos previos etiquetados, solo mediante la experiencia y el feedback del entorno."
     steps="🐭 Objetivo: El ratón debe encontrar el queso (🧀) en el tablero.|🎮 Mecánica: El ratón aprende mediante refuerzo positivo (encuentra queso) y negativo (cae en trampa).|📊 Aprendizaje: Los valores en la tabla muestran la \"preferencia\" del ratón por cada acción (⬆️ ⬇️ ⬅️ ➡️) desde cada casilla. Valores más altos = mayor probabilidad de elegir esa acción.| Entrenamiento: Cada partida actualiza estos valores. Después de muchas partidas, el ratón aprende el camino óptimo."
 >}}

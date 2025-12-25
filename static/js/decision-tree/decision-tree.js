@@ -1,4 +1,47 @@
+// --- Translation System ---
+const translations = {
+    es: {
+        appInitialized: "DT: Aplicación de Árbol de Decisión inicializada.",
+        charactersSelected: "DT: {count} personajes seleccionados.",
+        randomSelection: "DT: Selección aleatoria de {count} personajes.",
+        trainingStarted: "DT: Iniciando entrenamiento del árbol...",
+        treeCompleted: "DT: ¡Árbol de decisión construido con éxito!",
+        resetApp: "DT: Aplicación reiniciada.",
+        binaryModeEnabled: "DT: Modo Solo Sí/No activado.",
+        binaryModeDisabled: "DT: Modo Solo Sí/No desactivado."
+    },
+    en: {
+        appInitialized: "DT: Decision Tree application initialized.",
+        charactersSelected: "DT: {count} characters selected.",
+        randomSelection: "DT: Random selection of {count} characters.",
+        trainingStarted: "DT: Starting tree training...",
+        treeCompleted: "DT: Decision tree built successfully!",
+        resetApp: "DT: Application reset.",
+        binaryModeEnabled: "DT: Yes/No Only mode enabled.",
+        binaryModeDisabled: "DT: Yes/No Only mode disabled."
+    }
+};
+
+let dtLang = 'en';
+
+function dt_t(key, params = {}) {
+    const currentLang = window.decisionTreeLanguage || dtLang;
+    let text = (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;
+    Object.keys(params).forEach(k => {
+        text = text.replace(`{${k}}`, params[k]);
+    });
+    return text;
+}
+
+function writeToTerminal(message) {
+    if (window.CustomTerminal && typeof window.CustomTerminal.write === 'function') {
+        window.CustomTerminal.write(message + "\n");
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    dtLang = window.decisionTreeLanguage || 'en';
+    console.log("Decision Tree Language detected:", dtLang);
 
     // --- VARIABLES GLOBALES Y CONSTANTES ---
     const allPeople = peopleData;
@@ -144,29 +187,18 @@ document.addEventListener('DOMContentLoaded', () => {
         analyzingGroup: size => isSpanish ? `Analizando un grupo de ${size} personajes...` : `Analyzing a group of ${size} characters...`
     };
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     function openTrainingModal() {
-        console.log('openTrainingModal called, trainingModal exists:', !!trainingModal);
-        if (!trainingModal) {
-            console.error('Training modal element not found!');
-            return;
-        }
+        if (!trainingModal) return;
         trainingModal.classList.remove('hidden');
         trainingModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
-        console.log('Modal classes:', trainingModal.className);
     }
 
     function closeTrainingModal() {
-        console.log('closeTrainingModal called');
         if (!trainingModal) return;
         trainingModal.classList.add('hidden');
         trainingModal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
-        console.log('Modal closed');
     }
 
     function capitalizeFirst(str) {
@@ -240,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (trainBtn) {
             trainBtn.textContent = TEXT.trainButton(0);
         }
+        writeToTerminal(dt_t('appInitialized'));
     }
 
     function generateBinaryQuestions() {
@@ -291,6 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             resetTrainingView();
             trainBtn.disabled = selectedPeople.length < 2;
+            const key = binaryQuestionsOnlyCheckbox.checked ? 'binaryModeEnabled' : 'binaryModeDisabled';
+            writeToTerminal(dt_t(key));
         });
 
         // Event listeners para los controles del árbol
@@ -382,8 +417,17 @@ document.addEventListener('DOMContentLoaded', () => {
         trainBtn.textContent = TEXT.trainButton(count);
     }
 
+    // Controls the training animation speed.
+    // Default is tuned so a typical full tree build finishes in ~10s.
+    if (window.dtSpeedFactor == null) {
+        window.dtSpeedFactor = 10;
+    }
+
     function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        const rawFactor = window.dtSpeedFactor;
+        const factor = (typeof rawFactor === 'number' && isFinite(rawFactor) && rawFactor > 0) ? rawFactor : 10;
+        const delay = Math.max(0, ms / factor);
+        return new Promise(resolve => setTimeout(resolve, delay));
     }
 
     // --- LÓGICA DEL ÁRBOL DE DECISIÓN ---
@@ -603,7 +647,6 @@ document.addEventListener('DOMContentLoaded', () => {
         trainingController = localController;
 
         // Open the modal for training
-        console.log('Opening training modal...');
         openTrainingModal();
 
         if (spinner) {
@@ -612,7 +655,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStepInfo) {
             currentStepInfo.innerHTML = TEXT.treeBuilding;
         }
-        console.log('Modal opened, starting tree building...');
+
+        writeToTerminal(dt_t('trainingStarted'));
 
         // Resetear el árbol
         nodeIdCounter = 0;
@@ -631,7 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 spinner.classList.add('hidden');
             }
             closeTrainingModal();
-            console.log("Training aborted by user.");
             return;
         }
 
@@ -644,38 +687,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show completion message briefly
         currentStepInfo.innerHTML = TEXT.completeMessage();
         currentGroupDisplay.innerHTML = '';
-        await sleep(1000);
+        await sleep(500);
 
         // Close the modal
-        console.log('🔴 [CRITICAL] Closing modal...');
         closeTrainingModal();
-
-        // Show the training container with the final tree
-        console.log('🔴 [CRITICAL] Showing training container...');
-        setupContainer.classList.add('hidden');
-        trainingContainer.classList.remove('hidden');
-
-        // Wait for DOM to settle and initialize the tree
-        await sleep(200);
-
-        console.log('🔴 [CRITICAL] Training container hidden status:', trainingContainer.classList.contains('hidden'));
-        console.log('🔴 [CRITICAL] Training container display:', window.getComputedStyle(trainingContainer).display);
-        console.log('🔴 [CRITICAL] cy-container element:', document.getElementById('cy-container'));
-        console.log('🔴 [CRITICAL] Initializing Cytoscape with', treeElements.length, 'elements...');
 
         // Reset calculation details to show instructions
         if (calculationDetails) {
             calculationDetails.innerHTML = `<p>${isSpanish ? 'Haz clic en un nodo de pregunta para ver sus cálculos.' : 'Click a question node to see its calculations.'}</p>`;
         }
 
+        // Initialize the tree visualization (this also handles showing the container)
         await initializeCytoscape();
 
         // Ensure the final tree is properly centered and fit
         if (cy) {
-            console.log('🟢 Cytoscape instance exists after initialization, double-checking fit...');
             cy.resize();
             cy.center();
             cy.fit(null, 50);
+            writeToTerminal(dt_t('treeCompleted'));
         } else {
             console.error('🔴 Cytoscape instance is null after initialization!');
         }
@@ -701,8 +731,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ocultar y limpiar la vista de entrenamiento
         resetTrainingView();
 
+        // Show setup container again
+        setupContainer.classList.remove('hidden');
+        trainingContainer.classList.add('hidden');
+
         // Actualizar el estado de los botones
         updateSelectionState();
+
+        writeToTerminal(dt_t('resetApp'));
     }
 
     function resetTrainingView() {
@@ -801,15 +837,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function initializeCytoscape() {
         console.log('🟢 === initializeCytoscape called ===');
-        console.log('🟢 Training container exists:', !!trainingContainer);
-        console.log('🟢 Training container has hidden class:', trainingContainer?.classList.contains('hidden'));
 
-        if (trainingContainer && trainingContainer.classList.contains('hidden')) {
-            console.error('🔴 ERROR: Training container is hidden, cannot initialize Cytoscape!');
-            return;
-        }
+        // Ensure container is visible first
+        trainingContainer.classList.remove('hidden');
+        setupContainer.classList.add('hidden');
 
-        console.log('🟢 Training container is visible, proceeding with initialization');
+        // Force a reflow to ensure CSS is applied
+        void trainingContainer.offsetHeight;
+
+        // Wait a frame for the DOM to settle
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await new Promise(resolve => requestAnimationFrame(resolve));
 
         const cyContainer = document.getElementById('cy-container');
         console.log('🟢 cy-container exists:', !!cyContainer);
@@ -820,27 +858,65 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Wait for container to have dimensions
+        let attempts = 0;
+        while ((cyContainer.offsetWidth === 0 || cyContainer.offsetHeight === 0) && attempts < 20) {
+            console.log('🟡 Waiting for container dimensions, attempt', attempts + 1);
+            await new Promise(resolve => setTimeout(resolve, 50));
+            attempts++;
+        }
+
         if (cyContainer.offsetWidth === 0 || cyContainer.offsetHeight === 0) {
-            console.error('🔴 ERROR: cy-container has zero dimensions!', {
-                offsetWidth: cyContainer.offsetWidth,
-                offsetHeight: cyContainer.offsetHeight,
-                clientWidth: cyContainer.clientWidth,
-                clientHeight: cyContainer.clientHeight
-            });
-            return;
+            console.error('🔴 ERROR: cy-container has zero dimensions after waiting!');
+            // Try to force dimensions
+            cyContainer.style.minHeight = '600px';
+            cyContainer.style.minWidth = '100%';
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
 
         if (cy) {
             console.log('🟡 Destroying existing Cytoscape instance');
             cy.destroy();
+            cy = null;
         }
 
-        console.log('🟢 Creating Cytoscape instance with', treeElements.length, 'elements');
-        console.log('🟢 First 3 elements:', JSON.stringify(treeElements.slice(0, 3), null, 2));
+        if (typeof window.cytoscape !== 'function') {
+            console.error('🔴 ERROR: Cytoscape library is not available (window.cytoscape missing).');
+            if (calculationDetails) {
+                calculationDetails.innerHTML = `<p>${isSpanish ? 'Error: no se pudo cargar la librería de visualización.' : 'Error: visualization library failed to load.'}</p>`;
+            }
+            return;
+        }
 
-        cy = cytoscape({
+        // Normalize/validate elements to avoid blank renders due to invalid edges or duplicate nodes.
+        const nodeById = new Map();
+        const edges = [];
+        for (const el of (treeElements || [])) {
+            const id = el?.data?.id;
+            if (!id) continue;
+            const isEdge = el?.data?.source && el?.data?.target;
+            if (isEdge) {
+                edges.push(el);
+            } else {
+                nodeById.set(id, el);
+            }
+        }
+        const validEdges = edges.filter(e => nodeById.has(e.data.source) && nodeById.has(e.data.target));
+        const normalizedElements = [...nodeById.values(), ...validEdges];
+
+        console.log('🟢 Creating Cytoscape instance with', normalizedElements.length, 'elements', `(nodes: ${nodeById.size}, edges: ${validEdges.length})`);
+
+        if (nodeById.size === 0) {
+            console.error('🔴 ERROR: No nodes available to render.');
+            if (calculationDetails) {
+                calculationDetails.innerHTML = `<p>${isSpanish ? 'No se generó ningún nodo para mostrar. Selecciona al menos 2 personajes y vuelve a entrenar.' : 'No nodes were generated to display. Select at least 2 characters and train again.'}</p>`;
+            }
+            return;
+        }
+
+        cy = window.cytoscape({
             container: cyContainer,
-            elements: treeElements,
+            elements: normalizedElements,
             style: [ // Estilos de los nodos y aristas
                 {
                     selector: 'node',
@@ -926,23 +1002,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        console.log('🟢 Cytoscape instance created successfully');
-        console.log('🟢 cy object:', cy);
-        console.log('🟢 Number of nodes:', cy.nodes().length);
-        console.log('🟢 Number of edges:', cy.edges().length);
+        console.log('🟢 Cytoscape instance created with', cy.nodes().length, 'nodes and', cy.edges().length, 'edges');
 
-        // Log node positions BEFORE centering
-        cy.nodes().forEach(node => {
-            console.log(`🟢 Node ${node.id()} position BEFORE:`, node.position());
-        });
+        if (cy.nodes().length === 0) {
+            console.error('🔴 ERROR: Cytoscape created but contains zero nodes.');
+            if (calculationDetails) {
+                calculationDetails.innerHTML = `<p>${isSpanish ? 'Error al renderizar el árbol (0 nodos).' : 'Failed to render the tree (0 nodes).'} </p>`;
+            }
+            return;
+        }
 
-        // Log viewport info
-        console.log('🟢 Cytoscape pan BEFORE:', cy.pan());
-        console.log('🟢 Cytoscape zoom BEFORE:', cy.zoom());
-        console.log('🟢 Cytoscape extent BEFORE:', cy.extent());
-
-        // Run layout explicitly and wait for completion
-        console.log('🟡 Running layout...');
+        // Run layout and wait for completion
+        const rootExists = cy.$('#node-0').length > 0;
         const layout = cy.layout({
             name: 'breadthfirst',
             directed: true,
@@ -951,32 +1022,22 @@ document.addEventListener('DOMContentLoaded', () => {
             avoidOverlap: true,
             nodeDimensionsIncludeLabels: true,
             grid: true,
-            roots: '#node-0',
-            animate: false  // Disable animation for immediate rendering
+            roots: rootExists ? '#node-0' : undefined,
+            animate: false
         });
 
-        layout.run();
-
-        // Wait for layout to complete
-        console.log('🟡 Waiting for layout to complete...');
+        // Run layout with promise
         await new Promise(resolve => {
             layout.on('layoutstop', resolve);
+            layout.run();
         });
 
-        console.log('🟡 Layout completed, now centering and fitting...');
+        // Center and fit after layout
+        cy.resize();
         cy.center();
-        cy.fit(null, 50);
+        cy.fit(cy.elements(), 50);
 
-        // Log node positions AFTER
-        cy.nodes().forEach(node => {
-            console.log(`🟢 Node ${node.id()} position AFTER:`, node.position());
-        });
-
-        console.log('🟢 After fit - pan:', cy.pan());
-        console.log('🟢 After fit - zoom:', cy.zoom());
-        console.log('🟢 After fit - extent:', cy.extent());
-
-        console.log('🟢 === initializeCytoscape completed ===');
+        console.log('🟢 Cytoscape initialized and fitted successfully');
     }
 
     // Iniciar la aplicación

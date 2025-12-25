@@ -4,5 +4,9 @@
         "themes/hugo-theme-relearn/i18n",
         "themes/hugo-theme-relearn/exampleSite/i18n",
         "themes/hugo-theme-relearn/docs/i18n"
-    ]
+    ],
+    "[html]": {
+        "editor.formatOnSave": false
+    },
+    "prettier.ignorePath": ".prettierignore"
 }

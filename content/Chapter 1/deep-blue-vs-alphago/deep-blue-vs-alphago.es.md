@@ -6,6 +6,8 @@ date: 2025-04-18
 slug: "deep-blue-vs-alphago"
 ---
 
+{{< figure src="/img/chess-go.png" alt="Deep Blue vs AlphaGo - Ajedrez y Go" caption="*Imagen generada por Nano Banana (Gemini)*" >}}
+
 # Deep Blue vs AlphaGo
 
 ## Historia de Deep Blue y AlphaGo

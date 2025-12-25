@@ -145,8 +145,34 @@ document.addEventListener('DOMContentLoaded', () => {
      * Gestiona los clics en el gráfico para realizar una predicción.
      */
     function handleChartClick(event) {
-        const daysSinceLast = chart.scales.x.getValueForPixel(event.x);
-        const age = chart.scales.y.getValueForPixel(event.y);
+        const points = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+
+        let daysSinceLast, age, isExistingPatient = false, patientData = null;
+
+        // Check if we clicked on an existing data point
+        if (points.length > 0) {
+            const firstPoint = points[0];
+            const datasetIndex = firstPoint.datasetIndex;
+            const dataIndex = firstPoint.index;
+
+            // Only handle points from datasets 0 and 1 (actual patient data)
+            if (datasetIndex === 0 || datasetIndex === 1) {
+                const point = chart.data.datasets[datasetIndex].data[dataIndex];
+                daysSinceLast = point.x;
+                age = point.y;
+                isExistingPatient = true;
+                patientData = {
+                    attended: datasetIndex === 0,
+                    outcome: point.outcome
+                };
+            }
+        }
+
+        // If no existing point clicked, use mouse position
+        if (!isExistingPatient) {
+            daysSinceLast = chart.scales.x.getValueForPixel(event.x);
+            age = chart.scales.y.getValueForPixel(event.y);
+        }
 
         const { b0, b1, b2 } = modelParams;
         const z = b0 + b1 * daysSinceLast + b2 * age;
@@ -154,6 +180,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         linearOutput.textContent = z.toFixed(2);
         logisticOutput.textContent = `${(probability * 100).toFixed(1)}%`;
+
+        // Show popup with patient information
+        if (typeof window.showProbTranslatorPopup === 'function') {
+            const lang = window.gameLanguage || 'es';
+
+            // Update popup content
+            const popup = document.getElementById('info-popup');
+            if (popup) {
+                let content = '<h2 style="margin-top: 0; margin-bottom: 1rem;">' +
+                    (lang === 'es' ? 'Información del Paciente' : 'Patient Information') + '</h2>';
+
+                content += '<div style="margin-bottom: 0.8rem;">';
+                content += '<strong>' + (lang === 'es' ? 'Edad:' : 'Age:') + '</strong> ' +
+                    Math.round(age) + ' ' + (lang === 'es' ? 'años' : 'years') + '<br>';
+                content += '<strong>' + (lang === 'es' ? 'Días desde última visita:' : 'Days since last visit:') +
+                    '</strong> ' + Math.round(daysSinceLast) + '<br>';
+                content += '<strong>' + (lang === 'es' ? 'Probabilidad de inasistencia:' : 'Probability of non-attendance:') +
+                    '</strong> ' + (probability * 100).toFixed(1) + '%<br>';
+
+                if (isExistingPatient && patientData) {
+                    content += '<strong>' + (lang === 'es' ? 'Resultado real:' : 'Actual outcome:') + '</strong> ';
+                    if (patientData.attended) {
+                        content += '<span style="color: ' + CLASS_0_COLOR + '; font-weight: bold;">' +
+                            (lang === 'es' ? 'Acudió ✓' : 'Attended ✓') + '</span>';
+                    } else {
+                        content += '<span style="color: ' + CLASS_1_COLOR + '; font-weight: bold;">' +
+                            (lang === 'es' ? 'No acudió ✗' : 'Missed ✗') + '</span>';
+                    }
+                }
+                content += '</div>';
+
+                popup.innerHTML = '<button id="close-info-popup" style="position:absolute; top:0.3em; right:0.7em; background:none; border:none; font-size:1.3em; color:#888; cursor:pointer;">&times;</button>' + content;
+
+                // Re-attach close button event
+                document.getElementById('close-info-popup').onclick = function () {
+                    popup.style.display = 'none';
+                };
+
+                window.showProbTranslatorPopup(event.x, event.y);
+            }
+        }
 
         chart.data.datasets[3].data = [{ x: daysSinceLast, y: age }];
         chart.update('none');

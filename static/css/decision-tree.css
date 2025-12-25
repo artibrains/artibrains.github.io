@@ -1,0 +1,493 @@
+/* Decision Tree Demo Specific Styles */
+@import url('/css/unified-demos.css');
+
+/* Main container */
+.decision-tree-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Section titles */
+.demo-section-title {
+    color: var(--demo-accent);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.demo-subsection-title {
+    color: var(--demo-accent);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.demo-card-title {
+    color: var(--demo-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* Control sections */
+.demo-control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.inline-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.inline-controls .demo-control-input {
+    flex: 0 0 80px;
+}
+
+/* Character grid */
+#character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--demo-surface);
+    border-radius: var(--demo-radius);
+    border: 1px solid var(--demo-border);
+}
+
+.character-card {
+    background: var(--demo-surface-alt);
+    border: 2px solid var(--demo-border);
+    border-radius: var(--demo-radius-sm);
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all var(--demo-transition);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.character-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--demo-shadow);
+    border-color: var(--demo-accent);
+}
+
+.character-card.selected {
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--demo-accent) 20%, var(--demo-surface-alt)),
+            color-mix(in srgb, var(--demo-accent) 10%, var(--demo-surface-alt)));
+    border-color: var(--demo-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--demo-accent) 25%, transparent);
+}
+
+.character-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--demo-radius-xs);
+    object-fit: cover;
+    border: 1px solid var(--demo-border);
+}
+
+.character-card p {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--demo-text);
+}
+
+/* Modern toggle switch for binary questions */
+.dt-switch-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dt-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dt-switch-text {
+    color: var(--demo-text);
+    font-size: 0.95rem;
+}
+
+.dt-switch-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.dt-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dt-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dt-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dt-switch-input:checked+.dt-switch-slider {
+    background-color: var(--demo-accent);
+}
+
+.dt-switch-input:focus+.dt-switch-slider {
+    box-shadow: 0 0 1px var(--demo-accent), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dt-switch-input:checked+.dt-switch-slider:before {
+    transform: translateX(24px);
+}
+
+/* Training view layout */
+.dt-main-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .dt-main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tree container */
+#tree-container {
+    position: relative;
+    min-height: 600px;
+    background: var(--demo-surface);
+}
+
+#cy-container {
+    width: 100%;
+    height: 600px;
+    background: var(--demo-surface);
+    border-radius: var(--demo-radius-sm);
+}
+
+/* Cytoscape renders into <canvas>. The base demo stylesheet applies `height: auto` to all canvases,
+   which breaks Cytoscape sizing (resulting in a blank/zero-height render). */
+#cy-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+
+#tree-controls {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.tree-control-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--demo-radius-sm);
+    border: 1px solid var(--demo-border);
+    background: var(--demo-surface-alt);
+    color: var(--demo-text);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--demo-transition);
+    box-shadow: var(--demo-shadow-sm);
+}
+
+.tree-control-btn:hover {
+    background: var(--demo-accent);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--demo-shadow);
+}
+
+/* Details panel */
+#details-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: none;
+    overflow: visible;
+}
+
+#algorithm-description {
+    margin-bottom: 1rem;
+    max-height: 320px;
+    overflow: auto;
+}
+
+#algorithm-description h4 {
+    margin-bottom: 0.5rem;
+}
+
+#algorithm-description p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+#algorithm-description ul {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+#algorithm-description li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+#calculation-details {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.calculation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+.calculation-table th,
+.calculation-table td {
+    padding: 0.5rem;
+    border: 1px solid var(--demo-border);
+    text-align: left;
+}
+
+.calculation-table th {
+    background: var(--demo-surface-alt);
+    font-weight: 600;
+    color: var(--demo-accent);
+}
+
+.calculation-table tr:hover {
+    background: var(--demo-surface-muted);
+}
+
+/* Current group miniatures (shown when clicking a node) */
+.panel-character-group {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--demo-border);
+}
+
+.panel-character-group h4 {
+    margin: 0 0 0.75rem;
+    text-align: center;
+    color: color-mix(in srgb, var(--demo-text) 80%, var(--demo-bg));
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.miniatures-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.miniatures-container img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--demo-border);
+    background: var(--demo-surface);
+}
+
+/* Special notes */
+.special-note,
+.final-question-note {
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--demo-info) 15%, var(--demo-surface)),
+            color-mix(in srgb, var(--demo-info) 8%, var(--demo-surface)));
+    border-left: 4px solid var(--demo-info);
+    padding: 1rem;
+    border-radius: var(--demo-radius-sm);
+    margin: 1rem 0;
+}
+
+.special-note p,
+.final-question-note p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Training modal specific styles */
+.training-modal-content {
+    max-width: 600px;
+    text-align: center;
+}
+
+#current-step-info {
+    font-size: 1rem;
+    margin: 1rem 0;
+    color: var(--demo-text);
+}
+
+#current-group-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1rem 0;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: var(--demo-surface);
+    border-radius: var(--demo-radius-sm);
+}
+
+#current-group-display img {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--demo-radius-xs);
+    object-fit: cover;
+    border: 2px solid var(--demo-border);
+}
+
+/* Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.spinner {
+    border: 4px solid var(--demo-border);
+    border-top: 4px solid var(--demo-accent);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tooltip */
+#tooltip {
+    position: absolute;
+    background: var(--demo-surface-alt);
+    border: 1px solid var(--demo-border);
+    border-radius: var(--demo-radius-sm);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: var(--demo-shadow);
+    max-width: 250px;
+    word-wrap: break-word;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+/* Actions container */
+.actions-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+.demo-btn-full-width {
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #character-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .character-card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .character-card p {
+        font-size: 0.75rem;
+    }
+
+    #cy-container {
+        height: 400px;
+    }
+
+    #details-panel {
+        max-height: none;
+    }
+
+    .dt-main-layout {
+        gap: 1rem;
+    }
+}

@@ -4,6 +4,7 @@ description: "Derives the standard backpropagation recursion using compact Jacob
 weight: 91
 draft: false
 slug: "backpropagation-chain-rule"
+math: true
 ---
 
 ## Context

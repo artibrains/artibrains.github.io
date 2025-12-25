@@ -3,155 +3,143 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 <link rel="stylesheet" href="/css/knn.css">
 
-<div id="visualization-container" class="content-grid demo-main-layout knn-demo">
-    <div id="info-panel" class="controls-panel">
-        <h3 class="controls-panel-title demo-mb-md">{{ if eq $lang "es" }}Controles y Configuración{{ else }}Controls
-            and Configuration{{ end }}</h3>
+<div id="visualization-container" class="knn-vertical-layout knn-demo">
+    
+    <!-- HOW TO EXPLORE IT -->
+    <div class="steps demo-content-panel" style="margin-bottom: 1rem;">
+        <h3>{{ if eq $lang "es" }}Cómo explorarlo{{ else }}How to Explore It{{ end }}</h3>
+        <ol>
+            <li><strong>{{ if eq $lang "es" }}Selecciona el valor de K{{ else }}Select the value of K{{ end }}</strong>: {{ if eq $lang "es" }}Elige cuántos vecinos cercanos considerar para la clasificación. Un K pequeño es más sensible al ruido, mientras que un K grande suaviza las decisiones.{{ else }}Choose how many nearby neighbors to consider for classification. A small K is more sensitive to noise, while a large K smooths decisions.{{ end }}</li>
+            <li><strong>{{ if eq $lang "es" }}Observa las distancias{{ else }}Observe the distances{{ end }}</strong>: {{ if eq $lang "es" }}Haz clic en cualquier punto para ver cómo se calculan las distancias a todos los puntos de entrenamiento y cuáles son los K vecinos más cercanos.{{ else }}Click any point to see how distances are computed to all training points and which are the K nearest neighbors.{{ end }}</li>
+            <li><strong>{{ if eq $lang "es" }}Analiza la clasificación{{ else }}Analyze the classification{{ end }}</strong>: {{ if eq $lang "es" }}El punto se clasifica según la clase mayoritaria entre sus K vecinos más cercanos. Prueba diferentes valores de K para ver cómo cambia la clasificación.{{ else }}The point is classified according to the majority class among its K nearest neighbors. Try different K values to see how the classification changes.{{ end }}</li>
+        </ol>
+    </div>
 
+    <!-- TOP CONTROLS -->
+    <div class="controls-panel top-controls">
+        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Configuración del Modelo{{ else }}Model Configuration{{ end }}</h3>
+
+        <!-- Tune Model Parameters -->
         <div class="control-section">
-            <h4>{{ if eq $lang "es" }}Selecciona el modo de interacción{{ else }}Select the Interaction Mode{{ end }}
-            </h4>
-            <p class="control-description">{{ if eq $lang "es" }}Decide si añadirás nuevos gatos, perros o si
-                clasificarás un nuevo caso.{{ else }}Choose whether to add new cats, dogs, or classify a fresh case.{{
-                end }}</p>
-            <div class="mode-buttons">
-                <button id="add-cats-btn" class="demo-btn secondary mode-btn" data-mode="cats">🐱 {{ if eq $lang "es"
-                    }}Añadir Gatos{{ else }}Add Cats{{ end }}</button>
-                <button id="add-dogs-btn" class="demo-btn secondary mode-btn" data-mode="dogs">🐶 {{ if eq $lang "es"
-                    }}Añadir Perros{{ else }}Add Dogs{{ end }}</button>
-                <button id="classify-btn" class="demo-btn mode-btn active" data-mode="classify">🔍 {{ if eq $lang "es"
-                    }}Clasificar{{ else }}Classify{{ end }}</button>
-            </div>
-        </div>
-
-        <div class="canvas-container demo-content-panel">
-            <h2>{{ if eq $lang "es" }}🎯 Espacio de Clasificación{{ else }}🎯 Classification Space{{ end }}</h2>
-
-            <div class="canvas-wrapper">
-                <canvas id="knn-canvas" width="600" height="400"></canvas>
-                <div class="canvas-overlay">
-                    <div class="quadrant-labels">
-                        <div class="quadrant top-left">{{ if eq $lang "es" }}Gatos Típicos<br><small>Alta
-                                agilidad<br>Baja
-                                sociabilidad</small>{{ else }}Typical Cats<br><small>High agility<br>Low
-                                sociability</small>{{ end }}</div>
-                        <div class="quadrant top-right">{{ if eq $lang "es" }}Zona Mixta<br><small>Alta agilidad<br>Alta
-                                sociabilidad</small>{{ else }}Mixed Zone<br><small>High agility<br>High
-                                sociability</small>{{ end }}</div>
-                        <div class="quadrant bottom-left">{{ if eq $lang "es" }}Zona Neutra<br><small>Baja
-                                agilidad<br>Baja
-                                sociabilidad</small>{{ else }}Neutral Zone<br><small>Low agility<br>Low
-                                sociability</small>{{ end }}</div>
-                        <div class="quadrant bottom-right">{{ if eq $lang "es" }}Perros Típicos<br><small>Baja
-                                agilidad<br>Alta sociabilidad</small>{{ else }}Typical Dogs<br><small>Low
-                                agility<br>High
-                                sociability</small>{{ end }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="canvas-legend">
-                <div class="legend-section">
-                    <h4>🏷️ {{ if eq $lang "es" }}Leyenda de puntos{{ else }}Point Legend{{ end }}</h4>
-                    <div class="legend-items">
-                        <div class="legend-item">
-                            <div class="legend-color cat"></div>
-                            <span>🐱 {{ if eq $lang "es" }}Gatos (Entrenamiento){{ else }}Cats (Training){{ end
-                                }}</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color dog"></div>
-                            <span>🐶 {{ if eq $lang "es" }}Perros (Entrenamiento){{ else }}Dogs (Training){{ end
-                                }}</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color test"></div>
-                            <span>🔍 {{ if eq $lang "es" }}Punto a clasificar{{ else }}Point to classify{{ end }}</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color neighbor"></div>
-                            <span>📍 {{ if eq $lang "es" }}Vecinos más cercanos{{ else }}Nearest neighbors{{ end
-                                }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="legend-section">
-                    <h4>📏 {{ if eq $lang "es" }}Métricas de distancia{{ else }}Distance Metrics{{ end }}</h4>
-                    <div class="distance-explanation">
-                        <div class="distance-type">
-                            <strong>{{ if eq $lang "es" }}Euclidiana:{{ else }}Euclidean:{{ end }}</strong> {{ if eq
-                            $lang
-                            "es" }}Distancia "en línea recta" entre puntos{{ else }}"Straight-line" distance between
-                            points{{ end }}
-                        </div>
-                        <div class="distance-type">
-                            <strong>{{ if eq $lang "es" }}Manhattan:{{ else }}Manhattan:{{ end }}</strong> {{ if eq
-                            $lang
-                            "es" }}Distancia "de ciudad" (|ΔX| + |ΔY|){{ else }}"City block" distance (|ΔX| + |ΔY|){{
-                            end }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <h4>{{ if eq $lang "es" }}Gestiona tu conjunto de datos{{ else }}Manage Your Dataset{{ end }}</h4>
-            <div class="data-actions-container">
-                <button id="generate-data-btn" class="demo-btn action-btn primary">
-                    <span class="btn-icon">🎲</span>
-                    <div class="btn-content">
-                        <span class="btn-text">{{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end
-                            }}</span>
-                        <small>{{ if eq $lang "es" }}Crea 30 puntos de ejemplo{{ else }}Create 30 sample points{{ end
-                            }}</small>
-                    </div>
-                </button>
-                <button id="clear-data-btn" class="demo-btn secondary action-btn">
-                    <span class="btn-icon">🗑️</span>
-                    <div class="btn-content">
-                        <span class="btn-text">{{ if eq $lang "es" }}Limpiar Canvas{{ else }}Clear Canvas{{ end
-                            }}</span>
-                        <small>{{ if eq $lang "es" }}Elimina todos los datos{{ else }}Remove all data points{{ end
-                            }}</small>
-                    </div>
-                </button>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <h4>{{ if eq $lang "es" }}Ajusta los parámetros del modelo{{ else }}Tune Model Parameters{{ end }}</h4>
-            <div class="demo-control-group k-control">
-                <label class="control-label" for="k-slider">
-                    <span>{{ if eq $lang "es" }}Valor de K{{ else }}K Value{{ end }}</span>
-                    <span id="k-value" class="demo-range-value">3</span>
+            <div class="demo-control-group">
+                <label for="k-slider" class="control-label">
+                    {{ if eq $lang "es" }}Valor de K{{ else }}K Value{{ end }}: <span id="k-value" class="demo-range-value">3</span>
                 </label>
                 <input type="range" id="k-slider" class="demo-range-input" min="1" max="15" value="3">
             </div>
-            <div class="demo-control-group demo-mt-sm">
-                <label class="control-label" for="distance-metric">
-                    <span>{{ if eq $lang "es" }}Métrica de Distancia{{ else }}Distance Metric{{ end }}</span>
-                </label>
-                <select id="distance-metric">
-                    <option value="euclidean">{{ if eq $lang "es" }}Euclidiana (línea recta){{ else }}Euclidean
-                        (straight line){{ end }}</option>
-                    <option value="manhattan">{{ if eq $lang "es" }}Manhattan (camino de ciudad){{ else }}Manhattan
-                        (city block){{ end }}</option>
+
+            <div class="demo-control-group">
+                <label for="distance-metric" class="control-label">{{ if eq $lang "es" }}Métrica de Distancia{{ else }}Distance Metric{{ end }}</label>
+                <select id="distance-metric" class="demo-control-input">
+                    <option value="euclidean">{{ if eq $lang "es" }}Euclidiana (línea recta){{ else }}Euclidean (straight line){{ end }}</option>
+                    <option value="manhattan">{{ if eq $lang "es" }}Manhattan (camino de ciudad){{ else }}Manhattan (city block){{ end }}</option>
                 </select>
             </div>
         </div>
 
+        <!-- Interaction Mode -->
         <div class="control-section">
-            <h4>{{ if eq $lang "es" }}Opciones de visualización{{ else }}Visualization Options{{ end }}</h4>
-            <div class="viz-buttons">
-                <button id="show-boundaries-btn" class="demo-btn secondary action-btn toggle-btn">🗺️ {{ if eq $lang
-                    "es" }}Mostrar Fronteras{{ else }}Show Boundaries{{ end }}</button>
-                <button id="show-distances-btn" class="demo-btn secondary action-btn toggle-btn">📏 {{ if eq $lang "es"
-                    }}Mostrar Distancias{{ else }}Show Distances{{ end }}</button>
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Modo de Interacción{{ else }}Interaction Mode{{ end }}</label>
+                <div class="mode-buttons">
+                    <button id="add-cats-btn" class="demo-btn demo-btn-secondary demo-btn-full-width mode-btn" data-mode="cats">🐱 {{ if eq $lang "es" }}Añadir Gatos{{ else }}Add Cats{{ end }}</button>
+                    <button id="add-dogs-btn" class="demo-btn demo-btn-secondary demo-btn-full-width mode-btn" data-mode="dogs">🐶 {{ if eq $lang "es" }}Añadir Perros{{ else }}Add Dogs{{ end }}</button>
+                    <button id="classify-btn" class="demo-btn demo-btn-primary demo-btn-full-width mode-btn active" data-mode="classify">🔍 {{ if eq $lang "es" }}Clasificar{{ else }}Classify{{ end }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRAPH -->
+    <div class="canvas-container demo-content-panel">
+        <h2>{{ if eq $lang "es" }}🎯 Espacio de Clasificación{{ else }}🎯 Classification Space{{ end }}</h2>
+
+        <div class="canvas-wrapper">
+            <canvas id="knn-canvas" width="600" height="400"></canvas>
+            <div class="canvas-overlay">
+                <div class="quadrant-labels">
+                    <div class="quadrant top-left">{{ if eq $lang "es" }}Gatos Típicos<br><small>Alta agilidad<br>Baja sociabilidad</small>{{ else }}Typical Cats<br><small>High agility<br>Low sociability</small>{{ end }}</div>
+                    <div class="quadrant top-right">{{ if eq $lang "es" }}Zona Mixta<br><small>Alta agilidad<br>Alta sociabilidad</small>{{ else }}Mixed Zone<br><small>High agility<br>High sociability</small>{{ end }}</div>
+                    <div class="quadrant bottom-left">{{ if eq $lang "es" }}Zona Neutra<br><small>Baja agilidad<br>Baja sociabilidad</small>{{ else }}Neutral Zone<br><small>Low agility<br>Low sociability</small>{{ end }}</div>
+                    <div class="quadrant bottom-right">{{ if eq $lang "es" }}Perros Típicos<br><small>Baja agilidad<br>Alta sociabilidad</small>{{ else }}Typical Dogs<br><small>Low agility<br>High sociability</small>{{ end }}</div>
+                </div>
             </div>
         </div>
 
+        <div class="canvas-legend">
+            <div class="legend-section">
+                <h4>🏷️ {{ if eq $lang "es" }}Leyenda de puntos{{ else }}Point Legend{{ end }}</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color cat"></div>
+                        <span>🐱 {{ if eq $lang "es" }}Gatos (Entrenamiento){{ else }}Cats (Training){{ end }}</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color dog"></div>
+                        <span>🐶 {{ if eq $lang "es" }}Perros (Entrenamiento){{ else }}Dogs (Training){{ end }}</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color test"></div>
+                        <span>🔍 {{ if eq $lang "es" }}Punto a clasificar{{ else }}Point to classify{{ end }}</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color neighbor"></div>
+                        <span>📍 {{ if eq $lang "es" }}Vecinos más cercanos{{ else }}Nearest neighbors{{ end }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h4>📏 {{ if eq $lang "es" }}Métricas de distancia{{ else }}Distance Metrics{{ end }}</h4>
+                <div class="distance-explanation">
+                    <div class="distance-type">
+                        <strong>{{ if eq $lang "es" }}Euclidiana:{{ else }}Euclidean:{{ end }}</strong> {{ if eq $lang "es" }}Distancia "en línea recta" entre puntos{{ else }}"Straight-line" distance between points{{ end }}
+                    </div>
+                    <div class="distance-type">
+                        <strong>{{ if eq $lang "es" }}Manhattan:{{ else }}Manhattan:{{ end }}</strong> {{ if eq $lang "es" }}Distancia "de ciudad" (|ΔX| + |ΔY|){{ else }}"City block" distance (|ΔX| + |ΔY|){{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM CONTROLS -->
+    <div class="controls-panel bottom-controls">
+        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Gestión de Datos y Visualización{{ else }}Data Management & Visualization{{ end }}</h3>
+
+        <!-- Manage Your Dataset -->
+        <div class="control-section">
+            <div class="demo-control-group buttons-row">
+                <button id="generate-data-btn" class="demo-btn demo-btn-primary">
+                    🎲 {{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}
+                </button>
+                <button id="clear-data-btn" class="demo-btn demo-btn-secondary">
+                    🗑️ {{ if eq $lang "es" }}Limpiar Canvas{{ else }}Clear Canvas{{ end }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Visualization Options -->
+        <div class="control-section">
+            <div class="demo-control-group switches-row">
+                <label class="knn-switch-label">
+                    <span class="knn-switch-text">🗺️ {{ if eq $lang "es" }}Mostrar Fronteras{{ else }}Show Boundaries{{ end }}</span>
+                    <div class="knn-switch-wrapper">
+                        <input type="checkbox" id="show-boundaries-switch" class="knn-switch-input">
+                        <span class="knn-switch-slider"></span>
+                    </div>
+                </label>
+                <label class="knn-switch-label">
+                    <span class="knn-switch-text">📏 {{ if eq $lang "es" }}Mostrar Distancias{{ else }}Show Distances{{ end }}</span>
+                    <div class="knn-switch-wrapper">
+                        <input type="checkbox" id="show-distances-switch" class="knn-switch-input">
+                        <span class="knn-switch-slider"></span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Dataset Statistics -->
         <div class="demo-info-card">
             <h4>{{ if eq $lang "es" }}Estadísticas del dataset{{ else }}Dataset Statistics{{ end }}</h4>
             <div id="dataset-stats" class="stat-grid">
@@ -162,24 +150,22 @@
                 <div class="stat-tile">
                     <span class="stat-label">{{ if eq $lang "es" }}Gatos{{ else }}Cats{{ end }}</span>
                     <span class="stat-value"><span id="cat-count">0</span></span>
-                    <span class="stat-helper">{{ if eq $lang "es" }}Casos de entrenamiento felinos{{ else }}Training
-                        feline cases{{ end }}</span>
+                    <span class="stat-helper">{{ if eq $lang "es" }}Casos de entrenamiento felinos{{ else }}Training feline cases{{ end }}</span>
                 </div>
                 <div class="stat-tile">
                     <span class="stat-label">{{ if eq $lang "es" }}Perros{{ else }}Dogs{{ end }}</span>
                     <span class="stat-value"><span id="dog-count">0</span></span>
-                    <span class="stat-helper">{{ if eq $lang "es" }}Casos de entrenamiento caninos{{ else }}Training
-                        canine cases{{ end }}</span>
+                    <span class="stat-helper">{{ if eq $lang "es" }}Casos de entrenamiento caninos{{ else }}Training canine cases{{ end }}</span>
                 </div>
                 <div class="stat-tile">
                     <span class="stat-label">{{ if eq $lang "es" }}K actual{{ else }}Current K{{ end }}</span>
                     <span class="stat-value" id="current-k">3</span>
-                    <span class="stat-helper">{{ if eq $lang "es" }}Vecinos a considerar{{ else }}Neighbors considered{{
-                        end }}</span>
+                    <span class="stat-helper">{{ if eq $lang "es" }}Vecinos a considerar{{ else }}Neighbors considered{{ end }}</span>
                 </div>
             </div>
         </div>
 
+        <!-- Classification Result -->
         <div id="classification-result" class="demo-info-card hidden">
             <h4>{{ if eq $lang "es" }}Resultado de clasificación{{ else }}Classification Result{{ end }}</h4>
             <div id="result-details"></div>
