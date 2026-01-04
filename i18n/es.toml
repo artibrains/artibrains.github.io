@@ -380,3 +380,28 @@ other = "Sesgo"
 
 [perceptron_controls_title]
 other = "Controles"
+
+# Navegación de la trilogía
+[trilogy_home]
+other = "Inicio de la trilogía"
+
+[book_1]
+other = "Libro 1"
+
+[book_2]
+other = "Libro 2"
+
+[book_3]
+other = "Libro 3"
+
+[back_to_trilogy]
+other = "← Volver a la trilogía"
+
+[available_now]
+other = "Disponible ahora"
+
+[coming_soon_status]
+other = "Próximamente"
+
+[in_development]
+other = "En desarrollo"

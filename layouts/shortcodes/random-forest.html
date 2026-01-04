@@ -1,0 +1,72 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/random-forest.css?v=1">
+
+<div class="random-forest-demo">
+    <div class="demo-content-panel">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Configuración del Bosque{{ else }}Forest Configuration{{ end }}</h2>
+        
+        <div class="demo-control-section">
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Número de árboles:{{ else }}Number of trees:{{ end }}</label>
+                <input type="range" id="rf-trees-slider" class="demo-control-slider" min="1" max="50" value="10" step="1">
+                <span id="rf-trees-value" class="slider-value">10</span>
+            </div>
+            
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Profundidad máxima:{{ else }}Maximum depth:{{ end }}</label>
+                <input type="range" id="rf-depth-slider" class="demo-control-slider" min="2" max="8" value="4" step="1">
+                <span id="rf-depth-value" class="slider-value">4</span>
+            </div>
+            
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Características por división (%):{{ else }}Features per split (%):{{ end }}</label>
+                <input type="range" id="rf-features-slider" class="demo-control-slider" min="30" max="100" value="70" step="10">
+                <span id="rf-features-value" class="slider-value">70%</span>
+            </div>
+            
+            <button id="rf-generate-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Generar Datos de Pacientes{{ else }}Generate Patient Data{{ end }}</button>
+            <button id="rf-train-btn" class="demo-btn demo-btn-secondary" disabled>{{ if eq $lang "es" }}Entrenar Bosque{{ else }}Train Forest{{ end }}</button>
+        </div>
+    </div>
+
+    <div id="rf-visualization-container" class="demo-content-panel hidden">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Visualización del Bosque{{ else }}Forest Visualization{{ end }}</h2>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Estado del Entrenamiento{{ else }}Training Status{{ end }}</h4>
+            <div id="rf-training-status">
+                <p>{{ if eq $lang "es" }}Listo para entrenar...{{ else }}Ready to train...{{ end }}</p>
+            </div>
+        </div>
+        
+        <div id="rf-trees-container" class="rf-trees-grid">
+            <!-- Individual trees will be displayed here -->
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Predicción del Bosque{{ else }}Forest Prediction{{ end }}</h4>
+            <div id="rf-prediction-area">
+                <p>{{ if eq $lang "es" }}Haz clic en el área de datos para ver cómo el bosque clasifica ese punto...{{ else }}Click on the data area to see how the forest classifies that point...{{ end }}</p>
+                <div id="rf-voting-results" class="hidden">
+                    <!-- Voting results will be shown here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Métricas del Bosque{{ else }}Forest Metrics{{ end }}</h4>
+            <div id="rf-metrics">
+                <!-- Metrics will be displayed here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ partial "terminal.html" . }}
+
+<script src="/js/random-forest/random-forest.js?v=1"></script>
+<script>
+    window.randomForestLanguage = "{{ $lang }}";
+</script>

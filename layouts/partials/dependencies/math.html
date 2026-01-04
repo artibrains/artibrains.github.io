@@ -18,15 +18,15 @@
         options: {
           enableMenu: false // avoid translation hassle for context menu
         }
-      }, JSON.parse({{ $init }}) );
+      }, {{ $init | safeJS }} );
     </script>
     {{- if and (isset .Params "custommathjaxurl") .Params.customMathJaxURL }}
-    <script id="MathJax-script" async src="{{ .Params.customMathJaxURL }}"></script>
+    <script id="MathJax-script" async src="{{ .Params.customMathJaxURL }}" onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';s.async=true;s.onload=function(){console.log('MathJax CDN fallback loaded');if(window.MathJax&&window.MathJax.typesetPromise){window.MathJax.typesetPromise().then(()=>console.log('typeset ok')).catch(()=>{});}};document.head.appendChild(s);})();"></script>
     {{- else if and (isset .Site.Params "custommathjaxurl") .Site.Params.customMathJaxURL }}
-    <script id="MathJax-script" async src="{{ .Site.Params.customMathJaxURL }}"></script>
+    <script id="MathJax-script" async src="{{ .Site.Params.customMathJaxURL }}" onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';s.async=true;s.onload=function(){console.log('MathJax CDN fallback loaded');if(window.MathJax&&window.MathJax.typesetPromise){window.MathJax.typesetPromise().then(()=>console.log('typeset ok')).catch(()=>{});}};document.head.appendChild(s);})();"></script>
     {{- else }}
       {{- with resources.Get "/js/mathjax/tex-mml-chtml.js" }}
-    <script id="MathJax-script" async src="{{ .RelPermalink }}{{ $assetBusting }}"></script>
+    <script id="MathJax-script" async src="{{ .RelPermalink }}{{ $assetBusting }}" onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';s.async=true;s.onload=function(){console.log('MathJax CDN fallback loaded');if(window.MathJax&&window.MathJax.typesetPromise){window.MathJax.typesetPromise().then(()=>console.log('typeset ok')).catch(()=>{});}};document.head.appendChild(s);})();"></script>
       {{- end }}
       {{- range resources.Match "/js/mathjax/**" }}
         {{- /* the following code causes Hugo to generate our file in public */}}
@@ -80,6 +80,36 @@
         window.addEventListener('load', function () {
           typesetWhenReady(50);
         });
+      })();
+    </script>
+
+    <script>
+      (function () {
+        // Watchdog: if MathJax never initializes (e.g. local script had a parse error),
+        // inject CDN fallback after a few tries. This covers cases where script.onerror
+        // doesn't fire because the file was fetched but failed to parse.
+        var tries = 8;
+        function checkAndFallback() {
+          if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+            return;
+          }
+          if (tries-- <= 0) {
+            console.warn('MathJax did not initialize — loading CDN fallback');
+            var s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+            s.async = true;
+            s.onload = function () {
+              console.log('MathJax CDN fallback loaded (watchdog)');
+              if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().then(function(){ console.log('typeset ok'); }).catch(function(){});
+              }
+            };
+            document.head.appendChild(s);
+            return;
+          }
+          setTimeout(checkAndFallback, 250);
+        }
+        setTimeout(checkAndFallback, 500);
       })();
     </script>
   {{- end }}

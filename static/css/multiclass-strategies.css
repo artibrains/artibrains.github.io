@@ -1,0 +1,40 @@
+/* Multiclass Strategies Demo Styles */
+.multiclass-demo {
+    width: 100%;
+}
+
+#mc-charts-container {
+    min-height: 400px;
+    margin: 1rem 0;
+}
+
+#mc-charts-container canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+#mc-classifiers-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#mc-classifiers-info li {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+#mc-classifiers-info li:last-child {
+    border-bottom: none;
+}
+
+#mc-metrics-info {
+    margin-top: 1rem;
+}
+
+.slider-value {
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}

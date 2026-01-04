@@ -1,7 +1,7 @@
 ---
-title: "How Machines Think"
-description: "An interactive book about Artificial Intelligence"
+title: "Artificial Brains Trilogy"
+description: "Three Complementary Books on Artificial Intelligence"
 draft: false
 ---
 
-{{< main_page >}}
+{{< trilogy_landing >}}

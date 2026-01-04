@@ -1,0 +1,280 @@
+{{- $lang := .Page.Language.Lang -}}
+
+<div class="trilogy-landing">
+  <header class="trilogy-header">
+    <h1>{{ if eq $lang "es" }}Cerebros Artificiales{{ else }}Artificial Brains{{ end }}</h1>
+    <p class="trilogy-subtitle">
+      {{ if eq $lang "es" }}
+        Tres libros complementarios sobre Inteligencia Artificial
+      {{ else }}
+        Three Complementary Books on Artificial Intelligence
+      {{ end }}
+    </p>
+  </header>
+
+  <section class="trilogy-intro">
+    {{ if eq $lang "es" }}
+      <p>
+        La serie <strong>Cerebros Artificiales</strong> presenta un enfoque comprehensivo y humanista para entender 
+        la inteligencia artificial a través de tres volúmenes complementarios. Cada libro aborda la IA desde una 
+        perspectiva diferente pero interconectada, creando un ecosistema educativo completo que prepara a los 
+        lectores no solo para usar la IA, sino para comprenderla, cuestionarla y moldear su papel en la sociedad.
+      </p>
+    {{ else }}
+      <p>
+        The <strong>Artificial Brains</strong> series presents a comprehensive and humanistic approach to 
+        understanding artificial intelligence through three complementary volumes. Each book addresses AI from 
+        a different but interconnected perspective, creating a complete educational ecosystem that prepares 
+        readers not just to use AI, but to understand, question, and shape its role in society.
+      </p>
+    {{ end }}
+  </section>
+
+  <div class="books-grid">
+    <!-- Book 1: How Machines Think -->
+    <article class="book-card book-1">
+      <div class="book-number">1</div>
+      <h2>
+        {{ if eq $lang "es" }}
+          Cómo piensan las máquinas
+        {{ else }}
+          How Machines Think
+        {{ end }}
+      </h2>
+      <p class="book-subtitle">
+        {{ if eq $lang "es" }}
+          El viaje desde los datos hasta la toma de decisiones médicas
+        {{ else }}
+          The Journey from Data to Medical Decision-Making
+        {{ end }}
+      </p>
+      <div class="book-description">
+        {{ if eq $lang "es" }}
+          <p>
+            Un viaje narrativo siguiendo a un equipo médico implementando IA en un hospital. 
+            El enfoque está en el aprendizaje supervisado y la responsabilidad en sistemas críticos.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>Explicabilidad</strong> en sistemas críticos</li>
+            <li><strong>Responsabilidad</strong> y ética en el despliegue</li>
+            <li><strong>Rigor técnico</strong> con contexto humano</li>
+            <li><strong>Implementación</strong> en el mundo real</li>
+          </ul>
+        {{ else }}
+          <p>
+            A narrative journey following a medical team implementing AI in a hospital setting. 
+            The focus is on supervised learning and responsibility in critical systems.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>Explainability</strong> in critical systems</li>
+            <li><strong>Responsibility</strong> and ethics in deployment</li>
+            <li><strong>Technical rigor</strong> with human context</li>
+            <li><strong>Real-world</strong> implementation</li>
+          </ul>
+        {{ end }}
+      </div>
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/{{ else }}/en/how-machines-think/{{ end }}" class="book-link">
+        {{ if eq $lang "es" }}Explorar Libro →{{ else }}Explore Book →{{ end }}
+      </a>
+      <div class="book-status available">
+        {{ if eq $lang "es" }}Disponible ahora{{ else }}Available now{{ end }}
+      </div>
+    </article>
+
+    <!-- Book 2: Learning Without a Teacher -->
+    <article class="book-card book-2">
+      <div class="book-number">2</div>
+      <h2>
+        {{ if eq $lang "es" }}
+          Aprendizaje sin maestro
+        {{ else }}
+          Learning Without a Teacher
+        {{ end }}
+      </h2>
+      <p class="book-subtitle">
+        {{ if eq $lang "es" }}
+          Descubriendo patrones y aprendiendo mediante la interacción
+        {{ else }}
+          Discovering Patterns and Learning Through Interaction
+        {{ end }}
+      </p>
+      <div class="book-description">
+        {{ if eq $lang "es" }}
+          <p>
+            Sigue a Sofía, una profesora de secundaria, mientras aprende sobre aprendizaje no supervisado 
+            y por refuerzo para preparar mejor a la próxima generación.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>Educación</strong> como fundamento</li>
+            <li><strong>Descubrimiento</strong> de patrones sin guía</li>
+            <li><strong>Aprendizaje</strong> por refuerzo</li>
+            <li><strong>Transferencia</strong> intergeneracional de conocimiento</li>
+          </ul>
+        {{ else }}
+          <p>
+            Follows Sofia, a high school teacher, as she learns about unsupervised and reinforcement 
+            learning to better prepare the next generation.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>Education</strong> as foundation</li>
+            <li><strong>Pattern discovery</strong> without guidance</li>
+            <li><strong>Reinforcement</strong> learning</li>
+            <li><strong>Intergenerational</strong> knowledge transfer</li>
+          </ul>
+        {{ end }}
+      </div>
+      <a href="#" class="book-link disabled">
+        {{ if eq $lang "es" }}Próximamente →{{ else }}Coming Soon →{{ end }}
+      </a>
+      <div class="book-status coming-soon">
+        {{ if eq $lang "es" }}En desarrollo{{ else }}In development{{ end }}
+      </div>
+    </article>
+
+    <!-- Book 3: Eyes and Ears -->
+    <article class="book-card book-3">
+      <div class="book-number">3</div>
+      <h2>
+        {{ if eq $lang "es" }}
+          Ojos y oídos
+        {{ else }}
+          Eyes and Ears
+        {{ end }}
+      </h2>
+      <p class="book-subtitle">
+        {{ if eq $lang "es" }}
+          Cuando las máquinas aprenden a ver y escuchar
+        {{ else }}
+          When Machines Learn to See and Hear
+        {{ end }}
+      </p>
+      <div class="book-description">
+        {{ if eq $lang "es" }}
+          <p>
+            Sigue a David Morales, periodista científico, investigando la IA que puede ver, escuchar y crear,
+            mientras busca ayudar a su hija ciega Luna.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>IA como puente</strong> sensorial</li>
+            <li><strong>Capacidades</strong> generativas</li>
+            <li><strong>Visión</strong> por computador</li>
+            <li><strong>Procesamiento</strong> de audio</li>
+          </ul>
+        {{ else }}
+          <p>
+            Follows David Morales, a science journalist, investigating AI that can see, hear, and create,
+            while seeking to help his blind daughter Luna.
+          </p>
+          <ul class="book-highlights">
+            <li><strong>AI as sensory</strong> bridge</li>
+            <li><strong>Generative</strong> capabilities</li>
+            <li><strong>Computer</strong> vision</li>
+            <li><strong>Audio</strong> processing</li>
+          </ul>
+        {{ end }}
+      </div>
+      <a href="#" class="book-link disabled">
+        {{ if eq $lang "es" }}Próximamente →{{ else }}Coming Soon →{{ end }}
+      </a>
+      <div class="book-status coming-soon">
+        {{ if eq $lang "es" }}En desarrollo{{ else }}In development{{ end }}
+      </div>
+    </article>
+  </div>
+
+  <section class="trilogy-philosophy">
+    <h2>{{ if eq $lang "es" }}Por qué tres libros{{ else }}Why Three Books{{ end }}</h2>
+    {{ if eq $lang "es" }}
+      <p>
+        Cada libro se centra en un aspecto fundamental de la IA, pero juntos forman una comprensión completa:
+      </p>
+      <ul>
+        <li><strong>Libro 1</strong> te enseña cómo las máquinas aprenden de ejemplos etiquetados</li>
+        <li><strong>Libro 2</strong> explora cómo descubren patrones por sí mismas y aprenden mediante prueba y error</li>
+        <li><strong>Libro 3</strong> revela cómo perciben y generan contenido multimodal</li>
+      </ul>
+      <p>
+        Puedes leer cada libro de forma independiente, pero juntos ofrecen una visión completa del panorama de la IA moderna.
+      </p>
+    {{ else }}
+      <p>
+        Each book focuses on a fundamental aspect of AI, but together they form a complete understanding:
+      </p>
+      <ul>
+        <li><strong>Book 1</strong> teaches you how machines learn from labeled examples</li>
+        <li><strong>Book 2</strong> explores how they discover patterns on their own and learn through trial and error</li>
+        <li><strong>Book 3</strong> reveals how they perceive and generate multimodal content</li>
+      </ul>
+      <p>
+        You can read each book independently, but together they provide a complete view of the modern AI landscape.
+      </p>
+    {{ end }}
+  </section>
+
+  <footer class="trilogy-footer">
+    <div class="footer-links">
+      <a href="{{ if eq $lang "es" }}/es/about/{{ else }}/en/about/{{ end }}">
+        {{ if eq $lang "es" }}Sobre el Autor{{ else }}About the Author{{ end }}
+      </a>
+      <span class="separator">•</span>
+      <a href="{{ if eq $lang "es" }}/es/legal/{{ else }}/en/legal/{{ end }}">
+        {{ if eq $lang "es" }}Aviso Legal y Privacidad{{ else }}Legal Notice & Privacy{{ end }}
+      </a>
+      <span class="separator">•</span>
+      <a href="mailto:artibrains@gmail.com">{{ if eq $lang "es" }}Contacto{{ else }}Contact{{ end }}</a>
+    </div>
+    <div class="footer-author">
+      {{ if eq $lang "es" }}
+        Por <a href="https://franjfal.github.io/" target="_blank" rel="noopener">Francisco Javier Falcó Benavent</a>
+      {{ else }}
+        By <a href="https://franjfal.github.io/" target="_blank" rel="noopener">Francisco Javier Falcó Benavent</a>
+      {{ end }}
+    </div>
+  </footer>
+</div>
+  padding: 0 0.5rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-links .separator {
+  color: var(--MAIN-TEXT-color);
+  opacity: 0.5;
+}
+
+.footer-author {
+  font-size: 0.9rem;
+  color: var(--MAIN-TEXT-color);
+  opacity: 0.8;
+}
+
+.footer-author a {
+  color: var(--MAIN-LINK-color);
+  text-decoration: none;
+}
+
+.footer-author a:hover {
+  text-decoration: underline;
+}
+
+.trilogy-philosophy ul {
+  margin: 1.5rem 0;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .trilogy-header h1 {
+    font-size: 2rem;
+  }
+  
+  .trilogy-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

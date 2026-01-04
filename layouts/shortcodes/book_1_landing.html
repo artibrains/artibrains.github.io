@@ -1,0 +1,777 @@
+{{- $lang := .Page.Language.Lang -}}
+
+<style>
+/* Enhanced Book 1 Landing Page Styles */
+.b1l-container {
+    --b1l-bg: var(--INTERNAL-MAIN-BG-color);
+    --b1l-card-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color) 94%, var(--INTERNAL-MAIN-TEXT-color));
+    --b1l-text: var(--INTERNAL-MAIN-TEXT-color);
+    --b1l-text-header: var(--INTERNAL-MAIN-TITLES-TEXT-color, var(--INTERNAL-MAIN-TEXT-color));
+    --b1l-text-muted: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color) 60%, var(--INTERNAL-MAIN-BG-color));
+    --b1l-accent: var(--INTERNAL-PRIMARY-color);
+    --b1l-accent-2: var(--INTERNAL-SECONDARY-color, var(--INTERNAL-PRIMARY-color));
+    --b1l-border: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color) 18%, var(--INTERNAL-MAIN-BG-color));
+    --b1l-shadow: 0 4px 12px -2px rgba(0, 0, 0, .18);
+    --b1l-radius: 14px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.b1l-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.b1l-breadcrumb a {
+    color: var(--b1l-text-muted);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color .3s ease;
+}
+
+.b1l-breadcrumb a:hover {
+    color: var(--b1l-accent);
+}
+
+/* Hero Section */
+.b1l-hero {
+    position: relative;
+    border-radius: clamp(12px, 2vw, 18px);
+    overflow: hidden;
+    margin-bottom: 3rem;
+    background:
+        radial-gradient(1200px 500px at 20% -10%, color-mix(in oklab, var(--b1l-accent) 22%, transparent), transparent 65%),
+        radial-gradient(1000px 420px at 105% 15%, color-mix(in oklab, var(--b1l-accent-2) 18%, transparent), transparent 65%),
+        linear-gradient(135deg, color-mix(in oklab, var(--b1l-card-bg) 92%, #000) 0%, var(--b1l-card-bg) 70%);
+    box-shadow: inset 0 0 0 1px var(--b1l-border), var(--b1l-shadow);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+}
+
+.b1l-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .04) 0%, rgba(255, 255, 255, 0) 60%);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.b1l-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.b1l-badge {
+    display: inline-block;
+    background: var(--b1l-accent);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px -2px color-mix(in srgb, var(--b1l-accent) 50%, transparent);
+}
+
+.b1l-hero h1 {
+    color: var(--b1l-text-header);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    font-weight: 800;
+}
+
+.b1l-hero-subtitle {
+    color: var(--b1l-text-muted);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+    font-weight: 400;
+}
+
+.b1l-hero-lead {
+    color: var(--b1l-text);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.7;
+    margin: 2rem auto 0;
+    max-width: 800px;
+}
+
+.b1l-hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.b1l-mini-badge {
+    border: 1px solid var(--b1l-border);
+    color: var(--b1l-text-muted);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    background: var(--b1l-card-bg);
+}
+
+/* Value Proposition Section */
+.b1l-section {
+    padding: clamp(2rem, 4vw, 3.5rem) 0;
+}
+
+.b1l-section-title {
+    color: var(--b1l-text-header);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    margin: 0 0 1rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.b1l-section-subtitle {
+    color: var(--b1l-text-muted);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Value Cards Grid */
+.b1l-value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.b1l-value-card {
+    background: linear-gradient(145deg, color-mix(in srgb, var(--b1l-card-bg) 96%, transparent), color-mix(in srgb, var(--b1l-card-bg) 85%, var(--b1l-accent) 2%));
+    border: 1px solid color-mix(in srgb, var(--b1l-border) 80%, transparent);
+    border-radius: var(--b1l-radius);
+    padding: 1.75rem;
+    position: relative;
+    transition: all .3s ease;
+}
+
+.b1l-value-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--b1l-accent) 8%, transparent), transparent 60%);
+    opacity: .3;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+
+.b1l-value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, .2);
+    border-color: color-mix(in srgb, var(--b1l-accent) 35%, var(--b1l-border));
+}
+
+.b1l-value-card:hover::before {
+    opacity: .5;
+}
+
+.b1l-value-card h3 {
+    color: var(--b1l-text-header);
+    font-size: 1.3rem;
+    margin: 0 0 0.75rem;
+    position: relative;
+}
+
+.b1l-value-card p {
+    color: var(--b1l-text);
+    line-height: 1.7;
+    margin: 0 0 1rem;
+    position: relative;
+}
+
+.b1l-chip {
+    display: inline-block;
+    background: color-mix(in oklab, var(--b1l-accent) 16%, transparent);
+    color: var(--b1l-text-header);
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    border: 1px dashed var(--b1l-border);
+    position: relative;
+}
+
+/* Learning Outcomes */
+.b1l-learning-list {
+    max-width: 900px;
+    margin: 2rem auto;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.b1l-learning-list li {
+    list-style: none;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--b1l-text);
+    line-height: 1.7;
+}
+
+.b1l-learning-list li::before {
+    content: "✓";
+    color: var(--b1l-accent);
+    position: absolute;
+    left: 0.3rem;
+    top: 0.1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Chapters Grid */
+.b1l-chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.b1l-chapter-card {
+    background: var(--b1l-card-bg);
+    border: 1px solid var(--b1l-border);
+    border-radius: var(--b1l-radius);
+    padding: 2rem;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    transition: all .3s ease;
+}
+
+.b1l-chapter-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, .18);
+    border-color: var(--b1l-accent);
+}
+
+.b1l-chapter-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--b1l-accent), color-mix(in srgb, var(--b1l-accent) 80%, var(--b1l-accent-2)));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, .3);
+}
+
+.b1l-chapter-card h3 {
+    color: var(--b1l-text-header);
+    margin: 0 0 0.75rem 0;
+    font-size: 1.3rem;
+    padding-right: 50px;
+    font-weight: 600;
+}
+
+.b1l-chapter-card p {
+    color: var(--b1l-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Themes Grid */
+.b1l-themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.b1l-theme-card {
+    background: linear-gradient(145deg, var(--b1l-card-bg), color-mix(in srgb, var(--b1l-card-bg) 90%, var(--b1l-accent) 5%));
+    border: 1px solid var(--b1l-border);
+    border-radius: var(--b1l-radius);
+    padding: 2rem;
+    text-align: center;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.b1l-theme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, .15);
+}
+
+.b1l-theme-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.b1l-theme-card h3 {
+    color: var(--b1l-text-header);
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+}
+
+.b1l-theme-card p {
+    color: var(--b1l-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Call to Action */
+.b1l-cta-section {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--b1l-accent) 8%, var(--b1l-card-bg)), var(--b1l-card-bg));
+    border: 1px solid var(--b1l-border);
+    border-radius: var(--b1l-radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.b1l-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.b1l-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all .25s ease;
+    border: 1px solid;
+}
+
+.b1l-btn-primary {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--b1l-accent) 94%, #fff), var(--b1l-accent));
+    color: white;
+    border-color: var(--b1l-accent);
+    box-shadow: 0 4px 12px -2px color-mix(in srgb, var(--b1l-accent) 50%, transparent);
+}
+
+.b1l-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--b1l-accent) 60%, transparent);
+}
+
+.b1l-btn-secondary {
+    background: var(--b1l-card-bg);
+    color: var(--b1l-accent);
+    border-color: var(--b1l-border);
+    box-shadow: 0 2px 5px -1px rgba(0, 0, 0, .15);
+}
+
+.b1l-btn-secondary:hover {
+    border-color: var(--b1l-accent);
+    transform: translateY(-2px);
+}
+
+/* Separator */
+.b1l-separator {
+    height: 1px;
+    background: var(--b1l-border);
+    border: 0;
+    margin: 3rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .b1l-hero {
+        padding: 2rem 1.5rem;
+    }
+    
+    .b1l-chapters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .b1l-value-grid,
+    .b1l-themes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="b1l-container">
+  <!-- Breadcrumb -->
+  <div class="b1l-breadcrumb">
+    <a href="{{ if eq $lang "es" }}/es/{{ else }}/en/{{ end }}">
+      {{ if eq $lang "es" }}← Volver a la trilogía{{ else }}← Back to trilogy{{ end }}
+    </a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="b1l-hero">
+    <div class="b1l-hero-content">
+      <div class="b1l-badge">
+        {{ if eq $lang "es" }}LIBRO 1{{ else }}BOOK 1{{ end }}
+      </div>
+      
+      <h1>
+        {{ if eq $lang "es" }}
+          🧠 Cómo Piensan las Máquinas
+        {{ else }}
+          🧠 How Machines Think
+        {{ end }}
+      </h1>
+      
+      <p class="b1l-hero-subtitle">
+        {{ if eq $lang "es" }}
+          Un Viaje Guiado al Corazón de la IA
+        {{ else }}
+          A Guided Journey to the Heart of AI
+        {{ end }}
+      </p>
+      
+      <p class="b1l-hero-lead">
+        {{ if eq $lang "es" }}
+          Un viaje narrativo siguiendo a un equipo médico implementando IA en el Hospital Minermont. 
+          El enfoque está en el <strong>aprendizaje supervisado</strong>: donde las máquinas aprenden 
+          de ejemplos etiquetados para hacer predicciones y clasificaciones.
+        {{ else }}
+          A narrative journey following a medical team implementing AI at Minermont Hospital. 
+          The focus is on <strong>supervised learning</strong>: where machines learn from 
+          labeled examples to make predictions and classifications.
+        {{ end }}
+      </p>
+      
+      <div class="b1l-hero-badges">
+        <span class="b1l-mini-badge">
+          {{ if eq $lang "es" }}🔬 Rigor Científico{{ else }}🔬 Scientific Rigor{{ end }}
+        </span>
+        <span class="b1l-mini-badge">
+          {{ if eq $lang "es" }}🌐 Bilingüe{{ else }}🌐 Bilingual{{ end }}
+        </span>
+        <span class="b1l-mini-badge">
+          {{ if eq $lang "es" }}📖 Narrativa Envolvente{{ else }}📖 Engaging Narrative{{ end }}
+        </span>
+        <span class="b1l-mini-badge">
+          {{ if eq $lang "es" }}💻 Interactivo{{ else }}💻 Interactive{{ end }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Proposition -->
+  <section class="b1l-section">
+    <h2 class="b1l-section-title">
+      {{ if eq $lang "es" }}
+        🚪 Abre la Caja Negra de la IA
+      {{ else }}
+        🚪 Open the AI Black Box
+      {{ end }}
+    </h2>
+    
+    <p class="b1l-section-subtitle">
+      {{ if eq $lang "es" }}
+        La inteligencia artificial ha dejado de ser una promesa lejana. Este libro no solo abre una puerta 
+        a esa caja negra, sino que te invita a adentrarte en ella para conocerla mejor.
+      {{ else }}
+        Artificial intelligence is no longer a distant promise. This book doesn't just open a door 
+        to that black box, but invites you to step inside and understand it better.
+      {{ end }}
+    </p>
+    
+    <div class="b1l-value-grid">
+      <div class="b1l-value-card">
+        <h3>
+          {{ if eq $lang "es" }}📚 Narrativa Única{{ else }}📚 Unique Narrative{{ end }}
+        </h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Aprende IA a través de la historia del Hospital Minermont, donde la ciencia cobra vida 
+            en situaciones reales y decisiones médicas cruciales.
+          {{ else }}
+            Learn AI through the story of Minermont Hospital, where science comes to life 
+            in real situations and crucial medical decisions.
+          {{ end }}
+        </p>
+        <span class="b1l-chip">
+          {{ if eq $lang "es" }}Historia + Técnica{{ else }}Story + Technical{{ end }}
+        </span>
+      </div>
+      
+      <div class="b1l-value-card">
+        <h3>
+          {{ if eq $lang "es" }}🔍 Explicabilidad{{ else }}🔍 Explainability{{ end }}
+        </h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Comprende no solo QUÉ hacen los algoritmos, sino POR QUÉ funcionan. 
+            Cada concepto explicado desde los fundamentos matemáticos hasta su aplicación práctica.
+          {{ else }}
+            Understand not just WHAT algorithms do, but WHY they work. 
+            Every concept explained from mathematical foundations to practical application.
+          {{ end }}
+        </p>
+        <span class="b1l-chip">
+          {{ if eq $lang "es" }}Transparencia{{ else }}Transparency{{ end }}
+        </span>
+      </div>
+      
+      <div class="b1l-value-card">
+        <h3>
+          {{ if eq $lang "es" }}💻 Componentes Interactivos{{ else }}💻 Interactive Components{{ end }}
+        </h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Widgets y visualizaciones que te permiten experimentar con los algoritmos en tiempo real, 
+            ajustar parámetros y ver los resultados inmediatamente.
+          {{ else }}
+            Widgets and visualizations that let you experiment with algorithms in real-time, 
+            adjust parameters and see results immediately.
+          {{ end }}
+        </p>
+        <span class="b1l-chip">
+          {{ if eq $lang "es" }}Aprendizaje Activo{{ else }}Active Learning{{ end }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="b1l-separator" />
+
+  <!-- Learning Outcomes -->
+  <section class="b1l-section">
+    <h2 class="b1l-section-title">
+      {{ if eq $lang "es" }}¿Qué aprenderás?{{ else }}What will you learn?{{ end }}
+    </h2>
+    
+    <ul class="b1l-learning-list">
+      <li>
+        {{ if eq $lang "es" }}
+          Los fundamentos matemáticos detrás de la IA: desde regresión lineal hasta redes neuronales profundas
+        {{ else }}
+          The mathematical foundations behind AI: from linear regression to deep neural networks
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Cómo las máquinas "aprenden" de los datos y toman decisiones basadas en patrones
+        {{ else }}
+          How machines "learn" from data and make decisions based on patterns
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Métodos de clasificación y predicción utilizados en aplicaciones médicas reales
+        {{ else }}
+          Classification and prediction methods used in real medical applications
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          La importancia de la validación, el sobreajuste y la generalización de modelos
+        {{ else }}
+          The importance of validation, overfitting and model generalization
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Árboles de decisión, K-vecinos más cercanos y algoritmos de agrupamiento
+        {{ else }}
+          Decision trees, K-nearest neighbors and clustering algorithms
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Redes neuronales: perceptrones, retropropagación y aprendizaje profundo
+        {{ else }}
+          Neural networks: perceptrons, backpropagation and deep learning
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Modelos de lenguaje y procesamiento del lenguaje natural (LLMs)
+        {{ else }}
+          Language models and natural language processing (LLMs)
+        {{ end }}
+      </li>
+      <li>
+        {{ if eq $lang "es" }}
+          Las implicaciones éticas y prácticas de implementar IA en contextos críticos
+        {{ else }}
+          The ethical and practical implications of implementing AI in critical contexts
+        {{ end }}
+      </li>
+    </ul>
+  </section>
+
+  <hr class="b1l-separator" />
+
+  <!-- Chapters -->
+  <section class="b1l-section">
+    <h2 class="b1l-section-title">
+      {{ if eq $lang "es" }}Contenido del Libro{{ else }}Book Contents{{ end }}
+    </h2>
+    
+    <p class="b1l-section-subtitle">
+      {{ if eq $lang "es" }}
+        7 capítulos que te llevan desde los conceptos básicos hasta los modelos de lenguaje más avanzados
+      {{ else }}
+        7 chapters that take you from basic concepts to the most advanced language models
+      {{ end }}
+    </p>
+    
+    <div class="b1l-chapters-grid">
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-1/{{ else }}/en/how-machines-think/chapter-1/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">1</div>
+        <h3>{{ if eq $lang "es" }}Los Inicios de la IA{{ else }}The Beginnings of AI{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Historia y evolución de la inteligencia artificial, desde los primeros conceptos hasta la era moderna.{{ else }}History and evolution of artificial intelligence, from early concepts to the modern era.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-2/{{ else }}/en/how-machines-think/chapter-2/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">2</div>
+        <h3>{{ if eq $lang "es" }}Regresión Lineal{{ else }}Linear Regression{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Fundamentos del aprendizaje supervisado: cómo las máquinas encuentran relaciones en los datos.{{ else }}Foundations of supervised learning: how machines find relationships in data.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-3/{{ else }}/en/how-machines-think/chapter-3/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">3</div>
+        <h3>{{ if eq $lang "es" }}Clasificación{{ else }}Classification{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Regresión logística y métodos de clasificación para tomar decisiones binarias y multiclase.{{ else }}Logistic regression and classification methods for binary and multiclass decisions.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-4/{{ else }}/en/how-machines-think/chapter-4/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">4</div>
+        <h3>{{ if eq $lang "es" }}Árboles y Vecinos{{ else }}Trees and Neighbors{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Árboles de decisión y K-vecinos más cercanos: algoritmos intuitivos y poderosos.{{ else }}Decision trees and K-nearest neighbors: intuitive and powerful algorithms.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-5/{{ else }}/en/how-machines-think/chapter-5/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">5</div>
+        <h3>{{ if eq $lang "es" }}Agrupamiento{{ else }}Clustering{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}K-means y descubrimiento de patrones ocultos en datos no etiquetados.{{ else }}K-means and discovering hidden patterns in unlabeled data.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-6/{{ else }}/en/how-machines-think/chapter-6/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">6</div>
+        <h3>{{ if eq $lang "es" }}Redes Neuronales{{ else }}Neural Networks{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Perceptrones, retropropagación y las bases del aprendizaje profundo.{{ else }}Perceptrons, backpropagation and the foundations of deep learning.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-7/{{ else }}/en/how-machines-think/chapter-7/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">7</div>
+        <h3>{{ if eq $lang "es" }}Modelos de Lenguaje{{ else }}Language Models{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}LLMs, transformers y el procesamiento del lenguaje natural que está revolucionando la IA.{{ else }}LLMs, transformers and natural language processing revolutionizing AI.{{ end }}</p>
+      </a>
+
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/general-bibliography/{{ else }}/en/how-machines-think/general-bibliography/{{ end }}" class="b1l-chapter-card">
+        <div class="b1l-chapter-number">📚</div>
+        <h3>{{ if eq $lang "es" }}Bibliografía General{{ else }}General Bibliography{{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Referencias y recursos adicionales para profundizar en cada tema.{{ else }}References and additional resources to dive deeper into each topic.{{ end }}</p>
+      </a>
+    </div>
+  </section>
+
+  <hr class="b1l-separator" />
+
+  <!-- Key Themes -->
+  <section class="b1l-section">
+    <h2 class="b1l-section-title">
+      {{ if eq $lang "es" }}Temas Clave{{ else }}Key Themes{{ end }}
+    </h2>
+    
+    <div class="b1l-themes-grid">
+      <div class="b1l-theme-card">
+        <div class="b1l-theme-icon">🔍</div>
+        <h3>{{ if eq $lang "es" }}Explicabilidad{{ else }}Explainability{{ end }}</h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Entender POR QUÉ una IA toma una decisión es tan importante como la decisión misma. 
+            Transparencia en cada algoritmo.
+          {{ else }}
+            Understanding WHY an AI makes a decision is as important as the decision itself. 
+            Transparency in every algorithm.
+          {{ end }}
+        </p>
+      </div>
+
+      <div class="b1l-theme-card">
+        <div class="b1l-theme-icon">⚖️</div>
+        <h3>{{ if eq $lang "es" }}Responsabilidad{{ else }}Responsibility{{ end }}</h3>
+        <p>
+          {{ if eq $lang "es" }}
+            ¿Quién es responsable cuando la IA comete un error? Equilibrando automatización 
+            con juicio humano y supervisión médica.
+          {{ else }}
+            Who is responsible when AI makes a mistake? Balancing automation 
+            with human judgment and medical oversight.
+          {{ end }}
+        </p>
+      </div>
+
+      <div class="b1l-theme-card">
+        <div class="b1l-theme-icon">🔬</div>
+        <h3>{{ if eq $lang "es" }}Rigor Técnico{{ else }}Technical Rigor{{ end }}</h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Fundamentos matemáticos sólidos del aprendizaje supervisado, presentados 
+            con contexto humano real y aplicaciones prácticas.
+          {{ else }}
+            Solid mathematical foundations of supervised learning, presented 
+            with real human context and practical applications.
+          {{ end }}
+        </p>
+      </div>
+
+      <div class="b1l-theme-card">
+        <div class="b1l-theme-icon">🏥</div>
+        <h3>{{ if eq $lang "es" }}Implementación Real{{ else }}Real Implementation{{ end }}</h3>
+        <p>
+          {{ if eq $lang "es" }}
+            Los desafíos de integrar IA en flujos de trabajo existentes, 
+            validación de modelos y aceptación por parte de los usuarios.
+          {{ else }}
+            The challenges of integrating AI into existing workflows, 
+            model validation and user acceptance.
+          {{ end }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="b1l-cta-section">
+    <h2 class="b1l-section-title">
+      {{ if eq $lang "es" }}Comienza tu Viaje{{ else }}Start Your Journey{{ end }}
+    </h2>
+    
+    <p class="b1l-section-subtitle">
+      {{ if eq $lang "es" }}
+        Explora el libro completo ahora y descubre cómo piensan las máquinas
+      {{ else }}
+        Explore the complete book now and discover how machines think
+      {{ end }}
+    </p>
+    
+    <div class="b1l-cta-buttons">
+      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-1/{{ else }}/en/how-machines-think/chapter-1/{{ end }}" class="b1l-btn b1l-btn-primary">
+        {{ if eq $lang "es" }}🚀 Empezar a Leer{{ else }}🚀 Start Reading{{ end }}
+      </a>
+      <a href="{{ if eq $lang "es" }}/es/{{ else }}/en/{{ end }}" class="b1l-btn b1l-btn-secondary">
+        {{ if eq $lang "es" }}← Ver Trilogía Completa{{ else }}← View Full Trilogy{{ end }}
+      </a>
+    </div>
+  </section>
+
+</div>

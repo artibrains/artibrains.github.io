@@ -1,0 +1,65 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/multiclass-strategies.css?v=1">
+
+<div class="multiclass-demo">
+    <div class="demo-content-panel">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Configuración del Experimento{{ else }}Experiment Setup{{ end }}</h2>
+        
+        <div class="demo-control-section">
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Estrategia de clasificación:{{ else }}Classification strategy:{{ end }}</label>
+                <select id="mc-strategy-select" class="demo-control-select">
+                    <option value="ovr">{{ if eq $lang "es" }}Uno contra Resto (OvR){{ else }}One-vs-Rest (OvR){{ end }}</option>
+                    <option value="ovo">{{ if eq $lang "es" }}Uno contra Uno (OvO){{ else }}One-vs-One (OvO){{ end }}</option>
+                    <option value="both">{{ if eq $lang "es" }}Comparar ambas{{ else }}Compare both{{ end }}</option>
+                </select>
+            </div>
+            
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Número de muestras por clase:{{ else }}Samples per class:{{ end }}</label>
+                <input type="range" id="mc-samples-slider" class="demo-control-slider" min="10" max="50" value="30" step="5">
+                <span id="mc-samples-value" class="slider-value">30</span>
+            </div>
+            
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Separación entre clases:{{ else }}Class separation:{{ end }}</label>
+                <input type="range" id="mc-separation-slider" class="demo-control-slider" min="1" max="5" value="2.5" step="0.5">
+                <span id="mc-separation-value" class="slider-value">2.5</span>
+            </div>
+            
+            <button id="mc-generate-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}</button>
+            <button id="mc-train-btn" class="demo-btn demo-btn-secondary" disabled>{{ if eq $lang "es" }}Entrenar Clasificadores{{ else }}Train Classifiers{{ end }}</button>
+        </div>
+    </div>
+
+    <div id="mc-visualization-container" class="demo-content-panel hidden">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Visualización{{ else }}Visualization{{ end }}</h2>
+        
+        <div id="mc-charts-container">
+            <!-- Charts will be inserted here -->
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Clasificadores Entrenados{{ else }}Trained Classifiers{{ end }}</h4>
+            <div id="mc-classifiers-info">
+                <!-- Classifier info will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Métricas de Rendimiento{{ else }}Performance Metrics{{ end }}</h4>
+            <div id="mc-metrics-info">
+                <!-- Metrics will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ partial "terminal.html" . }}
+
+<script src="/js/multiclass-strategies/multiclass-strategies.js?v=1"></script>
+<script>
+    window.multiclassLanguage = "{{ $lang }}";
+</script>

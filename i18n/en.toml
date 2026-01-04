@@ -380,3 +380,28 @@ other = "Bias"
 
 [perceptron_controls_title]
 other = "Controls"
+
+# Trilogy navigation
+[trilogy_home]
+other = "Trilogy Home"
+
+[book_1]
+other = "Book 1"
+
+[book_2]
+other = "Book 2"
+
+[book_3]
+other = "Book 3"
+
+[back_to_trilogy]
+other = "← Back to trilogy"
+
+[available_now]
+other = "Available now"
+
+[coming_soon_status]
+other = "Coming soon"
+
+[in_development]
+other = "In development"

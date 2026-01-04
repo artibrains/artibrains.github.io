@@ -33,7 +33,12 @@ const translations = {
         pausedMsg: "<strong>Descenso del Gradiente Pausado</strong>",
         selectType: "Selecciona un tipo para ver descripción.",
         lrLabel: "Tasa de Aprendizaje (α):",
-        lrInitialLabel: "Tasa Inicial (α₀):"
+        lrInitialLabel: "Tasa Inicial (α₀):",
+        // Terminal messages
+        terminalInit: "Descenso del Gradiente inicializado.",
+        terminalStart: "Iniciando optimización...",
+        terminalIter: "Iter {iter}: x={x}, grad={grad}, alpha={alpha}",
+        terminalStop: "Detenido: {reason}. Final x={x}"
     },
     en: {
         lrConstant: `<strong>Constant Rate:</strong><br>Like going down a hill taking steps of the same size (α).<br><em>Advantage:</em> Simple to understand.<br><em>Disadvantage:</em> Hard to find the ideal size. If α is too large, you might overshoot the minimum or even start going up (diverge)! If too small, it will take a long time.`,
@@ -64,11 +69,23 @@ const translations = {
         pausedMsg: "<strong>Gradient Descent Paused</strong>",
         selectType: "Select a type to see description.",
         lrLabel: "Learning Rate (α):",
-        lrInitialLabel: "Initial Rate (α₀):"
+        lrInitialLabel: "Initial Rate (α₀):",
+        // Terminal messages
+        terminalInit: "Gradient Descent initialized.",
+        terminalStart: "Starting optimization...",
+        terminalIter: "Iter {iter}: x={x}, grad={grad}, alpha={alpha}",
+        terminalStop: "Stopped: {reason}. Final x={x}"
     }
 };
 
 const t = isEs ? translations.es : translations.en;
+
+// --- Terminal Helper ---
+function logToTerminal(message) {
+    if (window.CustomTerminal && typeof window.CustomTerminal.write === 'function') {
+        window.CustomTerminal.write(message + "\n");
+    }
+}
 
 let currentMode = '1d'; // '1d' o '2d'
 let gradientDescentState = {
@@ -304,6 +321,11 @@ function initializeAlgorithm() {
         gradientDescentState.isRunning = false; gradientDescentState.isPaused = false; gradientDescentState.stopReason = null;
         const initialGradResult = calculateGradient(gradientDescentState.currentPoint);
         if (initialGradResult) { gradientDescentState.gradientMagnitudes.push(initialGradResult.magnitude); } else { throw new Error(t.errorInitGrad); }
+        
+        logToTerminal(t.terminalInit);
+        logToTerminal(`Function: ${funcStr}`);
+        logToTerminal(`Start: ${formatPoint(gradientDescentState.initialPoint)}`);
+
         return true;
     } catch (error) {
         console.error("Error en initializeAlgorithm:", error);
@@ -357,6 +379,14 @@ function performStep() {
     } catch (error) { gradientDescentState.stopReason = t.stopErrorPoint; stopAlgorithm(); updateUI(); return; }
 
     gradientDescentState.iteration++; gradientDescentState.currentPoint = nextPoint; gradientDescentState.history.push(nextPoint);
+    
+    let logMsg = t.terminalIter
+        .replace('{iter}', gradientDescentState.iteration)
+        .replace('{x}', formatPoint(currentPoint))
+        .replace('{grad}', gradMagnitude.toFixed(4))
+        .replace('{alpha}', alpha.toFixed(4));
+    logToTerminal(logMsg);
+
     updatePlot(); plotErrorHistory();
 }
 
@@ -366,6 +396,11 @@ function stopAlgorithm() {
         const finalPoint = gradientDescentState.currentPoint || gradientDescentState.initialPoint;
         const lastMag = gradientDescentState.gradientMagnitudes.slice(-1)[0];
         showFinalResultBox(finalPoint, gradientDescentState.funcCompiled, gradientDescentState.stopReason, gradientDescentState.iteration, lastMag);
+        
+        let stopMsg = t.terminalStop
+            .replace('{reason}', gradientDescentState.stopReason)
+            .replace('{x}', formatPoint(finalPoint));
+        logToTerminal(stopMsg);
     } else {
         hideFinalResultBox();
     }
@@ -424,6 +459,7 @@ function handleStart() {
     } else {
         if (!gradientDescentState.currentPoint) {
             if (!initializeAlgorithm()) { updateUI(); return; }
+            logToTerminal(t.terminalStart);
             plotInitialFunction(); plotPath(); plotErrorHistory();
         }
         gradientDescentState.isRunning = true; gradientDescentState.isPaused = false; gradientDescentState.stopReason = null;

@@ -1,0 +1,259 @@
+/* Regularization Comparison Demo Styles */
+.regularization-demo {
+    width: 100%;
+}
+
+/* Align section titles and control layout with other unified demos */
+.demo-section-title {
+    color: var(--demo-accent);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.demo-control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.explanation-box {
+    margin-bottom: 0.75rem;
+    padding: 0.9rem;
+    border-radius: var(--demo-radius-sm);
+    background: var(--demo-surface-alt);
+    border: 1px solid var(--demo-border);
+    color: var(--demo-text);
+}
+
+
+.reg-chart-container {
+    position: relative;
+    height: 400px;
+    margin: 1.5rem 0;
+}
+
+#reg-data-chart {
+    max-width: 100%;
+    height: 100%;
+}
+
+.control-hint {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+.slider-value {
+    display: inline-block;
+    min-width: 50px;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+/* Weights Table */
+.weights-table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.weights-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.weights-table th,
+.weights-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.weights-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+}
+
+.weights-table td {
+    font-family: 'Courier New', monospace;
+}
+
+.weight-zero {
+    color: #999;
+    font-style: italic;
+}
+
+.feature-tag {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 12px;
+    margin-left: 0.5rem;
+    font-weight: normal;
+}
+
+.feature-tag.relevant {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.feature-tag.irrelevant {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.metric-card {
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.metric-card h5 {
+    margin: 0 0 0.75rem 0;
+    color: #333;
+    font-size: 1rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+
+.metric-card p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.metric-card strong {
+    color: #555;
+}
+
+/* Comparison Table */
+.comparison-summary {
+    margin: 1rem 0;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.comparison-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+}
+
+.comparison-table tr:hover {
+    background: #f9f9f9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .reg-chart-container {
+        height: 300px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .weights-table {
+        font-size: 0.8rem;
+    }
+
+    .weights-table th,
+    .weights-table td {
+        padding: 0.35rem;
+    }
+}
+
+/* Fallback chart styles */
+.fallback-chart {
+    margin-top: 0.5rem;
+    font-family: sans-serif;
+}
+
+.fallback-chart .fc-legend {
+    margin-bottom: 0.5rem;
+}
+
+.fc-legend-item {
+    margin-right: 1rem;
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.fc-swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.fc-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.fc-label {
+    width: 140px;
+    font-size: 0.9rem;
+    color: #444;
+    margin-right: 0.5rem;
+}
+
+.fc-bars {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.fc-bar {
+    flex: 1;
+    background: #eee;
+    height: 14px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fc-fill {
+    height: 100%;
+}
+
+/* Hidden state */
+.hidden {
+    display: none !important;
+}

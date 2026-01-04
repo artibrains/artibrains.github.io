@@ -1,25 +1,28 @@
 :root {
-    --terminal-bg: color-mix(in srgb, var(--demo-surface, #f6f8fe) 88%, #ffffff 12%);
-    --terminal-text: color-mix(in srgb, var(--demo-text, #1a2640) 95%, #1a2640);
-    --terminal-border: color-mix(in srgb, var(--demo-border, rgba(30, 64, 132, 0.16)) 80%, rgba(30, 64, 132, 0.18));
-    --terminal-border-strong: color-mix(in srgb, var(--demo-border, rgba(30, 64, 132, 0.16)) 55%, rgba(30, 64, 132, 0.34));
+    --terminal-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 96%, rgba(0, 0, 0, 0.02) 4%);
+    --terminal-text: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color, #1a2640) 95%, #1a2640);
+    --terminal-border: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.06)) 88%, rgba(0, 0, 0, 0.04) 12%);
+    --terminal-border-strong: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.08)) 72%, rgba(0, 0, 0, 0.06) 28%);
     --terminal-header-bg: linear-gradient(90deg,
-            color-mix(in srgb, var(--demo-surface-alt, #eef3ff) 80%, #ffffff 20%) 0%,
-            color-mix(in srgb, var(--demo-surface, #eef3ff) 62%, #d9e4ff 38%) 100%);
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 92%, rgba(0, 0, 0, 0.02) 8%) 0%,
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 88%, rgba(0, 0, 0, 0.03) 12%) 100%);
+    /* Neutral, low-contrast body background so demo accents don't overpower the terminal */
     --terminal-body-bg: linear-gradient(180deg,
-            color-mix(in srgb, var(--demo-surface, #ffffff) 92%, #ffffff 8%) 0%,
-            color-mix(in srgb, var(--demo-surface-alt, #f4f7ff) 82%, #ffffff 18%) 100%);
-    --terminal-button-bg: color-mix(in srgb, var(--demo-surface-alt, #eaf0ff) 65%, rgba(53, 83, 135, 0.12) 35%);
-    --terminal-button-text: color-mix(in srgb, var(--demo-text, #1a2640) 95%, #1a2640);
-    --terminal-button-hover: color-mix(in srgb, var(--terminal-button-bg) 60%, rgba(53, 83, 135, 0.28) 40%);
-    --terminal-button-active: color-mix(in srgb, var(--terminal-button-bg) 45%, rgba(53, 83, 135, 0.45) 55%);
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 96%, transparent 4%) 0%,
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 90%, transparent 10%) 100%);
+    --terminal-button-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #f4f7ff) 80%, rgba(53, 83, 135, 0.06) 20%);
+    --terminal-button-text: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color, #1a2640) 95%, #1a2640);
+    --terminal-button-hover: color-mix(in srgb, var(--terminal-button-bg) 60%, rgba(53, 83, 135, 0.12) 40%);
+    --terminal-button-active: color-mix(in srgb, var(--terminal-button-bg) 45%, rgba(53, 83, 135, 0.18) 55%);
+    /* Keep prompt and output colors readable, but avoid using page accent for large areas */
     --terminal-prompt: color-mix(in srgb, var(--demo-accent, #1f5ae2) 85%, #163075 15%);
     --terminal-output: color-mix(in srgb, var(--demo-success, #1c7a54) 82%, #134832 18%);
-    --terminal-line-bg: color-mix(in srgb, var(--demo-surface, rgba(53, 83, 135, 0.06)) 80%, rgba(53, 83, 135, 0.06) 20%);
-    --terminal-line-border: color-mix(in srgb, var(--demo-border, rgba(53, 83, 135, 0.12)) 70%, rgba(53, 83, 135, 0.18) 30%);
-    --terminal-scrollbar-bg: color-mix(in srgb, var(--demo-surface, #e3e9f7) 78%, rgba(210, 219, 239, 0.6) 22%);
-    --terminal-scrollbar-thumb: color-mix(in srgb, var(--demo-border, #c4cee6) 70%, rgba(118, 137, 193, 0.5) 30%);
-    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--demo-border, #b0bede) 55%, rgba(86, 118, 189, 0.7) 45%);
+    /* Subtle, neutral line background and border to remove strong yellow boxes */
+    --terminal-line-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 94%, rgba(0, 0, 0, 0.02) 6%);
+    --terminal-line-border: color-mix(in srgb, rgba(0, 0, 0, 0.06) 75%, rgba(0, 0, 0, 0.04) 25%);
+    --terminal-scrollbar-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #e3e9f7) 78%, rgba(210, 219, 239, 0.6) 22%);
+    --terminal-scrollbar-thumb: color-mix(in srgb, var(--terminal-line-border, #c4cee6) 70%, rgba(118, 137, 193, 0.5) 30%);
+    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--terminal-scrollbar-thumb) 55%, rgba(86, 118, 189, 0.7) 45%);
     --terminal-text-shadow: none;
 }
 
@@ -146,37 +149,50 @@
 }
 
 .terminal-container pre {
-    margin: 0 0 0.75rem;
-    padding: 0.55rem 0.8rem;
-    line-height: 1.55;
+    margin: 0 0 0.65rem;
+    padding: 0.45rem 0.6rem;
+    line-height: 1.5;
     font-size: 0.95em;
     text-shadow: var(--terminal-text-shadow);
     white-space: pre-wrap;
     word-break: break-word;
     background: var(--terminal-line-bg);
     border: 1px solid var(--terminal-line-border);
-    border-radius: 9px;
-    transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+    border-radius: 6px;
+    transition: background 0.25s ease, transform 0.12s ease, border-color 0.25s ease;
 }
 
 .terminal-container pre:last-child {
     margin-bottom: 0;
 }
 
+/* small, subtle hover so the UI feels responsive without shifting layout too much */
 .terminal-container pre:hover {
-    transform: translateX(2px);
-    border-color: var(--terminal-border-strong);
+    transform: translateX(1px);
+    border-color: var(--terminal-border);
 }
 
 .terminal-container pre.prompt {
     color: var(--terminal-prompt);
     font-weight: 600;
-    background: color-mix(in srgb, var(--terminal-line-bg) 60%, transparent);
+    background: color-mix(in srgb, var(--terminal-line-bg) 45%, transparent);
 }
 
 .terminal-container pre.output {
     color: var(--terminal-output);
     font-weight: 500;
+}
+
+/* Prevent theme or search/highlight helpers from making terminal lines look like yellow callouts */
+.terminal-container .highlight,
+.terminal-container pre.highlight,
+.terminal-container code.highlight {
+    background: var(--terminal-line-bg) !important;
+    border-left: 0 !important;
+    border: 1px solid var(--terminal-line-border) !important;
+    border-radius: 6px !important;
+    padding: 0.45rem 0.6rem !important;
+    color: var(--terminal-text) !important;
 }
 
 .terminal-container::-webkit-scrollbar,

@@ -1,0 +1,25 @@
+<div class="book-coming-soon">
+  <div class="book-header">
+    <span class="book-badge">{{ .Get "badge" }}</span>
+    <h1>{{ .Get "title" }}</h1>
+    <div class="book-subtitle">{{ .Get "subtitle" }}</div>
+  </div>
+
+  <div class="book-intro">
+    <p class="lead">{{ .Inner }}</p>
+  </div>
+
+  <div class="coming-soon-card">
+    <div class="icon-container">
+      <i class="fas fa-hard-hat"></i>
+    </div>
+    <h2>{{ if eq .Page.Lang "es" }}En Desarrollo{{ else }}In Development{{ end }}</h2>
+    <p>
+      {{ if eq .Page.Lang "es" }}
+      Este libro está siendo escrito actualmente. Suscríbete para recibir actualizaciones.
+      {{ else }}
+      This book is currently being written. Stay tuned for updates.
+      {{ end }}
+    </p>
+  </div>
+</div>

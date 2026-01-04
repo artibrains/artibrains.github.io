@@ -1,0 +1,92 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/regularization-comparison.css?v=1">
+
+<div class="demo-main-layout regularization-demo">
+    {{ if eq $lang "es" }}
+            <p>Esta simulación genera datos y entrena modelos lineales con distintas regularizaciones (L1, L2 y Elastic Net). Cambie la fuerza de regularización y el número de características para observar cómo los pesos y las métricas del modelo cambian. La comparación se ejecuta automáticamente cuando cambian los parámetros. Si el número de características se modifica, es necesario regenerar los datos.</p>
+            {{ else }}
+            <p>This simulation generates synthetic regression data and trains linear models with different regularizations (L1 / Lasso, L2 / Ridge, and Elastic Net). Adjust the regularization strength and the number of features to see how feature weights and model metrics change. Comparison runs automatically when parameters change. If the number of features is modified, the data needs to be regenerated.</p>
+            {{ end }}
+    <div class="controls-panel">
+        <h3 class="controls-panel-title demo-mb-md">{{ if eq $lang "es" }}Configuración de la Comparación{{ else }}Comparison Configuration{{ end }}</h3>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Tipo de regularización:{{ else }}Regularization type:{{ end }}</label>
+                <select id="reg-type-select" class="demo-control-select">
+                    <option value="none">{{ if eq $lang "es" }}Sin regularización{{ else }}No regularization{{ end }}</option>
+                    <option value="l1">L1 (Lasso)</option>
+                    <option value="l2">L2 (Ridge)</option>
+                    <option value="elasticnet">Elastic Net</option>
+                    <option value="compare" selected>{{ if eq $lang "es" }}Comparar todas{{ else }}Compare all{{ end }}</option>
+                </select>
+            </div>
+
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Fuerza de regularización (λ):{{ else }}Regularization strength (λ):{{ end }}</label>
+                <input type="range" id="reg-lambda-slider" class="demo-range-input" min="0" max="2" value="0.5" step="0.01">
+                <span id="reg-lambda-value" class="demo-range-value">0.50</span>
+            </div>
+
+            <div id="reg-alpha-control" class="demo-control-group hidden">
+                <label class="control-label">{{ if eq $lang "es" }}Balance L1/L2 (α):{{ else }}L1/L2 Balance (α):{{ end }}</label>
+                <input type="range" id="reg-alpha-slider" class="demo-range-input" min="0" max="1" value="0.5" step="0.01">
+                <span id="reg-alpha-value" class="demo-range-value">0.50</span>
+                <small class="control-hint">{{ if eq $lang "es" }}0 = puro L2, 1 = puro L1{{ else }}0 = pure L2, 1 = pure L1{{ end }}</small>
+            </div>
+
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Número de características:{{ else }}Number of features:{{ end }}</label>
+                <input type="range" id="reg-features-slider" class="demo-range-input" min="5" max="20" value="10" step="1">
+                <span id="reg-features-value" class="demo-range-value">10</span>
+            </div>
+        </div>
+
+        <!-- Second line: generate + auto-run -->
+        <div class="control-section">
+            <div class="demo-control-group" style="display:flex; gap:0.5rem; align-items:center;">
+                <button id="reg-generate-btn" class="demo-btn demo-btn-primary demo-btn-full-width">{{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}</button>
+                <span class="demo-badge">{{ if eq $lang "es" }}Ejecución automática{{ else }}Auto-run{{ end }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="reg-visualization-container" class="demo-content-panel hidden">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Visualización{{ else }}Visualization{{ end }}</h2>
+        
+        <div class="reg-chart-container">
+            <canvas id="reg-data-chart"></canvas>
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Pesos de las Características{{ else }}Feature Weights{{ end }}</h4>
+            <div id="reg-weights-container">
+                <!-- Weights table will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="demo-info-card">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Métricas del Modelo{{ else }}Model Metrics{{ end }}</h4>
+            <div id="reg-metrics-container">
+                <!-- Metrics will be inserted here -->
+            </div>
+        </div>
+        
+        <div id="reg-comparison-container" class="demo-info-card hidden">
+            <h4 class="demo-card-title">{{ if eq $lang "es" }}Comparación de Regularizaciones{{ else }}Regularization Comparison{{ end }}</h4>
+            <div id="reg-comparison-content">
+                <!-- Comparison will be shown here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terminal removed from inside the demo; the page-level terminal is preserved in the page content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="/js/regularization-comparison/regularization-comparison.js?v=1"></script>
+<script>
+    window.regularizationLanguage = "{{ $lang }}";
+</script>

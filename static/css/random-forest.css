@@ -1,0 +1,85 @@
+/* Random Forest Demo Styles */
+.random-forest-demo {
+    width: 100%;
+}
+
+.rf-trees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.rf-tree-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #f9f9f9;
+}
+
+.rf-tree-card h5 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+#rf-voting-results {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f0f8ff;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+#rf-voting-results.hidden {
+    display: none;
+}
+
+.vote-bar {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.vote-label {
+    min-width: 100px;
+    font-weight: bold;
+}
+
+.vote-progress {
+    flex-grow: 1;
+    height: 24px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.vote-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.slider-value {
+    display: inline-block;
+    min-width: 50px;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+#rf-metrics p {
+    margin: 0.5rem 0;
+}
+
+#rf-training-status p {
+    margin: 0.5rem 0;
+}

@@ -1,5 +1,5 @@
 baseURL = 'https://artibrains.github.io/'
-title = 'Artificial Brains'
+title = 'Artificial Brains Trilogy'
 theme = 'hugo-theme-relearn'
 
 [markup]
@@ -67,17 +67,16 @@ defaultContentLanguageInSubdir = false
   [languages.es]
     languageName = 'Español'
     weight = 1
-    title = 'Cerebros Artificiales'
+    title = 'Trilogía Cerebros Artificiales'
     contentDir = 'content'
 
   [languages.en]
     languageName = 'English'
     weight = 2
-    title = 'Artificial Brains'
+    title = 'Artificial Brains Trilogy'
     contentDir = 'content'
 
 [params]
-
   themeVariant = ['auto','zen-light', 'zen-dark']
     themeVariantAuto = ['zen-light', 'zen-dark']
 
