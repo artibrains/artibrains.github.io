@@ -933,26 +933,26 @@
     color: #92400e !important;
 }
 
-/* Subtle inline-highlight override for links to avoid heavy boxed look */
-/* Apply to anchors site-wide so theme-injected .highlight doesn't create heavy boxed links */
+/* Elegant, minimal link highlights - barely visible background, emphasized on interaction */
 a.highlight,
 #R-body-inner a.highlight,
 article a.highlight,
 .content a.highlight {
-    display: inline-block;
-    /* soft translucent accent background */
-    background: color-mix(in srgb, var(--INTERNAL-ACCENT-color) 8%, transparent);
-    /* remove left stripe on inline links */
+    display: inline;
+    /* extremely subtle background - almost invisible */
+    background: color-mix(in srgb, var(--INTERNAL-ACCENT-color) 3%, transparent);
     border-left: 0;
-    padding: 0.12rem 0.5rem;
+    border: 0;
+    padding: 0.08rem 0.3rem;
     margin: 0;
-    border-radius: 0.35rem;
+    border-radius: 0.25rem;
     color: var(--INTERNAL-MAIN-LINK-color) !important;
     font-weight: 500;
     text-decoration: none;
+    transition: background 0.2s ease, text-decoration 0.15s ease;
 }
 
-/* keep hover/focus accessible */
+/* More visible on hover/focus for accessibility and elegance */
 a.highlight:hover,
 a.highlight:focus,
 #R-body-inner a.highlight:hover,
@@ -961,11 +961,26 @@ article a.highlight:hover,
 article a.highlight:focus,
 .content a.highlight:hover,
 .content a.highlight:focus {
-    background: color-mix(in srgb, var(--INTERNAL-ACCENT-color) 12%, transparent);
+    background: color-mix(in srgb, var(--INTERNAL-ACCENT-color) 8%, transparent);
     text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
 }
 
-/* NOTE: leave block-level .highlight rules untouched for explicit callouts */
+/* NOTE: block-level .highlight rules remain untouched for explicit callouts */
+
+/* Inline highlights that are not links (e.g., spans inside lists) */
+.content .highlight:not(div):not(pre):not(code) {
+    display: inline;
+    background: color-mix(in srgb, var(--INTERNAL-ACCENT-color) 6%, transparent);
+    border: 0;
+    border-left: 0;
+    padding: 0.08rem 0.35rem;
+    margin: 0;
+    border-radius: 0.25rem;
+    color: var(--INTERNAL-MAIN-LINK-color);
+    font-weight: 600;
+}
 
 /* HOW IT WORKS SECTION */
 

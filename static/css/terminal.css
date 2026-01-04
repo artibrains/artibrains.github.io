@@ -55,33 +55,40 @@
     background: var(--terminal-bg);
     color: var(--terminal-text);
     font-family: var(--demo-font-mono, 'Fira Mono', 'Consolas', monospace);
-    border-radius: 14px;
+    border-radius: 12px;
     min-height: 200px;
-    box-shadow: 0 24px 60px -40px rgba(15, 23, 42, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    /* softer, lower-profile shadow for an elegant card look */
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
     overflow: hidden;
-    border: 1px solid var(--terminal-border);
+    /* lighter, warmer border */
+    border: 1px solid color-mix(in srgb, var(--terminal-border, rgba(15, 23, 42, 0.08)) 72%, rgba(255, 255, 255, 0.96) 28%);
     max-width: min(820px, 95%);
-    margin: clamp(1.6rem, 3vw, 2.8rem) auto;
+    margin: clamp(1.2rem, 2.4vw, 2rem) auto;
     position: relative;
-    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-    backdrop-filter: saturate(135%) blur(0px);
+    transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+    backdrop-filter: saturate(115%) blur(0px);
 }
 
 .terminal-container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 28px 70px -38px rgba(15, 23, 42, 0.65);
-    border-color: var(--terminal-border-strong);
+    transform: translateY(-1px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    border-color: color-mix(in srgb, var(--terminal-border-strong, rgba(15, 23, 42, 0.12)) 68%, rgba(255, 255, 255, 0.94) 32%);
 }
 
 .terminal-header {
     background: var(--terminal-header-bg);
-    height: 38px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.15em;
-    border-bottom: 1px solid var(--terminal-border-strong);
-    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    padding: 0 1.05em;
+    border-bottom: 1px solid color-mix(in srgb, var(--terminal-border, rgba(15, 23, 42, 0.06)) 66%, rgba(255, 255, 255, 0.94) 34%);
+    box-shadow: none;
+}
+
+/* Slightly lift the header controls to look integrated */
+.terminal-header .dot {
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
 }
 
 .terminal-buttons {
@@ -149,50 +156,82 @@
 }
 
 .terminal-container pre {
-    margin: 0 0 0.65rem;
-    padding: 0.45rem 0.6rem;
+    margin: 0 0 0.5rem;
+    padding: 0.35rem 0.8rem;
     line-height: 1.5;
     font-size: 0.95em;
     text-shadow: var(--terminal-text-shadow);
     white-space: pre-wrap;
     word-break: break-word;
-    background: var(--terminal-line-bg);
-    border: 1px solid var(--terminal-line-border);
-    border-radius: 6px;
-    transition: background 0.25s ease, transform 0.12s ease, border-color 0.25s ease;
+    /* Remove all backgrounds and borders for clean terminal look */
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    transition: transform 0.12s ease;
 }
 
 .terminal-container pre:last-child {
     margin-bottom: 0;
 }
 
-/* small, subtle hover so the UI feels responsive without shifting layout too much */
+/* very subtle hover feedback */
 .terminal-container pre:hover {
-    transform: translateX(1px);
-    border-color: var(--terminal-border);
+    transform: translateX(0.5px);
 }
 
 .terminal-container pre.prompt {
     color: var(--terminal-prompt);
     font-weight: 600;
-    background: color-mix(in srgb, var(--terminal-line-bg) 45%, transparent);
+    background: transparent !important;
 }
 
 .terminal-container pre.output {
     color: var(--terminal-output);
     font-weight: 500;
+    background: transparent !important;
 }
 
-/* Prevent theme or search/highlight helpers from making terminal lines look like yellow callouts */
+/* TERMINAL HIGHLIGHT OVERRIDE - Maximum specificity to prevent any yellow boxes */
 .terminal-container .highlight,
 .terminal-container pre.highlight,
-.terminal-container code.highlight {
-    background: var(--terminal-line-bg) !important;
+.terminal-container code.highlight,
+.terminal-container div.highlight,
+.terminal-container .terminal-body .highlight,
+.terminal-container .terminal-body pre,
+.terminal-container .terminal-body code {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
     border-left: 0 !important;
-    border: 1px solid var(--terminal-line-border) !important;
-    border-radius: 6px !important;
-    padding: 0.45rem 0.6rem !important;
-    color: var(--terminal-text) !important;
+    border-right: 0 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    margin: 0 !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: 0 !important;
+}
+
+/* Remove any pseudo-element decorations */
+.terminal-container div.highlight::before,
+.terminal-container .highlight::before,
+.terminal-container pre.highlight::before,
+.terminal-container code.highlight::before,
+.terminal-container div.highlight::after,
+.terminal-container .highlight::after,
+.terminal-container pre.highlight::after,
+.terminal-container code.highlight::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Last-resort reset inside terminal body to nuke any residual backgrounds/borders from upstream styles */
+.terminal-container .terminal-body * {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
 }
 
 .terminal-container::-webkit-scrollbar,

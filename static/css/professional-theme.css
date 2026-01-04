@@ -24,6 +24,8 @@
     --prof-text: #1e293b;
     --prof-text-muted: #64748b;
     --prof-border: #e2e8f0;
+    /* Fix sidebar transparency in light mode */
+    --MENU-SECTIONS-BG-color: #f8fafc;
 }
 
 /* Dark mode specific colors */
@@ -42,9 +44,9 @@
 /* FIX: Ensure sidebar maintains proper layout in all themes */
 #R-sidebar * {
     /* Prevent any CSS from collapsing sidebar elements */
-    line-height: inherit;
-    display: revert;
-    position: static;
+    /* line-height: inherit; */
+    /* display: revert;  <-- REMOVED: This was hiding the select elements and breaking flex layout */
+    /* position: static; <-- REMOVED: This breaks relative positioning needed for scrollbars */
 }
 
 #R-sidebar ul {
@@ -62,6 +64,12 @@
 #R-sidebar a {
     display: block !important;
 }
+
+/* Restore indentation for nested menu items */
+#R-sidebar ul ul {
+    padding-left: 1rem !important;
+}
+
 
 /* Global Typography Improvements - SCOPED to content only */
 #R-body-inner {
