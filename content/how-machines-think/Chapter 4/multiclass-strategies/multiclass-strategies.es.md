@@ -1,7 +1,7 @@
 ---
-title: "4.3 Estrategias Multiclase: Uno contra Resto (OvR) y Uno contra Uno (OvO)"
+title: "4.1 Estrategias Multiclase: Uno contra Resto (OvR) y Uno contra Uno (OvO)"
 description: "Visualización interactiva de las estrategias OvR y OvO para clasificación multiclase, aplicada al diagnóstico de tipos de enfermedades."
-weight: 4
+weight: 1
 draft: false
 slug: "estrategias-multiclase"
 ---

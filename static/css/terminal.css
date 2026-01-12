@@ -1,15 +1,16 @@
 :root {
-    --terminal-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 96%, rgba(0, 0, 0, 0.02) 4%);
-    --terminal-text: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color, #1a2640) 95%, #1a2640);
-    --terminal-border: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.06)) 88%, rgba(0, 0, 0, 0.04) 12%);
-    --terminal-border-strong: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.08)) 72%, rgba(0, 0, 0, 0.06) 28%);
+    /* Light-mode tuned variables (improved contrast and depth) */
+    --terminal-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 94%, rgba(0, 0, 0, 0.03) 6%);
+    --terminal-text: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color, #1a2640) 96%, #0f172a 4%);
+    --terminal-border: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.08)) 84%, rgba(0, 0, 0, 0.04) 16%);
+    --terminal-border-strong: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, rgba(0, 0, 0, 0.12)) 60%, rgba(0, 0, 0, 0.06) 40%);
     --terminal-header-bg: linear-gradient(90deg,
-            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 92%, rgba(0, 0, 0, 0.02) 8%) 0%,
-            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 88%, rgba(0, 0, 0, 0.03) 12%) 100%);
-    /* Neutral, low-contrast body background so demo accents don't overpower the terminal */
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 92%, rgba(0, 0, 0, 0.03) 8%) 0%,
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 88%, rgba(0, 0, 0, 0.04) 12%) 100%);
+    /* Slightly stronger body background so the terminal reads as a distinct card */
     --terminal-body-bg: linear-gradient(180deg,
-            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 96%, transparent 4%) 0%,
-            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 90%, transparent 10%) 100%);
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 92%, rgba(0, 0, 0, 0.03) 8%) 0%,
+            color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 86%, rgba(0, 0, 0, 0.04) 14%) 100%);
     --terminal-button-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #f4f7ff) 80%, rgba(53, 83, 135, 0.06) 20%);
     --terminal-button-text: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color, #1a2640) 95%, #1a2640);
     --terminal-button-hover: color-mix(in srgb, var(--terminal-button-bg) 60%, rgba(53, 83, 135, 0.12) 40%);
@@ -18,12 +19,12 @@
     --terminal-prompt: color-mix(in srgb, var(--demo-accent, #1f5ae2) 85%, #163075 15%);
     --terminal-output: color-mix(in srgb, var(--demo-success, #1c7a54) 82%, #134832 18%);
     /* Subtle, neutral line background and border to remove strong yellow boxes */
-    --terminal-line-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 94%, rgba(0, 0, 0, 0.02) 6%);
-    --terminal-line-border: color-mix(in srgb, rgba(0, 0, 0, 0.06) 75%, rgba(0, 0, 0, 0.04) 25%);
-    --terminal-scrollbar-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #e3e9f7) 78%, rgba(210, 219, 239, 0.6) 22%);
-    --terminal-scrollbar-thumb: color-mix(in srgb, var(--terminal-line-border, #c4cee6) 70%, rgba(118, 137, 193, 0.5) 30%);
-    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--terminal-scrollbar-thumb) 55%, rgba(86, 118, 189, 0.7) 45%);
-    --terminal-text-shadow: none;
+    --terminal-line-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #ffffff) 90%, rgba(0, 0, 0, 0.03) 10%);
+    --terminal-line-border: color-mix(in srgb, rgba(0, 0, 0, 0.09) 72%, rgba(0, 0, 0, 0.04) 28%);
+    --terminal-scrollbar-bg: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color, #e3e9f7) 76%, rgba(210, 219, 239, 0.6) 24%);
+    --terminal-scrollbar-thumb: color-mix(in srgb, var(--terminal-line-border, #c4cee6) 70%, rgba(118, 137, 193, 0.55) 30%);
+    --terminal-scrollbar-thumb-hover: color-mix(in srgb, var(--terminal-scrollbar-thumb) 55%, rgba(86, 118, 189, 0.8) 45%);
+    --terminal-text-shadow: 0 0 1px rgba(255, 255, 255, 0.55);
 }
 
 [data-theme="dark"] {
@@ -57,10 +58,10 @@
     font-family: var(--demo-font-mono, 'Fira Mono', 'Consolas', monospace);
     border-radius: 12px;
     min-height: 200px;
-    /* softer, lower-profile shadow for an elegant card look */
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    /* stronger, slightly deeper shadow in light mode for more 'card' depth */
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03) inset;
     overflow: hidden;
-    /* lighter, warmer border */
+    /* clearer border so the terminal separates from the page */
     border: 1px solid color-mix(in srgb, var(--terminal-border, rgba(15, 23, 42, 0.08)) 72%, rgba(255, 255, 255, 0.96) 28%);
     max-width: min(820px, 95%);
     margin: clamp(1.2rem, 2.4vw, 2rem) auto;
@@ -71,7 +72,7 @@
 
 .terminal-container:hover {
     transform: translateY(-1px);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.10), 0 2px 8px rgba(15,23,42,0.04) inset;
     border-color: color-mix(in srgb, var(--terminal-border-strong, rgba(15, 23, 42, 0.12)) 68%, rgba(255, 255, 255, 0.94) 32%);
 }
 
@@ -83,7 +84,7 @@
     justify-content: space-between;
     padding: 0 1.05em;
     border-bottom: 1px solid color-mix(in srgb, var(--terminal-border, rgba(15, 23, 42, 0.06)) 66%, rgba(255, 255, 255, 0.94) 34%);
-    box-shadow: none;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
 }
 
 /* Slightly lift the header controls to look integrated */
@@ -153,6 +154,9 @@
     max-height: 360px;
     min-height: 160px;
     background: var(--terminal-body-bg);
+    border-top: 1px solid color-mix(in srgb, var(--terminal-line-border, rgba(0,0,0,0.06)) 72%, rgba(255,255,255,0.9) 28%);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .terminal-container pre {

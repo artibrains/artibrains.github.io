@@ -1,7 +1,7 @@
 ---
-title: "4.1 Triaje automático en urgencias: Árboles de decisión"
+title: "4.2 Triaje automático en urgencias: Árboles de decisión"
 description: "Visualización interactiva de cómo un árbol de decisión construye reglas para clasificar, inspirado en el juego 'Quién es Quién'."
-weight: 2
+weight: 12
 draft: false
 slug: "arbol-decision-triaje"
 ---

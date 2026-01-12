@@ -1,6 +1,6 @@
 ---
 title: "3.5 Notas de Luis: Validación cruzada K-Fold eficiente"
-weight: 5
+weight: 9
 description: "Comprende la importancia de una evaluación robusta de modelos y cómo la validación cruzada proporciona estimaciones más confiables que las divisiones simples de datos."
 date: 2025-04-17
 draft: false

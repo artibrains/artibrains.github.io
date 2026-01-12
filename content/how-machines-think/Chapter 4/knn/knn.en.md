@@ -1,7 +1,7 @@
 ---
 title: "4.2 A Spectrum of Possibilities: K-NN for Multiclass Classification"
 description: "Learn how the K-NN algorithm works for classification through an interactive visualization"
-weight: 1
+weight: 10
 draft: false
 slug: "knn-classification-proximity"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "4.2 Un abanico de posibilidades: K-NN para clasificación multiclase"
 description: "Aprende cómo funciona el algoritmo K-NN para clasificación a través de una visualización interactiva"
-weight: 1
+weight: 10
 draft: false
 slug: "knn-clasificacion-proximidad"
 ---

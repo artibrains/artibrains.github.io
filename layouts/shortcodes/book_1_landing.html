@@ -395,18 +395,61 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+
+/* Small devices: single column stacks */
+@media (max-width: 599px) {
     .b1l-hero {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
-    
+
     .b1l-chapters-grid {
         grid-template-columns: 1fr;
     }
-    
+
+    /* Value cards: 1 per row on small screens */
     .b1l-value-grid,
     .b1l-themes-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Medium devices: themes become 2x2, value cards stay 3 across when possible */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .b1l-hero {
+        padding: 2rem 1.5rem;
+    }
+
+    .b1l-chapters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Value cards: try to keep 3 cards in a row if space allows */
+    .b1l-value-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Themes: two columns (2 rows of 2) */
+    .b1l-themes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large devices: value cards 3 in one row; themes 4 in one row */
+@media (min-width: 1024px) {
+    .b1l-hero {
+        padding: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .b1l-chapters-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .b1l-value-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .b1l-themes-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 </style>

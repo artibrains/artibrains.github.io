@@ -1,5 +1,5 @@
 ---
-title: "3.4 La decisión crucial: Gestor de riesgos"
+title: "3.3 La decisión crucial: Gestor de riesgos"
 weight: 4
 draft: false
 slug: "gestor-riesgos"

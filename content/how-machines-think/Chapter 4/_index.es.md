@@ -16,7 +16,9 @@ En este capítulo, te unirás al equipo en el análisis de dos de los algoritmos
 
 3.  **[Estrategias Multiclase (OvR y OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.es.md" %}})**: Descubrirás cómo extender algoritmos de clasificación binaria a problemas con múltiples clases. Compararás las estrategias Uno contra Resto (OvR) y Uno contra Uno (OvO), entendiendo cuándo usar cada una en contextos médicos complejos.
 
-4.  **[Bosques Aleatorios]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.es.md" %}})**: Explorarás cómo múltiples árboles de decisión trabajan juntos como un equipo de médicos consultores. Verás cómo la combinación de predicciones independientes mejora la precisión y reduce el sobreajuste, haciendo los diagnósticos más confiables.
+4.  **[Matriz de Confusión Multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.es.md" %}})**: Aprenderás a evaluar clasificadores multiclase usando la matriz de confusión. Explorarás interactivamente cómo calcular Verdaderos/Falsos Positivos/Negativos, Precisión, Recall y F1-Score para cada clase, y cómo interpretar estas métricas en el contexto del triaje hospitalario.
+
+5.  **[Bosques Aleatorios]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.es.md" %}})**: Explorarás cómo múltiples árboles de decisión trabajan juntos como un equipo de médicos consultores. Verás cómo la combinación de predicciones independientes mejora la precisión y reduce el sobreajuste, haciendo los diagnósticos más confiables.
 
 Prepárate para desmontar la "caja negra" y comprender la lógica que impulsa a estos potentes algoritmos de clasificación.
 

@@ -731,3 +731,111 @@
         padding: 2rem;
     }
 }
+
+/* FIX: Prevent horizontal scrolling on small screens */
+@media screen and (max-width: 47.999rem) {
+
+    body,
+    html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Override theme rules with higher specificity */
+    .mobile-support #R-body,
+    #R-body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin-inline-start: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .mobile-support #R-body-inner,
+    #R-body-inner {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Ensure all content containers respect viewport width */
+    .mobile-support #R-body-inner>*,
+    #R-body-inner>* {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Ensure images and other content don't overflow */
+    img,
+    video,
+    iframe,
+    table,
+    pre,
+    .highlight {
+        max-width: 100% !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Fix for specific containers that might be too wide */
+    .b1l-container,
+    .demo-container,
+    .book-coming-soon,
+    .flex-block-wrapper,
+    article {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+}
+
+/* Additional fix for medium screens (tablet) */
+@media screen and (min-width: 48rem) and (max-width: 59.999rem) {
+    #R-body {
+        overflow-x: hidden !important;
+        width: calc(100% - var(--INTERNAL-MENU-WIDTH-M)) !important;
+        min-width: calc(100% - var(--INTERNAL-MENU-WIDTH-M)) !important;
+        max-width: calc(100% - var(--INTERNAL-MENU-WIDTH-M)) !important;
+    }
+
+    #R-body-inner {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent content overflow */
+    #R-body-inner > * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Fix for larger screens */
+@media screen and (min-width: 60rem) {
+    #R-body {
+        overflow-x: hidden !important;
+        width: calc(100% - var(--INTERNAL-MENU-WIDTH-L)) !important;
+        min-width: calc(100% - var(--INTERNAL-MENU-WIDTH-L)) !important;
+        max-width: calc(100% - var(--INTERNAL-MENU-WIDTH-L)) !important;
+    }
+
+    #R-body-inner {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent content overflow */
+    #R-body-inner > * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+}

@@ -1,7 +1,7 @@
 ---
-title: "4.4 Bosques Aleatorios: La Sabiduría de Múltiples Árboles"
+title: "4.2 Bosques Aleatorios: La Sabiduría de Múltiples Árboles"
 description: "Visualización interactiva de cómo un Random Forest combina múltiples árboles de decisión para mejorar la precisión y robustez en diagnósticos médicos."
-weight: 5
+weight: 13
 draft: false
 slug: "bosques-aleatorios"
 ---

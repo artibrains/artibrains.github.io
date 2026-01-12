@@ -1,7 +1,7 @@
 ---
-title: "4.4 Random Forests: The Wisdom of Multiple Trees"
+title: "4.2 Random Forests: The Wisdom of Multiple Trees"
 description: "Interactive visualization of how a Random Forest combines multiple decision trees to improve accuracy and robustness in medical diagnosis."
-weight: 5
+weight: 13
 draft: false
 slug: "random-forests"
 ---

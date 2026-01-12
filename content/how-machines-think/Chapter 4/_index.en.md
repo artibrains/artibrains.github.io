@@ -16,7 +16,9 @@ In this chapter, you’ll join the team as they analyze two of the most fundamen
 
 3. **[Multiclass Strategies (OvR and OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.en.md" %}})**: You'll discover how to extend binary classification algorithms to problems with multiple classes. You'll compare One-vs-Rest (OvR) and One-vs-One (OvO) strategies, understanding when to use each in complex medical contexts.
 
-4. **[Random Forests]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.en.md" %}})**: You'll explore how multiple decision trees work together like a team of consulting physicians. You'll see how combining independent predictions improves accuracy and reduces overfitting, making diagnoses more reliable.
+4. **[Multiclass Confusion Matrix]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.en.md" %}})**: You'll learn to evaluate multiclass classifiers using the confusion matrix. You'll interactively explore how to calculate True/False Positives/Negatives, Precision, Recall, and F1-Score for each class, and how to interpret these metrics in the hospital triage context.
+
+5. **[Random Forests]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.en.md" %}})**: You'll explore how multiple decision trees work together like a team of consulting physicians. You'll see how combining independent predictions improves accuracy and reduces overfitting, making diagnoses more reliable.
 
 Get ready to open the "black box" and understand the logic driving these powerful classification algorithms.
 

@@ -1,7 +1,7 @@
 ---
-title: "4.3 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)"
+title: "4.1 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)"
 description: "Interactive visualization of OvR and OvO strategies for multiclass classification, applied to diagnosing types of diseases."
-weight: 4
+weight: 1
 draft: false
 slug: "multiclass-strategies"
 ---

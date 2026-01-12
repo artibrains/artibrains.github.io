@@ -1,5 +1,5 @@
 ---
-title: "3.4 The Critical Decision: Risk Manager"
+title: "3.3 The Critical Decision: Risk Manager"
 weight: 4
 draft: false
 slug: "risk-manager"

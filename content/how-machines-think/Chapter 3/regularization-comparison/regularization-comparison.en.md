@@ -1,5 +1,5 @@
 ---
-title: "3.4 Regularization Comparison: L1, L2, and Elastic Net"
+title: "3.3 Regularization Comparison: L1, L2, and Elastic Net"
 description: "Interactive visualization of how different regularization types (L1, L2, Elastic Net) affect model weights and feature selection."
 weight: 7
 draft: false
@@ -40,8 +40,8 @@ $$
 
 Where the penalty is:
 - **L1**: $\lambda \sum_{j=1}^{p} |w_j|$
-- **L2**: $\frac{\lambda}{2} \sum_{j=1}^{p} w_j^2$
-- **Elastic Net**: $\lambda \left[ \alpha \sum_{j=1}^{p} |w_j| + \frac{1-\alpha}{2} \sum_{j=1}^{p} w_j^2 \right]$
+- **L2**: $\lambda \sum_{j=1}^{p} w_j^2$
+- **Elastic Net**: $\lambda \left[ \alpha \sum_{j=1}^{p} |w_j| + (1-\alpha) \sum_{j=1}^{p} w_j^2 \right]$
 
 ## Key Concepts
 

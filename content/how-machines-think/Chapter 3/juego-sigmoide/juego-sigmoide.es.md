@@ -1,5 +1,5 @@
 ---
-title: "3.3 El siguiente paso: Función sigmoide"
+title: "3.2 El siguiente paso: Función sigmoide"
 weight: 3
 description: "Visualización interactiva para comprender cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1, convirtiéndose en la pieza clave de la regresión logística."
 date: 2025-04-17

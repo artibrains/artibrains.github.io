@@ -1,5 +1,5 @@
 ---
-title: "3.2 El siguiente paso: Regresión logística"
+title: "3.1 El siguiente paso: Regresión logística"
 weight: 2
 description: "Demostración interactiva de cómo la regresión logística convierte combinaciones lineales en probabilidades para clasificar pacientes y predecir asistencia a citas médicas."
 date: 2025-04-17

@@ -1,5 +1,5 @@
 ---
-title: "3.2 The Next Step: Logistic Regression as the Probability Translator"
+title: "3.1 The Next Step: Logistic Regression as the Probability Translator"
 weight: 2
 description: "Interactive demonstration of how logistic regression converts linear combinations into probabilities to classify patients and predict appointment attendance."
 date: 2025-04-17

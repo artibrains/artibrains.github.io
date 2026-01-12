@@ -1,0 +1,174 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/multiclass-confusion-matrix.css">
+
+<div id="visualization-container" class="confusion-matrix-demo">
+    
+    <!-- DESCRIPTION -->
+    <div class="steps demo-content-panel" style="margin-bottom: 1rem;">
+        <h2 class="demo-section-title">{{ if eq $lang "es" }}Matriz de Confusión Multiclase{{ else }}Multiclass Confusion Matrix{{ end }}</h2>
+        <p class="demo-description">
+            {{ if eq $lang "es" }}
+            Explora cómo se evalúa un clasificador de múltiples clases. Genera datos simulados de triaje hospitalario y observa cómo se calculan las métricas para cada clase.
+            {{ else }}
+            Explore how a multi-class classifier is evaluated. Generate simulated hospital triage data and observe how metrics are calculated for each class.
+            {{ end }}
+        </p>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-panel top-controls">
+        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Configuración{{ else }}Configuration{{ end }}</h3>
+        
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Precisión del modelo:{{ else }}Model accuracy:{{ end }}</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="range" id="cm-accuracy-slider" class="demo-control-slider" min="60" max="95" value="80" step="5" style="flex-grow: 1;">
+                    <span id="cm-accuracy-value" class="slider-value" style="min-width: 40px;">80%</span>
+                </div>
+            </div>
+            
+            <div class="demo-control-group">
+                <label class="control-label">{{ if eq $lang "es" }}Muestras por clase:{{ else }}Samples per class:{{ end }}</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="range" id="cm-samples-slider" class="demo-control-slider" min="20" max="100" value="50" step="10" style="flex-grow: 1;">
+                    <span id="cm-samples-value" class="slider-value" style="min-width: 40px;">50</span>
+                </div>
+            </div>
+            
+            <button id="cm-generate-btn" class="demo-btn demo-btn-primary demo-btn-full-width">{{ if eq $lang "es" }}Generar Nueva Matriz{{ else }}Generate New Matrix{{ end }}</button>
+        </div>
+    </div>
+
+    <!-- VISUALIZATION -->
+    <div id="cm-visualization-container" class="demo-content-panel">
+        <h3 class="demo-subsection-title">{{ if eq $lang "es" }}Matriz de Confusión{{ else }}Confusion Matrix{{ end }}</h3>
+        
+        <div id="confusion-matrix-grid">
+            <!-- Matrix will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="demo-control-section" style="margin-top: 20px;">
+            <label class="control-label">{{ if eq $lang "es" }}Seleccionar clase para análisis:{{ else }}Select class for analysis:{{ end }}</label>
+            <div id="class-selector">
+                <!-- Class buttons will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- METRICS -->
+    <div id="cm-metrics-container" class="demo-content-panel">
+        <h3 class="demo-subsection-title">{{ if eq $lang "es" }}Métricas y Cálculos Detallados{{ else }}Detailed Metrics and Calculations{{ end }}</h3>
+        
+        <div id="metrics-highlight-selector" style="margin-bottom: 20px;">
+            <label class="control-label">{{ if eq $lang "es" }}Destacar en la matriz:{{ else }}Highlight in matrix:{{ end }}</label>
+            <select id="cm-highlight-select" class="demo-control-select">
+                <option value="tp">{{ if eq $lang "es" }}Verdaderos Positivos (VP){{ else }}True Positives (TP){{ end }}</option>
+                <option value="fp">{{ if eq $lang "es" }}Falsos Positivos (FP){{ else }}False Positives (FP){{ end }}</option>
+                <option value="fn">{{ if eq $lang "es" }}Falsos Negativos (FN){{ else }}False Negatives (FN){{ end }}</option>
+                <option value="tn">{{ if eq $lang "es" }}Verdaderos Negativos (VN){{ else }}True Negatives (TN){{ end }}</option>
+            </select>
+        </div>
+
+        <div id="metrics-display">
+            <div class="metric-card" data-metric="tp">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}VP{{ else }}TP{{ end }}</h4>
+                    <button class="info-icon" data-info="tp" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-tp">0</div>
+            </div>
+
+            <div class="metric-card" data-metric="fp">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}FP{{ else }}FP{{ end }}</h4>
+                    <button class="info-icon" data-info="fp" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-fp">0</div>
+            </div>
+
+            <div class="metric-card" data-metric="fn">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}FN{{ else }}FN{{ end }}</h4>
+                    <button class="info-icon" data-info="fn" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-fn">0</div>
+            </div>
+
+            <div class="metric-card" data-metric="tn">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}VN{{ else }}TN{{ end }}</h4>
+                    <button class="info-icon" data-info="tn" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-tn">0</div>
+            </div>
+
+            <div class="metric-card" data-metric="precision">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}Precisión{{ else }}Precision{{ end }}</h4>
+                    <button class="info-icon" data-info="precision" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-precision">0.00</div>
+            </div>
+
+            <div class="metric-card" data-metric="recall">
+                <div class="metric-header">
+                    <h4>{{ if eq $lang "es" }}Recall{{ else }}Recall{{ end }}</h4>
+                    <button class="info-icon" data-info="recall" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-recall">0.00</div>
+            </div>
+
+            <div class="metric-card" data-metric="f1">
+                <div class="metric-header">
+                    <h4>F1-Score</h4>
+                    <button class="info-icon" data-info="f1" aria-label="Info">ⓘ</button>
+                </div>
+                <div class="metric-value" id="metric-f1">0.00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL METRICS -->
+    <div class="demo-content-panel">
+        <h3 class="demo-subsection-title">{{ if eq $lang "es" }}Métricas Globales{{ else }}Global Metrics{{ end }}</h3>
+        <div id="global-metrics">
+            <div class="global-metric">
+                <span class="global-metric-label">{{ if eq $lang "es" }}Exactitud:{{ else }}Accuracy:{{ end }}</span>
+                <span class="global-metric-value" id="global-accuracy">0.00</span>
+            </div>
+            
+            <div class="global-metric">
+                <span class="global-metric-label">{{ if eq $lang "es" }}Precisión Macro:{{ else }}Macro Precision:{{ end }}</span>
+                <span class="global-metric-value" id="global-macro-precision">0.00</span>
+            </div>
+            
+            <div class="global-metric">
+                <span class="global-metric-label">{{ if eq $lang "es" }}Recall Macro:{{ else }}Macro Recall:{{ end }}</span>
+                <span class="global-metric-value" id="global-macro-recall">0.00</span>
+            </div>
+            
+            <div class="global-metric">
+                <span class="global-metric-label">{{ if eq $lang "es" }}F1 Macro:{{ else }}Macro F1:{{ end }}</span>
+                <span class="global-metric-value" id="global-macro-f1">0.00</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Info Modal -->
+<div id="metric-info-modal" class="info-modal">
+    <div class="info-modal-content">
+        <span class="info-modal-close">&times;</span>
+        <h3 id="modal-title"></h3>
+        <div id="modal-formula" class="modal-formula"></div>
+        <div id="modal-explanation" class="modal-explanation"></div>
+    </div>
+</div>
+
+<script>
+    window.confusionMatrixLanguage = "{{ $lang }}";
+</script>
+<script src="/js/multiclass-confusion-matrix/multiclass-confusion-matrix.js"></script>

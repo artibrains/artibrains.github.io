@@ -1,5 +1,5 @@
 ---
-title: "3.3 The Next Step: Sigmoid Decision Function"
+title: "3.2 The Next Step: Sigmoid Decision Function"
 weight: 3
 description: "Interactive visualization to understand how the sigmoid function turns any linear combination into a probability between 0 and 1, becoming the key component of logistic regression."
 date: 2025-04-17

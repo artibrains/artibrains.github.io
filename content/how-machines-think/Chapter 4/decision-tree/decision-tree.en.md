@@ -1,7 +1,7 @@
 ---
-title: "4.1 Automated Triage in the ER: Decision Trees"
+title: "4.2 Automated Triage in the ER: Decision Trees"
 description: "Interactive visualization of how a decision tree builds classification rules, inspired by the 'Guess Who?' game."
-weight: 2
+weight: 12
 draft: false
 slug: "decision-tree-triage"
 ---
