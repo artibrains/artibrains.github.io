@@ -1,9 +1,9 @@
 <div class="trilogy-footer" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--prof-border); text-align: center; color: var(--prof-text-muted);">
   <div class="footer-links" style="margin-bottom: 1rem;">
-    <a href="/legal/privacy" style="margin: 0 1rem; color: var(--prof-secondary); text-decoration: none;">Privacy Policy</a>
-    <a href="/legal/terms" style="margin: 0 1rem; color: var(--prof-secondary); text-decoration: none;">Terms of Service</a>
-    <a href="/about/author" style="margin: 0 1rem; color: var(--prof-secondary); text-decoration: none;">About the Author</a>
+      <a href="{{ "legal/" | relLangURL }}"  style="margin: 0 1rem; color: var(--prof-secondary); text-decoration: none;">{{ if eq .Language.Lang "es" }}Aviso Legal y Privacidad{{ else }}Legal notes and privacy policy{{ end }}</a><span class="separator">•</span>
+    <a href="{{ "about/" | relLangURL }}" style="margin: 0 1rem; color: var(--prof-secondary); text-decoration: none;">{{ if eq .Language.Lang "es" }}Sobre el Autor{{ else }}About the Author{{ end }}</a>
   </div>
+    
   <div class="copyright" style="font-size: 0.9rem;">
     &copy; {{ now.Year }} Artificial Brains Trilogy. All rights reserved.
   </div>

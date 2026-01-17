@@ -1,33 +1,423 @@
 {{- $lang := .Page.Language.Lang -}}
 
+<style>
+  .trilogy-landing {
+    --tl-bg: var(--INTERNAL-MAIN-BG-color);
+    --tl-card: color-mix(in srgb, var(--INTERNAL-MAIN-BG-color) 94%, var(--INTERNAL-MAIN-TEXT-color));
+    --tl-text: var(--INTERNAL-MAIN-TEXT-color);
+    --tl-muted: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color) 62%, var(--INTERNAL-MAIN-BG-color));
+    --tl-border: color-mix(in srgb, var(--INTERNAL-MAIN-TEXT-color) 18%, var(--INTERNAL-MAIN-BG-color));
+    --tl-accent: var(--INTERNAL-PRIMARY-color);
+    --tl-accent-2: var(--INTERNAL-SECONDARY-color, var(--INTERNAL-PRIMARY-color));
+    --tl-radius: 16px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  .trilogy-header {
+    position: relative;
+    border-radius: clamp(12px, 2vw, 18px);
+    overflow: hidden;
+    margin: 0 0 2.25rem;
+    padding: clamp(2.25rem, 4.5vw, 3.5rem) clamp(1.25rem, 3vw, 2.25rem);
+    background:
+      radial-gradient(1200px 520px at 20% -10%, color-mix(in oklab, var(--tl-accent) 22%, transparent), transparent 65%),
+      radial-gradient(1000px 420px at 105% 15%, color-mix(in oklab, var(--tl-accent-2) 18%, transparent), transparent 65%),
+      linear-gradient(135deg, color-mix(in oklab, var(--tl-card) 92%, #000) 0%, var(--tl-card) 70%);
+    box-shadow: inset 0 0 0 1px var(--tl-border), 0 10px 26px -8px rgba(0,0,0,.25);
+  }
+
+  .trilogy-logo {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto 1rem;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,.25));
+  }
+
+  .trilogy-header h1 {
+    margin: 0;
+    text-align: center;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    color: var(--tl-text);
+    font-size: clamp(2.1rem, 4.7vw, 3.25rem);
+    line-height: 1.15;
+  }
+
+  .trilogy-subtitle {
+    margin: .75rem auto 0;
+    text-align: center;
+    color: var(--tl-muted);
+    max-width: 900px;
+    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+    line-height: 1.55;
+  }
+
+  .tl-cta-row {
+    display: flex;
+    gap: .75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+
+  .tl-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .65rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--tl-border);
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--tl-text);
+    background: color-mix(in srgb, var(--tl-card) 92%, transparent);
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+
+  .tl-button:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--tl-accent) 35%, var(--tl-border));
+  }
+
+  .tl-button.primary {
+    background: var(--tl-accent);
+    color: white;
+    border-color: color-mix(in srgb, var(--tl-accent) 70%, #000);
+  }
+
+  .tl-button.primary:hover {
+    background: color-mix(in srgb, var(--tl-accent) 92%, #000);
+  }
+
+  .trilogy-intro {
+    background: color-mix(in srgb, var(--tl-card) 92%, transparent);
+    border: 1px solid var(--tl-border);
+    border-radius: var(--tl-radius);
+    padding: 1.25rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .trilogy-intro p {
+    margin: 0;
+    color: var(--tl-text);
+    line-height: 1.75;
+  }
+
+  .tl-pillars {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .tl-pillar {
+    background: linear-gradient(145deg, color-mix(in srgb, var(--tl-card) 96%, transparent), color-mix(in srgb, var(--tl-card) 85%, var(--tl-accent) 2%));
+    border: 1px solid color-mix(in srgb, var(--tl-border) 80%, transparent);
+    border-radius: var(--tl-radius);
+    padding: 1.5rem 1rem 1rem; /* more top space so icon isn't cropped */
+    overflow: visible;
+    min-height: 170px; /* ensure enough room for larger icon */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center; /* center paragraph text */
+  }
+
+  .tl-pillar h3 i {
+    font-size: 2.2rem; /* explicit larger size */
+    line-height: 1;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: var(--tl-accent);
+  }
+
+  .tl-pillar h3 {
+    margin: 0 0 .5rem;
+    font-size: 1.05rem;
+    color: var(--tl-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .tl-pillar p {
+    margin: 0;
+    color: var(--tl-muted);
+    line-height: 1.6;
+    font-size: .98rem;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin: 0 0 2.25rem;
+  }
+
+  .book-card {
+    background: linear-gradient(145deg, color-mix(in srgb, var(--tl-card) 96%, transparent), color-mix(in srgb, var(--tl-card) 85%, var(--tl-accent) 2%));
+    border: 1px solid color-mix(in srgb, var(--tl-border) 80%, transparent);
+    border-radius: var(--tl-radius);
+    padding: 1.25rem 1.25rem 1.1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-number {
+    position: absolute;
+    top: .9rem;
+    right: .9rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tl-accent) 18%, transparent);
+    border: 1px solid var(--tl-border);
+    display: grid;
+    place-items: center;
+    font-weight: 850;
+    color: var(--tl-text);
+  }
+
+  .book-card h2 {
+    margin: 0 0 .35rem;
+    padding-right: 3rem;
+    font-size: 1.35rem;
+    color: var(--tl-text);
+  }
+
+  .book-subtitle {
+    margin: 0 0 .85rem;
+    color: var(--tl-muted);
+    line-height: 1.45;
+  }
+
+  .book-description p {
+    margin: 0 0 .8rem;
+    color: var(--tl-text);
+    line-height: 1.7;
+  }
+
+  .book-highlights {
+    margin: 0 0 1rem;
+    padding-left: 0;
+    color: var(--tl-text);
+    line-height: 1.45;
+  }
+
+  .book-highlights li {
+    padding: 0.6rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--tl-border) 80%, transparent);
+    list-style: disc;
+    list-style-position: outside;
+    color: var(--tl-muted);
+    font-size: .98rem;
+  }
+
+  .book-highlights li:first-child {
+    border-top: none;
+    padding-top: 0.35rem;
+  }
+
+  .book-highlights li strong {
+    display: block;
+    font-weight: 800;
+    color: var(--tl-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .book-highlights li::marker {
+    color: var(--tl-accent);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 980px) {
+    .book-highlights li { padding: 0.45rem 0; }
+  }
+
+  .book-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 750;
+    text-decoration: none;
+    color: var(--tl-accent);
+  }
+
+  .book-link:hover {
+    text-decoration: underline;
+  }
+
+  .book-status {
+    margin-top: 1rem;
+    display: inline-block;
+    font-size: .85rem;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    border: 1px solid var(--tl-border);
+    color: var(--tl-muted);
+    background: color-mix(in srgb, var(--tl-card) 92%, transparent);
+  }
+
+  .book-status.available {
+    border-color: color-mix(in srgb, var(--tl-accent) 35%, var(--tl-border));
+    color: var(--tl-text);
+  }
+
+  .book-status.coming-soon {
+    opacity: .95;
+  }
+
+  .trilogy-philosophy {
+    background: color-mix(in srgb, var(--tl-card) 92%, transparent);
+    border: 1px solid var(--tl-border);
+    border-radius: var(--tl-radius);
+    padding: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .trilogy-philosophy h2 {
+    margin: 0 0 .75rem;
+    color: var(--tl-text);
+    font-size: 1.4rem;
+  }
+
+  .trilogy-philosophy p {
+    margin: 0 0 .75rem;
+    color: var(--tl-text);
+    line-height: 1.75;
+  }
+
+  .trilogy-philosophy ul {
+    margin: .75rem 0 0;
+    padding-left: 1.1rem;
+    line-height: 1.75;
+    color: var(--tl-text);
+  }
+
+  .trilogy-footer {
+    padding: 0.5rem 0 0.25rem;
+    text-align: center;
+    color: var(--tl-muted);
+  }
+
+  .footer-links {
+    display: inline-flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: .6rem;
+  }
+
+  .footer-links a {
+    color: var(--tl-muted);
+    text-decoration: none;
+    font-weight: 650;
+  }
+
+  .footer-links a:hover {
+    color: var(--tl-accent);
+    text-decoration: underline;
+  }
+
+  .footer-links .separator {
+    opacity: .55;
+  }
+
+  .footer-author {
+    font-size: .92rem;
+    opacity: .9;
+  }
+
+  .footer-author a {
+    color: var(--tl-accent);
+    text-decoration: none;
+  }
+
+  .footer-author a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 980px) {
+    .books-grid {
+      grid-template-columns: 1fr;
+    }
+    .tl-pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <div class="trilogy-landing">
   <header class="trilogy-header">
+    <img src="{{ "img/logo.png" | relURL }}" alt="Artificial Brains logo" class="trilogy-logo">
     <h1>{{ if eq $lang "es" }}Cerebros Artificiales{{ else }}Artificial Brains{{ end }}</h1>
     <p class="trilogy-subtitle">
       {{ if eq $lang "es" }}
-        Tres libros complementarios sobre Inteligencia Artificial
+        Tres libros complementarios para entender <strong>cómo</strong> funciona la IA — con rigor, con intuición y sin trucos.
       {{ else }}
-        Three Complementary Books on Artificial Intelligence
+        Three complementary books to understand <strong>how</strong> AI works — rigorous, intuitive, no hand‑waving.
       {{ end }}
     </p>
+
+    <div class="tl-cta-row">
+      <a class="tl-button primary" href="{{ "how-machines-think/" | relLangURL }}">
+        {{ if eq $lang "es" }}Empezar por el Libro 1 →{{ else }}Start with Book 1 →{{ end }}
+      </a>
+      <a class="tl-button js-mailto" href="#" data-user="artibrains" data-domain="gmail.com" data-subject='{{ if eq $lang "es" }}Actualizaciones Trilogía Cerebros Artificiales{{ else }}Artificial Brains Trilogy Updates{{ end }}'>
+        {{ if eq $lang "es" }}Recibir novedades{{ else }}Get updates{{ end }}
+      </a>
+      <a class="tl-button" href="{{ "about/" | relLangURL }}">
+        {{ if eq $lang "es" }}Sobre el autor{{ else }}About the author{{ end }}
+      </a>
+    </div>
   </header>
+
+    <p>
+      {{ if eq $lang "es" }}
+        La serie Cerebros Artificiales presenta un enfoque integral y humanista para comprender la inteligencia artificial a través de tres volúmenes complementarios. Cada libro aborda la IA desde una perspectiva diferente pero interconectada, creando un ecosistema educativo completo que prepara a los lectores no solo para usar la IA, sino para entenderla, cuestionarla y dar forma a su rol en la sociedad.
+      {{ else }}
+        The Artificial Brains series presents a comprehensive and humanistic approach to understanding artificial intelligence through three complementary volumes. Each book addresses AI from a different but interconnected perspective, creating a complete educational ecosystem that prepares readers not just to use AI, but to understand, question, and shape its role in society.
+      {{ end }}
+    </p>
+
 
   <section class="trilogy-intro">
     {{ if eq $lang "es" }}
       <p>
-        La serie <strong>Cerebros Artificiales</strong> presenta un enfoque comprehensivo y humanista para entender 
-        la inteligencia artificial a través de tres volúmenes complementarios. Cada libro aborda la IA desde una 
-        perspectiva diferente pero interconectada, creando un ecosistema educativo completo que prepara a los 
-        lectores no solo para usar la IA, sino para comprenderla, cuestionarla y moldear su papel en la sociedad.
+        Si la IA te parece magia, es porque aún no has visto el mecanismo. En esta trilogía desarmamos la “caja negra”
+        pieza a pieza: de <strong>texto</strong> a <strong>decisiones</strong> y de ahí a <strong>imágenes, audio y vídeo</strong>.
+        El objetivo no es memorizar recetas, sino convertir la intuición en conocimiento verificable.
+        <strong>Así es como la magia se convierte en ciencia.</strong>
       </p>
     {{ else }}
       <p>
-        The <strong>Artificial Brains</strong> series presents a comprehensive and humanistic approach to 
-        understanding artificial intelligence through three complementary volumes. Each book addresses AI from 
-        a different but interconnected perspective, creating a complete educational ecosystem that prepares 
-        readers not just to use AI, but to understand, question, and shape its role in society.
+        If AI feels like magic, it’s because you haven’t seen the mechanism yet. This trilogy dismantles the “black box”
+        piece by piece: from <strong>text</strong> to <strong>decisions</strong> and then to <strong>images, audio, and video</strong>.
+        The goal is not recipes — it’s intuition you can prove.
+        <strong>This is how magic becomes science.</strong>
       </p>
     {{ end }}
+
+    <div class="tl-pillars">
+      <div class="tl-pillar">
+        <h3><i class="fas fa-brain fa-lg"></i>{{ if eq $lang "es" }}Rigor (sin intimidar){{ else }}Rigor (without intimidation){{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Matemáticas y CS cuando hacen falta, explicadas con calma y propósito.{{ else }}Math and CS when needed, explained with clarity and intent.{{ end }}</p>
+      </div>
+      <div class="tl-pillar">
+        <h3><i class="fas fa-lightbulb fa-lg"></i>{{ if eq $lang "es" }}Intuición (que se sostiene){{ else }}Intuition (that holds up){{ end }}</h3>
+        <p>{{ if eq $lang "es" }}Modelos mentales para entender por qué funciona cada pieza, no solo qué hace.{{ else }}Mental models to understand why each piece works, not just what it does.{{ end }}</p>
+      </div>
+      <div class="tl-pillar">
+        <h3><i class="fas fa-mouse-pointer fa-lg"></i>{{ if eq $lang "es" }}Interactividad (para tocar la teoría){{ else }}Interactivity (to touch the theory){{ end }}</h3>
+        <p>{{ if eq $lang "es" }}La web complementa el libro con demos, widgets y visualizaciones.{{ else }}The website complements the book with demos, widgets, and visualizations.{{ end }}</p>
+      </div>
+    </div>
   </section>
 
   <div class="books-grid">
@@ -43,38 +433,40 @@
       </h2>
       <p class="book-subtitle">
         {{ if eq $lang "es" }}
-          El viaje desde los datos hasta la toma de decisiones médicas
+          De los fundamentos a los LLMs: por qué el texto “cobra sentido”
         {{ else }}
-          The Journey from Data to Medical Decision-Making
+          From foundations to LLMs: why text “starts making sense”
         {{ end }}
       </p>
       <div class="book-description">
         {{ if eq $lang "es" }}
           <p>
-            Un viaje narrativo siguiendo a un equipo médico implementando IA en un hospital. 
-            El enfoque está en el aprendizaje supervisado y la responsabilidad en sistemas críticos.
+            Una historia técnica que te lleva hasta el corazón de los modelos de lenguaje: tokenización, embeddings,
+            atención y Transformers. Empieza con bases sólidas (para que nada sea magia) y termina con los mecanismos
+            que permiten a un LLM entender y generar texto.
           </p>
           <ul class="book-highlights">
-            <li><strong>Explicabilidad</strong> en sistemas críticos</li>
-            <li><strong>Responsabilidad</strong> y ética en el despliegue</li>
-            <li><strong>Rigor técnico</strong> con contexto humano</li>
-            <li><strong>Implementación</strong> en el mundo real</li>
+            <li><strong>De “token” a significado</strong>: representaciones y geometría</li>
+            <li><strong>Atención</strong>: el mecanismo que conecta el contexto</li>
+            <li><strong>Transformers</strong>: la arquitectura que escala el lenguaje</li>
+            <li><strong>De la teoría a la práctica</strong>: ejemplos, demos y criterio</li>
           </ul>
         {{ else }}
           <p>
-            A narrative journey following a medical team implementing AI in a hospital setting. 
-            The focus is on supervised learning and responsibility in critical systems.
+            A technical story that takes you to the heart of language models: tokenization, embeddings,
+            attention, and Transformers. It starts with solid foundations (so nothing is “magic”) and ends with
+            the mechanisms that let an LLM understand and generate text.
           </p>
           <ul class="book-highlights">
-            <li><strong>Explainability</strong> in critical systems</li>
-            <li><strong>Responsibility</strong> and ethics in deployment</li>
-            <li><strong>Technical rigor</strong> with human context</li>
-            <li><strong>Real-world</strong> implementation</li>
+            <li><strong>From tokens to meaning</strong>: representations and geometry</li>
+            <li><strong>Attention</strong>: the mechanism that binds context</li>
+            <li><strong>Transformers</strong>: the architecture that scales language</li>
+            <li><strong>Theory to practice</strong>: examples, demos, judgment</li>
           </ul>
         {{ end }}
       </div>
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/{{ else }}/en/how-machines-think/{{ end }}" class="book-link">
-        {{ if eq $lang "es" }}Explorar Libro →{{ else }}Explore Book →{{ end }}
+      <a href="{{ "how-machines-think/" | relLangURL }}" class="book-link">
+        {{ if eq $lang "es" }}Explorar Libro 1 →{{ else }}Explore Book 1 →{{ end }}
       </a>
       <div class="book-status available">
         {{ if eq $lang "es" }}Disponible ahora{{ else }}Available now{{ end }}
@@ -93,38 +485,40 @@
       </h2>
       <p class="book-subtitle">
         {{ if eq $lang "es" }}
-          Descubriendo patrones y aprendiendo mediante la interacción
+          De la exploración al dominio: aprender sin etiquetas (AlphaZero como brújula)
         {{ else }}
-          Discovering Patterns and Learning Through Interaction
+          From exploration to mastery: learning without labels (AlphaZero as compass)
         {{ end }}
       </p>
       <div class="book-description">
         {{ if eq $lang "es" }}
           <p>
-            Sigue a Sofía, una profesora de secundaria, mientras aprende sobre aprendizaje no supervisado 
-            y por refuerzo para preparar mejor a la próxima generación.
+            ¿Cómo aprende una máquina cuando nadie le dice si está “bien” o “mal”? Este volumen se centra en
+            aprendizaje no supervisado y, sobre todo, en aprendizaje por refuerzo y auto‑juego: la receta que convirtió
+            a AlphaZero en un hito.
           </p>
           <ul class="book-highlights">
-            <li><strong>Educación</strong> como fundamento</li>
-            <li><strong>Descubrimiento</strong> de patrones sin guía</li>
-            <li><strong>Aprendizaje</strong> por refuerzo</li>
-            <li><strong>Transferencia</strong> intergeneracional de conocimiento</li>
+            <li><strong>Patrones sin etiquetas</strong>: estructura emergente en datos</li>
+            <li><strong>Recompensa y exploración</strong>: aprender por interacción</li>
+            <li><strong>Auto‑juego</strong>: mejorar jugando contra ti mismo</li>
+            <li><strong>De la intuición al algoritmo</strong>: del “juego” a la matemática</li>
           </ul>
         {{ else }}
           <p>
-            Follows Sofia, a high school teacher, as she learns about unsupervised and reinforcement 
-            learning to better prepare the next generation.
+            How does a machine learn when nobody tells it what’s “right” or “wrong”? This volume focuses on
+            unsupervised learning and, especially, reinforcement learning and self‑play: the recipe that made AlphaZero
+            a milestone.
           </p>
           <ul class="book-highlights">
-            <li><strong>Education</strong> as foundation</li>
-            <li><strong>Pattern discovery</strong> without guidance</li>
-            <li><strong>Reinforcement</strong> learning</li>
-            <li><strong>Intergenerational</strong> knowledge transfer</li>
+            <li><strong>Patterns without labels</strong>: emergent structure in data</li>
+            <li><strong>Reward & exploration</strong>: learning by interaction</li>
+            <li><strong>Self‑play</strong>: improve by playing yourself</li>
+            <li><strong>From intuition to algorithm</strong>: from “game” to math</li>
           </ul>
         {{ end }}
       </div>
-      <a href="#" class="book-link disabled">
-        {{ if eq $lang "es" }}Próximamente →{{ else }}Coming Soon →{{ end }}
+      <a href="{{ "learning-without-a-teacher/" | relLangURL }}" class="book-link">
+        {{ if eq $lang "es" }}Ver avances →{{ else }}See progress →{{ end }}
       </a>
       <div class="book-status coming-soon">
         {{ if eq $lang "es" }}En desarrollo{{ else }}In development{{ end }}
@@ -143,38 +537,39 @@
       </h2>
       <p class="book-subtitle">
         {{ if eq $lang "es" }}
-          Cuando las máquinas aprenden a ver y escuchar
+          Cuando la IA aprende a percibir y crear: imágenes, audio, vídeo
         {{ else }}
-          When Machines Learn to See and Hear
+          When AI learns to perceive and create: images, audio, video
         {{ end }}
       </p>
       <div class="book-description">
         {{ if eq $lang "es" }}
           <p>
-            Sigue a David Morales, periodista científico, investigando la IA que puede ver, escuchar y crear,
-            mientras busca ayudar a su hija ciega Luna.
+            ¿Qué significa “entender” una imagen? ¿Cómo se genera una voz, un vídeo, una escena? Este volumen recorre
+            el salto a lo multimodal: modelos que alinean texto‑imagen‑audio y aprenden espacios latentes donde crear.
           </p>
           <ul class="book-highlights">
-            <li><strong>IA como puente</strong> sensorial</li>
-            <li><strong>Capacidades</strong> generativas</li>
-            <li><strong>Visión</strong> por computador</li>
-            <li><strong>Procesamiento</strong> de audio</li>
+            <li><strong>Visión + audio + lenguaje</strong>: alineación multimodal</li>
+            <li><strong>Modelos generativos</strong>: de ruido a imagen/sonido</li>
+            <li><strong>Latentes</strong>: compresión, significado y control</li>
+            <li><strong>Accesibilidad</strong>: IA como puente sensorial</li>
           </ul>
         {{ else }}
           <p>
-            Follows David Morales, a science journalist, investigating AI that can see, hear, and create,
-            while seeking to help his blind daughter Luna.
+            What does it mean to “understand” an image? How do we generate a voice, a video, a scene? This volume
+            explores the leap to multimodality: models that align text‑image‑audio and learn latent spaces where creation
+            becomes possible.
           </p>
           <ul class="book-highlights">
-            <li><strong>AI as sensory</strong> bridge</li>
-            <li><strong>Generative</strong> capabilities</li>
-            <li><strong>Computer</strong> vision</li>
-            <li><strong>Audio</strong> processing</li>
+            <li><strong>Vision + audio + language</strong>: multimodal alignment</li>
+            <li><strong>Generative models</strong>: from noise to image/sound</li>
+            <li><strong>Latents</strong>: compression, meaning, control</li>
+            <li><strong>Accessibility</strong>: AI as a sensory bridge</li>
           </ul>
         {{ end }}
       </div>
-      <a href="#" class="book-link disabled">
-        {{ if eq $lang "es" }}Próximamente →{{ else }}Coming Soon →{{ end }}
+      <a href="{{ "eyes-and-ears/" | relLangURL }}" class="book-link">
+        {{ if eq $lang "es" }}Ver avances →{{ else }}See progress →{{ end }}
       </a>
       <div class="book-status coming-soon">
         {{ if eq $lang "es" }}En desarrollo{{ else }}In development{{ end }}
@@ -183,98 +578,33 @@
   </div>
 
   <section class="trilogy-philosophy">
-    <h2>{{ if eq $lang "es" }}Por qué tres libros{{ else }}Why Three Books{{ end }}</h2>
+    <h2>{{ if eq $lang "es" }}Una pregunta, tres respuestas{{ else }}One question, three answers{{ end }}</h2>
     {{ if eq $lang "es" }}
       <p>
-        Cada libro se centra en un aspecto fundamental de la IA, pero juntos forman una comprensión completa:
+        La trilogía responde a una sola pregunta: <strong>¿cómo funciona la IA por dentro?</strong>.
+        Para responderla con honestidad hay que tocar matemáticas y ciencia de la computación, pero con una narrativa que te guíe.
       </p>
       <ul>
-        <li><strong>Libro 1</strong> te enseña cómo las máquinas aprenden de ejemplos etiquetados</li>
-        <li><strong>Libro 2</strong> explora cómo descubren patrones por sí mismas y aprenden mediante prueba y error</li>
-        <li><strong>Libro 3</strong> revela cómo perciben y generan contenido multimodal</li>
+        <li><strong>Libro 1</strong> — LLMs: cómo entienden y generan texto (tokenización → embeddings → atención → Transformers)</li>
+        <li><strong>Libro 2</strong> — Aprender sin etiquetas: patrones y refuerzo (AlphaZero como ejemplo central)</li>
+        <li><strong>Libro 3</strong> — Multimodal: cómo “ven”, “oyen” y crean (imagen, audio, vídeo)</li>
       </ul>
       <p>
-        Puedes leer cada libro de forma independiente, pero juntos ofrecen una visión completa del panorama de la IA moderna.
+        Puedes leerlos por separado, pero juntos te dan el mapa completo: lenguaje, aprendizaje autónomo y creación multimodal.
       </p>
     {{ else }}
       <p>
-        Each book focuses on a fundamental aspect of AI, but together they form a complete understanding:
+        The trilogy answers one question: <strong>how does AI work on the inside?</strong>
+        To answer it honestly, we touch math and computer science — guided by a story and grounded intuition.
       </p>
       <ul>
-        <li><strong>Book 1</strong> teaches you how machines learn from labeled examples</li>
-        <li><strong>Book 2</strong> explores how they discover patterns on their own and learn through trial and error</li>
-        <li><strong>Book 3</strong> reveals how they perceive and generate multimodal content</li>
+        <li><strong>Book 1</strong> — LLMs: how they understand and generate text (tokenization → embeddings → attention → Transformers)</li>
+        <li><strong>Book 2</strong> — Learning without labels: patterns and reinforcement (AlphaZero as the core example)</li>
+        <li><strong>Book 3</strong> — Multimodal: how models “see”, “hear”, and create (image, audio, video)</li>
       </ul>
       <p>
-        You can read each book independently, but together they provide a complete view of the modern AI landscape.
+        You can read each book independently, but together they form a coherent map: language, autonomous learning, and multimodal creation.
       </p>
     {{ end }}
   </section>
-
-  <footer class="trilogy-footer">
-    <div class="footer-links">
-      <a href="{{ if eq $lang "es" }}/es/about/{{ else }}/en/about/{{ end }}">
-        {{ if eq $lang "es" }}Sobre el Autor{{ else }}About the Author{{ end }}
-      </a>
-      <span class="separator">•</span>
-      <a href="{{ if eq $lang "es" }}/es/legal/{{ else }}/en/legal/{{ end }}">
-        {{ if eq $lang "es" }}Aviso Legal y Privacidad{{ else }}Legal Notice & Privacy{{ end }}
-      </a>
-      <span class="separator">•</span>
-      <a href="mailto:artibrains@gmail.com">{{ if eq $lang "es" }}Contacto{{ else }}Contact{{ end }}</a>
-    </div>
-    <div class="footer-author">
-      {{ if eq $lang "es" }}
-        Por <a href="https://franjfal.github.io/" target="_blank" rel="noopener">Francisco Javier Falcó Benavent</a>
-      {{ else }}
-        By <a href="https://franjfal.github.io/" target="_blank" rel="noopener">Francisco Javier Falcó Benavent</a>
-      {{ end }}
-    </div>
-  </footer>
 </div>
-  padding: 0 0.5rem;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-.footer-links .separator {
-  color: var(--MAIN-TEXT-color);
-  opacity: 0.5;
-}
-
-.footer-author {
-  font-size: 0.9rem;
-  color: var(--MAIN-TEXT-color);
-  opacity: 0.8;
-}
-
-.footer-author a {
-  color: var(--MAIN-LINK-color);
-  text-decoration: none;
-}
-
-.footer-author a:hover {
-  text-decoration: underline;
-}
-
-.trilogy-philosophy ul {
-  margin: 1.5rem 0;
-  line-height: 1.8;
-}
-
-@media (max-width: 768px) {
-  .trilogy-header h1 {
-    font-size: 2rem;
-  }
-  
-  .trilogy-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .books-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

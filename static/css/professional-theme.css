@@ -161,6 +161,31 @@
     margin-bottom: 1rem;
 }
 
+.trilogy-logo {
+    display: block;
+    margin: 0 auto 1rem;
+    height: 120px;
+    width: auto;
+    max-width: 320px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .trilogy-logo {
+        height: 72px;
+        max-width: 220px;
+    }
+
+    .trilogy-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .trilogy-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
 .trilogy-subtitle {
     font-size: 1.5rem;
     color: var(--prof-text-muted);
@@ -809,9 +834,9 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
-    
+
     /* Prevent content overflow */
-    #R-body-inner > * {
+    #R-body-inner>* {
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
@@ -831,9 +856,9 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
-    
+
     /* Prevent content overflow */
-    #R-body-inner > * {
+    #R-body-inner>* {
         max-width: 100% !important;
         box-sizing: border-box !important;
     }

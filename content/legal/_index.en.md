@@ -11,7 +11,7 @@ draft: false
 ### Website Owner
 
 **Owner**: Francisco Javier Falcó Benavent  
-**Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)  
+**Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>  
 **Institutional Affiliation**: Universidad de Valencia, Department of Mathematical Analysis  
 **Address**: C/ Dr. Moliner, 50, 46100 Burjassot, Valencia, Spain
 
@@ -98,7 +98,7 @@ The website owner shall not be liable for:
 
 For questions, corrections, or concerns regarding this website, its content, or this legal notice:
 
-**Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)
+**Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 
 For academic inquiries, you may also reach out through the author's institutional contact:  
 **Universidad de Valencia**: [francisco.j.falco@uv.es](mailto:francisco.j.falco@uv.es)
@@ -123,7 +123,7 @@ This website is maintained from Spain. The legal notice and privacy policy are s
 
 **Content Use**: This is an educational website. Feel free to learn from it and share links, but don't copy large portions without permission.
 
-**Questions?**: Email [artibrains@gmail.com](mailto:artibrains@gmail.com)
+**Questions?**: Email <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 
 ---
 

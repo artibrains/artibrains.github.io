@@ -32,7 +32,7 @@ Su investigación se centra en:
 
 ## Contacto
 
-- **Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)
+- **Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com" rel="nofollow noopener noreferrer">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 - **Perfil Académico**: [https://franjfal.github.io/](https://franjfal.github.io/)
 - **Página Institucional**: [Universidad de Valencia](https://www.uv.es/uvweb/universidad/es/ficha-persona-1285950309813.html?p2=falbe&idA=true)
 - **Despacho**: Departamento de Análisis Matemático, C/ Dr. Moliner, 50, 46100 Burjassot, Valencia, España
@@ -54,7 +54,7 @@ Cada libro de la trilogía aborda diferentes aspectos de la inteligencia artific
 ---
 
 <div class="contact-note">
-Para preguntas sobre la serie Cerebros Artificiales por favor contacta por email.
+Para preguntas sobre la serie Cerebros Artificiales por favor contacta por email a <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>.
 </div>
 
 <style>

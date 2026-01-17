@@ -1,0 +1,281 @@
+/* ELIZA Chat Interface Styles - 1960s Terminal Look */
+
+/*
+    The site theme may apply strong h1/h2/h3 styles.
+    Keep ELIZA self-contained by explicitly styling its header text.
+*/
+
+.eliza-container {
+        /* Softer “terminal green” palette */
+        --eliza-bg: #0b0f0c;
+        --eliza-panel: #121715;
+        --eliza-border: #2a3a32;
+        --eliza-accent: #3ddc84;
+        --eliza-accent-2: #76f2b1;
+        --eliza-text: #b8ffe0;
+        --eliza-dim: #7fd9af;
+        --eliza-muted: #3a7c5b;
+}
+
+.eliza-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2rem 0;
+    padding: 0 1rem;
+}
+
+.eliza-chat-box {
+    width: 100%;
+    max-width: 700px;
+    border: 2px solid var(--eliza-border);
+    border-radius: 4px;
+    background: var(--eliza-bg);
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(61, 220, 132, 0.06);
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.eliza-chat-header {
+    background: linear-gradient(180deg, #141a17 0%, var(--eliza-panel) 100%);
+    color: var(--eliza-dim);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--eliza-border);
+    text-transform: uppercase;
+}
+
+.eliza-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--eliza-text) !important;
+    text-shadow: 0 0 10px rgba(61, 220, 132, 0.18);
+}
+
+.eliza-subtitle {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.75rem;
+    opacity: 0.92;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--eliza-dim) !important;
+}
+
+.eliza-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--eliza-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.eliza-messages::-webkit-scrollbar {
+    width: 10px;
+}
+
+.eliza-messages::-webkit-scrollbar-track {
+    background: var(--eliza-panel);
+}
+
+.eliza-messages::-webkit-scrollbar-thumb {
+    background: rgba(61, 220, 132, 0.55);
+    border-radius: 2px;
+}
+
+.eliza-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(61, 220, 132, 0.8);
+}
+
+.eliza-message {
+    display: flex;
+    margin-bottom: 0.25rem;
+    animation: terminalType 0.1s ease-out;
+}
+
+@keyframes terminalType {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.eliza-message.eliza-user,
+.eliza-message.eliza-bot {
+    justify-content: flex-start;
+}
+
+.eliza-bubble {
+    max-width: 100%;
+    padding: 0.25rem 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--eliza-text);
+    text-shadow: 0 0 8px rgba(61, 220, 132, 0.12);
+}
+
+.eliza-user .eliza-bubble::before {
+    content: '> ';
+    color: var(--eliza-accent-2);
+    font-weight: bold;
+}
+
+.eliza-input-area {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--eliza-panel);
+    border-top: 1px solid var(--eliza-border);
+}
+
+.eliza-input-field {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid rgba(61, 220, 132, 0.55);
+    border-radius: 0;
+    font-size: 0.9rem;
+    font-family: 'Courier New', Courier, monospace;
+    transition: all 0.2s ease;
+    background: var(--eliza-bg);
+    color: var(--eliza-text);
+    box-shadow: inset 0 0 0 1px rgba(61, 220, 132, 0.05);
+}
+
+.eliza-input-field::placeholder {
+    color: var(--eliza-muted);
+}
+
+.eliza-input-field:focus {
+    outline: none;
+    border-color: rgba(61, 220, 132, 0.9);
+    box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.18);
+}
+
+.eliza-send-btn {
+    padding: 0.5rem 1rem;
+    background: var(--eliza-accent);
+    color: #07110b;
+    border: 1px solid rgba(61, 220, 132, 0.9);
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+}
+
+.eliza-send-btn:hover {
+    background: var(--eliza-bg);
+    color: var(--eliza-accent);
+    box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.18);
+}
+
+.eliza-send-btn:active {
+    transform: scale(0.98);
+}
+
+.send-icon {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.eliza-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: var(--eliza-panel);
+    border-top: 1px solid var(--eliza-border);
+    gap: 0.5rem;
+}
+
+.eliza-clear-btn {
+    padding: 0.35rem 0.75rem;
+    background: var(--eliza-bg);
+    color: var(--eliza-accent-2);
+    border: 1px solid rgba(61, 220, 132, 0.55);
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+}
+
+.eliza-clear-btn:hover {
+    background: rgba(61, 220, 132, 0.14);
+    border-color: rgba(61, 220, 132, 0.9);
+    color: var(--eliza-text);
+}
+
+.eliza-info-badge {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--eliza-muted);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.info-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Accessible focus styling */
+.eliza-send-btn:focus-visible,
+.eliza-clear-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.22);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .eliza-chat-box {
+        max-width: 100%;
+        height: 450px;
+    }
+
+    .eliza-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .eliza-clear-btn,
+    .eliza-info-badge {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .eliza-chat-box {
+        height: 400px;
+        border-radius: 2px;
+    }
+
+    .eliza-messages {
+        padding: 0.75rem;
+    }
+
+    .eliza-input-area {
+        padding: 0.5rem;
+    }
+
+    .eliza-bubble {
+        font-size: 0.85rem;
+    }
+}

@@ -2,7 +2,7 @@
 title: "1.4 Interactive Game: Mouse and Cheese (Reinforcement Learning)"
 description: "An interactive simulation to understand how Artificial Intelligence learns through reinforcement."
 date: 2023-10-27
-weight: 51
+weight: 45
 slug: "mouse-cheese-reinforcement-learning"
 ---
 

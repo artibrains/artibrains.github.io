@@ -6,17 +6,14 @@ weight: 2
 ---
 
 {{< book_coming_soon badge="Libro 2" title="Aprendizaje sin maestro" subtitle="Descubriendo patrones y aprendiendo mediante la interacción" >}}
-Este libro seguirá a Sofía, una profesora de secundaria con formación en ingeniería, mientras aprende sobre aprendizaje no supervisado y por refuerzo para comprender mejor y enseñar a sus estudiantes.
+¿Cómo aprende una máquina cuando nadie le dice si algo está *bien* o *mal*?
 
-### Temas clave
-- **Descubrimiento de patrones**: Técnicas de aprendizaje no supervisado
-- **Aprendizaje por refuerzo**: Aprendiendo mediante la interacción
-- **IA educativa**: Preparando a la próxima generación
+Este volumen trata sobre aprender sin maestro: descubrir estructura en los datos, aprender mediante la interacción y construir habilidad explorando. **AlphaZero es la brújula**: auto‑juego, prueba y error y la idea (contraintuitiva) de que una máquina puede volverse fuerte entrenando contra sí misma.
+
+### Lo que este libro hará intuitivo (y riguroso)
+- **Aprendizaje no supervisado**: descubrir patrones sin etiquetas
+- **Aprendizaje por refuerzo**: recompensa, valor, política, exploración
+- **Auto‑juego (AlphaZero)**: mejorar jugando contra ti mismo
+- **De la “magia” al mecanismo**: las ideas de matemáticas/CS que lo sostienen
+- **Alfabetización en IA**: usar estas herramientas con responsabilidad, especialmente en educación
 {{< /book_coming_soon >}}
-- **Ética en educación**: Alfabetización en IA y responsabilidad
-
-¡Mantente atento a las actualizaciones!
-
----
-
-[← Volver a la visión general de la trilogía](/)

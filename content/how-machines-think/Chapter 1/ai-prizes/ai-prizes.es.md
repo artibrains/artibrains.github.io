@@ -1,7 +1,7 @@
 ---
 title: "1.4 Premios y Reconocimientos en IA"
 description: "Un recorrido por los principales premios y reconocimientos que han marcado la historia de la Inteligencia Artificial"
-weight: 48
+weight: 41
 slug: "premios-reconocimientos-ia"
 disableToc: true
 ---

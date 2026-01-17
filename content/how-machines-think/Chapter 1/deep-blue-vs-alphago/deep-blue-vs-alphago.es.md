@@ -1,12 +1,13 @@
 ---
 title: "1.5 Deep Blue vs AlphaGo"
 description: "Comparación técnica entre Deep Blue y AlphaGo, dos hitos en la historia de la inteligencia artificial."
-weight: 71
+weight: 55
 date: 2025-04-18
 slug: "deep-blue-vs-alphago"
+heroImage: "/img/chess-go.png"
+heroImageAlt: "Deep Blue vs AlphaGo - Ajedrez y Go"
+heroImageCaption: "*Imagen generada por Nano Banana (Gemini)*"
 ---
-
-{{< figure src="/img/chess-go.png" alt="Deep Blue vs AlphaGo - Ajedrez y Go" caption="*Imagen generada por Nano Banana (Gemini)*" >}}
 
 # Deep Blue vs AlphaGo
 

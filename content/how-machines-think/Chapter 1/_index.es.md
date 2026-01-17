@@ -24,4 +24,6 @@ A lo largo de este capítulo, te sumergirás en la historia de la IA y sus aplic
 
 6.  **[MENACE: La Máquina de Aprendizaje con Cajas de Cerillas]({{% relref "how-machines-think/Chapter 1/menace/menace.es.md" %}})**: Descubrirás cómo Donald Michie creó uno de los primeros sistemas de aprendizaje automático en 1961 utilizando solo cajas de cerillas y cuentas de colores. Este fascinante ejemplo demuestra que los principios del aprendizaje de IA pueden entenderse a través de sistemas físicos y tangibles.
 
+7.  **[ELIZA: La Primera Psicoterapeuta Artificial]({{% relref "how-machines-think/Chapter 1/eliza/eliza.es.md" %}})**: Explora ELIZA, el revolucionario chatbot de 1966 de Joseph Weizenbaum que simulaba un psicoterapeuta y demostró cómo los usuarios naturalmente atribuyen comprensión y emoción a las máquinas. Experimenta el "Efecto ELIZA" de primera mano conversando con este programa pionero.
+
 Prepárate para unirte al equipo del Hospital Minermont en el inicio de una aventura que les llevará a cuestionar sus métodos, superar sus prejuicios y descubrir el poder de la inteligencia artificial.

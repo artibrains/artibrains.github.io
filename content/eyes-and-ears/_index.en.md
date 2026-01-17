@@ -6,18 +6,14 @@ weight: 3
 ---
 
 {{< book_coming_soon badge="Book 3" title="Eyes and Ears" subtitle="When Machines Learn to See and Hear" >}}
-This book will follow David Morales, a science and technology journalist, as he investigates the frontier of AI that can see, hear, and create, starting with a feature story on LLM deployment and discovering how multimodal AI can help his blind daughter Luna.
+What does it mean for a machine to “understand” an image? How can it generate a voice — or a video?
 
-### Key Topics
-- **Computer Vision**: From pixels to understanding
-- **Audio Processing**: Speech recognition and synthesis
-- **Generative AI**: Creating images, audio, and more
-{{< /book_coming_soon >}}
-- **Multimodal Integration**: Connecting vision, audio, and language
+This volume is about the leap to **multimodal AI**: models that connect text, images, audio (and beyond), and then use those representations to *create*. The guiding theme remains the same: turning apparent magic into a mechanism you can reason about.
+
+### What you’ll learn
+- **Vision**: from pixels to representations
+- **Audio**: recognition, synthesis, and meaning
+- **Generative models**: creating images/audio/video (and why it works)
+- **Multimodal alignment**: connecting vision, audio, and language
 - **Accessibility**: AI as a sensory bridge
-
-Stay tuned for updates!
-
----
-
-[← Back to trilogy overview](/)
+{{< /book_coming_soon >}}

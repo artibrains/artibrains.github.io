@@ -1,0 +1,48 @@
+/* Hero Image Styles */
+.hero-image-wrapper {
+    margin: 0 -3.25rem 2rem -3.25rem;
+    width: calc(100% + 6.5rem);
+    max-width: none;
+}
+
+.hero-image {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+.hero-image figcaption {
+    text-align: center;
+    font-style: italic;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: var(--INTERNAL-MAIN-TITLES-TEXT-color);
+    background: var(--INTERNAL-BOX-BG-color);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 59.999rem) {
+    .hero-image-wrapper {
+        margin: 0 -2rem 1.5rem -2rem;
+        width: calc(100% + 4rem);
+    }
+}
+
+@media screen and (max-width: 47.999rem) {
+    .hero-image-wrapper {
+        margin: 0 -1.25rem 1.5rem -1.25rem;
+        width: calc(100% + 2.5rem);
+    }
+
+    .hero-image img {
+        max-height: 300px;
+    }
+}

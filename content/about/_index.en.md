@@ -32,7 +32,7 @@ His research centers on:
 
 ## Contact
 
-- **Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)
+- **Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 - **Academic Profile**: [https://franjfal.github.io/](https://franjfal.github.io/)
 - **Institutional Page**: [Universidad de Valencia](https://www.uv.es/uvweb/universidad/es/ficha-persona-1285950309813.html?p2=falbe&idA=true)
 - **Office**: Department of Mathematical Analysis, C/ Dr. Moliner, 50, 46100 Burjassot, Valencia, Spain
@@ -54,7 +54,7 @@ Each book in the trilogy addresses different aspects of artificial intelligence,
 ---
 
 <div class="contact-note">
-For questions about the Artificial Brains series please contact via email.
+For questions about the Artificial Brains series please contact via email at <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>.
 </div>
 
 <style>

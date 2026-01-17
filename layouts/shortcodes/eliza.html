@@ -1,0 +1,178 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/eliza-chat.css">
+
+<div class="eliza-container">
+    <div class="eliza-chat-box">
+        <div class="eliza-chat-header">
+            <h3 class="eliza-title">
+                {{ if eq $lang "es" }}ELIZA - Terapeuta por Computadora{{ else }}ELIZA - A Computer Therapist{{ end }}
+            </h3>
+            <p class="eliza-subtitle">
+                {{ if eq $lang "es" }}Conversando con un programa de 1966{{ else }}Chatting with a 1966 Program{{ end }}
+            </p>
+        </div>
+
+        <div class="eliza-messages" id="elizaMessages">
+        </div>
+
+        <div class="eliza-input-area">
+            <input 
+                type="text" 
+                id="elizaInput" 
+                class="eliza-input-field" 
+                {{ if eq $lang "es" }}
+                placeholder="Cuéntame algo..."
+                {{ else }}
+                placeholder="Tell me something..."
+                {{ end }}
+                autocomplete="off"
+            >
+            <button id="elizaSendBtn" class="eliza-send-btn">
+                <span class="send-icon">→</span>
+            </button>
+        </div>
+
+        <div class="eliza-controls">
+            <button id="elizaClearBtn" class="eliza-clear-btn">
+                {{ if eq $lang "es" }}Limpiar conversación{{ else }}Clear conversation{{ end }}
+            </button>
+            <div class="eliza-info-badge">
+                {{ if eq $lang "es" }}
+                <span class="info-text">💭 Powered by elizabot.js - MIT License</span>
+                {{ else }}
+                <span class="info-text">💭 Powered by elizabot.js - MIT License</span>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/elizadata.js"></script>
+<script src="/js/elizabot.js"></script>
+<script>
+(function() {
+    // Wait for elizabot.js and data to load
+    function initEliza() {
+        if (typeof ElizaBot === 'undefined' || typeof elizaKeywords === 'undefined') {
+            setTimeout(initEliza, 100);
+            return;
+        }
+        
+        // Initialize ELIZA
+        var eliza = new ElizaBot();
+        var userMsgs = [];
+        var botMsgs = [];
+        var lang = '{{ $lang }}';
+
+        const messagesContainer = document.getElementById('elizaMessages');
+        const inputField = document.getElementById('elizaInput');
+        const sendBtn = document.getElementById('elizaSendBtn');
+        const clearBtn = document.getElementById('elizaClearBtn');
+
+        // Initial Greeting
+        function showGreeting() {
+            const greeting = lang === 'es' 
+                ? 'Hola. Soy ELIZA. ¿Cómo estás? ¿Qué te preocupa hoy?'
+                : 'Hello. I am ELIZA. How are you? What brings you to see me today?';
+            addMessageToUI(greeting, 'bot');
+            botMsgs.push(greeting);
+        }
+
+        // Handle sending messages
+        function sendMessage() {
+            const userText = inputField.value.trim();
+            
+            if (!userText) return;
+            
+            // Add user message to display
+            addMessageToUI(userText, 'user');
+            userMsgs.push(userText);
+            
+            // Get ELIZA response
+            const elizaResponse = eliza.transform(userText);
+            
+            // Add bot response with a slight delay for UX
+            setTimeout(() => {
+                addMessageToUI(elizaResponse, 'bot');
+                botMsgs.push(elizaResponse);
+            }, 300);
+            
+            // Clear input
+            inputField.value = '';
+            inputField.focus();
+        }
+
+        function addMessageToUI(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `eliza-message eliza-${sender}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'eliza-bubble';
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function clearChat() {
+            messagesContainer.innerHTML = '';
+            userMsgs = [];
+            botMsgs = [];
+            eliza = new ElizaBot();
+            inputField.value = '';
+            
+            // Add initial greeting
+            const greeting = lang === 'es' 
+                ? 'Hola. Soy ELIZA. ¿Cómo estás? ¿Qué te preocupa hoy?'
+                : 'Hello. I am ELIZA. How are you? What brings you to see me today?';
+            addMessageToUI(greeting, 'bot');
+        }
+
+// Event listeners and safety checks
+        if (!sendBtn) {
+            console.error('ELIZA: sendBtn not found');
+        } else {
+            // ensure it's treated as a button (not a submit)
+            sendBtn.type = 'button';
+            sendBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                try {
+                    sendMessage();
+                } catch (err) {
+                    console.error('ELIZA sendMessage error:', err);
+                }
+            });
+            console.log('ELIZA: send button wired');
+        }
+
+        if (!inputField) {
+            console.error('ELIZA: inputField not found');
+        } else {
+            inputField.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    try { sendMessage(); } catch (err) { console.error('ELIZA sendMessage error:', err); }
+                }
+            });
+        }
+
+        if (!clearBtn) {
+            console.error('ELIZA: clearBtn not found');
+        } else {
+            clearBtn.addEventListener('click', function(e) { e.preventDefault(); clearChat(); });
+        }
+
+        // Focus input on load
+        if (inputField) inputField.focus();
+
+        // Start with a greeting
+        showGreeting();
+    }
+    
+    initEliza();
+})();
+</script>

@@ -16,7 +16,18 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
+    /* enable container queries (sidebar-aware responsive layouts) */
+    container-type: inline-size;
+    container-name: b1l;
 }
+
+  /* safety: keep cards/grids from overflowing due to padding/borders */
+  .b1l-container,
+  .b1l-container *,
+  .b1l-container *::before,
+  .b1l-container *::after {
+    box-sizing: border-box;
+  }
 
 .b1l-breadcrumb {
     margin-bottom: 2rem;
@@ -143,12 +154,20 @@
     line-height: 1.7;
 }
 
-/* Value Cards Grid */
+/* Value Cards Grid (1 or 3 columns) */
 .b1l-value-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* default: single column */
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin: 2rem 0;
+}
+
+/* Container query: switch to 3 columns when there's enough container width (sidebar-aware) */
+@container b1l (min-width: 880px) {
+    .b1l-value-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .b1l-value-card {
@@ -241,60 +260,164 @@
 }
 
 .b1l-chapter-card {
-    background: var(--b1l-card-bg);
-    border: 1px solid var(--b1l-border);
-    border-radius: var(--b1l-radius);
-    padding: 2rem;
+    --b1l-accent-local: var(--b1l-accent);
+    --b1l-accent-2-local: var(--b1l-accent-2);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--b1l-card-bg) 86%, var(--b1l-accent-local) 14%), var(--b1l-card-bg));
+    border: 1px solid color-mix(in srgb, var(--b1l-border) 90%, transparent);
+    border-radius: 18px;
+    padding: 2rem 2rem 2rem 2.25rem;
     text-decoration: none;
-    display: block;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 1rem;
+    row-gap: .25rem;
+    align-items: start;
     position: relative;
-    transition: all .3s ease;
+    transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s cubic-bezier(.2,.9,.2,1), border-color .25s ease;
+    overflow: hidden;
+    will-change: transform, box-shadow;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06), inset 0 -6px 18px -12px rgba(0,0,0,0.08);
 }
 
-.b1l-chapter-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, .18);
-    border-color: var(--b1l-accent);
+/* soft glossy overlay */
+.b1l-chapter-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0));
+    pointer-events: none;
+    border-radius: inherit;
+    transition: opacity .25s ease, transform .35s ease;
+    opacity: .9;
+    mix-blend-mode: overlay;
+}
+
+/* vertical accent stripe uses per-card variables */
+.b1l-chapter-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--b1l-accent-local), var(--b1l-accent-2-local));
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+    box-shadow: 0 6px 14px -8px rgba(0,0,0,0.12);
+    pointer-events: none;
+    transform: translateX(0);
+    transition: transform .35s cubic-bezier(.2,.9,.2,1), opacity .25s ease;
+}
+
+/* thumbnail (top-left) */
+.b1l-chapter-thumb {
+  position: relative;
+  left: auto;
+  top: auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px -8px rgba(0,0,0,0.12);
+    background: linear-gradient(180deg, var(--b1l-accent-local), var(--b1l-accent-2-local));
+    border: 1px solid color-mix(in srgb, var(--b1l-border) 80%, transparent);
+    /* small left spacing so the thumb aligns visually with heading/p text */
+    margin-left: .6rem;
+    margin-top: .6rem;
+  z-index: 1;
+}
+
+.b1l-chapter-thumb svg { width: 28px; height: 28px; fill: rgba(255,255,255,0.95); }
+
+.b1l-chapter-card:hover,
+.b1l-chapter-card:focus-within {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 18px 40px -12px rgba(0,0,0,0.28), 0 6px 20px -10px color-mix(in srgb, var(--b1l-accent-local) 30%, transparent);
+    border-color: var(--b1l-accent-local);
+}
+
+/* accessible focus state */
+.b1l-chapter-card:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--b1l-accent-local) 28%, var(--b1l-card-bg));
+    outline-offset: 4px;
 }
 
 .b1l-chapter-number {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--b1l-accent), color-mix(in srgb, var(--b1l-accent) 80%, var(--b1l-accent-2)));
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--b1l-accent-local) 92%, #fff 8%), color-mix(in srgb, var(--b1l-accent-2-local) 92%, #fff 8%));
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1rem;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, .3);
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,0.25);
+    border: 1px solid color-mix(in srgb, var(--b1l-border) 60%, transparent);
+    backdrop-filter: blur(3px);
 }
 
 .b1l-chapter-card h3 {
     color: var(--b1l-text-header);
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 .75rem 0;
     font-size: 1.3rem;
-    padding-right: 50px;
-    font-weight: 600;
+    grid-column: 2;
+    padding-right: 58px;
+    /* small left padding so content doesn't touch the thumbnail */
+    padding-left: .6rem;
+  z-index: 1;
 }
 
 .b1l-chapter-card p {
     color: var(--b1l-text-muted);
-    font-size: 0.95rem;
+    font-size: .95rem;
     margin: 0;
     line-height: 1.6;
+  grid-column: 2;
+    /* small left padding to match heading spacing */
+    padding-left: .6rem;
+}
+
+/* per-chapter local colors */
+.b1l-chapter-1 { --b1l-accent-local: #FF6B6B; --b1l-accent-2-local: #FFB199; }
+.b1l-chapter-2 { --b1l-accent-local: #6BCB77; --b1l-accent-2-local: #C6F6D5; }
+.b1l-chapter-3 { --b1l-accent-local: #4D96FF; --b1l-accent-2-local: #A2C6FF; }
+.b1l-chapter-4 { --b1l-accent-local: #FFB86B; --b1l-accent-2-local: #FFE1B8; }
+.b1l-chapter-5 { --b1l-accent-local: #9B7BFF; --b1l-accent-2-local: #D6C9FF; }
+.b1l-chapter-6 { --b1l-accent-local: #FF6BCD; --b1l-accent-2-local: #FFB6E6; }
+.b1l-chapter-7 { --b1l-accent-local: #32D6A6; --b1l-accent-2-local: #9FF4D8; }
+.b1l-chapter-bib { --b1l-accent-local: #6C7BFF; --b1l-accent-2-local: #BFD2FF; }
+
+/* small-screen tweak for stripe and thumb */
+@media (max-width: 520px) {
+    .b1l-chapter-card::after { width: 4px; }
+    .b1l-chapter-number { width: 40px; height: 40px; }
+  .b1l-chapter-card { grid-template-columns: 48px 1fr; padding: 1.5rem 1.25rem 1.5rem 1.5rem; }
+  .b1l-chapter-thumb { width: 48px; height: 48px; margin-left: .25rem; 
+   }
 }
 
 /* Themes Grid */
 .b1l-themes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
     gap: 1.5rem;
     margin: 2rem 0;
+}
+
+/* Key Themes: 1 / 2 / 4 columns based on actual container width */
+@container b1l (min-width: 680px) {
+  .b1l-themes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@container b1l (min-width: 1100px) {
+  .b1l-themes-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .b1l-theme-card {
@@ -402,62 +525,18 @@
         padding: 1.5rem 1rem;
     }
 
-    .b1l-chapters-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Value cards: 1 per row on small screens */
-    .b1l-value-grid,
-    .b1l-themes-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Medium devices: themes become 2x2, value cards stay 3 across when possible */
-@media (min-width: 600px) and (max-width: 1023px) {
-    .b1l-hero {
-        padding: 2rem 1.5rem;
-    }
-
-    .b1l-chapters-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Value cards: try to keep 3 cards in a row if space allows */
-    .b1l-value-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    /* Themes: two columns (2 rows of 2) */
-    .b1l-themes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Large devices: value cards 3 in one row; themes 4 in one row */
-@media (min-width: 1024px) {
-    .b1l-hero {
-        padding: clamp(2.5rem, 5vw, 4rem);
-    }
-
-    .b1l-chapters-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .b1l-value-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .b1l-themes-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .b1l-chapters-grid,
+  .b1l-value-grid,
+  .b1l-themes-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 
 <div class="b1l-container">
   <!-- Breadcrumb -->
   <div class="b1l-breadcrumb">
-    <a href="{{ if eq $lang "es" }}/es/{{ else }}/en/{{ end }}">
+    <a href="{{ "/" | relLangURL }}">
       {{ if eq $lang "es" }}← Volver a la trilogía{{ else }}← Back to trilogy{{ end }}
     </a>
   </div>
@@ -471,9 +550,9 @@
       
       <h1>
         {{ if eq $lang "es" }}
-          🧠 Cómo Piensan las Máquinas
+          Cómo Piensan las Máquinas
         {{ else }}
-          🧠 How Machines Think
+          How Machines Think
         {{ end }}
       </h1>
       
@@ -487,13 +566,13 @@
       
       <p class="b1l-hero-lead">
         {{ if eq $lang "es" }}
-          Un viaje narrativo siguiendo a un equipo médico implementando IA en el Hospital Minermont. 
-          El enfoque está en el <strong>aprendizaje supervisado</strong>: donde las máquinas aprenden 
-          de ejemplos etiquetados para hacer predicciones y clasificaciones.
+          Un viaje narrativo siguiendo a un equipo médico implementando IA en el Hospital Minermont.
+          Empezamos con bases sólidas (para que nada sea “magia”) y avanzamos paso a paso hasta llegar al corazón de los
+          <strong>modelos de lenguaje</strong>: por qué un LLM puede entender y generar texto.
         {{ else }}
-          A narrative journey following a medical team implementing AI at Minermont Hospital. 
-          The focus is on <strong>supervised learning</strong>: where machines learn from 
-          labeled examples to make predictions and classifications.
+          A narrative journey following a medical team implementing AI at Minermont Hospital.
+          We start with solid foundations (so nothing is “magic”) and move step by step to the heart of
+          <strong>language models</strong>: why an LLM can understand and generate text.
         {{ end }}
       </p>
       
@@ -526,11 +605,11 @@
     
     <p class="b1l-section-subtitle">
       {{ if eq $lang "es" }}
-        La inteligencia artificial ha dejado de ser una promesa lejana. Este libro no solo abre una puerta 
-        a esa caja negra, sino que te invita a adentrarte en ella para conocerla mejor.
+        La inteligencia artificial ya no es una promesa lejana. Este libro no solo abre una puerta a la caja negra:
+        te guía dentro, conectando intuición, matemáticas y casos reales para que el “milagro” se convierta en mecanismo.
       {{ else }}
-        Artificial intelligence is no longer a distant promise. This book doesn't just open a door 
-        to that black box, but invites you to step inside and understand it better.
+        Artificial intelligence is no longer a distant promise. This book doesn’t just open the black box:
+        it guides you inside, connecting intuition, math, and real cases so the “miracle” becomes a mechanism.
       {{ end }}
     </p>
     
@@ -676,49 +755,101 @@
     </p>
     
     <div class="b1l-chapters-grid">
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-1/{{ else }}/en/how-machines-think/chapter-1/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-1/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-1">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="4" width="16" height="12" rx="2" ry="2"></rect>
+            <path d="M6 18h12" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" stroke-linecap="round" fill="none"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">1</div>
         <h3>{{ if eq $lang "es" }}Los Inicios de la IA{{ else }}The Beginnings of AI{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Historia y evolución de la inteligencia artificial, desde los primeros conceptos hasta la era moderna.{{ else }}History and evolution of artificial intelligence, from early concepts to the modern era.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-2/{{ else }}/en/how-machines-think/chapter-2/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-2/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-2">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="8" width="4" height="8" rx="1"></rect>
+            <rect x="10" y="6" width="4" height="10" rx="1"></rect>
+            <rect x="16" y="4" width="4" height="12" rx="1"></rect>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">2</div>
         <h3>{{ if eq $lang "es" }}Regresión Lineal{{ else }}Linear Regression{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Fundamentos del aprendizaje supervisado: cómo las máquinas encuentran relaciones en los datos.{{ else }}Foundations of supervised learning: how machines find relationships in data.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-3/{{ else }}/en/how-machines-think/chapter-3/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-3/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-3">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="8" cy="12" r="3"></circle>
+            <circle cx="16" cy="8" r="2"></circle>
+            <circle cx="16" cy="16" r="2"></circle>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">3</div>
         <h3>{{ if eq $lang "es" }}Clasificación{{ else }}Classification{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Regresión logística y métodos de clasificación para tomar decisiones binarias y multiclase.{{ else }}Logistic regression and classification methods for binary and multiclass decisions.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-4/{{ else }}/en/how-machines-think/chapter-4/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-4/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-4">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 3v10"></path>
+            <path d="M9 8h6"></path>
+            <path d="M6 16h12"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">4</div>
         <h3>{{ if eq $lang "es" }}Árboles y Vecinos{{ else }}Trees and Neighbors{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Árboles de decisión y K-vecinos más cercanos: algoritmos intuitivos y poderosos.{{ else }}Decision trees and K-nearest neighbors: intuitive and powerful algorithms.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-5/{{ else }}/en/how-machines-think/chapter-5/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-5/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-5">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="8" cy="10" r="3"></circle>
+            <circle cx="16" cy="10" r="3"></circle>
+            <path d="M8 13c2 2 6 2 8 0" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" fill="none"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">5</div>
         <h3>{{ if eq $lang "es" }}Agrupamiento{{ else }}Clustering{{ end }}</h3>
         <p>{{ if eq $lang "es" }}K-means y descubrimiento de patrones ocultos en datos no etiquetados.{{ else }}K-means and discovering hidden patterns in unlabeled data.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-6/{{ else }}/en/how-machines-think/chapter-6/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-6/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-6">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="7" r="2"></circle>
+            <path d="M12 9v6"></path>
+            <path d="M8 12h8"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">6</div>
         <h3>{{ if eq $lang "es" }}Redes Neuronales{{ else }}Neural Networks{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Perceptrones, retropropagación y las bases del aprendizaje profundo.{{ else }}Perceptrons, backpropagation and the foundations of deep learning.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-7/{{ else }}/en/how-machines-think/chapter-7/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/chapter-7/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-7">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 6h16v10H7l-3 3V6z"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">7</div>
         <h3>{{ if eq $lang "es" }}Modelos de Lenguaje{{ else }}Language Models{{ end }}</h3>
         <p>{{ if eq $lang "es" }}LLMs, transformers y el procesamiento del lenguaje natural que está revolucionando la IA.{{ else }}LLMs, transformers and natural language processing revolutionizing AI.{{ end }}</p>
       </a>
 
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/general-bibliography/{{ else }}/en/how-machines-think/general-bibliography/{{ end }}" class="b1l-chapter-card">
+      <a href="{{ "how-machines-think/general-bibliography/" | relLangURL }}" class="b1l-chapter-card b1l-chapter-bib">
+        <div class="b1l-chapter-thumb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 4h10v14H6z"></path>
+            <path d="M6 8h10" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" fill="none"></path>
+          </svg>
+        </div>
         <div class="b1l-chapter-number">📚</div>
         <h3>{{ if eq $lang "es" }}Bibliografía General{{ else }}General Bibliography{{ end }}</h3>
         <p>{{ if eq $lang "es" }}Referencias y recursos adicionales para profundizar en cada tema.{{ else }}References and additional resources to dive deeper into each topic.{{ end }}</p>
@@ -808,10 +939,10 @@
     </p>
     
     <div class="b1l-cta-buttons">
-      <a href="{{ if eq $lang "es" }}/es/how-machines-think/chapter-1/{{ else }}/en/how-machines-think/chapter-1/{{ end }}" class="b1l-btn b1l-btn-primary">
+      <a href="{{ "how-machines-think/chapter-1/" | relLangURL }}" class="b1l-btn b1l-btn-primary">
         {{ if eq $lang "es" }}🚀 Empezar a Leer{{ else }}🚀 Start Reading{{ end }}
       </a>
-      <a href="{{ if eq $lang "es" }}/es/{{ else }}/en/{{ end }}" class="b1l-btn b1l-btn-secondary">
+      <a href="{{ "/" | relLangURL }}" class="b1l-btn b1l-btn-secondary">
         {{ if eq $lang "es" }}← Ver Trilogía Completa{{ else }}← View Full Trilogy{{ end }}
       </a>
     </div>

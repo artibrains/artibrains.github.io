@@ -5,12 +5,9 @@ weight: 2
 slug: "machine-learning-models"
 ---
 
-{{< medical-context 
-    type="hospital" 
-    level="intermediate" 
-    scenario="After a failed first attempt with an overly complex system, Victor, Marta, Luis, and Carlos learn a fundamental lesson: sometimes, the simplest solution is the most powerful. Guided by the advice of Alma García of AIA, the team embarks on implementing a linear regression model to predict the need for medical supplies."
-    highlight="This new approach is not only more manageable but also transparent and interpretable, gaining the trust of even the most skeptical, like Dr. Javier."
->}}
+After a failed first attempt with an overly complex system, Victor, Marta, Luis, and Carlos learn a fundamental lesson: sometimes, the simplest solution is the most powerful. Guided by the advice of Alma García of AIA, the team embarks on implementing a linear regression model to predict the need for medical supplies.
+
+This new approach is not only more manageable but also transparent and interpretable, gaining the trust of even the most skeptical, like Dr. Javier.
 
 ## What Will You Learn?
 

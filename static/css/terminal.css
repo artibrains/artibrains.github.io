@@ -72,7 +72,7 @@
 
 .terminal-container:hover {
     transform: translateY(-1px);
-    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.10), 0 2px 8px rgba(15,23,42,0.04) inset;
+    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.10), 0 2px 8px rgba(15, 23, 42, 0.04) inset;
     border-color: color-mix(in srgb, var(--terminal-border-strong, rgba(15, 23, 42, 0.12)) 68%, rgba(255, 255, 255, 0.94) 32%);
 }
 
@@ -84,7 +84,7 @@
     justify-content: space-between;
     padding: 0 1.05em;
     border-bottom: 1px solid color-mix(in srgb, var(--terminal-border, rgba(15, 23, 42, 0.06)) 66%, rgba(255, 255, 255, 0.94) 34%);
-    box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 
 /* Slightly lift the header controls to look integrated */
@@ -154,7 +154,7 @@
     max-height: 360px;
     min-height: 160px;
     background: var(--terminal-body-bg);
-    border-top: 1px solid color-mix(in srgb, var(--terminal-line-border, rgba(0,0,0,0.06)) 72%, rgba(255,255,255,0.9) 28%);
+    border-top: 1px solid color-mix(in srgb, var(--terminal-line-border, rgba(0, 0, 0, 0.06)) 72%, rgba(255, 255, 255, 0.9) 28%);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }

@@ -93,5 +93,12 @@
   {{- end }}
     <script src="{{ $res.RelPermalink }}{{ $assetBusting }}" defer></script>
 {{- end }}
+{{- with resources.Get "/js/email.js" }}
+  {{- $res := . }}
+  {{- if $minify }}
+    {{- $res = $res | minify }}
+  {{- end }}
+    <script src="{{ $res.RelPermalink }}{{ $assetBusting }}" defer></script>
+{{- end }}
   </body>
 </html>

@@ -1,12 +1,13 @@
 ---
-title: "1.5 MENACE: La Máquina de Aprendizaje con Cajas de Cerillas"
+title: "1.4 MENACE: La Máquina de Aprendizaje con Cajas de Cerillas"
 description: "Explora MENACE, la computadora mecánica de los años 60 hecha con cajas de cerillas que aprendió a jugar al tres en raya mediante aprendizaje por refuerzo."
 date: 2023-10-28
-weight: 52
+weight: 45
 slug: "menace-maquina-aprendizaje-cerillas"
+heroImage: "/img/menace.png"
+heroImageAlt: "MENACE - La Máquina de Aprendizaje con Cajas de Cerillas"
+heroImageCaption: "*Imagen generada por Nano Banana (Gemini)*"
 ---
-
-{{< figure src="/img/menace.png" alt="MENACE - La Máquina de Aprendizaje con Cajas de Cerillas" caption="*Imagen generada por Nano Banana (Gemini)*" >}}
 
 MENACE (Machine Educable Noughts And Crosses Engine, o Máquina Educable para el Juego del Tres en Raya) fue una computadora mecánica construida en 1961 por Donald Michie, un investigador pionero en inteligencia artificial. Esta notable máquina, construida con 304 cajas de cerillas y cuentas de colores, podía aprender a jugar al tres en raya mediante aprendizaje por refuerzo, años antes de que las computadoras modernas hicieran tales experimentos comunes.
 

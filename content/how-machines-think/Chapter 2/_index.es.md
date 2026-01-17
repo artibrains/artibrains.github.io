@@ -1,36 +1,38 @@
 ---
-title: "2 - Modelos de aprendizaje automático"
+title: "2. Modelos de aprendizaje automático"
+description: "De la teoría a la práctica: construyendo los primeros modelos predictivos."
 weight: 2
-draft: false
 slug: "modelos-aprendizaje-automatico"
 ---
 
-En este capítulo, nos adentramos en el corazón del aprendizaje automático a través de la experiencia del equipo del hospital. Después de un primer intento fallido con un sistema demasiado complejo, Víctor, Marta, Luis y Carlos aprenden una lección fundamental: a veces, la solución más simple es la más poderosa.
+Tras un primer intento fallido con un sistema demasiado complejo, Víctor, Marta, Luis y Carlos aprenden una lección fundamental: a veces, la solución más simple es la más poderosa. Guiados por el consejo de Alma García de AIA, el equipo se embarca en la implementación de un modelo de regresión lineal para predecir la necesidad de suministros médicos.
 
-Guiados por el consejo de Alma García de AIA, el equipo se embarca en la implementación de un modelo de **regresión lineal** para predecir la necesidad de suministros médicos. Este nuevo enfoque no solo es más manejable, sino también transparente e interpretable, lo que permite ganar la confianza de los más escépticos, como el doctor Javier.
+Este nuevo enfoque no solo es más manejable, sino también transparente e interpretable, ganándose la confianza incluso de los más escépticos, como el doctor Javier.
 
-A lo largo de las siguientes secciones interactivas, seguirás los pasos del equipo:
+## ¿Qué aprenderás?
 
-1.  **[Ajustarás un Modelo de Regresión Lineal]({{% relref "/how-machines-think/Chapter 2/linear-regression/linear_regresion_game.es.md" %}})**: Te pondrás en la piel de Marta y Luis, ajustando manualmente los parámetros de un modelo para predecir el consumo de mascarillas.
-2.  **[Compararás Funciones de Coste]({{% relref "how-machines-think/Chapter 2/error-comparison/error_comparation.es.md" %}})**: Explorarás por qué la elección de la función de coste (MSE vs. MAE) fue un punto clave en la discusión del equipo y cómo afecta al comportamiento del modelo.
+En este capítulo nos adentramos en el núcleo del aprendizaje automático a través de la experiencia del equipo del hospital. Seguirás sus pasos desde los ajustes manuales hasta el aprendizaje automatizado.
 
-3.  **[Visualizarás el Descenso del Gradiente]({{% relref "/how-machines-think/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.es.md" %}})**: Entenderás la intuición detrás del algoritmo que el equipo utilizó para entrenar su modelo de forma automática, encontrando los parámetros óptimos para minimizar el error.
+1. **[Ajustar un Modelo de Regresión Lineal]({{% relref "/how-machines-think/Chapter 2/linear-regression/linear_regresion_game.es.md" %}})**  
+   Ponte en la piel de Marta y Luis, ajustando manualmente los parámetros de un modelo para predecir el consumo de mascarillas. Comprende la relación entre pendiente, intercepto y predicción.
 
-### Implementación Práctica
+2. **[Visualizar el Descenso del Gradiente]({{% relref "/how-machines-think/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.es.md" %}})**  
+   Captarás la intuición detrás del algoritmo que el equipo utilizó para entrenar su modelo automáticamente. Verás cómo el sistema "desciende" la montaña del error hasta encontrar los parámetros óptimos.
 
-- **[Regresión lineal desde cero]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion.es.md" %}})**: Construir un modelo de regresión lineal desde cero, aplicando los conceptos aprendidos en un problema real.
+3. **[Comparar Funciones de Coste]({{% relref "how-machines-think/Chapter 2/error-comparison/error_comparation.es.md" %}})**  
+   Explora por qué la elección de la función de coste (MSE vs. MAE) fue un punto clave en la discusión del equipo y cómo afecta al comportamiento del modelo, especialmente ante valores atípicos.
 
-- **[Regresión lineal con sklearn]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion-sklearn.es.md" %}})**: Utilizar la biblioteca scikit-learn para implementar un modelo de regresión lineal de manera eficiente y sencilla.
+### Implementación práctica
 
-### Fundamentos Matemáticos
+- **[Regresión lineal desde cero]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion.es.md" %}})**: Construye un modelo de regresión lineal desde cero, aplicando los conceptos aprendidos a un problema real.
+- **[Regresión lineal con Scikit-Learn]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion-sklearn.es.md" %}})**: Usa la biblioteca estándar de la industria para implementar un modelo de regresión lineal de forma eficiente.
 
-- **[Derivadas básicas]({{% relref "how-machines-think/Chapter 2/math/derivatives.es.md" %}})**: Referencia concisa de reglas de derivación y un widget interactivo para calcular $f'(x)$, con acceso a explicaciones paso a paso en WolframAlpha.
-- **[Derivadas parciales y gradiente]({{% relref "how-machines-think/Chapter 2/math/gradients.es.md" %}})**: Del concepto de derivada parcial al vector gradiente, intuición geométrica y un widget para calcular $\nabla f$ de forma simbólica.
+### Fundamentos matemáticos
 
-### Bibliografía y Recursos Complementarios
+- **[Derivadas]({{% relref "how-machines-think/Chapter 2/math/derivatives.es.md" %}})**: Referencia concisa de reglas de derivación y un widget interactivo para calcular $f'(x)$ y explorar explicaciones paso a paso mediante WolframAlpha.
+- **[Derivadas parciales y gradiente]({{% relref "how-machines-think/Chapter 2/math/gradients.es.md" %}})**: Desde derivadas parciales hasta el vector gradiente, intuición geométrica y un widget para calcular $\nabla f$ de forma simbólica.
 
-- **[Regresión Lineal]({{% relref "/how-machines-think/Chapter 2/bibliography/bibliography-linear-regresion.es.md" %}})**: Una colección de materiales para profundizar en la regresión lineal, desde teoría hasta implementación práctica.
-- **[Descenso del Gradiente]({{% relref "/how-machines-think/Chapter 2/bibliography/bibliography-gradient-descent.es.md" %}})**: Recursos para entender y aplicar el descenso del gradiente, desde fundamentos hasta optimización avanzada.
+### Bibliografía y recursos adicionales
 
-
-
+- **[Regresión lineal]({{% relref "/how-machines-think/Chapter 2/bibliography/bibliography-linear-regresion.es.md" %}})**: Materiales para profundizar en la regresión lineal, desde la teoría hasta la práctica.
+- **[Descenso del gradiente]({{% relref "/how-machines-think/Chapter 2/bibliography/bibliography-gradient-descent.es.md" %}})**: Recursos para entender y aplicar el descenso del gradiente, desde fundamentos hasta técnicas avanzadas de optimización.

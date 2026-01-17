@@ -1,7 +1,7 @@
 ---
 title: "1.4 AI Awards and Recognition"
 description: "A journey through the major awards and recognitions that have marked the history of Artificial Intelligence"
-weight: 48
+weight: 41
 slug: "ai-awards-recognition"
 disableToc: true
 ---

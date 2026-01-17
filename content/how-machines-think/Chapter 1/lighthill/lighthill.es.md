@@ -1,8 +1,11 @@
 ---
 title: "1.4 - El informe Lighthill"
 description: "El informe Lighthill de 1973 criticó la IA, contribuyendo al primer 'invierno de la IA'."
-weight: 47
+weight: 42
 slug: "informe-lighthill-invierno-ia"
+heroImage: "/img/Lighthill.png"
+heroImageAlt: "Informe Lighthill (1973)"
+heroImageCaption: "*Imagen generada por Nano Banana (Gemini)*"
 ---
 
 El informe Lighthill, oficialmente titulado "Artificial Intelligence: A General Survey", fue un influyente documento publicado en 1973 por el matemático británico Sir James Lighthill por encargo del Consejo de Investigación Científica del Reino Unido. Este informe tuvo un impacto devastador en la investigación de inteligencia artificial, especialmente en el Reino Unido.

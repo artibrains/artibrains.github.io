@@ -139,6 +139,7 @@
             var language = container.dataset.language;
             var timelineInstance = null;
             var originalEvents = rawData.timeline.slice(); // Keep original data for filtering
+            var markerObserver = null;
 
             console.log('Timeline data loaded:', originalEvents.length, 'events');
 
@@ -229,7 +230,8 @@
                 // Apply category colors to timeline markers after timeline is loaded
                 setTimeout(function () {
                     try {
-                        applyCategoryColors(events);
+                        applyCategoryColors(events, 0);
+                        setupMarkerObserver(events);
                         // Temporarily disable phase backgrounds as they're interfering with timeline markers
                         // applyPhaseBackgrounds(events);
                     } catch (error) {
@@ -238,7 +240,76 @@
                 }, 500);
             }
 
-            function applyCategoryColors(events) {
+            function applyMarkerTitleOverrides(marker) {
+                if (!marker) return;
+
+                // TimelineJS renders marker titles as h2.tl-headline inside .tl-timemarker-text
+                // Use multiple selectors to catch all possible structures
+                var titleEls = marker.querySelectorAll(
+                    '.tl-timemarker-text h2.tl-headline, ' +
+                    '.tl-timemarker-text p.tl-headline, ' +
+                    '.tl-timemarker-content .tl-timemarker-text h2.tl-headline, ' +
+                    '.tl-headline'
+                );
+                
+                titleEls.forEach(function (el) {
+                    // Remove fadeout overlay class; it hides text when we custom-color the marker background
+                    el.classList.remove('tl-headline-fadeout');
+
+                    // Force white text with aggressive inline styles
+                    el.style.setProperty('color', '#ffffff', 'important');
+                    el.style.setProperty('opacity', '1', 'important');
+                    el.style.setProperty('visibility', 'visible', 'important');
+                    el.style.setProperty('text-shadow', '0 1px 2px rgba(0,0,0,0.5)', 'important');
+                    el.style.setProperty('position', 'relative', 'important');
+                    el.style.setProperty('z-index', '10', 'important');
+                    
+                    // Also remove the :after pseudo-element by setting content to empty
+                    // (can't directly style pseudo-elements from JS, but removing the class helps)
+                });
+                
+                // Also target any child paragraphs inside the headline
+                var paragraphs = marker.querySelectorAll('.tl-timemarker-text h2.tl-headline p');
+                paragraphs.forEach(function (p) {
+                    p.style.setProperty('color', '#ffffff', 'important');
+                    p.style.setProperty('opacity', '1', 'important');
+                });
+            }
+
+            function setupMarkerObserver(events) {
+                try {
+                    if (markerObserver) {
+                        markerObserver.disconnect();
+                        markerObserver = null;
+                    }
+
+                    var root = document.getElementById('ai-timeline-embed');
+                    if (!root) return;
+
+                    // Watch for TimelineJS re-rendering the navigation markers (it rebuilds DOM on load/resize)
+                    var timenav = root.querySelector('.tl-timenav');
+                    if (!timenav) return;
+
+                    var pending = null;
+                    markerObserver = new MutationObserver(function (mutations) {
+                        // Only react to nodes being added/removed; avoid attribute/style loops
+                        var hasChildList = mutations.some(function (m) { return m.type === 'childList' && (m.addedNodes.length || m.removedNodes.length); });
+                        if (!hasChildList) return;
+
+                        if (pending) clearTimeout(pending);
+                        pending = setTimeout(function () {
+                            applyCategoryColors(events, 0);
+                        }, 50);
+                    });
+
+                    markerObserver.observe(timenav, { childList: true, subtree: true });
+                } catch (e) {
+                    console.warn('Could not setup marker observer:', e);
+                }
+            }
+
+            function applyCategoryColors(events, delayMs) {
+                delayMs = (typeof delayMs === 'number') ? delayMs : 1000;
                 setTimeout(function () {
                     var markers = document.querySelectorAll('.tl-timemarker');
                     var slides = document.querySelectorAll('.tl-slide');
@@ -255,6 +326,9 @@
                             }
                             marker.style.setProperty('background-color', categoryColor, 'important');
                             marker.style.setProperty('border-color', categoryColor, 'important');
+
+                            // Force white text for titles inside the marker (and keep it after TimelineJS redraws)
+                            applyMarkerTitleOverrides(marker);
 
                             // Apply consistent category styling to the slide
                             if (slides[index]) {
@@ -348,7 +422,7 @@
                             });
                         }
                     });
-                }, 1000); // Increased timeout to ensure Timeline.js is fully loaded
+                }, delayMs);
             }
 
             function applyPhaseBackgrounds(events) {
@@ -465,6 +539,43 @@
         color: var(--MAIN-TEXT-color) !important;
         text-shadow: none !important;
         /* Remove any text shadows */
+    }
+
+    /* Force white text for timeline markers (the bars/titles in the timeline navigation) */
+    /* Multiple selectors to override TimelineJS default gray (#bfbfbf) */
+    .tl-timeline .tl-timemarker .tl-headline,
+    .tl-timeline .tl-timemarker .tl-timemarker-text h2.tl-headline,
+    .tl-timeline .tl-timemarker .tl-timemarker-text h2.tl-headline p,
+    .tl-timeline .tl-timemarker .tl-timemarker-content .tl-timemarker-text h2.tl-headline,
+    .tl-timeline .tl-timemarker-content-container .tl-timemarker-text h2.tl-headline,
+    .tl-timenav .tl-timemarker .tl-timemarker-text h2,
+    .tl-timenav .tl-timemarker h2 {
+        color: #ffffff !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+        opacity: 1 !important;
+    }
+
+    /* Disable TimelineJS “fadeout” overlay which can obscure text once markers animate in */
+    .tl-timeline .tl-timemarker .tl-timemarker-text h2.tl-headline.tl-headline-fadeout:after,
+    .tl-timeline .tl-timemarker .tl-timemarker-text p.tl-headline.tl-headline-fadeout:after {
+        background: none !important;
+        display: none !important;
+    }
+
+    /* Last-resort override: force all text inside timemarker content to white */
+    .tl-timenav .tl-timemarker .tl-timemarker-content-container,
+    .tl-timenav .tl-timemarker .tl-timemarker-content,
+    .tl-timenav .tl-timemarker .tl-timemarker-text,
+    .tl-timenav .tl-timemarker .tl-timemarker-content-container * {
+        color: #ffffff !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55) !important;
+        opacity: 1 !important;
+        mix-blend-mode: normal !important;
+    }
+
+    .tl-timenav .tl-timemarker .tl-timemarker-text {
+        position: relative !important;
+        z-index: 10 !important;
     }
 
     /* Remove text shadows from all timeline text */
@@ -1088,7 +1199,7 @@
     }
 
     .tl-timenav .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text {
-        color: var(--MAIN-BG-color, #ffffff) !important;
+        color: #ffffff !important;
     }
 
     /* Fix for timeline event text readability */

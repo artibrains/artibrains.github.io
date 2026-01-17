@@ -1,18 +1,9 @@
 ---
 title: "1.1 Light and Shadow in AI"
 description: "An interactive timeline of the most important events in AI history, from theoretical foundations to modern breakthroughs."
-weight: 45
+weight: 11
 slug: "history-ai-timeline"
 ---
-
-{{< medical-context 
-    type="academy" 
-    level="intro" 
-    scenario="At the AIA, Alma García shows Victor and Carmen a holographic projection of history. 'To understand where we are going,' she says, 'we must understand the winters we survived.'"
-    highlight="This timeline reveals that AI progress has not been linear. It is a story of hype, disappointment (AI Winters), and resurgence, driven by data and computing power."
->}}
-
-## Interactive Timeline
 
 Explore the key milestones that defined the field. Use the filters to focus on specific categories like "Breakthroughs" or "Theory".
 

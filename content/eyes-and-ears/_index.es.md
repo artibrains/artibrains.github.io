@@ -6,18 +6,14 @@ weight: 3
 ---
 
 {{< book_coming_soon badge="Libro 3" title="Ojos y oídos" subtitle="Cuando las máquinas aprenden a ver y escuchar" >}}
-Este libro seguirá a David Morales, periodista científico y tecnológico, mientras investiga la frontera de la IA que puede ver, escuchar y crear, comenzando con un artículo sobre el despliegue de LLMs y descubriendo cómo la IA multimodal puede ayudar a su hija ciega Luna.
+¿Qué significa que una máquina “entienda” una imagen? ¿Cómo puede generar una voz — o un vídeo?
 
-### Temas clave
-- **Visión por computador**: De píxeles a comprensión
-- **Procesamiento de audio**: Reconocimiento y síntesis de voz
-- **IA generativa**: Creando imágenes, audio y más
-{{< /book_coming_soon >}}
-- **Integración multimodal**: Conectando visión, audio y lenguaje
+Este volumen recorre el salto a la **IA multimodal**: modelos que conectan texto, imágenes, audio (y más) y usan esas representaciones para *crear*. La idea guía es la misma: convertir lo que parece magia en un mecanismo que puedas razonar.
+
+### Lo que aprenderás
+- **Visión**: de píxeles a representaciones
+- **Audio**: reconocimiento, síntesis y significado
+- **Modelos generativos**: crear imagen/audio/vídeo (y por qué funciona)
+- **Alineación multimodal**: conectar visión, audio y lenguaje
 - **Accesibilidad**: IA como puente sensorial
-
-¡Mantente atento a las actualizaciones!
-
----
-
-[← Volver a la visión general de la trilogía](/)
+{{< /book_coming_soon >}}

@@ -2,7 +2,7 @@
 title: "1.4 Juego Interactivo: El Ratón y el Queso (Aprendizaje por Refuerzo)"
 description: "Una simulación interactiva para entender cómo las Inteligencias Artificiales aprenden mediante refuerzo."
 date: 2023-10-27
-weight: 51
+weight: 45
 slug: "raton-queso-aprendizaje-refuerzo"
 ---
 

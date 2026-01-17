@@ -11,7 +11,7 @@ draft: false
 ### Titular del Sitio Web
 
 **Titular**: Francisco Javier Falcó Benavent  
-**Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)  
+**Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>  
 **Afiliación Institucional**: Universidad de Valencia, Departamento de Análisis Matemático  
 **Dirección**: C/ Dr. Moliner, 50, 46100 Burjassot, Valencia, España
 
@@ -97,7 +97,7 @@ El propietario del sitio web no será responsable de:
 
 Para preguntas, correcciones o inquietudes sobre este sitio web, su contenido o este aviso legal:
 
-**Email**: [artibrains@gmail.com](mailto:artibrains@gmail.com)
+**Email**: <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 
 Para consultas académicas, también puedes contactar a través del contacto institucional del autor:  
 **Universidad de Valencia**: [francisco.j.falco@uv.es](mailto:francisco.j.falco@uv.es)
@@ -122,7 +122,7 @@ Este sitio web se mantiene desde España. El aviso legal y la política de priva
 
 **Uso del Contenido**: Este es un sitio web educativo. Siéntete libre de aprender de él y compartir enlaces, pero no copies grandes porciones sin permiso.
 
-**¿Preguntas?**: Email [artibrains@gmail.com](mailto:artibrains@gmail.com)
+**¿Preguntas?**: Email <a href="#" class="js-mailto obf-email" data-user="artibrains" data-domain="gmail.com">&#97;&#114;&#116;&#105;&#98;&#114;&#97;&#105;&#110;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 
 ---
 
