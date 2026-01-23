@@ -108,7 +108,7 @@ const translations = {
         formulaOutputDelta: 'Delta de salida: δ = (ŷ - y) × σ\'(z)',
         formulaHiddenDelta: 'Delta oculto: δⱼ = (Σ wⱼₖ × δₖ) × σ\'(zⱼ)',
         formulaWeightGradient: 'Gradiente: ∂E/∂w = activación_entrada × δ_siguiente',
-        formulaWeightUpdate: 'Actualización: w_nuevo = w_anterior - η × gradiente',
+        formulaWeightUpdate: 'Actualización: w_{\\text{nuevo}} = w_{\\text{anterior}} - \\eta \\times \\text{gradiente}',
 
         // Hints
         hintSigmoid: 'Recuerda: σ(x) = 1/(1 + e^(-x)). Si x es positivo, σ(x) > 0.5. Si x es negativo, σ(x) < 0.5.',
@@ -198,7 +198,7 @@ const translations = {
         formulaOutputDelta: 'Output delta: δ = (ŷ - y) × σ\'(z)',
         formulaHiddenDelta: 'Hidden delta: δⱼ = (Σ wⱼₖ × δₖ) × σ\'(zⱼ)',
         formulaWeightGradient: 'Gradient: ∂E/∂w = input_activation × next_δ',
-        formulaWeightUpdate: 'Update: w_new = w_old - η × gradient',
+        formulaWeightUpdate: 'Update: w_{\\text{new}} = w_{\\text{old}} - \\eta \\times \\text{gradient}',
 
         // Hints
         hintSigmoid: 'Remember: σ(x) = 1/(1 + e^(-x)). If x is positive, σ(x) > 0.5. If x is negative, σ(x) < 0.5.',
@@ -320,6 +320,11 @@ function formatMathNumber(num, decimals = 2) {
         return `(${formatted})`;
     }
     return formatted;
+}
+
+// Format exponent argument for sigmoid to avoid double parentheses
+function formatExponent(num, decimals = 4) {
+    return Number(num).toFixed(decimals);
 }
 
 // Generate weight name in standard mathematical notation: w_{ij}^{(k)}
@@ -596,6 +601,8 @@ function generateSteps() {
     const BT = BackpropTutorial;
     const net = BT.network;
     const steps = [];
+    const newLabel = BT.lang === 'es' ? 'nuevo' : 'new';
+    const oldLabel = BT.lang === 'es' ? 'anterior' : 'old';
     const numInputs = BT.networkStructure[0];
     const numHidden = BT.networkStructure[1];
     const numOutputs = BT.networkStructure[2];
@@ -695,7 +702,7 @@ function generateSteps() {
             type: 'calcA',
             nodeLayer: 1,
             nodeIndex: h,
-            formula: `a_h${h + 1} = σ(z_h${h + 1}) = σ(${formatNumber(zh, 4)}) = 1/(1 + e^(-${formatNumber(zh, 4)}))`,
+            formula: `a_h${h} = σ(z_h${h}) = σ(${formatNumber(zh, 4)}) = 1/(1 + e^{-(${formatExponent(zh, 4)})})`,
             expectedAnswer: round(sigmoid(zh), 4),
             hint: 'hintSigmoid',
             formulaRef: 'formulaSigmoid'
@@ -746,7 +753,7 @@ function generateSteps() {
             type: 'calcAOutput',
             nodeLayer: 2,
             nodeIndex: o,
-            formula: `ŷ${o} = σ(z_out${o}) = σ(${formatNumber(zOut, 4)})`,
+            formula: `ŷ${o} = σ(z_out${o}) = σ(${formatNumber(zOut, 4)}) = 1/(1 + e^{-(${formatExponent(zOut, 4)})})`,
             expectedAnswer: round(sigmoid(zOut), 4),
             hint: 'hintSigmoid',
             formulaRef: 'formulaSigmoid'
@@ -854,7 +861,7 @@ function generateSteps() {
                 toNode: h,
                 oldWeight: net.weights[0][i][h],
                 gradient: gradient,
-                formula: `${weightName}_new = ${weightName}_old - η×∂E/∂${weightName} = ${formatMathNumber(net.weights[0][i][h], 2)} - ${BT.learningRate}×${formatMathNumber(gradient, 4)}`,
+                formula: `${weightName}\,\text{(${newLabel})} = ${weightName}\,\text{(${oldLabel})} - η×∂E/∂${weightName} = ${formatMathNumber(net.weights[0][i][h], 2)} - ${BT.learningRate}×${formatMathNumber(gradient, 4)}`,
                 expectedAnswer: round(net.weights[0][i][h] - BT.learningRate * gradient, 4),
                 hint: 'hintUpdate',
                 formulaRef: 'formulaWeightUpdate'
@@ -892,7 +899,7 @@ function generateSteps() {
                 toNode: o,
                 oldWeight: net.weights[1][h][o],
                 gradient: gradient,
-                formula: `${weightName}_new = ${weightName}_old - η×∂E/∂${weightName} = ${formatMathNumber(net.weights[1][h][o], 2)} - ${BT.learningRate}×${formatMathNumber(gradient, 4)}`,
+                formula: `${weightName}\,\text{(${newLabel})} = ${weightName}\,\text{(${oldLabel})} - η×∂E/∂${weightName} = ${formatMathNumber(net.weights[1][h][o], 2)} - ${BT.learningRate}×${formatMathNumber(gradient, 4)}`,
                 expectedAnswer: round(net.weights[1][h][o] - BT.learningRate * gradient, 4),
                 hint: 'hintUpdate',
                 formulaRef: 'formulaWeightUpdate'
@@ -1110,6 +1117,63 @@ function renderWeightsTable() {
     // Trigger MathJax rendering for the table
     if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise([container]).catch((err) => console.log('MathJax error:', err));
+    }
+}
+
+// ============================================
+// NOTES (CALCULATION NOTEBOOK)
+// ============================================
+
+function resetNotes() {
+    const notesList = document.getElementById('notesList');
+    if (notesList) notesList.innerHTML = '';
+}
+
+function addNotesHeadingIfNeeded(phase) {
+    const BT = BackpropTutorial;
+    const notesList = document.getElementById('notesList');
+    if (!notesList) return;
+
+    if (!BT.state.noteHeadings) BT.state.noteHeadings = {};
+    if (BT.state.noteHeadings[phase]) return;
+
+    const heading = document.createElement('div');
+    heading.className = 'bp-note-heading';
+    const phaseTitles = {
+        forward: t('phaseForward'),
+        error: t('phaseError'),
+        backward: t('phaseBackward'),
+        update: t('phaseUpdate')
+    };
+    heading.textContent = phaseTitles[phase] || phase;
+    notesList.appendChild(heading);
+    BT.state.noteHeadings[phase] = true;
+}
+
+function addNoteFromStep(step, stepIndex) {
+    const BT = BackpropTutorial;
+    const notesList = document.getElementById('notesList');
+    if (!notesList) return;
+
+    if (!BT.state.loggedSteps) BT.state.loggedSteps = {};
+    if (BT.state.loggedSteps[stepIndex]) return;
+
+    addNotesHeadingIfNeeded(step.phase);
+
+    const noteItem = document.createElement('div');
+    noteItem.className = 'bp-note-item';
+    const stepLabel = BT.lang === 'es' ? 'Paso' : 'Step';
+    const resultLabel = BT.lang === 'es' ? 'Resultado' : 'Result';
+    noteItem.innerHTML = `
+        <div class="bp-note-step">${stepLabel} ${stepIndex + 1}</div>
+        <div class="bp-note-formula">$$${step.formula}$$</div>
+        <div class="bp-note-formula">$$\\text{${resultLabel}: }\\mathbf{${formatNumber(step.expectedAnswer, 4)}}$$</div>
+    `;
+    notesList.appendChild(noteItem);
+    BT.state.loggedSteps[stepIndex] = true;
+
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([noteItem]).catch((err) => console.log('MathJax error:', err));
     }
 }
 
@@ -1425,6 +1489,10 @@ function checkAnswer() {
 function applyStepResult(step) {
     const BT = BackpropTutorial;
     const net = BT.network;
+    const stepIndex = BT.state.currentStep;
+
+    // Log correct computation into notes
+    addNoteFromStep(step, stepIndex);
 
     // Update network state based on step type
     if (step.type === 'calcZ' || step.type === 'calcZOutput') {
@@ -1529,6 +1597,7 @@ function completePass() {
             .replace('{after}', formatNumber(errorAfter, 4));
     }
 
+    // Show pass complete overlay (modal) but keep page usable by adding a close button
     document.getElementById('passCompleteOverlay').style.display = 'flex';
 
     BT.state.currentPhase = 'complete';
@@ -1675,6 +1744,16 @@ function closeDerivativeHelper() {
     document.getElementById('gradientHelperOverlay').style.display = 'none';
 }
 
+function closePassCompleteOverlay() {
+    const el = document.getElementById('passCompleteOverlay');
+    if (el) el.style.display = 'none';
+}
+
+function closeFinalSummaryOverlay() {
+    const el = document.getElementById('finalSummaryOverlay');
+    if (el) el.style.display = 'none';
+}
+
 // ============================================
 // INITIALIZATION AND EVENT HANDLERS
 // ============================================
@@ -1694,7 +1773,11 @@ function initTutorial() {
         errorsBeforeUpdate: [],
         errorsAfterUpdate: [],
         hintsShown: 0,
-        answersRevealed: 0
+        answersRevealed: 0,
+        loggedSteps: {},
+        noteHeadings: {},
+        autoPlay: false,
+        autoPlayTimer: null
     };
 
     // Initialize network
@@ -1719,10 +1802,22 @@ function initTutorial() {
     // Render weights table
     renderWeightsTable();
 
+    // Reset notes
+    resetNotes();
+
+    // Typeset notes intro
+    const notesPanel = document.querySelector('.bp-notes-panel');
+    if (window.MathJax && window.MathJax.typesetPromise && notesPanel) {
+        window.MathJax.typesetPromise([notesPanel]).catch((err) => console.log('MathJax error:', err));
+    }
+
     // Hide overlays
     document.getElementById('passCompleteOverlay').style.display = 'none';
     document.getElementById('finalSummaryOverlay').style.display = 'none';
     document.getElementById('gradientHelperOverlay').style.display = 'none';
+
+    // Ensure the passComplete overlay can be dismissed if it was left open (safety)
+    try { document.getElementById('passCompleteOverlay').style.display = 'none'; } catch (e) { }
 
     terminalLog(t('terminalLoaded'));
 }
@@ -1747,6 +1842,7 @@ function setupEventListeners() {
     // Control buttons
     document.getElementById('resetTutorialBtn')?.addEventListener('click', initTutorial);
     document.getElementById('derivativeHelperBtn')?.addEventListener('click', showDerivativeHelper);
+    document.getElementById('autoPlayBtn')?.addEventListener('click', toggleAutoPlay);
     document.getElementById('closeHelperBtn')?.addEventListener('click', closeDerivativeHelper);
 
     // Difficulty selector buttons
@@ -1769,6 +1865,87 @@ function setupEventListeners() {
     document.getElementById('gradientHelperOverlay')?.addEventListener('click', (e) => {
         if (e.target.id === 'gradientHelperOverlay') closeDerivativeHelper();
     });
+
+    // Allow clicking outside the pass complete modal to close it
+    document.getElementById('passCompleteOverlay')?.addEventListener('click', (e) => {
+        if (e.target.id === 'passCompleteOverlay') closePassCompleteOverlay();
+    });
+
+    // Allow clicking outside the final summary modal to close it
+    document.getElementById('finalSummaryOverlay')?.addEventListener('click', (e) => {
+        if (e.target.id === 'finalSummaryOverlay') closeFinalSummaryOverlay();
+    });
+
+    // Close buttons inside modals
+    // closePassCompleteBtn has been removed from markup; no click listener needed here.
+    document.getElementById('closeFinalSummaryBtn')?.addEventListener('click', closeFinalSummaryOverlay);
+
+    // Keyboard: Escape closes overlays
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeDerivativeHelper();
+            closePassCompleteOverlay();
+            closeFinalSummaryOverlay();
+        }
+    });
+}
+
+function toggleAutoPlay() {
+    const BT = BackpropTutorial;
+    BT.state.autoPlay = !BT.state.autoPlay;
+
+    const btn = document.getElementById('autoPlayBtn');
+    if (btn) {
+        btn.textContent = BT.state.autoPlay
+            ? (BT.lang === 'es' ? '⏸ Pausa' : '⏸ Pause')
+            : (BT.lang === 'es' ? '▶ Auto' : '▶ Auto');
+        if (BT.state.autoPlay) btn.classList.add('bp-btn-autoplay-active'); else btn.classList.remove('bp-btn-autoplay-active');
+    }
+
+    if (BT.state.autoPlay) {
+        runAutoPlayStep();
+    } else if (BT.state.autoPlayTimer) {
+        clearTimeout(BT.state.autoPlayTimer);
+        BT.state.autoPlayTimer = null;
+    }
+}
+
+function runAutoPlayStep() {
+    const BT = BackpropTutorial;
+    if (!BT.state.autoPlay) return;
+
+    const step = BT.state.steps[BT.state.currentStep];
+    if (!step) {
+        BT.state.autoPlay = false;
+        return;
+    }
+
+    const userInput = document.getElementById('userInput');
+    if (userInput) {
+        userInput.value = formatNumber(step.expectedAnswer, 4);
+        userInput.classList.add('correct');
+        userInput.disabled = true;
+    }
+
+    const feedback = document.getElementById('feedbackMessage');
+    if (feedback) {
+        feedback.className = 'bp-feedback success';
+        feedback.innerHTML = t('correct');
+        feedback.style.display = 'block';
+    }
+
+    applyStepResult(step);
+
+    BT.state.autoPlayTimer = setTimeout(() => {
+        if (BT.state.currentStep >= BT.state.totalSteps - 1) {
+            completePass();
+            toggleAutoPlay();
+            return;
+        }
+        BT.state.currentStep++;
+        updateStepUI();
+        runAutoPlayStep();
+    }, 900);
 }
 
 function changeDifficulty(difficulty) {

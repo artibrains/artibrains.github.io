@@ -124,7 +124,7 @@
             <!-- Formula Reference -->
             <div class="bp-formula-box">
                 <span class="bp-formula-label">📐 {{ if eq $lang "es" }}Fórmula:{{ else }}Formula:{{ end }}</span>
-                <code class="bp-formula-content" id="formulaContent"></code>
+                <span class="bp-formula-content" id="formulaContent"></span>
             </div>
 
             <!-- User Input -->
@@ -156,6 +156,33 @@
     <div class="bp-controls">
         <button class="bp-btn bp-btn-secondary" id="resetTutorialBtn">🔄 {{ if eq $lang "es" }}Reiniciar{{ else }}Reset{{ end }}</button>
         <button class="bp-btn bp-btn-secondary" id="derivativeHelperBtn">🧮 {{ if eq $lang "es" }}Ayuda Derivadas{{ else }}Derivative Help{{ end }}</button>
+        <button class="bp-btn bp-btn-primary" id="autoPlayBtn">▶ {{ if eq $lang "es" }}Auto{{ else }}Auto{{ end }}</button>
+    </div>
+
+    <!-- Notes Panel -->
+    <div class="bp-notes-panel">
+        <div class="bp-section-title">{{ if eq $lang "es" }}Cuaderno de Cálculos{{ else }}Calculation Notebook{{ end }}</div>
+        <div class="bp-notes-subtitle">
+            {{ if eq $lang "es" }}Aquí se van registrando solo los cálculos correctos, organizados por fase.{{ else }}Only correct computations are recorded here, organized by phase.{{ end }}
+        </div>
+        <div class="bp-notes-intro">
+            {{ if eq $lang "es" }}
+            <p><strong>Guía rápida:</strong> En cada paso registramos la expresión y el resultado correcto.</p>
+            <ul>
+                <li>$z_j^{(k)} = \sum_i a_i^{(k-1)} w_{ij}^{(k)}$</li>
+                <li>$a_j^{(k)} = \sigma(z_j^{(k)})$</li>
+                <li>$\sigma(z) = \frac{1}{1 + e^{-z}}$</li>
+            </ul>
+            {{ else }}
+            <p><strong>Quick guide:</strong> We log each correct expression and result.</p>
+            <ul>
+                <li>$z_j^{(k)} = \sum_i a_i^{(k-1)} w_{ij}^{(k)}$</li>
+                <li>$a_j^{(k)} = \sigma(z_j^{(k)})$</li>
+                <li>$\sigma(z) = \frac{1}{1 + e^{-z}}$</li>
+            </ul>
+            {{ end }}
+        </div>
+        <div class="bp-notes-list" id="notesList"></div>
     </div>
 
     <!-- Modals (hidden by default) -->
@@ -195,6 +222,7 @@
 
     <div class="bp-overlay" id="finalSummaryOverlay" style="display: none;">
         <div class="bp-modal">
+            <button class="bp-modal-close" id="closeFinalSummaryBtn">×</button>
             <h3>🏆 {{ if eq $lang "es" }}¡Tutorial Completado!{{ else }}Tutorial Complete!{{ end }}</h3>
             <div class="bp-final-stats">
                 <div class="bp-final-stat">
