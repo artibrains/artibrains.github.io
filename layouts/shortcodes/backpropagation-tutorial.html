@@ -1,0 +1,229 @@
+{{/* 
+    Backpropagation Tutorial Shortcode
+    Interactive step-by-step backpropagation learning tool
+    
+    PEDAGOGICAL GOAL: Help users understand backpropagation by computing
+    forward pass, backward pass, and weight updates by hand with guidance.
+    
+    Parameters:
+    - lang: Language (es/en) - optional, defaults to site language
+*/}}
+
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/backpropagation-tutorial.css">
+
+<div class="backprop-tutorial" id="backpropTutorial">
+    
+    <!-- Simple Difficulty Selector -->
+    <div class="bp-difficulty-bar">
+        <span class="bp-diff-label">{{ if eq $lang "es" }}Dificultad:{{ else }}Difficulty:{{ end }}</span>
+        <button class="bp-diff-btn active" data-difficulty="easy">{{ if eq $lang "es" }}Fácil (1→2→1){{ else }}Easy (1→2→1){{ end }}</button>
+        <button class="bp-diff-btn" data-difficulty="medium">{{ if eq $lang "es" }}Medio (2→2→1){{ else }}Medium (2→2→1){{ end }}</button>
+        <button class="bp-diff-btn" data-difficulty="hard">{{ if eq $lang "es" }}Difícil (2→3→2){{ else }}Hard (2→3→2){{ end }}</button>
+        <span class="bp-epoch-badge">{{ if eq $lang "es" }}Época{{ else }}Epoch{{ end }} <strong id="epochCounter">1</strong></span>
+    </div>
+
+    <!-- Phase Progress Bar -->
+    <div class="bp-phase-bar">
+        <div class="bp-phase active" data-phase="forward">
+            <span class="bp-phase-num">1</span>
+            <span class="bp-phase-name">{{ if eq $lang "es" }}Forward{{ else }}Forward{{ end }}</span>
+        </div>
+        <div class="bp-phase-arrow">→</div>
+        <div class="bp-phase" data-phase="error">
+            <span class="bp-phase-num">2</span>
+            <span class="bp-phase-name">{{ if eq $lang "es" }}Error{{ else }}Error{{ end }}</span>
+        </div>
+        <div class="bp-phase-arrow">→</div>
+        <div class="bp-phase" data-phase="backward">
+            <span class="bp-phase-num">3</span>
+            <span class="bp-phase-name">{{ if eq $lang "es" }}Backward{{ else }}Backward{{ end }}</span>
+        </div>
+        <div class="bp-phase-arrow">→</div>
+        <div class="bp-phase" data-phase="update">
+            <span class="bp-phase-num">4</span>
+            <span class="bp-phase-name">{{ if eq $lang "es" }}Actualizar{{ else }}Update{{ end }}</span>
+        </div>
+    </div>
+
+    <!-- Main Content: Two Columns -->
+    <div class="bp-main-grid">
+        
+        <!-- LEFT: Network + Weights Table -->
+        <div class="bp-left-panel">
+            
+            <!-- Network Visualization -->
+            <div class="bp-network-box">
+                <div class="bp-section-title">{{ if eq $lang "es" }}Red Neuronal{{ else }}Neural Network{{ end }}</div>
+                <div class="network-container" id="networkContainer">
+                    <!-- Network SVG rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Weights Table - THE KEY ELEMENT -->
+            <div class="bp-weights-box">
+                <div class="bp-section-title">{{ if eq $lang "es" }}Pesos Actuales{{ else }}Current Weights{{ end }}</div>
+                <div id="weightsTableContainer">
+                    <!-- Weights table rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Training Example -->
+            <div class="bp-example-box">
+                <div class="bp-section-title">{{ if eq $lang "es" }}Ejemplo{{ else }}Example{{ end }}</div>
+                <div class="bp-example-grid">
+                    <div class="bp-ex-item" id="inputRow1">
+                        <span class="bp-ex-label">x₁</span>
+                        <span class="bp-ex-value" id="inputValue1">-</span>
+                    </div>
+                    <div class="bp-ex-item" id="inputRow2" style="display:none;">
+                        <span class="bp-ex-label">x₂</span>
+                        <span class="bp-ex-value" id="inputValue2">-</span>
+                    </div>
+                    <div class="bp-ex-item bp-ex-target" id="targetRow1">
+                        <span class="bp-ex-label">y₁</span>
+                        <span class="bp-ex-value" id="targetValue1">-</span>
+                    </div>
+                    <div class="bp-ex-item bp-ex-target" id="targetRow2" style="display:none;">
+                        <span class="bp-ex-label">y₂</span>
+                        <span class="bp-ex-value" id="targetValue2">-</span>
+                    </div>
+                    <div class="bp-ex-item bp-ex-output" id="outputRow1" style="display:none;">
+                        <span class="bp-ex-label">ŷ₁</span>
+                        <span class="bp-ex-value" id="outputValue1">-</span>
+                    </div>
+                    <div class="bp-ex-item bp-ex-output" id="outputRow2" style="display:none;">
+                        <span class="bp-ex-label">ŷ₂</span>
+                        <span class="bp-ex-value" id="outputValue2">-</span>
+                    </div>
+                    <div class="bp-ex-item bp-ex-error" id="errorRow" style="display:none;">
+                        <span class="bp-ex-label">E</span>
+                        <span class="bp-ex-value" id="errorValue">-</span>
+                    </div>
+                </div>
+                <div class="bp-lr-display">η = <strong id="learningRateValue">0.5</strong></div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Computation Area -->
+        <div class="bp-right-panel">
+            
+            <!-- Step Header -->
+            <div class="bp-step-header">
+                <h3 class="bp-step-title" id="stepTitle">{{ if eq $lang "es" }}Paso 1{{ else }}Step 1{{ end }}</h3>
+                <p class="bp-step-desc" id="stepDescription"></p>
+            </div>
+
+            <!-- Current Calculation -->
+            <div class="bp-calculation-box" id="computationArea">
+                <!-- Dynamic computation content -->
+            </div>
+
+            <!-- Formula Reference -->
+            <div class="bp-formula-box">
+                <span class="bp-formula-label">📐 {{ if eq $lang "es" }}Fórmula:{{ else }}Formula:{{ end }}</span>
+                <code class="bp-formula-content" id="formulaContent"></code>
+            </div>
+
+            <!-- User Input -->
+            <div class="bp-input-area">
+                <label class="bp-input-label">{{ if eq $lang "es" }}Tu respuesta:{{ else }}Your answer:{{ end }}</label>
+                <div class="bp-input-row">
+                    <input type="number" step="0.001" class="bp-input" id="userInput" placeholder="0.0000">
+                    <button class="bp-btn bp-btn-primary" id="checkBtn">{{ if eq $lang "es" }}Verificar{{ else }}Check{{ end }}</button>
+                </div>
+                <div class="bp-feedback" id="feedbackMessage" style="display: none;"></div>
+            </div>
+
+            <!-- Help Buttons -->
+            <div class="bp-help-row">
+                <button class="bp-btn bp-btn-hint" id="hintBtn">💡 {{ if eq $lang "es" }}Pista{{ else }}Hint{{ end }}</button>
+                <button class="bp-btn bp-btn-reveal" id="revealBtn">👁 {{ if eq $lang "es" }}Respuesta{{ else }}Answer{{ end }}</button>
+            </div>
+            <div class="bp-hint-box" id="hintContent" style="display: none;"></div>
+
+            <!-- Navigation -->
+            <div class="bp-nav-row">
+                <button class="bp-btn bp-btn-nav" id="prevStepBtn" style="display: none;">← {{ if eq $lang "es" }}Anterior{{ else }}Previous{{ end }}</button>
+                <button class="bp-btn bp-btn-nav bp-btn-next" id="nextStepBtn" style="display: none;">{{ if eq $lang "es" }}Siguiente{{ else }}Next{{ end }} →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bp-controls">
+        <button class="bp-btn bp-btn-secondary" id="resetTutorialBtn">🔄 {{ if eq $lang "es" }}Reiniciar{{ else }}Reset{{ end }}</button>
+        <button class="bp-btn bp-btn-secondary" id="derivativeHelperBtn">🧮 {{ if eq $lang "es" }}Ayuda Derivadas{{ else }}Derivative Help{{ end }}</button>
+    </div>
+
+    <!-- Modals (hidden by default) -->
+    <div class="bp-overlay" id="gradientHelperOverlay" style="display: none;">
+        <div class="bp-modal">
+            <button class="bp-modal-close" id="closeHelperBtn">×</button>
+            <h3>{{ if eq $lang "es" }}Ayuda para Derivadas{{ else }}Derivative Helper{{ end }}</h3>
+            <div id="helperContent">
+                <p><strong>{{ if eq $lang "es" }}Sigmoide:{{ else }}Sigmoid:{{ end }}</strong> σ(x) = 1 / (1 + e⁻ˣ)</p>
+                <p><strong>{{ if eq $lang "es" }}Derivada:{{ else }}Derivative:{{ end }}</strong> σ'(x) = σ(x) × (1 - σ(x))</p>
+                <p><strong>{{ if eq $lang "es" }}Ejemplo:{{ else }}Example:{{ end }}</strong> {{ if eq $lang "es" }}Si{{ else }}If{{ end }} σ(z) = 0.73, {{ if eq $lang "es" }}entonces{{ else }}then{{ end }} σ'(z) = 0.73 × 0.27 ≈ 0.197</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bp-overlay" id="passCompleteOverlay" style="display: none;">
+        <div class="bp-modal">
+            <h3>🎉 {{ if eq $lang "es" }}¡Pasada Completada!{{ else }}Pass Complete!{{ end }}</h3>
+            <div class="bp-completion-stats">
+                <div class="bp-stat">
+                    <span class="bp-stat-label">{{ if eq $lang "es" }}Error Antes{{ else }}Error Before{{ end }}</span>
+                    <span class="bp-stat-value" id="errorBefore">-</span>
+                </div>
+                <span class="bp-stat-arrow">→</span>
+                <div class="bp-stat">
+                    <span class="bp-stat-label">{{ if eq $lang "es" }}Error Después{{ else }}Error After{{ end }}</span>
+                    <span class="bp-stat-value" id="errorAfter">-</span>
+                </div>
+            </div>
+            <p id="completionSummary"></p>
+            <div class="bp-modal-buttons">
+                <button class="bp-btn bp-btn-primary" id="anotherPassBtn">🔄 {{ if eq $lang "es" }}Otra Pasada{{ else }}Another Pass{{ end }}</button>
+                <button class="bp-btn bp-btn-secondary" id="finishBtn">✓ {{ if eq $lang "es" }}Terminar{{ else }}Finish{{ end }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bp-overlay" id="finalSummaryOverlay" style="display: none;">
+        <div class="bp-modal">
+            <h3>🏆 {{ if eq $lang "es" }}¡Tutorial Completado!{{ else }}Tutorial Complete!{{ end }}</h3>
+            <div class="bp-final-stats">
+                <div class="bp-final-stat">
+                    <span class="bp-stat-icon">📚</span>
+                    <span id="totalEpochs">1</span> {{ if eq $lang "es" }}épocas{{ else }}epochs{{ end }}
+                </div>
+                <div class="bp-final-stat">
+                    <span class="bp-stat-icon">📉</span>
+                    <span id="errorReduction">0%</span> {{ if eq $lang "es" }}reducción{{ else }}reduction{{ end }}
+                </div>
+            </div>
+            <div class="bp-network-compare">
+                <div class="bp-net-snapshot">
+                    <span>{{ if eq $lang "es" }}Inicial{{ else }}Initial{{ end }}</span>
+                    <div class="mini-network" id="initialNetworkSnapshot"></div>
+                </div>
+                <span class="bp-arrow">→</span>
+                <div class="bp-net-snapshot">
+                    <span>{{ if eq $lang "es" }}Final{{ else }}Final{{ end }}</span>
+                    <div class="mini-network" id="finalNetworkSnapshot"></div>
+                </div>
+            </div>
+            <button class="bp-btn bp-btn-primary" id="restartTutorialBtn">🔄 {{ if eq $lang "es" }}Empezar de Nuevo{{ else }}Start Over{{ end }}</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    window.backpropTutorialLanguage = "{{ $lang }}";
+</script>
+<script src="/js/backpropagation-tutorial.js"></script>

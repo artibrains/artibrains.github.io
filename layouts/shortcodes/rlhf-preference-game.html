@@ -1,0 +1,207 @@
+{{/* 
+    RLHF Preference Game Shortcode
+    Interactive educational game simulating human preference alignment (RLHF)
+    
+    PEDAGOGICAL GOAL: Show that a pre-trained model is fine-tuned not by
+    correcting responses, but by reinforcing which types of responses are preferred.
+    
+    Parameters:
+    - lang: Language (es/en) - optional, defaults to site language
+*/}}
+
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/rlhf-preference-game.css">
+
+<div class="rlhf-game" id="rlhfPreferenceGame">
+    <!-- Game Header with Round Counter -->
+    <div class="game-header">
+        <div class="round-indicator">
+            <span class="round-label">{{ if eq $lang "es" }}Ronda{{ else }}Round{{ end }}</span>
+            <span class="round-value" id="roundCounter">1 / 8</span>
+        </div>
+        <div class="preference-profile-summary" id="profileSummary">
+            <!-- Profile badges will appear here as preferences are made -->
+        </div>
+    </div>
+
+    <div class="game-main-layout">
+        <!-- Left Panel: Neural Network Visualization -->
+        <div class="network-panel">
+            <h4 class="panel-title">
+                {{ if eq $lang "es" }}🧠 Modelo Interno{{ else }}🧠 Internal Model{{ end }}
+            </h4>
+            <div class="network-container" id="networkContainer">
+                <!-- Network will be rendered by JS -->
+            </div>
+            <div class="network-legend">
+                <div class="legend-item">
+                    <span class="legend-color legend-negative"></span>
+                    <span>{{ if eq $lang "es" }}Débil{{ else }}Weak{{ end }}</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color legend-zero"></span>
+                    <span>{{ if eq $lang "es" }}Neutro{{ else }}Neutral{{ end }}</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color legend-positive"></span>
+                    <span>{{ if eq $lang "es" }}Fuerte{{ else }}Strong{{ end }}</span>
+                </div>
+            </div>
+            
+            <!-- Criteria being reinforced -->
+            <div class="criteria-panel" id="criteriaPanel">
+                <h5 class="criteria-title">{{ if eq $lang "es" }}Criterios Reforzados{{ else }}Reinforced Criteria{{ end }}</h5>
+                <div class="criteria-list" id="criteriaList">
+                    <div class="criterion-item" data-criterion="clarity">
+                        <span class="criterion-icon">💡</span>
+                        <span class="criterion-name">{{ if eq $lang "es" }}Claridad{{ else }}Clarity{{ end }}</span>
+                        <div class="criterion-bar">
+                            <div class="criterion-fill" id="criteriaClarity" style="width: 50%"></div>
+                        </div>
+                        <span class="criterion-value" id="criteriaValueClarity">0</span>
+                    </div>
+                    <div class="criterion-item" data-criterion="prudence">
+                        <span class="criterion-icon">⚠️</span>
+                        <span class="criterion-name">{{ if eq $lang "es" }}Prudencia{{ else }}Prudence{{ end }}</span>
+                        <div class="criterion-bar">
+                            <div class="criterion-fill" id="criteriaPrudence" style="width: 50%"></div>
+                        </div>
+                        <span class="criterion-value" id="criteriaValuePrudence">0</span>
+                    </div>
+                    <div class="criterion-item" data-criterion="conciseness">
+                        <span class="criterion-icon">✂️</span>
+                        <span class="criterion-name">{{ if eq $lang "es" }}Concisión{{ else }}Conciseness{{ end }}</span>
+                        <div class="criterion-bar">
+                            <div class="criterion-fill" id="criteriaConciseness" style="width: 50%"></div>
+                        </div>
+                        <span class="criterion-value" id="criteriaValueConciseness">0</span>
+                    </div>
+                    <div class="criterion-item" data-criterion="warmth">
+                        <span class="criterion-icon">❤️</span>
+                        <span class="criterion-name">{{ if eq $lang "es" }}Cercanía{{ else }}Warmth{{ end }}</span>
+                        <div class="criterion-bar">
+                            <div class="criterion-fill" id="criteriaWarmth" style="width: 50%"></div>
+                        </div>
+                        <span class="criterion-value" id="criteriaValueWarmth">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Preference Selection Area -->
+        <div class="preference-panel">
+            <!-- Current Prompt/Question -->
+            <div class="prompt-section">
+                <h4 class="section-title">
+                    <span class="section-icon">💬</span>
+                    {{ if eq $lang "es" }}Pregunta del Usuario{{ else }}User Question{{ end }}
+                </h4>
+                <div class="prompt-display" id="promptDisplay">
+                    <!-- Current prompt will be shown here -->
+                </div>
+            </div>
+
+            <!-- Response Options -->
+            <div class="responses-section">
+                <h4 class="section-title">
+                    <span class="section-icon">🤖</span>
+                    {{ if eq $lang "es" }}Respuestas Generadas{{ else }}Generated Responses{{ end }}
+                </h4>
+                <p class="instruction-text" id="instructionText">
+                    {{ if eq $lang "es" }}Elige la respuesta que prefieres:{{ else }}Choose the response you prefer:{{ end }}
+                </p>
+                
+                <div class="responses-container" id="responsesContainer">
+                    <div class="response-card" id="responseA" data-response="A">
+                        <div class="response-label">A</div>
+                        <div class="response-content" id="responseContentA">
+                            <!-- Response A content -->
+                        </div>
+                        <button class="select-btn" id="selectBtnA">
+                            {{ if eq $lang "es" }}Prefiero esta{{ else }}I prefer this{{ end }}
+                        </button>
+                    </div>
+                    
+                    <div class="response-card" id="responseB" data-response="B">
+                        <div class="response-label">B</div>
+                        <div class="response-content" id="responseContentB">
+                            <!-- Response B content -->
+                        </div>
+                        <button class="select-btn" id="selectBtnB">
+                            {{ if eq $lang "es" }}Prefiero esta{{ else }}I prefer this{{ end }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Feedback Modal (appears after selection) -->
+    <div class="feedback-modal-overlay" id="feedbackModalOverlay" style="display: none;">
+        <div class="feedback-modal">
+            <div class="feedback-icon" id="feedbackIcon">✓</div>
+            <div class="feedback-title" id="feedbackTitle">{{ if eq $lang "es" }}Preferencia registrada{{ else }}Preference recorded{{ end }}</div>
+            <div class="feedback-content" id="feedbackContent">
+                <div class="criteria-feedback" id="criteriaFeedback">
+                    <!-- Will show which criteria were reinforced -->
+                </div>
+            </div>
+            <button class="demo-btn demo-btn-primary next-btn" id="nextBtn">
+                {{ if eq $lang "es" }}Siguiente Pregunta ➡️{{ else }}Next Question ➡️{{ end }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Completion Overlay -->
+    <div class="game-complete-overlay" id="gameCompleteOverlay" style="display: none;">
+        <div class="game-complete-modal">
+            <h3 class="completion-title">{{ if eq $lang "es" }}🎯 Modelo Afinado{{ else }}🎯 Model Fine-tuned{{ end }}</h3>
+            
+            <div class="comparison-section">
+                <h4>{{ if eq $lang "es" }}Evolución del Modelo{{ else }}Model Evolution{{ end }}</h4>
+                <div class="state-comparison">
+                    <div class="state-box">
+                        <h5>{{ if eq $lang "es" }}Estado Inicial{{ else }}Initial State{{ end }}</h5>
+                        <div class="mini-network" id="initialNetworkSnapshot"></div>
+                    </div>
+                    <div class="state-arrow">➡️</div>
+                    <div class="state-box">
+                        <h5>{{ if eq $lang "es" }}Estado Final{{ else }}Final State{{ end }}</h5>
+                        <div class="mini-network" id="finalNetworkSnapshot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preference-profile">
+                <h4>{{ if eq $lang "es" }}Tu Perfil de Preferencias{{ else }}Your Preference Profile{{ end }}</h4>
+                <div class="final-criteria-list" id="finalCriteriaList">
+                    <!-- Final criteria values will be shown here -->
+                </div>
+            </div>
+
+            <div class="key-message">
+                <p id="keyMessageText">{{ if eq $lang "es" }}<strong>El modelo no aprende nuevos hechos.</strong><br>Aprende qué tipo de respuestas son preferidas.{{ else }}<strong>The model doesn't learn new facts.</strong><br>It learns which types of responses are preferred.{{ end }}</p>
+            </div>
+
+            <button class="demo-btn demo-btn-success restart-btn" id="restartBtn">
+                {{ if eq $lang "es" }}🔄 Empezar de Nuevo{{ else }}🔄 Start Over{{ end }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="game-controls">
+        <button class="demo-btn demo-btn-secondary" id="resetGameBtn">
+            {{ if eq $lang "es" }}🔄 Reiniciar Juego{{ else }}🔄 Reset Game{{ end }}
+        </button>
+    </div>
+</div>
+
+<script>
+    // Configure language for JavaScript
+    window.rlhfGameLanguage = "{{ $lang }}";
+</script>
+<script src="/js/rlhf-preference-game.js"></script>

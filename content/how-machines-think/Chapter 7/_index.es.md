@@ -20,6 +20,8 @@ En este capítulo, te unirás al equipo en la exploración de los pilares fundam
 
 4.  **[LLMs tradicionales vs LLMs de razonamiento]({{% relref "how-machines-think/Chapter 7/reasoning-llms/reasoning-llms.es.md" %}})**: Una guía clara para entender qué añade el razonamiento explícito (Chain‑of‑Thought, verificación y más cómputo en inferencia) frente a los LLMs clásicos, con un vídeo introductorio y bibliografía.
 
+5.  **[Juego Interactivo: Entrenando un Modelo de Lenguaje]({{% relref "how-machines-think/Chapter 7/llm-training-game/llm-training-game.es.md" %}})**: Experimenta cómo un modelo de lenguaje mejora progresivamente sus predicciones a medida que ajusta sus parámetros internos. En este juego educativo, entrenarás una pequeña red neuronal sobre un corpus temático, observando visualmente cómo los valores cambian con cada ejemplo procesado.
+
 Prepárate para dar los primeros pasos en el viaje hacia la comprensión del lenguaje artificial, una habilidad que está transformando la medicina y el mundo.
 
 ### Fundamentos Matemáticos

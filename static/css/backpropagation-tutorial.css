@@ -1,0 +1,807 @@
+/*
+ * backpropagation-tutorial.css
+ * Clean, minimal styles for the Backpropagation Tutorial
+ */
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+
+.backprop-tutorial {
+    background: var(--demo-surface, #fff);
+    border: 1px solid var(--demo-border, #e5e7eb);
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: var(--demo-font, system-ui, sans-serif);
+}
+
+/* ============================================
+   DIFFICULTY BAR
+   ============================================ */
+
+.bp-difficulty-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.bp-diff-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.bp-diff-btn {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.bp-diff-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.bp-diff-btn.active {
+    background: #3b82f6;
+    color: #fff;
+    border-color: #3b82f6;
+}
+
+.bp-epoch-badge {
+    margin-left: auto;
+    background: #f3f4f6;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.bp-epoch-badge strong {
+    color: #3b82f6;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   PHASE BAR
+   ============================================ */
+
+.bp-phase-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 6px;
+    flex-wrap: wrap;
+}
+
+.bp-phase {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    font-size: 0.85rem;
+}
+
+.bp-phase.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: #fff;
+}
+
+.bp-phase.completed {
+    background: #10b981;
+    border-color: #10b981;
+    color: #fff;
+}
+
+.bp-phase-num {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e5e7eb;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.bp-phase.active .bp-phase-num,
+.bp-phase.completed .bp-phase-num {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.bp-phase-name {
+    font-weight: 500;
+}
+
+.bp-phase-arrow {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   MAIN GRID
+   ============================================ */
+
+.bp-main-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 800px) {
+    .bp-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   LEFT PANEL
+   ============================================ */
+
+.bp-left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bp-section-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Network Box */
+.bp-network-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.network-container {
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backprop-network-svg {
+    width: 100%;
+    height: 160px;
+}
+
+/* SVG Elements */
+.bp-connection {
+    transition: stroke-width 0.3s, stroke 0.3s;
+}
+
+/* Current computation - orange */
+.bp-connection.computing {
+    stroke: #f97316 !important;
+    stroke-width: 4px !important;
+    filter: drop-shadow(0 0 4px #f97316);
+}
+
+/* Completed computation - green */
+.bp-connection.completed {
+    stroke: #10b981 !important;
+    stroke-width: 3px !important;
+}
+
+.bp-connection.highlighted {
+    stroke-width: 4px !important;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.bp-node {
+    transition: all 0.3s;
+}
+
+/* Current computation - orange glow */
+.bp-node.computing {
+    stroke: #f97316 !important;
+    stroke-width: 4px !important;
+    filter: drop-shadow(0 0 8px #f97316);
+}
+
+/* Completed computation - green fill */
+.bp-node.completed {
+    stroke: #10b981 !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 4px #10b981);
+}
+
+.bp-node.highlighted {
+    stroke: #fbbf24 !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 6px #fbbf24);
+}
+
+.bp-weight-label {
+    font-family: monospace;
+    font-size: 9px;
+    fill: #374151;
+}
+
+/* Current weight being computed - orange */
+.bp-weight-label.computing {
+    fill: #f97316;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+/* Completed weight - darker */
+.bp-weight-label.completed {
+    fill: #059669;
+    font-weight: 600;
+}
+
+.bp-weight-label.highlighted {
+    fill: #dc2626;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.bp-node-value {
+    font-family: monospace;
+    font-size: 9px;
+    pointer-events: none;
+}
+
+.bp-layer-label {
+    font-size: 9px;
+    fill: #9ca3af;
+}
+
+/* Weights Table - PROMINENT */
+.bp-weights-box {
+    background: #fff;
+    border: 2px solid #3b82f6;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.weights-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.weights-table th {
+    background: #f3f4f6;
+    padding: 0.4rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.weights-table td {
+    padding: 0.35rem 0.4rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.weight-row {
+    transition: background 0.2s;
+}
+
+.weight-row.highlighted {
+    background: #fef3c7 !important;
+}
+
+.weight-row.highlighted .weight-name {
+    color: #d97706;
+    font-weight: 700;
+}
+
+.weight-name {
+    font-family: monospace;
+    font-weight: 600;
+    color: #3b82f6;
+}
+
+.weight-value {
+    font-family: monospace;
+    font-weight: 500;
+    text-align: right;
+}
+
+.weight-value.updated {
+    background: #dcfce7;
+    color: #16a34a;
+    animation: flash 0.5s;
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        background: #dcfce7;
+    }
+
+    50% {
+        background: #bbf7d0;
+    }
+}
+
+/* Example Box */
+.bp-example-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.bp-example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.bp-ex-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.4rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+.bp-ex-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-family: monospace;
+}
+
+.bp-ex-value {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: monospace;
+    color: #111827;
+}
+
+.bp-ex-target .bp-ex-value {
+    color: #2563eb;
+}
+
+.bp-ex-output .bp-ex-value {
+    color: #7c3aed;
+}
+
+.bp-ex-error .bp-ex-value {
+    color: #dc2626;
+}
+
+.bp-lr-display {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.bp-lr-display strong {
+    color: #d97706;
+}
+
+/* ============================================
+   RIGHT PANEL
+   ============================================ */
+
+.bp-right-panel {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bp-step-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.75rem;
+}
+
+.bp-step-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.25rem 0;
+}
+
+.bp-step-desc {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Calculation Box */
+.bp-calculation-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.computation-formula {
+    font-size: 1rem;
+    color: #111827;
+    word-break: break-word;
+}
+
+/* Formula Box */
+.bp-formula-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.bp-formula-label {
+    color: #3b82f6;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.bp-formula-content {
+    font-family: monospace;
+    color: #1e40af;
+    background: none;
+    padding: 0;
+}
+
+/* Input Area */
+.bp-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.bp-input-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.bp-input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bp-input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: monospace;
+    transition: border-color 0.15s;
+}
+
+.bp-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.bp-input.correct {
+    border-color: #10b981;
+    background: #ecfdf5;
+}
+
+.bp-input.incorrect {
+    border-color: #ef4444;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/* Feedback */
+.bp-feedback {
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.bp-feedback.success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.bp-feedback.error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.bp-feedback.info {
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+/* Buttons */
+.bp-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.bp-btn:hover {
+    background: #f9fafb;
+}
+
+.bp-btn-primary {
+    background: #3b82f6;
+    color: #fff;
+    border-color: #3b82f6;
+}
+
+.bp-btn-primary:hover {
+    background: #2563eb;
+}
+
+.bp-btn-secondary {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #374151;
+}
+
+.bp-btn-hint,
+.bp-btn-reveal {
+    background: #fff;
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.bp-btn-hint:hover {
+    color: #d97706;
+    border-color: #fbbf24;
+}
+
+.bp-btn-reveal:hover {
+    color: #7c3aed;
+    border-color: #a78bfa;
+}
+
+.bp-btn-nav {
+    background: #f3f4f6;
+}
+
+.bp-btn-next {
+    background: #10b981;
+    color: #fff;
+    border-color: #10b981;
+}
+
+.bp-btn-next:hover {
+    background: #059669;
+}
+
+/* Help & Navigation Rows */
+.bp-help-row,
+.bp-nav-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.bp-nav-row {
+    justify-content: space-between;
+}
+
+/* Hint Box */
+.bp-hint-box {
+    padding: 0.75rem;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #92400e;
+}
+
+/* ============================================
+   CONTROLS
+   ============================================ */
+
+.bp-controls {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+
+.bp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.bp-modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 400px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.bp-modal h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    color: #111827;
+}
+
+.bp-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3af;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.bp-modal-close:hover {
+    color: #374151;
+}
+
+.bp-modal-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+/* Completion Stats */
+.bp-completion-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.bp-stat {
+    text-align: center;
+}
+
+.bp-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.bp-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: monospace;
+    color: #111827;
+}
+
+.bp-stat-arrow {
+    font-size: 1.5rem;
+    color: #9ca3af;
+}
+
+/* Final Stats */
+.bp-final-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.bp-final-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.bp-stat-icon {
+    font-size: 1.2rem;
+}
+
+/* Network Compare */
+.bp-network-compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.bp-net-snapshot {
+    text-align: center;
+}
+
+.bp-net-snapshot span {
+    display: block;
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.mini-network {
+    width: 100px;
+    height: 60px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+.bp-arrow {
+    font-size: 1.5rem;
+    color: #9ca3af;
+}

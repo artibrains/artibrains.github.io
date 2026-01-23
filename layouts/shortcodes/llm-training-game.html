@@ -1,0 +1,169 @@
+{{/* 
+    LLM Training Game Shortcode
+    Interactive educational game simulating progressive language model training
+    Parameters:
+    - lang: Language (es/en) - optional, defaults to site language
+*/}}
+
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/llm-training-game.css">
+
+<div class="llm-training-game" id="llmTrainingGame">
+    <!-- Training Mode Tabs -->
+    <div class="training-tabs">
+        <button class="training-tab active" data-mode="fill-blank" id="tabFillBlank">
+            {{ if eq $lang "es" }}📝 Palabra Faltante{{ else }}📝 Missing Word{{ end }}
+        </button>
+        <button class="training-tab" data-mode="next-word" id="tabNextWord">
+            {{ if eq $lang "es" }}➡️ Siguiente Palabra{{ else }}➡️ Next Word{{ end }}
+        </button>
+        <button class="training-tab" data-mode="correction" id="tabCorrection">
+            {{ if eq $lang "es" }}✏️ Corrección{{ else }}✏️ Correction{{ end }}
+        </button>
+    </div>
+
+    <div class="game-main-layout">
+        <!-- Left Panel: Neural Network Visualization -->
+        <div class="network-panel">
+            <h4 class="panel-title">
+                {{ if eq $lang "es" }}🧠 Red Neuronal{{ else }}🧠 Neural Network{{ end }}
+            </h4>
+            <div class="network-container" id="networkContainer">
+                <!-- Network will be rendered by JS -->
+            </div>
+            <div class="network-legend">
+                <div class="legend-item">
+                    <span class="legend-color legend-negative"></span>
+                    <span>{{ if eq $lang "es" }}Negativo{{ else }}Negative{{ end }}</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color legend-zero"></span>
+                    <span>{{ if eq $lang "es" }}Cero{{ else }}Zero{{ end }}</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color legend-positive"></span>
+                    <span>{{ if eq $lang "es" }}Positivo{{ else }}Positive{{ end }}</span>
+                </div>
+            </div>
+            <div class="network-stats" id="networkStats">
+                <div class="stat-item">
+                    <span class="stat-label">{{ if eq $lang "es" }}Ejemplos procesados{{ else }}Examples processed{{ end }}</span>
+                    <span class="stat-value" id="examplesProcessed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">{{ if eq $lang "es" }}Aciertos{{ else }}Correct{{ end }}</span>
+                    <span class="stat-value stat-success" id="correctCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">{{ if eq $lang "es" }}Errores{{ else }}Errors{{ end }}</span>
+                    <span class="stat-value stat-error" id="errorCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Game Area -->
+        <div class="game-panel">
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>{{ if eq $lang "es" }}Progreso del párrafo{{ else }}Paragraph progress{{ end }}</span>
+                    <span id="progressText">1 / 8</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+                </div>
+            </div>
+
+            <!-- Context Display -->
+            <div class="context-section">
+                <h4 class="section-title">
+                    {{ if eq $lang "es" }}📖 Contexto acumulado{{ else }}📖 Accumulated context{{ end }}
+                </h4>
+                <div class="context-display" id="contextDisplay">
+                    <p class="context-placeholder">
+                        {{ if eq $lang "es" }}El contexto aparecerá aquí a medida que avances...{{ else }}Context will appear here as you progress...{{ end }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Current Challenge -->
+            <div class="challenge-section">
+                <h4 class="section-title" id="challengeTitle">
+                    {{ if eq $lang "es" }}🎯 Completa la frase{{ else }}🎯 Complete the sentence{{ end }}
+                </h4>
+                <div class="sentence-display" id="sentenceDisplay">
+                    <!-- Current sentence will be shown here -->
+                </div>
+                <div class="options-container" id="optionsContainer">
+                    <!-- Options will be rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Feedback Area (Modal) -->
+            <div class="feedback-modal-overlay" id="feedbackModalOverlay" style="display: none;">
+                <div class="feedback-modal">
+                    <div class="feedback-icon" id="feedbackIcon">
+                        <!-- Icon will be shown here -->
+                    </div>
+                    <div class="feedback-content" id="feedbackContent">
+                        <!-- Feedback will be shown here -->
+                    </div>
+                    <button class="demo-btn demo-btn-primary next-btn" id="nextBtn">
+                        {{ if eq $lang "es" }}Continuar ➡️{{ else }}Continue ➡️{{ end }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Completion Modal -->
+    <div class="game-complete-overlay" id="gameCompleteOverlay" style="display: none;">
+        <div class="game-complete-modal">
+            <h3>{{ if eq $lang "es" }}🎉 ¡Párrafo Completado!{{ else }}🎉 Paragraph Complete!{{ end }}</h3>
+            
+            <div class="comparison-section">
+                <div class="state-comparison">
+                    <div class="state-box">
+                        <h4>{{ if eq $lang "es" }}Estado Inicial{{ else }}Initial State{{ end }}</h4>
+                        <div class="mini-network" id="initialNetworkSnapshot"></div>
+                    </div>
+                    <div class="state-arrow">➡️</div>
+                    <div class="state-box">
+                        <h4>{{ if eq $lang "es" }}Estado Final{{ else }}Final State{{ end }}</h4>
+                        <div class="mini-network" id="finalNetworkSnapshot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-summary" id="resultsSummary">
+                <!-- Results will be shown here -->
+            </div>
+
+            <div class="key-message">
+                <p>{{ if eq $lang "es" }}<strong>El modelo no aprende frases aisladas.</strong><br>Aprende ajustando números a partir de muchos ejemplos relacionados.{{ else }}<strong>The model doesn't learn isolated phrases.</strong><br>It learns by adjusting numbers from many related examples.{{ end }}</p>
+            </div>
+
+            <button class="demo-btn demo-btn-success restart-btn" id="restartBtn">
+                {{ if eq $lang "es" }}🔄 Nuevo Párrafo{{ else }}🔄 New Paragraph{{ end }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="game-controls">
+        <button class="demo-btn demo-btn-secondary" id="resetNetworkBtn">
+            {{ if eq $lang "es" }}🔄 Reiniciar Red{{ else }}🔄 Reset Network{{ end }}
+        </button>
+        <button class="demo-btn demo-btn-secondary" id="newParagraphBtn">
+            {{ if eq $lang "es" }}📄 Nuevo Párrafo{{ else }}📄 New Paragraph{{ end }}
+        </button>
+    </div>
+</div>
+
+<script>
+    // Configure language for JavaScript
+    window.llmGameLanguage = "{{ $lang }}";
+</script>
+<script src="/js/llm-training-game.js"></script>

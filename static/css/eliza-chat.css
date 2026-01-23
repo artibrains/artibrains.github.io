@@ -6,15 +6,15 @@
 */
 
 .eliza-container {
-        /* Softer “terminal green” palette */
-        --eliza-bg: #0b0f0c;
-        --eliza-panel: #121715;
-        --eliza-border: #2a3a32;
-        --eliza-accent: #3ddc84;
-        --eliza-accent-2: #76f2b1;
-        --eliza-text: #b8ffe0;
-        --eliza-dim: #7fd9af;
-        --eliza-muted: #3a7c5b;
+    /* Softer “terminal green” palette */
+    --eliza-bg: #0b0f0c;
+    --eliza-panel: #121715;
+    --eliza-border: #2a3a32;
+    --eliza-accent: #3ddc84;
+    --eliza-accent-2: #76f2b1;
+    --eliza-text: #b8ffe0;
+    --eliza-dim: #7fd9af;
+    --eliza-muted: #3a7c5b;
 }
 
 .eliza-container {

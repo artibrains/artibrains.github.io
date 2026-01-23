@@ -34,11 +34,11 @@
     --prof-secondary: #94a3b8;
     --prof-accent: #60a5fa;
     --prof-accent-hover: #93c5fd;
-    --prof-bg: #1e293b;
-    --prof-bg-alt: #0f172a;
+    --prof-bg: #1a1a1a;
+    --prof-bg-alt: #0a0a0a;
     --prof-text: #e2e8f0;
     --prof-text-muted: #94a3b8;
-    --prof-border: #334155;
+    --prof-border: #2a2a2a;
 }
 
 /* FIX: Ensure sidebar maintains proper layout in all themes */

@@ -16,6 +16,8 @@ En este capítulo te unirás a ellos para desmitificar el funcionamiento interno
 
 2. **[Backpropagation: El Motor del Aprendizaje]({{% relref "how-machines-think/Chapter 6/backpropagation/backpropagation.es.md" %}})**: Visualizarás el algoritmo de **backpropagation**, el motor del aprendizaje en las redes neuronales. Entenderás cómo el error se propaga hacia atrás por la red para que cada neurona ajuste sus conexiones y mejore el rendimiento general.
 
+2.1 **[Tutorial Interactivo: Backpropagation Paso a Paso]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.es.md" %}})**: Un entrenador guiado y práctico donde calculas la propagación hacia adelante, calculas el error de salida, propagas gradientes hacia atrás y actualizas pesos — paso a paso.
+
 3. **[Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
 
 ### Fundamentos Matemáticos

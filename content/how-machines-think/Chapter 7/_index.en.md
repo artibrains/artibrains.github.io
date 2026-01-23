@@ -20,6 +20,8 @@ In this chapter, you will join the team in exploring the fundamental pillars on 
 
 4.  **[Traditional LLMs vs Reasoning LLMs]({{% relref "how-machines-think/Chapter 7/reasoning-llms/reasoning-llms.en.md" %}})**: A concise guide to what explicit reasoning adds (Chain‑of‑Thought, verification and extra test‑time compute) compared to classic LLMs, with an intro video and curated references.
 
+5.  **[Interactive Game: Training a Language Model]({{% relref "how-machines-think/Chapter 7/llm-training-game/llm-training-game.en.md" %}})**: Experience how a language model progressively improves its predictions as it adjusts its internal parameters. In this educational game, you'll train a small neural network on a thematic corpus, visually observing how values change with each processed example.
+
 Get ready for the first steps on the journey toward understanding artificial language, a skill that is transforming medicine and the world.
 
 ### Mathematical Foundations

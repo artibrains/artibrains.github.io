@@ -16,6 +16,8 @@ In this chapter, you will join them to demystify the inner workings of neural ne
 
 2. **[Backpropagation: The Engine of Learning]({{% relref "how-machines-think/Chapter 6/backpropagation/backpropagation.en.md" %}})**: You will visualize the **backpropagation** algorithm, the engine of learning in neural networks. You will understand how errors propagate backward through the network, allowing each neuron to adjust its connections and improve overall model performance.
 
+2.1 **[Interactive Tutorial: Backpropagation Step by Step]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.en.md" %}})**: A guided, hands-on trainer where you compute the forward pass, calculate output error, propagate gradients backward, and update weights — step by step.
+
 3. **[Neural Network Playground: Experimenting with Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.en.md" %}})**: Experience hands-on experimentation with TensorFlow Playground. Build, train, and visualize neural networks in your browser, exploring how architecture, hyperparameters, and data affect learning in real time.
 
 ### Mathematical Foundations
