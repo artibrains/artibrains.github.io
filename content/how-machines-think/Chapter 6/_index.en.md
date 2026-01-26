@@ -18,13 +18,20 @@ In this chapter, you will join them to demystify the inner workings of neural ne
 
 2.1 **[Interactive Tutorial: Backpropagation Step by Step]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.en.md" %}})**: A guided, hands-on trainer where you compute the forward pass, calculate output error, propagate gradients backward, and update weights — step by step.
 
+2.2 **[Classic Paper: "Learning representations by back-propagating errors"]({{% relref "how-machines-think/Chapter 6/backpropagation-paper/backpropagation-paper.en.md" %}})**: A concise note on Rumelhart, Hinton & Williams (1986), the paper that popularized backpropagation and demonstrated its practical power.
+
 3. **[Neural Network Playground: Experimenting with Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.en.md" %}})**: Experience hands-on experimentation with TensorFlow Playground. Build, train, and visualize neural networks in your browser, exploring how architecture, hyperparameters, and data affect learning in real time.
+
+### Algorithm Pseudocode
+
+- **[📝 Perceptron Training Pseudocode]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-perceptron.en.md" %}})**: The perceptron learning rule, convergence theorem, Pocket algorithm, and Voted Perceptron variants.
+- **[📝 Backpropagation Pseudocode]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-backpropagation.en.md" %}})**: Forward pass, backward pass, chain rule derivations, and full training loop with mini-batches.
 
 ### Mathematical Foundations
 
 - **[📐 Mathematical Proof: The XOR Problem]({{% relref "how-machines-think/Chapter 6/xor-proof/xor-proof.en.md" %}})**: Explore the formal mathematical proof that single-layer perceptrons cannot solve the XOR problem, the insight that sparked the rise of multilayer networks.
 - **[Perceptron Convergence Theorem]({{% relref "how-machines-think/Chapter 6/math/perceptron-convergence.en.md" %}})**: Rosenblatt–Novikoff mistake bounds proving the perceptron converges on linearly separable datasets.
-- **[Backpropagation via the Chain Rule]({{% relref "how-machines-think/Chapter 6/math/backpropagation.en.md" %}})**: Jacobian-based derivation of the gradient recursions powering the chapter’s interactive visualisation.
+- **[Backpropagation via the Chain Rule]({{% relref "how-machines-think/Chapter 6/math/backpropagation.en.md" %}})**: Jacobian-based derivation of the gradient recursions.
 
 ### Bibliography and Additional Resources
 

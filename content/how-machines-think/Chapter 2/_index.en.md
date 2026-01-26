@@ -27,6 +27,11 @@ In this chapter, we delve into the heart of machine learning through the experie
 - **[Linear Regression from Scratch]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion.en.md" %}})**: Build a linear regression model from scratch, applying the concepts learned to a real problem.
 - **[Linear Regression with Scikit-Learn]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion-sklearn.en.md" %}})**: Use the industry-standard library to implement a linear regression model efficiently.
 
+### Algorithm Pseudocode
+
+- **[📝 Linear Regression Pseudocode]({{% relref "/how-machines-think/Chapter 2/code/pseudocode-linear-regression.en.md" %}})**: Detailed pseudocode for linear regression with normal equation and gradient descent approaches.
+- **[📝 Gradient Descent Pseudocode]({{% relref "/how-machines-think/Chapter 2/code/pseudocode-gradient-descent.en.md" %}})**: Step-by-step pseudocode for batch, stochastic, and mini-batch gradient descent algorithms.
+
 ### Mathematical Foundations
 
 - **[Taking Derivatives]({{% relref "how-machines-think/Chapter 2/math/derivatives.en.md" %}})**: A concise reference of common derivative rules and an interactive widget to compute $f'(x)$ and explore step-by-step explanations via WolframAlpha.

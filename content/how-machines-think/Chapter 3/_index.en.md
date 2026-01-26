@@ -20,6 +20,10 @@ Throughout the following interactive sections, you’ll explore:
 5. **[The Complexity Tamer]({{% relref "how-machines-think/Chapter 3/complexity/complexity.en.md" %}})**: Battle **overfitting**. Adjust complexity and **regularization** to create a model that learns real patterns instead of memorizing noise, ensuring it performs well on future patients.6. **[Regularization Comparison]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.en.md" %}})**: Discover the differences between **L1 (Lasso)**, **L2 (Ridge)**, and **Elastic Net**. See in real-time how each regularization type affects model weights and feature selection, helping you choose the best strategy for your problem.
 Get ready to dive into the art of classification and evaluation — two foundational pillars of any real-world artificial intelligence application.
 
+### Algorithm Pseudocode
+
+- **[📝 Logistic Regression Pseudocode]({{% relref "/how-machines-think/Chapter 3/code/pseudocode-logistic-regression.en.md" %}})**: Complete pseudocode for binary and multiclass logistic regression with gradient descent training.
+
 ### Bibliography and Additional Resources
 
 - **[Logistic Regression & Probability Translators]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.en.md" %}})**: Theoretical foundations, tooling, and clinical interpretability for The Probability Translator.

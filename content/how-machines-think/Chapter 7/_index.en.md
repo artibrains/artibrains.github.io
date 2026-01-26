@@ -24,6 +24,10 @@ In this chapter, you will join the team in exploring the fundamental pillars on 
 
 Get ready for the first steps on the journey toward understanding artificial language, a skill that is transforming medicine and the world.
 
+### Algorithm Pseudocode
+
+- **[📝 Word2Vec Pseudocode]({{% relref "/how-machines-think/Chapter 7/code/pseudocode-word2vec.en.md" %}})**: Skip-Gram and CBOW architectures, negative sampling, hierarchical softmax, and subsampling techniques.
+
 ### Mathematical Foundations
 
 - **[Tokenisation & Embedding Geometry]({{% relref "how-machines-think/Chapter 7/math/tokenisation-embeddings.en.md" %}})**: Byte-Pair Encoding math and embedding-space intuition that grounds the tokenizer simulator and projector demo.

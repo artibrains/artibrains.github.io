@@ -22,6 +22,14 @@ In this chapter, you’ll join the team as they analyze two of the most fundamen
 
 Get ready to open the "black box" and understand the logic driving these powerful classification algorithms.
 
+### Algorithm Pseudocode
+
+- **[📝 K-Nearest Neighbors Pseudocode]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-knn.en.md" %}})**: Complete KNN algorithm with distance metrics, KD-tree optimization, and weighted voting.
+- **[📝 Naive Bayes Pseudocode]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-naive-bayes.en.md" %}})**: Gaussian, Multinomial, and Bernoulli variants with Laplace smoothing.
+- **[📝 Decision Trees Pseudocode]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-decision-trees.en.md" %}})**: CART algorithm with Gini impurity, entropy criteria, and pruning techniques.
+- **[📝 Random Forests Pseudocode]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-random-forests.en.md" %}})**: Bagging, out-of-bag error estimation, and feature importance.
+- **[📝 Support Vector Machines Pseudocode]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-svm.en.md" %}})**: SMO algorithm, kernel functions, and the dual optimization problem.
+
 ### Mathematical Foundations
 
 - **[Evaluation Metrics Algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Formal derivations of confusion matrices, precision/recall variants, and multiclass ROC/AUC underpinning the triage dashboards discussed in the chapter.

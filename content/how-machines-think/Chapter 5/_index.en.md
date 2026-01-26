@@ -16,6 +16,10 @@ In this chapter, you’ll follow the team through their first major unsupervised
 
 Get ready for a new way of thinking—where AI doesn't just answer our questions, but helps us discover the ones we didn't yet know we needed to ask.
 
+### Algorithm Pseudocode
+
+- **[📝 K-Means Clustering Pseudocode]({{% relref "/how-machines-think/Chapter 5/code/pseudocode-kmeans.en.md" %}})**: Lloyd's algorithm, K-means++ initialization, elbow method, and silhouette score analysis.
+
 ### Bibliography and Additional Resources
 
 - **[K-Means and Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.en.md" %}})**: Verified resources and references on clustering algorithms, unsupervised learning and the elbow method.

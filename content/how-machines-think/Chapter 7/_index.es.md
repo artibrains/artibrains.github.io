@@ -24,6 +24,10 @@ En este capítulo, te unirás al equipo en la exploración de los pilares fundam
 
 Prepárate para dar los primeros pasos en el viaje hacia la comprensión del lenguaje artificial, una habilidad que está transformando la medicina y el mundo.
 
+### Pseudocódigo de Algoritmos
+
+- **[📝 Pseudocódigo de Word2Vec]({{% relref "/how-machines-think/Chapter 7/code/pseudocode-word2vec.es.md" %}})**: Arquitecturas Skip-Gram y CBOW, muestreo negativo, softmax jerárquico y técnicas de submuestreo.
+
 ### Fundamentos Matemáticos
 
 - **[Tokenización y geometría de embeddings]({{% relref "how-machines-think/Chapter 7/math/tokenisation-embeddings.es.md" %}})**: Matemáticas de BPE y la geometría del espacio de embeddings que sustentan el simulador de tokenizador y el proyector.

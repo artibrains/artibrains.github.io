@@ -18,13 +18,20 @@ En este capítulo te unirás a ellos para desmitificar el funcionamiento interno
 
 2.1 **[Tutorial Interactivo: Backpropagation Paso a Paso]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.es.md" %}})**: Un entrenador guiado y práctico donde calculas la propagación hacia adelante, calculas el error de salida, propagas gradientes hacia atrás y actualizas pesos — paso a paso.
 
+2.2 **[Artículo Clásico: "Aprendiendo por Retropropagación de Errores"]({{% relref "how-machines-think/Chapter 6/backpropagation-paper/backpropagation-paper.es.md" %}})**: Una nota concisa sobre Rumelhart, Hinton y Williams (1986), el artículo que popularizó la retropropagación y demostró su poder práctico.
+
 3. **[Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
+
+### Pseudocódigo de Algoritmos
+
+- **[📝 Pseudocódigo del Entrenamiento del Perceptrón]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-perceptron.es.md" %}})**: La regla de aprendizaje del perceptrón, teorema de convergencia, algoritmo Pocket y variantes del Perceptrón Votado.
+- **[📝 Pseudocódigo de Backpropagation]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-backpropagation.es.md" %}})**: Paso hacia adelante, paso hacia atrás, derivaciones de la regla de la cadena y bucle de entrenamiento completo con mini-lotes.
 
 ### Fundamentos Matemáticos
 
 - **[📐 Prueba Matemática: El Problema XOR]({{% relref "how-machines-think/Chapter 6/xor-proof/xor-proof.es.md" %}})**: Demostración formal de por qué los perceptrones de una capa no resuelven XOR, el detonante que impulsó las redes multicapa.
 - **[Teorema de convergencia del perceptrón]({{% relref "how-machines-think/Chapter 6/math/perceptron-convergence.es.md" %}})**: Cota de errores de Rosenblatt–Novikoff que garantiza la convergencia en datos linealmente separables.
-- **[Backpropagation mediante la regla de la cadena]({{% relref "how-machines-think/Chapter 6/math/backpropagation.es.md" %}})**: Derivación jacobiana de las recurrencias de gradiente que alimentan la visualización del capítulo.
+- **[Backpropagation mediante la regla de la cadena]({{% relref "how-machines-think/Chapter 6/math/backpropagation.es.md" %}})**: Derivación jacobiana de las recurrencias de gradiente.
 
 ### Bibliografía y Recursos Complementarios
 

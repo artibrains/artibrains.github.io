@@ -16,6 +16,10 @@ En este capítulo, seguirás al equipo en su primer gran proyecto de aprendizaje
 
 Prepárate para una nueva forma de pensar, donde la IA no solo responde a nuestras preguntas, sino que nos ayuda a formular preguntas que no sabíamos que teníamos que hacer.
 
+### Pseudocódigo de Algoritmos
+
+- **[📝 Pseudocódigo de Clustering K-Means]({{% relref "/how-machines-think/Chapter 5/code/pseudocode-kmeans.es.md" %}})**: Algoritmo de Lloyd, inicialización K-means++, método del codo y análisis de coeficiente de silueta.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[K-Means y Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clustering, aprendizaje no supervisado y el método del codo.

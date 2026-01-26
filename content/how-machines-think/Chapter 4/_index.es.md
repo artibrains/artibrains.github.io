@@ -22,6 +22,14 @@ En este capítulo, te unirás al equipo en el análisis de dos de los algoritmos
 
 Prepárate para desmontar la "caja negra" y comprender la lógica que impulsa a estos potentes algoritmos de clasificación.
 
+### Pseudocódigo de Algoritmos
+
+- **[📝 Pseudocódigo de K-Vecinos Más Cercanos]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-knn.es.md" %}})**: Algoritmo KNN completo con métricas de distancia, optimización KD-tree y votación ponderada.
+- **[📝 Pseudocódigo de Naive Bayes]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-naive-bayes.es.md" %}})**: Variantes Gaussiana, Multinomial y Bernoulli con suavizado de Laplace.
+- **[📝 Pseudocódigo de Árboles de Decisión]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-decision-trees.es.md" %}})**: Algoritmo CART con impureza de Gini, criterio de entropía y técnicas de poda.
+- **[📝 Pseudocódigo de Bosques Aleatorios]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-random-forests.es.md" %}})**: Bagging, estimación de error out-of-bag e importancia de características.
+- **[📝 Pseudocódigo de Máquinas de Vectores de Soporte]({{% relref "/how-machines-think/Chapter 4/code/pseudocode-svm.es.md" %}})**: Algoritmo SMO, funciones kernel y el problema de optimización dual.
+
 ### Fundamentos Matemáticos
 
 #### Álgebra de métricas de evaluación

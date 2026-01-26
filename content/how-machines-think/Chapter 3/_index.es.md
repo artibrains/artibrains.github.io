@@ -22,6 +22,10 @@ A lo largo de las siguientes secciones interactivas, explorarás:
 
 Prepárate para profundizar en el arte de la clasificación y la evaluación, dos pilares fundamentales para cualquier aplicación de inteligencia artificial en el mundo real.
 
+### Pseudocódigo de Algoritmos
+
+- **[📝 Pseudocódigo de Regresión Logística]({{% relref "/how-machines-think/Chapter 3/code/pseudocode-logistic-regression.es.md" %}})**: Pseudocódigo completo para regresión logística binaria y multiclase con entrenamiento por descenso del gradiente.
+
 ### Bibliografía y recursos complementarios
 
 - **[Regresión logística y traductores de probabilidad]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.es.md" %}})**: Fundamentos, guías prácticas e interpretabilidad clínica para El Traductor de Probabilidades.
