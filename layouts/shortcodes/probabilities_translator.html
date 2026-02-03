@@ -13,7 +13,7 @@
 
             <div style="display: flex; align-items: center;">
                 <h2 style="margin-right: 10px; margin-top: 0; margin-bottom: 1rem;">{{ if eq $lang "es" }}Predicción del
-                    Paciente{{ else }}Patient Prediction{{ end }}</h2>
+                    Caso{{ else }}Case Prediction{{ end }}</h2>
             </div>
             <div id="prediction-container">
                 <div class="prediction-box linear">
@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="controls-panel demo-controls">
-        <button id="regenerate-btn" class="demo-button">{{ if eq $lang "es" }}Generar Nuevos Datos de Pacientes{{ else
+        <button id="regenerate-btn" class="demo-button">{{ if eq $lang "es" }}Generar Nuevos Datos de Ejemplo{{ else
             }}Generate New
-            Patient Data{{ end }}</button>
+            Sample Data{{ end }}</button>
     </div>
 </div>
 

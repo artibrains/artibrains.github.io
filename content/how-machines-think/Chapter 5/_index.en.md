@@ -1,18 +1,18 @@
 ---
-title: "5 - Unsupervised Learning: Discovering the Invisible"
+title: "Chapter 5: Unsupervised Learning"
 type: "chapter"
 weight: 5
 draft: false
 slug: "unsupervised-learning"
 ---
 
-After consolidating their classification models, the Minermont Hospital team—driven by Director Elena’s vision—embarks on an even more ambitious challenge: shifting from reactive to proactive medicine. The goal is no longer just to classify known cases, but to uncover hidden risk groups within their patient population before diseases manifest.
+## The Power of Unsupervised Learning: Discovering Patterns without Labels
 
-This new challenge introduces them to the fascinating world of **unsupervised learning**, a branch of AI where there are no labels or correct answers. The algorithm must explore the data on its own to find inherent patterns and structures.
+Director Elena poses a new challenge: can AI help identify groups of users that are likely to run into problems *before* they become escalations? Unlike previous projects where categories were known (urgent/normal, attend/no-show), this requires discovering hidden patterns in data without predefined labels. Marta introduces the team to unsupervised learning, where algorithms explore data to find natural groupings and structure on their own. Through clustering algorithms like k-means and hierarchical clustering, plus dimensionality reduction techniques like PCA, the team learns to uncover patterns in service usage. They discover segments that share similar behaviors, detect anomalies that might indicate sudden spikes or workflow changes, and identify subtle correlations between signals. But they also learn a crucial lesson about interpretation—the algorithm doesn't "understand" people, it only groups numbers based on similarity rules the team chooses. This chapter explores the fascinating frontier where machines help us discover what we didn't know we didn't know.
 
-In this chapter, you’ll follow the team through their first major unsupervised learning project, where they use the **K-Means** algorithm to segment their patients. Through an interactive simulation, you’ll experience their process of discovery:
+In this chapter, you’ll follow the team through their first major unsupervised learning project, where they use the **K-Means** algorithm to segment users. Through an interactive simulation, you’ll experience their process of discovery:
 
-1. **[The Discoverer of Hidden Groups]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.en.md" %}})**: Step into the shoes of Marta and Luis. First, you'll use the **Elbow Method** to determine the optimal number of clusters (K)—the same methodological dilemma they faced. Then, you'll run the K-Means algorithm to visualize how it groups patients, recreating the "eureka moment" when they identified a previously invisible cardiovascular risk profile.
+1. **[The Discoverer of Hidden Groups]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.en.md" %}})**: Step into the shoes of Marta and Luis. First, you'll use the **Elbow Method** to determine the optimal number of clusters (K)—the same methodological dilemma they faced. Then, you'll run the K-Means algorithm to visualize how it groups users, recreating the "eureka moment" when they identified a previously invisible behavior segment.
 
 Get ready for a new way of thinking—where AI doesn't just answer our questions, but helps us discover the ones we didn't yet know we needed to ask.
 

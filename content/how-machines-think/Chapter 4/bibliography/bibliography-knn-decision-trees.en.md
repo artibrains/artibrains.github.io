@@ -6,7 +6,7 @@ draft: false
 slug: "bibliography-knn-decision-trees"
 ---
 
-These references reinforce the chapter’s storyline on **interpretable classifiers** by expanding the math behind proximity-based methods, surfacing tuning tips for tree-based models, and curating case studies where clarity is critical for clinical adoption.
+These references reinforce the chapter’s storyline on **interpretable classifiers** by expanding the math behind proximity-based methods, surfacing tuning tips for tree-based models, and curating case studies where clarity is critical for adoption.
 
 ---
 
@@ -15,7 +15,7 @@ These references reinforce the chapter’s storyline on **interpretable classifi
 1. [K-Nearest Neighbors Foundations](#1-k-nearest-neighbors-foundations)  
 2. [Decision Trees](#2-decision-trees)  
 3. [Distance Metrics & Feature Scaling](#3-distance-metrics--feature-scaling)  
-4. [Healthcare Case Studies](#4-healthcare-case-studies)  
+4. [Case Studies and Adoption](#4-case-studies-and-adoption)  
 5. [Additional Resources](#5-additional-resources)
 
 ---
@@ -55,7 +55,7 @@ These references reinforce the chapter’s storyline on **interpretable classifi
 
 ---
 
-## 4. Healthcare Case Studies
+## 4. Case Studies and Adoption
 
 | Resource | Highlight | Access |
 |----------|----------|--------|

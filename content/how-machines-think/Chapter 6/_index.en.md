@@ -1,18 +1,16 @@
 ---
-title: "6 - Inside the Machine's Mind: Neural Networks"
+title: "Chapter 6: Neural Networks"
 type: "chapter"
 weight: 6
 draft: false
 slug: "neural-networks"
 ---
 
-After successfully implementing regression, classification, and clustering models, the Hospital Minermont team reaches a moment of reflection. They have seen what AI can do, but now they yearn to understand *how* it does it. What really happens inside those “black boxes”? How does a neural network learn from data?
+## The Limit of Known Patterns: The Artificial Brain
 
-Guided by Alma, the team embarks on a journey into the fundamentals of deep learning. They set aside complex architectures for a moment to focus on the two concepts that make it all possible: the artificial neuron and the algorithm that enables it to learn.
+This chapter demystifies neural networks: the perceptron as a building block, how gradients flow via backpropagation, and how architecture and hyperparameters shape learning.
 
-In this chapter, you will join them to demystify the inner workings of neural networks:
-
-1. **[The Perceptron: The Artificial Neuron]({{% relref "how-machines-think/Chapter 6/perceptron/perceptron.en.md" %}})**: You will start with the most basic building block. Using a simple diagnostic simulator, you will train a Perceptron to classify patients, discovering how this "neuron" learns to make binary decisions.
+1. **[The Perceptron: The Artificial Neuron]({{% relref "how-machines-think/Chapter 6/perceptron/perceptron.en.md" %}})**: Train a Perceptron on a simple 2D dataset and see how a linear decision rule emerges.
 
 2. **[Backpropagation: The Engine of Learning]({{% relref "how-machines-think/Chapter 6/backpropagation/backpropagation.en.md" %}})**: You will visualize the **backpropagation** algorithm, the engine of learning in neural networks. You will understand how errors propagate backward through the network, allowing each neuron to adjust its connections and improve overall model performance.
 
@@ -37,4 +35,4 @@ In this chapter, you will join them to demystify the inner workings of neural ne
 
 - **[📚 Neural Networks and Perceptron]({{% relref "how-machines-think/Chapter 6/bibliography/bibliography-neural-networks.en.md" %}})**: Verified resources and references on neural networks, Rosenblatt's perceptron and the backpropagation algorithm.
 
-Get ready to open the "black box" and grasp the fundamental principles that drive today's most advanced artificial intelligence technologies.
+

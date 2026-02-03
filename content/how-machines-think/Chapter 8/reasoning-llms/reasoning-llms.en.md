@@ -1,9 +1,11 @@
 ---
-title: "Traditional LLMs vs Reasoning LLMs"
+title: "8.3 Beyond Prediction: Reasoning LLMs"
 description: "What changes between classic language models and the new generation focused on explicit reasoning (Chain‑of‑Thought, test‑time compute, verification, tools)."
-weight: 4
+weight: 30
 slug: "reasoning-llms"
 draft: false
+aliases:
+  - "/how-machines-think/language-revolution-llms/reasoning-llms/"
 ---
 
 ## Introduction

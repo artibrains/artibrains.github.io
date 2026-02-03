@@ -1,9 +1,11 @@
 ---
-title: "LLMs tradicionales vs LLMs de razonamiento"
+title: "8.3 Más allá de la predicción: LLMs de razonamiento"
 description: "Qué cambia entre los modelos de lenguaje clásicos y la nueva generación de modelos centrados en el razonamiento (Chain-of-Thought, test-time compute, verificación, herramientas)."
-weight: 4
+weight: 30
 slug: "llms-de-razonamiento"
 draft: false
+aliases:
+  - "/how-machines-think/revolucion-lenguaje-llms/llms-de-razonamiento/"
 ---
 
 ## Introducción

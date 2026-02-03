@@ -1,6 +1,6 @@
 ---
 title: "📐 Naive Bayes Foundations"
-description: "Derives the Naive Bayes classifier, smoothing strategies, and interpretability hooks for clinical workflows."
+description: "Derives the Naive Bayes classifier, smoothing strategies, and interpretability hooks for practical classification workflows."
 weight: 91
 draft: false
 slug: "naive-bayes-foundations"
@@ -10,6 +10,7 @@ math: true
 ## Context
 
 Alma's push for transparency leads the Minermont team to revisit Naive Bayes. Its simplicity comes from conditional independence assumptions paired with pragmatic smoothing, which keep probabilities stable even when data are sparse.
+Continuous variants adopt Gaussian assumptions or kernel densities, but the examples here use discretised signals, so the categorical case suffices.
 
 ## From Bayes' Rule to a Classifier
 
@@ -70,20 +71,21 @@ During prediction, score each class in log-space and pick the maximum.
 
 ## Worked Example
 
-For triage categories `Cardiac`, `Respiratory`, `Neurology`, suppose the symptom `ChestPain` takes values {`Yes`, `No`} with counts:
+For routing categories `Billing`, `Technical`, `Account`, suppose the feature `HasInvoiceKeyword` takes values {`Yes`, `No`} with counts:
 
-- `Cardiac`: 35 `Yes`, 15 `No`
-- `Respiratory`: 5 `Yes`, 45 `No`
-- `Neurology`: 2 `Yes`, 48 `No`
+- `Billing`: 35 `Yes`, 15 `No`
+- `Technical`: 5 `Yes`, 45 `No`
+- `Account`: 2 `Yes`, 48 `No`
 
-With $\alpha = 1$ and $|\mathcal{V}_{ChestPain}| = 2$:
+With $\alpha = 1$ and $|\mathcal{V}_{HasInvoiceKeyword}| = 2$:
 
 $$
 \widehat{P}(\text{ChestPain=Yes} \mid \text{Cardiac}) = \frac{35 + 1}{50 + 2} = 0.69, \\
-\widehat{P}(\text{ChestPain=Yes} \mid \text{Respiratory}) = \frac{5 + 1}{50 + 2} = 0.12.
+\widehat{P}(\text{HasInvoiceKeyword=Yes} \mid \text{Billing}) = \frac{35 + 1}{50 + 2} = 0.69, \\
+\widehat{P}(\text{HasInvoiceKeyword=Yes} \mid \text{Technical}) = \frac{5 + 1}{50 + 2} = 0.12.
 $$
 
-Thus `ChestPain=Yes` strongly boosts the cardiac posterior while smoothing prevents zero-probability pitfalls for the other classes.
+Thus `HasInvoiceKeyword=Yes` strongly boosts the billing posterior while smoothing prevents zero-probability pitfalls for the other classes.
 
 ## Strengths and Limitations
 
@@ -92,7 +94,7 @@ Thus `ChestPain=Yes` strongly boosts the cardiac posterior while smoothing preve
 
 ## Narrative Link
 
-Clinicians can inspect per-feature likelihoods to justify predictions, aligning with Alma's emphasis on transparency. The smoothing term echoes the caution of not dismissing rare symptoms due to scarce data.
+Teams can inspect per-feature likelihoods to justify predictions, aligning with Alma's emphasis on transparency. The smoothing term echoes the caution of not dismissing rare signals due to scarce data.
 
 ## References
 

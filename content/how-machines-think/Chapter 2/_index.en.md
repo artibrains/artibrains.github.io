@@ -1,26 +1,26 @@
 ---
-title: "2. Machine Learning Models"
-description: "From theory to practice: Building the first predictive models."
+title: "Chapter 2: Machine Learning Models"
+description: "Enthusiasm and Frustration: Linear Regression"
 weight: 2
 slug: "machine-learning-models"
 ---
 
-After a failed first attempt with an overly complex system, Victor, Marta, Luis, and Carlos learn a fundamental lesson: sometimes, the simplest solution is the most powerful. Guided by the advice of Alma García of AIA, the team embarks on implementing a linear regression model to predict the need for medical supplies.
+## Enthusiasm and Frustration: Linear Regression
 
-This new approach is not only more manageable but also transparent and interpretable, gaining the trust of even the most skeptical, like Dr. Javier.
+This chapter focuses on the core mechanics behind supervised learning with simple models: fitting a line, choosing a loss, and optimising parameters.
 
 ## What Will You Learn?
 
-In this chapter, we delve into the heart of machine learning through the experience of the hospital team. You will follow their steps from manual adjustments to automated learning.
+Use the interactive activities below to build intuition by manipulating parameters and watching the error change.
 
 1. **[Fit a Linear Regression Model]({{% relref "/how-machines-think/Chapter 2/linear-regression/linear_regresion_game.en.md" %}})**  
-   Put yourself in the shoes of Marta and Luis, manually adjusting the parameters of a model to predict mask consumption. Understand the relationship between slope, intercept, and prediction.
+   Manually adjust slope and intercept, then compare predictions vs. data.
 
 2. **[Visualize Gradient Descent]({{% relref "/how-machines-think/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.en.md" %}})**  
-   Grasp the intuition behind the algorithm the team used to automatically train their model. See how the system "descends" the error mountain to find the optimal parameters.
+   See how iterative updates move parameters toward lower error.
 
 3. **[Comparing Cost Functions]({{% relref "how-machines-think/Chapter 2/error-comparison/error_comparation.en.md" %}})**  
-   Explore why the choice of cost function (MSE vs. MAE) was a key point in the team's discussion and how it affects model behavior, especially when dealing with outliers.
+   Compare MAE vs. MSE and how each treats outliers.
 
 ### Practical Implementation
 

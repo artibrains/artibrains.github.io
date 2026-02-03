@@ -15,8 +15,8 @@ Instead of relying on a single train/test split—whose outcome may be unreliabl
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="You have developed an AI model to detect a cardiac anomaly from electrocardiograms. With 1,000 patient records, you must know how trustworthy the model is before deploying it in a clinical workflow."
-    highlight="In clinical applications, stability in evaluation is essential. A model that appears to work by chance can fail catastrophically with real patients, putting their safety at risk. K-Fold cross-validation replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average their performance, yielding a much more stable and realistic estimate."
+    scenario="You have developed a model to detect faulty devices from sensor traces. With 1,000 labelled records, you must know how trustworthy the model is before shipping it into a real workflow."
+    highlight="In high-stakes applications, stability in evaluation is essential. A model that looks good by chance on one split can fail badly in production. K-Fold cross-validation replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average performance, yielding a more stable and realistic estimate."
     steps="Run a single split: Measure performance with a simple train/test split and notice how it fluctuates significantly depending on the random partition.|Repeat the split: Try multiple random splits to see how unstable the error can be. You'll see how each split gives different results.|Activate K-Fold: Switch to cross-validation and observe how the average error stabilizes across folds, providing a more reliable measure of the model's true performance."
 >}}
 
@@ -58,15 +58,15 @@ K-Fold cross-validation divides the data into **K folds** of roughly equal size.
 - Small or medium-sized datasets.  
 - Final evaluation before deployment.  
 - Scenarios that require precise estimates.  
-- Medicine and other high-stakes applications.
+- High-stakes applications.
 
 ---
 
-### Medical Interpretation Example
+### Interpretation Example
 
-Imagine you build a model to detect **risk of heart failure**.  
+Imagine you build a model to detect **faulty devices**.  
 With a single split, you measure **92%** accuracy, but another random split drops it to **83%**.  
 That nine-point swing signals instability.  
-With **K-Fold (e.g., K = 10)**, you obtain an average of **87% ± 1.2%**, a much more dependable figure for clinical validation.
+With **K-Fold (e.g., K = 10)**, you obtain an average of **87% ± 1.2%**, a much more dependable figure for deciding whether the model is ready.
 
 {{< terminal >}}

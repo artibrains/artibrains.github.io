@@ -13,14 +13,14 @@ Support Vector Machines (SVM) are powerful supervised learning algorithms used f
 {{< medical-context 
     type="research"  
     difficulty="intermediate"
-    scenario="A medical diagnostics lab needs to classify tissue samples as benign or malignant based on two key biomarkers. Using historical data from previous biopsies, the system must find the decision boundary that best separates healthy from diseased tissue samples."
-    highlight="SVMs find the optimal separating hyperplane that maximizes the margin between classes, making classifications more reliable. In medical diagnosis, this translates into more accurate detection systems that can better distinguish between healthy and diseased states, reducing both false positives and false negatives."
+    scenario="A quality-control team needs to classify items as pass/fail based on two measured features. Using historical inspection data, the system must find the decision boundary that best separates both classes."
+    highlight="SVMs find the separating hyperplane that maximizes the margin between classes, often improving robustness. In practice, that can reduce both false alarms and missed defects on new, unseen items."
     steps="Adjust Hyperplane Parameters: Move the sliders to change the position and angle of the decision boundary. Watch how the margin and classification accuracy change.|Understand the Margin: The margin is the distance between the hyperplane and the nearest points from each class (support vectors). A larger margin generally means better generalization.|Find the Optimal Solution: Use the 'Find Best Hyperplane' button to have the SVM algorithm automatically calculate the optimal separating boundary that maximizes the margin."
 >}}
 
 ## Interactive Demonstration
 
-The graph shows tissue sample data points where blue dots represent benign samples and red dots represent malignant samples. Each point's position is determined by two biomarker measurements. The line is your decision boundary (hyperplane), and the shaded area represents the margin. Your goal is to adjust the boundary to maximize the margin while correctly classifying all samples.
+The graph shows data points where blue dots represent one class (pass) and red dots represent the other (fail). Each point's position is determined by two measured features. The line is your decision boundary (hyperplane), and the shaded area represents the margin. Your goal is to adjust the boundary to maximize the margin while correctly classifying the samples.
 
 {{< demo-wrapper title="SVM Classifier Optimizer" >}}
 

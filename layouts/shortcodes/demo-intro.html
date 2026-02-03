@@ -3,8 +3,8 @@ Shortcode unificado y mejorado para introducciones de demos interactivas
 Parámetros:
 - lang: Idioma (es/en) - opcional, por defecto usa el del sitio
 - title: Título de la demo
-- medical_scenario: Texto del escenario médico
-- medical_highlight: Texto destacado del contexto médico
+- medical_scenario: Texto del escenario (se mantiene el nombre por compatibilidad)
+- medical_highlight: Texto destacado (se mantiene el nombre por compatibilidad)
 - algorithm_type: Tipo de algoritmo (classification, regression, clustering, etc.) - opcional
 - difficulty: Dificultad (beginner, intermediate, advanced) - opcional
 */}}
@@ -25,12 +25,18 @@ Parámetros:
 {{ $intro_text := .Get "intro_text" | default "" }}
 {{ $steps := .Get "steps" | default "" }}
 
-{{ $type_icon := "⚕️" }}
-{{ if eq $context_type "hospital" }}{{ $type_icon = "🏥" }}{{ else if eq $context_type "clinic" }}{{ $type_icon = "🩺"
+{{ $type_icon := "🧩" }}
+{{ if eq $context_type "hospital" }}{{ $type_icon = "🏢" }}{{ else if eq $context_type "clinic" }}{{ $type_icon = "🏢"
 }}{{ else if eq $context_type "research" }}{{ $type_icon = "🔬" }}{{ else if eq $context_type "emergency" }}{{
-$type_icon = "🚨" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon = "🐾" }}{{ end }}
+$type_icon = "⚠️" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon = "🐾" }}{{ end }}
 
-<h3 class="medical-context__title">{{ if eq $lang "es" }}Contexto Médico{{ else }}Medical Context{{ end }}</h3>
+{{/*
+    Keep parameter names for backwards compatibility, but only render activity-relevant info.
+    This site complements the book, so we avoid extra narrative scenarios here.
+*/}}
+
+{{ if or $medical_highlight $intro_text $steps }}
+<h3 class="medical-context__title">{{ if eq $lang "es" }}Actividad{{ else }}Activity{{ end }}</h3>
 <div class="medical-context medical-context--{{ $context_type }}">
     <div class="medical-context__header">
         <div class="medical-context__icon">{{ $type_icon }}</div>
@@ -61,21 +67,12 @@ $type_icon = "🚨" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon =
         </div>
     </div>
 
-    <div class="medical-context__content">
-        {{ if $medical_scenario }}
-        <div class="medical-context__scenario">
-            <h4>{{ if eq $lang "es" }}Escenario{{ else }}Scenario{{ end }}</h4>
-            <p>{{ $medical_scenario | markdownify }}</p>
-        </div>
-        {{ end }}
-
-        {{ if $medical_highlight }}
-        <div class="medical-context__highlight">
-            <h4>{{ if eq $lang "es" }}Aplicación Clínica{{ else }}Clinical Application{{ end }}</h4>
-            <p>{{ $medical_highlight | markdownify }}</p>
-        </div>
-        {{ end }}
+    {{ if $medical_highlight }}
+    <div class="intro-text">
+        <strong>{{ if eq $lang "es" }}Qué observar{{ else }}What to watch for{{ end }}:</strong>
+        {{ $medical_highlight | markdownify }}
     </div>
+    {{ end }}
 
     {{ if $intro_text }}
     <div class="intro-text">{{ $intro_text | markdownify }}</div>
@@ -96,5 +93,7 @@ $type_icon = "🚨" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon =
     </div>
     {{ end }}
 </div>
+
+{{ end }}
 
 <div class="demo-separator demo-mb-lg"></div>

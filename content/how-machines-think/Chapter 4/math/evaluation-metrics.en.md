@@ -9,7 +9,7 @@ math: true
 
 ## Why Metrics Matter
 
-Minermont's triage assistant is only as trustworthy as the evidence behind each prediction. The mathematics in this note grounds the precision/recall dashboards that Alma's team presents to the hospital board.
+Minermont's routing assistant is only as trustworthy as the evidence behind each prediction. The mathematics in this note grounds the precision/recall dashboards that Alma's team presents to stakeholders.
 
 ## Confusion Matrix Fundamentals
 
@@ -60,7 +60,7 @@ $$
   Because the numerators match, micro precision equals micro recall and the micro F1 collapses to that same value.
 
 {{% notice style="info" title="Choosing the right summary" %}}
-Macro metrics highlight rare classes, while micro metrics follow overall prevalence. For hospital triage you need both: macro scores expose weaknesses on critical but uncommon conditions.
+Macro metrics highlight rare classes, while micro metrics follow overall prevalence. In operational routing problems you often want both: macro scores expose weaknesses on smaller categories that would otherwise be hidden.
 {{% /notice %}}
 
 ## ROC Curves for Binary Decisions
@@ -93,7 +93,7 @@ Two standard approaches generalise the ROC concept when $K > 2$:
 
 ## Worked Example
 
-For triage classes `Cardiac`, `Respiratory`, `Neurology`, consider the confusion matrix
+For routing classes `Billing`, `Technical`, `Account`, consider the confusion matrix
 
 $$
 C = \begin{pmatrix}
@@ -103,17 +103,17 @@ C = \begin{pmatrix}
 \end{pmatrix}.
 $$
 
-- Cardiac precision $= \tfrac{40}{40 + 10 + 4} = 0.74$
-- Respiratory recall $= \tfrac{30}{5 + 30 + 6} = 0.77$
-- Neurology F1 combines precision $= \tfrac{20}{5 + 10 + 20}$ and recall $= \tfrac{20}{5 + 10 + 20}$, yielding $0.57$
+- Billing precision $= \tfrac{40}{40 + 10 + 4} = 0.74$
+- Technical recall $= \tfrac{30}{5 + 30 + 6} = 0.77$
+- Account F1 combines precision $= \tfrac{20}{5 + 10 + 20}$ and recall $= \tfrac{20}{5 + 10 + 20}$, yielding $0.57$
 
-Macro averages take the arithmetic mean across classes. To draw the ROC curve for `Cardiac`, treat it as positive versus the remaining classes and sweep the decision threshold.
+Macro averages take the arithmetic mean across classes. To draw the ROC curve for `Billing`, treat it as positive versus the remaining classes and sweep the decision threshold.
 
 ## Practical Considerations
 
-- Class imbalance: macro metrics prevent rare but critical categories from vanishing in the averages.
-- Threshold selection: ROC curves help pick operating points; incorporate cost-sensitive utilities for hospital policy decisions.
-- Uncertainty: bootstrap resampling gives confidence intervals for AUC and macro F1 when reporting to clinicians.
+- Class imbalance: macro metrics prevent smaller but important categories from vanishing in the averages.
+- Threshold selection: ROC curves help pick operating points; incorporate cost-sensitive utilities for policy decisions.
+- Uncertainty: bootstrap resampling gives confidence intervals for AUC and macro F1 when reporting to stakeholders.
 
 ## References
 

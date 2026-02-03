@@ -9,19 +9,19 @@ slug: "clasificador-funcion-sigmoide"
 
 ## Introducción
 
-Comprende cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1 y se convierte en la pieza clave de la regresión logística. En esta simulación interactiva jugarás a separar pacientes de alto y bajo riesgo ajustando la pendiente y la altura inicial de la curva.
+Comprende cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1 y se convierte en la pieza clave de la regresión logística. En esta simulación interactiva jugarás a separar casos de alto y bajo riesgo ajustando la pendiente y la altura inicial de la curva.
 
 {{< medical-context 
     type="research"
     difficulty="intermediate"
-    scenario="Has creado un modelo que estima la **probabilidad de complicaciones post‑operatorias** a partir de la edad y la presión arterial de cada paciente. Tu objetivo es ajustar la línea de decisión para separar correctamente a los pacientes de bajo y alto riesgo."
-    highlight="La función sigmoide transforma cualquier valor numérico en una probabilidad entre 0 y 1, permitiendo tomar decisiones terapéuticas seguras. Ajustar correctamente la curva garantiza que los pacientes de alto riesgo reciban la atención preventiva necesaria, mientras se evitan intervenciones innecesarias en pacientes de bajo riesgo."
-    steps="Ajusta los parámetros: Usa los deslizadores w₁, w₂ y sesgo (b) para modificar la pendiente y posición de la curva sigmoide. Observa cómo cambian las métricas de desempeño en tiempo real.|Minimiza la Log-Loss: Separa los puntos verdes (sin complicaciones) de los rojos (con complicaciones) ajustando los parámetros de la función sigmoide para lograr la mejor clasificación.|Evalúa las métricas: Consulta la exactitud y la pérdida logística para evaluar la calidad de tu clasificación. Ajusta el umbral para ser más o menos estricto en la clasificación de alto riesgo."
+    scenario="Has creado un modelo que estima la **probabilidad de un resultado no deseado** a partir de dos señales de entrada. Tu objetivo es ajustar la frontera de decisión para separar correctamente casos de bajo y alto riesgo."
+    highlight="La función sigmoide transforma cualquier valor numérico en una probabilidad entre 0 y 1, convirtiendo puntuaciones en confianza interpretable. Ajustar la curva controla qué tan agresivo es el sistema al marcar casos de alto riesgo, equilibrando fallos vs. falsas alarmas."
+    steps="Ajusta los parámetros: Usa los deslizadores w₁, w₂ y sesgo (b) para modificar la pendiente y posición de la curva sigmoide. Observa cómo cambian las métricas de desempeño en tiempo real.|Minimiza la Log-Loss: Separa los puntos verdes (bajo riesgo) de los rojos (alto riesgo) ajustando los parámetros de la función sigmoide para lograr la mejor clasificación.|Evalúa las métricas: Consulta la exactitud y la pérdida logística para evaluar la calidad de tu clasificación. Ajusta el umbral para ser más o menos estricto al marcar casos de alto riesgo."
 >}}
 
 ## Demostración Interactiva
 
-El gráfico muestra datos de pacientes (puntos) donde cada punto representa la edad y la presión arterial. Los puntos verdes indican pacientes sin complicaciones post-operatorias y los rojos con complicaciones. La curva sigmoide es tu modelo de clasificación. Tu objetivo es ajustar los parámetros de la curva para que separe lo mejor posible ambos grupos, minimizando el error entre las clasificaciones predichas y reales.
+El gráfico muestra puntos definidos por dos señales de entrada. Los puntos verdes indican casos de bajo riesgo y los rojos casos de alto riesgo. La curva sigmoide es tu modelo de clasificación. Tu objetivo es ajustar los parámetros de la curva para que separe lo mejor posible ambos grupos, minimizando el error entre las clasificaciones predichas y reales.
 
 {{< demo-wrapper title="Simulador de Función Sigmoide" >}}
 
@@ -46,9 +46,9 @@ El gráfico muestra datos de pacientes (puntos) donde cada punto representa la e
 
 - **Deslizadores w₁ y w₂** inclinan la frontera de decisión para acercar la curva al grupo de mayor o menor riesgo.
 - **Sesgo (b)** desplaza la sigmoide hacia la izquierda o la derecha para recentrar el umbral sobre la nube de datos.
-- **Umbral** ajusta qué tan estricta es la clasificación al marcar pacientes como de alto riesgo.
+- **Umbral** ajusta qué tan estricta es la clasificación al marcar casos como de alto riesgo.
 - **Botón de modo** alterna entre la vista de clasificación discreta y un mapa de calor de probabilidades.
-- **Comprobar clasificación / Nueva partida** evalúan la configuración actual o regeneran una nueva cohorte de pacientes.
+- **Comprobar clasificación / Nueva partida** evalúan la configuración actual o regeneran una nueva cohorte.
 
 ### Terminal en acción
 
@@ -73,7 +73,7 @@ Donde:
 ### Frontera de Decisión y Umbral
 
 {{% notice style="tip" title="Interpretación de Resultados" %}}
-La función sigmoide convierte el valor z en una probabilidad entre 0 y 1. El umbral (por defecto 0.5) determina cuándo un paciente se clasifica como "alto riesgo":
+La función sigmoide convierte el valor z en una probabilidad entre 0 y 1. El umbral (por defecto 0.5) determina cuándo un caso se clasifica como "alto riesgo":
 
 - Si la probabilidad > umbral → Clasificar como **"alto riesgo"** (rojo)
 - Si la probabilidad ≤ umbral → Clasificar como **"bajo riesgo"** (verde)

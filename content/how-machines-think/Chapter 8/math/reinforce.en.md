@@ -1,10 +1,12 @@
 ---
-title: "📐 REINFORCE & RLHF"
+title: "8.1 📐 REINFORCE & RLHF"
 description: "Derives policy-gradient updates and outlines the RLHF pipeline for aligning large language models."
 weight: 91
 draft: false
 slug: "reinforce-rlhf"
 math: true
+aliases:
+  - "/how-machines-think/language-revolution-llms/reinforce-rlhf/"
 ---
 
 ## Context

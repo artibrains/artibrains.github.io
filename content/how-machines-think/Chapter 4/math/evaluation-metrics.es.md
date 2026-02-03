@@ -9,7 +9,7 @@ math: true
 
 ## Por qué importan las métricas
 
-El asistente de triaje de Minermont solo es tan confiable como la evidencia que respalda cada predicción. Las matemáticas de esta nota sustentan los paneles de precisión y recall que Alma presenta a la dirección del hospital.
+El asistente de enrutamiento de Minermont solo es tan confiable como la evidencia que respalda cada predicción. Las matemáticas de esta nota sustentan los paneles de precisión y recall que Alma presenta a los interesados.
 
 ## Fundamentos de la matriz de confusión
 
@@ -62,7 +62,7 @@ $$
   Como los numeradores coinciden, la precisión micro es igual al recall micro y el F1 micro toma ese mismo valor.
 
 {{% notice style="info" title="Escoge la métrica adecuada" %}}
-Las métricas macro ponen en primer plano a las clases raras, mientras que las micro siguen la prevalencia global. En triaje hospitalario conviene revisar ambas para no descuidar patologías críticas de baja incidencia.
+Las métricas macro ponen en primer plano a las clases raras, mientras que las micro siguen la prevalencia global. En problemas operativos de enrutamiento conviene revisar ambas para no ocultar categorías pequeñas.
 {{% /notice %}}
 
 ## Curvas ROC en decisiones binarias
@@ -96,7 +96,7 @@ $$
 
 ## Ejemplo trabajado
 
-Para las clases de triaje `Cardiología`, `Respiratorio`, `Neurología`, considera la matriz
+Para las clases de enrutamiento `Facturación`, `Soporte técnico`, `Cuenta`, considera la matriz
 
 $$
 C = \begin{pmatrix}
@@ -106,17 +106,18 @@ C = \begin{pmatrix}
 \end{pmatrix}.
 $$
 
-- Precisión cardiología $= \tfrac{40}{40 + 10 + 4} = 0.74$
-- Recall respiratorio $= \tfrac{30}{5 + 30 + 6} = 0.77$
-- F1 neurología combina precisión $= \tfrac{20}{5 + 10 + 20}$ y recall $= \tfrac{20}{5 + 10 + 20}$, dando $0.57$
+- Precisión facturación $= \tfrac{40}{40 + 10 + 4} = 0.74$
+- Recall soporte técnico $= \tfrac{30}{5 + 30 + 6} = 0.77$
+- F1 cuenta combina precisión $= \tfrac{20}{5 + 10 + 20}$ y recall $= \tfrac{20}{5 + 10 + 20}$, dando $0.57$
+Los promedios macro toman la media aritmética entre clases. Para dibujar la ROC de `Facturación`, trátala como positiva frente al resto y recorre el umbral de decisión.
 
 Los promedios macro toman la media aritmética entre clases. Para dibujar la ROC de `Cardiología`, trátala como positiva frente al resto y recorre el umbral de decisión.
 
 ## Consideraciones prácticas
 
-- Desbalance de clases: las métricas macro impiden que patologías críticas desaparezcan en los promedios.
-- Selección de umbral: las curvas ROC ayudan a elegir el punto de operación; incorpora costos sensibles al contexto hospitalario.
-- Incertidumbre: el remuestreo bootstrap ofrece intervalos de confianza para la AUC y el F1 macro al reportar a clínicos.
+- Desbalance de clases: las métricas macro impiden que categorías pequeñas pero importantes desaparezcan en los promedios.
+- Selección de umbral: las curvas ROC ayudan a elegir el punto de operación; incorpora costos sensibles al contexto.
+- Incertidumbre: el remuestreo bootstrap ofrece intervalos de confianza para la AUC y el F1 macro al reportar a interesados.
 
 ## Referencias
 

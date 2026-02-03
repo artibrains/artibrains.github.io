@@ -4,9 +4,9 @@
     <h1>{{ if eq $lang "es" }}Simulador: El Gestor de Riesgos{{ else }}Simulator: The Risk Manager{{ end }}</h1>
     <p class="intro">
         {{ if eq $lang "es" }}Tu misión es encontrar el <strong>umbral de decisión</strong> perfecto para un modelo de
-        IA que predice si un paciente faltará a su cita. El objetivo es minimizar el coste total para la clínica.{{ else
-        }}Your mission is to find the perfect <strong>decision threshold</strong> for an AI model that predicts whether
-        a patient will miss an appointment. The goal is to minimize the clinic's total cost.{{ end }}
+        IA que predice si una persona no se presentará a una cita reservada. El objetivo es minimizar el coste total
+        del servicio.{{ else }}Your mission is to find the perfect <strong>decision threshold</strong> for an AI model
+        that predicts whether someone will miss a booked appointment. The goal is to minimize the service’s total cost.{{ end }}
     </p>
 
     <div class="how-it-works">
@@ -16,22 +16,22 @@
                 <h3>{{ if eq $lang "es" }}El Modelo de IA (simulado){{ else }}The AI Model (simulated){{ end }}</h3>
                 <p>
                     {{ if eq $lang "es" }}Imagina que un modelo de Machine Learning ha analizado miles de datos
-                    históricos. Para cada uno de los 100 pacientes de abajo, ha calculado la <strong>probabilidad de que
-                        falte a su cita</strong>. El modelo es bueno, pero no perfecto: los pacientes que realmente
-                    faltan tienden a tener una probabilidad más alta.{{ else }}Imagine a Machine Learning model that has
-                    studied thousands of historical records. For each of the 100 patients below, it estimates the
-                    <strong>probability of missing the appointment</strong>. The model is good, but not perfect:
-                    patients who actually miss tend to receive higher probabilities.{{ end }}
+                    históricos. Para cada una de las 100 citas de abajo, ha calculado la <strong>probabilidad de
+                        ausencia</strong>. El modelo es bueno, pero no perfecto: los casos que realmente faltan tienden a
+                    recibir probabilidades más altas.{{ else }}Imagine a Machine Learning model that has studied
+                    thousands of historical records. For each of the 100 bookings below, it estimates the
+                    <strong>probability of a no-show</strong>. The model is good, but not perfect: bookings that actually
+                    no-show tend to receive higher probabilities.{{ end }}
                 </p>
             </div>
             <div class="column">
                 <h3>{{ if eq $lang "es" }}Tu Papel como Gestor{{ else }}Your Role as Manager{{ end }}</h3>
                 <p>
                     {{ if eq $lang "es" }}El modelo no toma la decisión final. ¡Ese eres tú! Usando el slider, defines
-                    el <strong>umbral de riesgo</strong>. Si la probabilidad de un paciente supera tu umbral, el sistema
-                    lo clasifica como "probable ausente" y le envía un recordatorio (coste: 5€).{{ else }}The model does
-                    not make the final decision—you do! Use the slider to define the <strong>risk threshold</strong>. If
-                    a patient's probability exceeds the threshold, the system marks them as "likely to miss" and sends a
+                    el <strong>umbral de riesgo</strong>. Si la probabilidad de un caso supera tu umbral, el sistema lo
+                    clasifica como "probable ausencia" y envía un recordatorio (coste: 5€).{{ else }}The model does not
+                    make the final decision—you do! Use the slider to define the <strong>risk threshold</strong>. If a
+                    case’s probability exceeds the threshold, the system marks it as "likely no-show" and sends a
                     reminder (cost: €5).{{ end }}
                 </p>
             </div>
@@ -39,11 +39,11 @@
                 <h3>{{ if eq $lang "es" }}El Objetivo del Juego{{ else }}Game Objective{{ end }}</h3>
                 <p>
                     {{ if eq $lang "es" }}Encuentra el punto dulce. Un umbral muy bajo significa muchos recordatorios
-                    innecesarios. Un umbral muy alto significa perder pacientes que no fueron avisados (coste: 25€ por
+                    innecesarios. Un umbral muy alto significa perder citas que no fueron confirmadas (coste: 25€ por
                     cita perdida). ¡Observa el "Coste Total" y busca el valor mínimo!{{ else }}Find the sweet spot. A
-                    very low threshold means many unnecessary reminders. A very high threshold means losing patients who
-                    were not alerted (cost: €25 per missed visit). Watch the "Total Cost" and look for the minimum
-                    value!{{ end }}
+                    very low threshold means many unnecessary reminders. A very high threshold means losing bookings
+                    that weren’t nudged (cost: €25 per missed appointment). Watch the "Total Cost" and look for the
+                    minimum value!{{ end }}
                 </p>
             </div>
         </div>

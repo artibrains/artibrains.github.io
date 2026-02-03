@@ -1,5 +1,4 @@
----
-title: "4.2 Triaje automático en urgencias: Árboles de decisión"
+title: "4.2 Enrutamiento automático de tickets: Árboles de decisión"
 description: "Visualización interactiva de cómo un árbol de decisión construye reglas para clasificar, inspirado en el juego 'Quién es Quién'."
 weight: 12
 draft: false
@@ -11,13 +10,13 @@ slug: "arbol-decision-triaje"
 Un **Árbol de Decisión** es un modelo predictivo que aprende una serie de reglas simples, similares a un diagrama de flujo, para llegar a una conclusión. Al igual que en el juego 'Quién es Quién', el algoritmo busca la secuencia de preguntas más eficiente para clasificar un caso con la menor cantidad de pasos posible.
 
 {{< demo-intro 
-    title="Visualizador de Árbol de Decisión: ¿Qué Paciente Es?"
+    title="Visualizador de Árbol de Decisión: ¿Qué Perfil Es?"
     algorithm_type="Clasificación interpretable"
     difficulty="beginner"
-    medical_scenario="Un médico de urgencias necesita un sistema de triaje que le ayude a clasificar pacientes rápidamente. Basándose en síntomas y datos básicos, debe determinar la prioridad de atención sin revisar historiales completos."
-    medical_highlight="Un Árbol de Decisión construye el 'protocolo de preguntas' perfecto. Aprende qué características son las más distintivas para clasificar a los pacientes, permitiendo al médico tomar decisiones rápidas y fundamentadas siguiendo un camino claro y explicable."
-    intro_text="Un **Árbol de Decisión** es un modelo que crea una secuencia de preguntas para llegar a una conclusión, funcionando como un juego de '¿Qué Paciente Es?'. Su gran ventaja es la **interpretabilidad**: cada decisión se puede explicar paso a paso."
-    steps="Define el Grupo de Pacientes: Elige el conjunto de pacientes que el modelo debe aprender a diferenciar. Cada uno tiene un perfil único con distintos síntomas, historial y datos demográficos.|Construye el Protocolo de Preguntas: Pulsa 'Entrenar Árbol'. El algoritmo encontrará la secuencia de preguntas más eficiente, colocando la que mejor distingue a los pacientes en la raíz del árbol.|Sigue la Ruta de Identificación: Explora el árbol generado. Cada nodo es una pregunta clínica. Sigue las respuestas ('sí' o 'no') para ver cómo el modelo te guía hasta identificar al paciente correcto."
+    medical_scenario="Un equipo de soporte necesita un sistema que ayude a categorizar solicitudes entrantes rápidamente. Basándose en unas pocas señales, el sistema debe sugerir la cola o prioridad adecuada sin requerir una revisión manual completa."
+    medical_highlight="Un Árbol de Decisión construye un 'protocolo de preguntas' claro. Aprende qué características son más distintivas para categorizar casos, permitiendo tomar decisiones rápidas y fundamentadas siguiendo un camino explicable."
+    intro_text="Un **Árbol de Decisión** es un modelo que crea una secuencia de preguntas para llegar a una conclusión, funcionando como un juego de '¿Qué Perfil Es?'. Su gran ventaja es la **interpretabilidad**: cada decisión se puede explicar paso a paso."
+    steps="Define el Conjunto de Casos: Elige el conjunto de casos que el modelo debe aprender a diferenciar. Cada uno tiene un perfil único con distintos atributos.|Construye el Protocolo de Preguntas: Pulsa 'Entrenar Árbol'. El algoritmo encontrará la secuencia de preguntas más eficiente, colocando la que mejor distingue en la raíz del árbol.|Sigue la Ruta de Identificación: Explora el árbol generado. Cada nodo es una pregunta de sí/no sobre una característica. Sigue las respuestas para ver cómo el modelo te guía hasta identificar el perfil correcto."
 >}}
     
 ## Demostración Interactiva

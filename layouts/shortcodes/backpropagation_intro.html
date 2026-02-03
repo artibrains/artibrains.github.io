@@ -3,25 +3,25 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
-    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Entrenando un "Ojo" Clínico Artificial{{ else }}🏥 Medical Context:
-        Training an Artificial "Clinical Eye"{{ end }}</h2>
+    <h2>{{ if eq $lang "es" }}🧩 Contexto: Entrenando un "Ojo" de Inspección Artificial{{ else }}🧩 Context:
+        Training an Artificial "Inspection Eye"{{ end }}</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
             <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
-                entrenando una red neuronal para detectar signos de retinopatía diabética
-                en imágenes de fondo de ojo. La red debe aprender a distinguir patrones sutiles que un ojo humano podría
-                pasar por alto.{{ else }}You're training a neural network to detect signs of diabetic retinopathy
-                in fundus images. The network must learn to distinguish subtle patterns that a human eye might
-                miss.{{ end }}</p>
+                entrenando una red neuronal para detectar defectos sutiles
+                en imágenes de control de calidad (por ejemplo, pequeñas grietas o imperfecciones). La red debe aprender
+                a distinguir patrones que un ojo humano podría pasar por alto a simple vista.{{ else }}You're training a neural network to detect subtle defects
+                in quality-control images (for example, tiny cracks or surface imperfections). The network must learn to distinguish patterns that a human eye might
+                miss at a glance.{{ end }}</p>
             <p class="highlight">{{ if eq $lang "es" }}Cuando la red clasifica una imagen incorrectamente,
                 Backpropagation actúa como un
                 "supervisor experto". Le indica a la red qué "neuronas" y conexiones interpretaron mal la imagen,
                 permitiendo que se ajusten para no cometer el mismo error en el futuro y, con el tiempo, desarrollar un
-                "ojo" clínico artificial altamente preciso.{{ else }}When the network misclassifies an image,
+                "ojo" de inspección artificial altamente preciso.{{ else }}When the network misclassifies an image,
                 Backpropagation acts as an
                 "expert supervisor". It tells the network which "neurons" and connections misinterpreted the image,
                 allowing them to adjust to avoid making the same mistake in the future and, over time, develop a
-                highly accurate artificial clinical eye.{{ end }}</p>
+                highly accurate artificial inspection eye.{{ end }}</p>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 ---
 title: "3.1 El siguiente paso: Regresión logística"
 weight: 2
-description: "Demostración interactiva de cómo la regresión logística convierte combinaciones lineales en probabilidades para clasificar pacientes y predecir asistencia a citas médicas."
+description: "Demostración interactiva de cómo la regresión logística convierte combinaciones lineales en probabilidades para clasificar casos y predecir un evento binario."
 date: 2025-04-17
 draft: false
 slug: "traductor-probabilidades-regresion-logistica"
@@ -9,24 +9,24 @@ slug: "traductor-probabilidades-regresion-logistica"
 
 ## Introducción
 
-La **Regresión Logística** es un modelo fundamental para predecir resultados categóricos, como decidir si un paciente pertenece a un grupo u otro. En lugar de predecir un valor continuo, calcula la probabilidad de que un caso (por ejemplo, un paciente) pertenezca a una categoría específica (como "no acudirá a la cita"), convirtiéndola en una herramienta esencial para la clasificación.
+La **Regresión Logística** es un modelo fundamental para predecir resultados categóricos, como decidir si un caso pertenece a un grupo u otro. En lugar de predecir un valor continuo, calcula la probabilidad de que un caso pertenezca a una categoría específica (por ejemplo, "abandonará"), convirtiéndola en una herramienta esencial para la clasificación.
 
 {{< medical-context 
     type="clinic" 
     level="intermediate" 
-    scenario="Tu centro de salud quiere reducir el número de citas a las que los pacientes no acuden. Para ello, necesitas un modelo que identifique qué pacientes tienen una alta probabilidad de faltar, basándose en su historial de asistencia y características demográficas."
-    highlight="La regresión logística permite predecir la probabilidad de inasistencia basándose en factores como edad y días desde la última visita. Esto permite al centro tomar medidas preventivas como llamadas de recordatorio o reprogramación proactiva de citas."
+    scenario="Tu equipo quiere reducir el churn (abandono). Necesitas un modelo que identifique qué usuarios tienen alta probabilidad de abandonar, basándose en su historial de uso y características de comportamiento."
+    highlight="La regresión logística permite estimar la probabilidad de un evento a partir de variables de entrada. Esa probabilidad permite tomar acciones preventivas como recordatorios o intervenciones selectivas."
 >}}
 
 ## Demostración Interactiva
 
-{{< demo-wrapper title="Predictor de Asistencia a Citas Médicas" >}}
+{{< demo-wrapper title="Regresión Logística: Traductor de Probabilidades" >}}
 
-<p>El gráfico muestra cómo la regresión logística convierte las características del paciente (edad y días desde la última visita) en probabilidades de asistencia. Cada punto representa un paciente: <strong>azul</strong> indica que acudió a su cita, <strong>rojo</strong> que no asistió. El fondo coloreado representa la probabilidad predicha por el modelo en diferentes combinaciones de características—las áreas rojas más oscuras indican mayor riesgo de inasistencia, mientras que las áreas azules más oscuras sugieren mayor probabilidad de asistencia. La frontera de decisión (donde probabilidad = 0.5) separa estas dos regiones.</p>
+<p>El gráfico muestra cómo la regresión logística convierte variables de entrada en probabilidades. Cada punto representa un caso: <strong>azul</strong> indica el resultado positivo y <strong>rojo</strong> el resultado negativo. El fondo coloreado representa la probabilidad predicha por el modelo en diferentes combinaciones de características—las áreas rojas más oscuras indican mayor riesgo, mientras que las áreas azules más oscuras sugieren menor riesgo. La frontera de decisión (donde probabilidad = 0.5) separa estas dos regiones.</p>
 
 {{< probabilities_translator lang="es" >}}
 
-{{% notice style="tip" title="Consejo" %}}Haz clic en cualquier punto del gráfico para ver la edad del paciente, días desde la última visita, la probabilidad predicha y el resultado real.{{% /notice %}}
+{{% notice style="tip" title="Consejo" %}}Haz clic en cualquier punto del gráfico para ver las variables del caso, la probabilidad predicha y el resultado real.{{% /notice %}}
 
 {{< /demo-wrapper >}}
 
@@ -56,19 +56,19 @@ La regresión logística transforma una combinación lineal de variables en una 
 - **Multicolinealidad**: Variables predictoras altamente correlacionadas pueden causar problemas
 {{% /notice %}}
 
-### Interpretación en el Contexto Médico
+### Ejemplo de Interpretación
 
 {{% notice style="tip" title="Análisis de Probabilidades" %}}
-En el contexto de asistencia a citas:
+En un contexto de churn / abandono:
 
-- **Probabilidad < 0.3**: Paciente confiable, baja probabilidad de inasistencia
-- **Probabilidad 0.3-0.7**: Zona de incertidumbre, considerar recordatorios
-- **Probabilidad > 0.7**: Alto riesgo de inasistencia, intervención recomendada
+- **Probabilidad < 0.3**: Riesgo bajo; normalmente no requiere intervención
+- **Probabilidad 0.3-0.7**: Zona de incertidumbre; considerar recordatorios o acción ligera
+- **Probabilidad > 0.7**: Riesgo alto; priorizar intervención
 
 **Variables del modelo:**
-- **Edad**: Pacientes jóvenes y muy mayores pueden tener patrones diferentes
-- **Días desde última visita**: Intervalos muy largos pueden indicar desconexión
-- **Historial**: Comportamiento pasado es predictor del futuro
+- **Recencia**: Intervalos largos pueden indicar desconexión
+- **Engagement**: Baja interacción puede correlacionar con abandono
+- **Historial**: El comportamiento pasado suele predecir el futuro
 {{% /notice %}}
 
 {{< terminal >}}

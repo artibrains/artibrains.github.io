@@ -1,0 +1,41 @@
+---
+title: "AI in Education"
+description: "Tutoring, feedback, and accessibility—when the assistant becomes a teacher." 
+weight: 3
+slug: "ai-education"
+draft: false
+---
+
+## Concrete products (not theory)
+
+Education has a lot of hype, but there *are* real, shipping systems you can inspect.
+
+## Khanmigo (Khan Academy)
+
+Khan Academy’s **Khanmigo** positions itself as an AI support tool for teachers and learners, emphasizing guided help (not just answers) and teacher workflows.
+
+- Overview: https://khanmigo.ai/
+
+## Duolingo Max (GPT-4-powered features)
+
+Duolingo Max is a paid tier that adds features like **Roleplay** and **Video Call**, designed to create interactive conversation practice.
+
+- Product post: https://blog.duolingo.com/duolingo-max/
+
+## The big risk (and the fix)
+
+{{< notice style="warning" title="The tutoring trap" >}}
+If a system explains confidently but incorrectly, it scales misunderstandings.
+{{< /notice >}}
+
+The safer pattern is exactly what we’ve repeated throughout the book:
+
+- AI proposes hints / feedback.
+- The system forces intermediate steps.
+- Teachers, rubrics, or automated checkers validate outcomes.
+
+## What to add to this chapter (practical checklist)
+
+- Always include a “show your work” loop.
+- Prefer domains with built-in graders (math, code, language drills).
+- Make reporting errors easy, and iterate.

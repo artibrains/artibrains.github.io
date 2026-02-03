@@ -6,7 +6,7 @@ draft: false
 slug: "bibliografia-knn-arboles-decision"
 ---
 
-Estas referencias refuerzan la narrativa del capítulo sobre **clasificadores interpretables**: cómo opera K-NN, cómo ajustar y explicar árboles de decisión y cómo se aplican en entornos clínicos con requisitos de transparencia.
+Estas referencias refuerzan la narrativa del capítulo sobre **clasificadores interpretables**: cómo opera K-NN, cómo ajustar y explicar árboles de decisión y cómo se aplican en entornos con requisitos de transparencia.
 
 ---
 
@@ -15,7 +15,7 @@ Estas referencias refuerzan la narrativa del capítulo sobre **clasificadores in
 1. [Fundamentos de K-Nearest Neighbors](#1-fundamentos-de-k-nearest-neighbors)  
 2. [Árboles de decisión](#2-árboles-de-decisión)  
 3. [Métricas de distancia y normalización](#3-métricas-de-distancia-y-normalización)  
-4. [Casos médicos y adopción](#4-casos-médicos-y-adopción)  
+4. [Casos de estudio y adopción](#4-casos-de-estudio-y-adopción)  
 5. [Recursos adicionales](#5-recursos-adicionales)
 
 ---
@@ -55,7 +55,7 @@ Estas referencias refuerzan la narrativa del capítulo sobre **clasificadores in
 
 ---
 
-## 4. Casos médicos y adopción
+## 4. Casos de estudio y adopción
 
 | Recurso | Destacado | Acceso |
 |---------|-----------|--------|

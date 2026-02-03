@@ -1,9 +1,11 @@
 ---
-title: "7.6 Interactive Game: Human Preference Alignment (RLHF)"
+title: "8.1 When Machines Learn from Our Preferences (RLHF)"
 description: "Experience how a pre-trained language model is fine-tuned through human preferences, learning which types of responses are most appropriate."
 date: 2024-01-22
-weight: 60
+weight: 10
 slug: "human-preference-alignment"
+aliases:
+    - "/how-machines-think/language-revolution-llms/human-preference-alignment/"
 ---
 
 ## Introduction

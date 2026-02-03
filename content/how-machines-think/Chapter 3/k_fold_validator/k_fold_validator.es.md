@@ -14,8 +14,8 @@ La validación cruzada (K-Fold) es una técnica fundamental para evaluar el rend
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="Has desarrollado un modelo de IA para detectar una anomalía cardiaca a partir de electrocardiogramas. Tienes 1000 casos de pacientes y necesitas saber qué tan confiable es tu modelo antes de usarlo en un entorno clínico."
-    highlight="En aplicaciones médicas, la estabilidad en la evaluación es crítica. Un modelo que aparenta funcionar bien por casualidad puede fallar en casos reales, poniendo en riesgo la seguridad del paciente. La validación cruzada K-Fold sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento, obteniendo una estimación mucho más estable y realista."
+    scenario="Has desarrollado un modelo para detectar dispositivos defectuosos a partir de trazas de sensores. Tienes 1000 registros etiquetados y necesitas saber qué tan confiable es tu modelo antes de usarlo en un flujo real."
+    highlight="En aplicaciones de alto impacto, la estabilidad en la evaluación es crítica. Un modelo que parece funcionar bien por casualidad en una partición puede fallar en producción. K-Fold sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento, obteniendo una estimación más estable y realista."
     steps="Haz una división simple: Calcula el rendimiento con un solo train/test y observa cómo puede fluctuar significativamente según la partición aleatoria.|Repite la división: Prueba varias particiones aleatorias para notar lo inestable que puede ser el error. Vers como cada división da resultados diferentes.|Activa K-Fold: Cambia a la validación cruzada y comprueba cómo el error promedio se estabiliza entre los folds, proporcionando una medida más confiable del rendimiento real del modelo."
 >}}
 
@@ -57,6 +57,6 @@ La validación cruzada K-Fold divide los datos en K subconjuntos (folds) de tama
 - Conjuntos de datos pequeños o medianos
 - Evaluación final del modelo
 - Cuando la precisión de la estimación es crítica
-- En medicina y otras aplicaciones de alto riesgo
+- En aplicaciones de alto impacto
 
 {{< terminal >}}

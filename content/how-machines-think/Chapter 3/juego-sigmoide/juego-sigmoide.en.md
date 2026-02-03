@@ -9,19 +9,19 @@ slug: "sigmoid-function-classifier"
 
 ## Introduction
 
-Explore how the sigmoid function transforms any linear combination into a probability between 0 and 1, becoming the cornerstone of logistic regression. In this interactive simulation you will separate high- and low-risk patients by adjusting the slope and the initial height of the curve.
+Explore how the sigmoid function transforms any linear combination into a probability between 0 and 1, becoming the cornerstone of logistic regression. In this interactive simulation you will separate high- and low-risk cases by adjusting the slope and the initial height of the curve.
 
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="You have built a model that estimates the **probability of post-operative complications** using each patient's age and blood pressure. Your goal is to tune the decision boundary to correctly separate low- and high-risk patients."
-    highlight="The sigmoid function transforms any numerical value into a probability between 0 and 1, enabling safe therapeutic decisions. Properly adjusting the curve ensures that high-risk patients receive necessary preventive care, while avoiding unnecessary interventions for low-risk patients."
-    steps="Adjust Parameters: Use the w₁, w₂, and bias (b) sliders to modify the slope and position of the sigmoid curve. Observe how the performance metrics react in real time.|Minimize Log-Loss: Separate the green points (no complications) from the red points (complications) by tuning the sigmoid parameters to achieve the best classification.|Evaluate Metrics: Check accuracy and log-loss to judge classification quality. Adjust the threshold to be more or less strict when flagging high-risk patients."
+    scenario="You have built a model that estimates the **probability of an undesired outcome** using two input signals. Your goal is to tune the decision boundary to correctly separate low- and high-risk cases."
+    highlight="The sigmoid function transforms any numerical value into a probability between 0 and 1, turning raw scores into interpretable confidence. Adjusting the curve controls how aggressively the system flags high-risk cases, balancing misses vs. false alarms."
+    steps="Adjust Parameters: Use the w₁, w₂, and bias (b) sliders to modify the slope and position of the sigmoid curve. Observe how the performance metrics react in real time.|Minimize Log-Loss: Separate the green points (low-risk) from the red points (high-risk) by tuning the sigmoid parameters to achieve the best classification.|Evaluate Metrics: Check accuracy and log-loss to judge classification quality. Adjust the threshold to be more or less strict when flagging high-risk cases."
 >}}
 
 ## Interactive Demonstration
 
-The graph shows patient data points where each point represents age and blood pressure. Green points indicate patients without post-operative complications and red points show patients with complications. The sigmoid curve is your classification model. Your goal is to adjust the curve's parameters so it separates both groups as accurately as possible, minimizing the error between predicted and actual classifications.
+The graph shows data points defined by two input signals. Green points indicate low-risk cases and red points show high-risk cases. The sigmoid curve is your classification model. Your goal is to adjust the curve's parameters so it separates both groups as accurately as possible, minimizing the error between predicted and actual classifications.
 
 {{< demo-wrapper title="Sigmoid Function Simulator" >}}
 
@@ -45,9 +45,9 @@ The graph shows patient data points where each point represents age and blood pr
 
 - **w₁ and w₂ sliders** tilt the decision boundary so the curve leans toward the high- or low-risk clusters.
 - **Bias (b)** shifts the sigmoid left or right to re-centre the threshold over the data cloud.
-- **Threshold** changes how strict the classifier is when deciding which patients are flagged as high risk.
+- **Threshold** changes how strict the classifier is when deciding which cases are flagged as high risk.
 - **Mode toggle** alternates between the crisp classification view and a probability heatmap.
-- **Check classification / New game** evaluate the current settings or regenerate a new population of patients.
+- **Check classification / New game** evaluate the current settings or regenerate a new population.
 
 ### Terminal Feedback
 
@@ -72,7 +72,7 @@ Where:
 ### Decision Boundary and Threshold
 
 {{% notice style="tip" title="Interpreting the Results" %}}
-The sigmoid converts the value `z` into a probability between 0 and 1. The threshold (0.5 by default) determines when a patient is labeled “high risk”:
+The sigmoid converts the value `z` into a probability between 0 and 1. The threshold (0.5 by default) determines when a case is labeled “high risk”:
 
 - Probability > threshold → classify as **“high risk”** (red)  
 - Probability ≤ threshold → classify as **“low risk”** (green)

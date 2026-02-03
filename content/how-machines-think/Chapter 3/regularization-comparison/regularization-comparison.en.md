@@ -13,9 +13,9 @@ When training a predictive model, **regularization** helps us control its comple
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="A medical team is developing a model to predict the risk of post-operative complications. They have many available variables: age, weight, blood pressure, glucose, cholesterol, smoking history, medications, etc. Not all are equally relevant, and some may be correlated. How to decide which features to keep and how to prevent the model from overfitting the training data?"
+    scenario="A team is developing a model to predict the risk of an undesired outcome. They have many available variables: usage, history, device signals, support interactions, etc. Not all are equally relevant, and some may be correlated. How do you decide which features to keep and how do you prevent the model from overfitting the training data?"
     highlight="Regularization not only prevents overfitting but can also help with **feature selection**. L1 (Lasso) tends to eliminate irrelevant features by driving their weights to zero. L2 (Ridge) reduces all weights but keeps all features. Elastic Net combines both approaches, being especially useful when there are many correlated features."
-    steps="Generate Patient Data: Create a synthetic dataset with multiple biomarkers, some relevant and others irrelevant or redundant.|Compare Regularizations: Adjust the regularization factor (λ) and observe how L1, L2, and Elastic Net affect each feature's weights differently.|Visualize the Impact: See how the prediction curve and weight table change according to the type and strength of regularization applied."
+    steps="Generate Example Data: Create a synthetic dataset with multiple signals, some relevant and others irrelevant or redundant.|Compare Regularizations: Adjust the regularization factor (λ) and observe how L1, L2, and Elastic Net affect each feature's weights differently.|Visualize the Impact: See how the prediction curve and weight table change according to the type and strength of regularization applied."
 >}}
 
 ## Interactive Demonstration
@@ -134,8 +134,8 @@ Use the interactive demonstration to:
 
 5. **Balance in Elastic Net**: Adjust the α parameter to see how it behaves more like L1 (α → 1) or more like L2 (α → 0).
 
-{{% notice style="warning" title="Important in Medicine" %}}
-Automatic feature selection by L1/Elastic Net should be complemented with medical knowledge. A model might eliminate a variable that doctors know is clinically relevant. Always validate results with domain experts.
+{{% notice style="warning" title="Important in Practice" %}}
+Automatic feature selection by L1/Elastic Net should be complemented with domain knowledge. A model might eliminate a variable that subject-matter experts know is relevant. Always validate results with domain experts.
 {{% /notice %}}
 
 ## References

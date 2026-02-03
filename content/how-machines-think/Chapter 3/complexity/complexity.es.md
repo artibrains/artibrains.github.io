@@ -13,8 +13,8 @@ El sobreajuste (overfitting) y la regularización son conceptos clave para afron
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="Estás desarrollando un modelo para predecir el riesgo de una enfermedad basándote en datos de pacientes (analíticas, historial, síntomas). El modelo debe aprender patrones útiles sin 'memorizar' los casos específicos de tu conjunto de entrenamiento."
-    highlight="Un modelo demasiado complejo puede aprender el ruido de los datos (sobreajuste) y fallar con pacientes nuevos. Uno demasiado simple puede ignorar indicadores clave (subajuste). La regularización añade una penalización por complejidad que ayuda al modelo a encontrar el equilibrio óptimo para generalizar correctamente a casos inéditos."
+    scenario="Estás desarrollando un modelo para predecir el riesgo de churn (abandono) basándote en señales de uso y actividad. El modelo debe aprender patrones útiles sin 'memorizar' los casos específicos de tu conjunto de entrenamiento."
+    highlight="Un modelo demasiado complejo puede aprender el ruido de los datos (sobreajuste) y fallar con casos nuevos. Uno demasiado simple puede ignorar indicadores clave (subajuste). La regularización añade una penalización por complejidad que ayuda al modelo a encontrar el equilibrio óptimo para generalizar correctamente a casos inéditos."
     steps="Ajusta la complejidad: Usa el control para aumentar o reducir la flexibilidad del modelo y compara el error de entrenamiento frente al de validación. Observa cómo modelos muy complejos memorizan el ruido.|Aplica regularización: Cambia a la pestaña Regularización para añadir una penalización (lambda) que frene a los modelos demasiado complejos y mejore la generalización.|Encuentra el equilibrio óptimo: Pulsa **Encontrar Mejor Modelo** para que la herramienta busque la combinación que minimiza el error de validación."
 >}}
 

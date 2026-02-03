@@ -1,6 +1,6 @@
 ---
 title: "4.1 Estrategias Multiclase: Uno contra Resto (OvR) y Uno contra Uno (OvO)"
-description: "Visualización interactiva de las estrategias OvR y OvO para clasificación multiclase, aplicada al diagnóstico de tipos de enfermedades."
+description: "Visualización interactiva de las estrategias OvR y OvO para clasificación multiclase, aplicada al enrutamiento en varias categorías."
 weight: 1
 draft: false
 slug: "estrategias-multiclase"
@@ -11,13 +11,13 @@ slug: "estrategias-multiclase"
 Cuando un problema tiene **más de dos clases** (multiclase), muchos algoritmos de clasificación binaria necesitan adaptarse. Las dos estrategias más comunes son **Uno contra Resto (OvR)** y **Uno contra Uno (OvO)**. Cada una descompone el problema multiclase en múltiples problemas binarios más simples.
 
 {{< demo-intro 
-    title="Visualizador de Estrategias Multiclase: ¿Qué Tipo de Infección Es?"
+  title="Visualizador de Estrategias Multiclase: ¿Qué Categoría Es?"
     algorithm_type="Estrategias de clasificación multiclase"
     difficulty="intermediate"
-    medical_scenario="Un médico necesita clasificar infecciones en tres tipos: viral, bacteriana o fúngica. Los análisis de sangre proporcionan múltiples biomarcadores, pero los algoritmos de clasificación binaria solo distinguen entre dos clases. ¿Cómo extenderlos a tres o más categorías?"
-    medical_highlight="Las estrategias OvR y OvO permiten reutilizar clasificadores binarios para problemas multiclase. **OvR** entrena un clasificador por clase (esa clase vs. todas las demás), mientras que **OvO** entrena un clasificador para cada par de clases. Cada estrategia tiene ventajas según el contexto médico."
+  medical_scenario="Un equipo de soporte necesita enrutar solicitudes entrantes a tres colas: Facturación, Soporte técnico o Cuenta. Cada solicitud tiene un par de señales numéricas, pero un clasificador binario solo distingue entre dos clases. ¿Cómo extenderlo a tres o más categorías?"
+  medical_highlight="Las estrategias OvR y OvO permiten reutilizar clasificadores binarios para problemas multiclase. **OvR** entrena un clasificador por clase (esa clase vs. todas las demás), mientras que **OvO** entrena un clasificador para cada par de clases. Cada estrategia tiene ventajas según el tamaño de los datos, el balance de clases y la separabilidad entre categorías."
     intro_text="Explorarás cómo funcionan las estrategias **Uno contra Resto (OvR)** y **Uno contra Uno (OvO)** para clasificación multiclase. Verás cómo cada estrategia descompone el problema y combina las decisiones de múltiples clasificadores binarios."
-    steps="Genera Datos de Pacientes: Crea un conjunto de pacientes con tres tipos de infección (viral, bacteriana, fúngica) basados en dos biomarcadores.|Compara las Estrategias: Observa cómo OvR entrena 3 clasificadores (uno por clase) y cómo OvO entrena 3 clasificadores (uno por cada par de clases).|Visualiza las Decisiones: Explora las regiones de decisión y ve cómo cada estrategia combina los votos de sus clasificadores binarios para la clasificación final."
+  steps="Genera Datos de Ejemplo: Crea un conjunto de datos con tres categorías (Facturación, Soporte técnico, Cuenta) basadas en dos señales numéricas.|Compara las Estrategias: Observa cómo OvR entrena 3 clasificadores (uno por clase) y cómo OvO entrena 3 clasificadores (uno por cada par de clases).|Visualiza las Decisiones: Explora las regiones de decisión y ve cómo cada estrategia combina los votos de sus clasificadores binarios para la clasificación final."
 >}}
     
 ## Demostración Interactiva
@@ -98,14 +98,14 @@ Para $K = 5$ clases:
   - Cada par de clases tiene patrones de separación muy distintos
 {{% /notice %}}
 
-## Aplicación en Medicina
+## Aplicaciones prácticas
 
-En el contexto del triaje hospitalario:
+En problemas reales de enrutamiento y categorización:
 
-- **OvR** podría usarse para clasificar niveles de urgencia (crítico, urgente, no urgente, consulta) con un modelo por nivel
-- **OvO** sería útil para distinguir entre tipos específicos de patologías con biomarcadores muy diferentes
+- **OvR** encaja bien cuando quieres una puntuación por categoría (un modelo por categoría)
+- **OvO** puede ser útil cuando ciertos pares de categorías son especialmente difíciles y requieren fronteras especializadas
 
-Ambas estrategias permiten extender algoritmos como Regresión Logística, SVM o Árboles de Decisión a problemas multiclase manteniendo su interpretabilidad y eficacia.
+Ambas estrategias permiten extender algoritmos como Regresión Logística, SVM o Árboles de Decisión a problemas multiclase manteniendo su interpretabilidad.
 
 ## Experimenta
 

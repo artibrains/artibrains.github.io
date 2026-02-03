@@ -1,7 +1,7 @@
 ---
 Title: "2.2 - Comparing Absolute Error (L1) vs. Mean Squared Error (L2)"
 Weight: 21
-Description: "Interactive demo to understand the differences between L1 and L2 error functions and how they affect the evaluation of machine learning models in medical contexts."
+Description: "Interactive demo to understand the differences between L1 and L2 error functions and how they affect the evaluation of machine learning models in real-world settings."
 Date: 2025-04-17
 draft: false
 slug: "error-comparison-l1-vs-l2"
@@ -9,13 +9,14 @@ slug: "error-comparison-l1-vs-l2"
 
 ## Introduction
 
-When developing machine learning models for medical applications, the choice of error function is crucial. This demo will help you visually understand the differences between Mean Absolute Error (L1) and Mean Squared Error (L2), and how each responds differently to outliers.
+When developing machine learning models, the choice of error function is crucial. This demo will help you visually understand the differences between Mean Absolute Error (L1) and Mean Squared Error (L2), and how each responds differently to outliers.
 
 {{< medical-context
 type="research"
 level="intermediate"
 scenario="You are developing a model to predict blood glucose levels in diabetic patients based on variables such as diet, exercise, and insulin dose. Some patients have extreme or inconsistent values that could affect the model's accuracy."
-highlight="The choice between L1 and L2 as the error function determines how the model responds to these outliers. L1 is more robust to outliers, while L2 penalizes large errors more severely, which can be crucial for patient safety."
+scenario="You are developing a model to predict delivery time based on factors such as distance, traffic, and weather. Some routes have extreme or inconsistent values (incidents, delays) that can skew the evaluation."
+highlight="The choice between L1 and L2 determines how the model responds to outliers. L1 is more robust to outliers, while L2 penalizes large errors more severely—useful when big misses are particularly costly."
 >}}
 
 {{< demo-wrapper title="L1 vs L2 Error Function Comparison" >}}
@@ -74,13 +75,13 @@ The Mean Squared Error measures the average of the squares of the differences:
 - **Optimization**: L2 is differentiable and facilitates optimization algorithms
 {{% /notice %}}
 
-{{% notice style="warning" title="Considerations in Medicine" %}}
-In medical applications, the choice is especially critical:
+{{% notice style="warning" title="High-stakes considerations" %}}
+In high-stakes or cost-sensitive applications, the choice is especially important:
 
-- **Diagnosis**: L2 may be preferable to avoid serious false negatives
-- **Dosing**: L1 may be more reliable in the face of inconsistent patient data
-- **Monitoring**: L2 to detect critical changes quickly
-- **Research**: L1 for robust analysis of heterogeneous populations
+- **Anomaly detection**: L2 can strongly discourage large misses on rare but critical events
+- **Noisy measurements**: L1 is often more stable when occasional outliers are expected
+- **Monitoring**: L2 reacts more aggressively to large deviations
+- **Heterogeneous data**: L1 can produce more robust aggregate evaluation
 {{% /notice %}}
 
 {{< terminal >}}

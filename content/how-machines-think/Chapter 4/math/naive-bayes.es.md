@@ -1,6 +1,6 @@
 ---
 title: "📐 Fundamentos de Naive Bayes"
-description: "Deriva el clasificador Naive Bayes, las estrategias de suavizado y los vínculos de interpretabilidad para flujos clínicos."
+description: "Deriva el clasificador Naive Bayes, las estrategias de suavizado y los vínculos de interpretabilidad para flujos de clasificación prácticos."
 weight: 91
 draft: false
 slug: "fundamentos-naive-bayes"
@@ -46,7 +46,7 @@ $$
 \widehat{P}(x_j = v \mid y = k) = \frac{N_{jk}(v)}{N_k},
 $$
 
-donde $N_k$ es el número de ejemplos de entrenamiento en la clase $k$ y $N_{jk}(v)$ la cuenta con la característica $x_j = v$. Las variantes continuas usan supuestos gaussianos o densidades con kernels, pero la narrativa de Minermont trabaja con variables discretizadas, por lo que el caso categórico es suficiente.
+donde $N_k$ es el número de ejemplos de entrenamiento en la clase $k$ y $N_{jk}(v)$ la cuenta con la característica $x_j = v$. Las variantes continuas usan supuestos gaussianos o densidades con kernels, pero aquí trabajamos con señales discretizadas, por lo que el caso categórico es suficiente.
 
 ## Suavizado de Laplace
 
@@ -70,20 +70,21 @@ Durante la predicción, puntúa cada clase en espacio logarítmico y elige la ma
 
 ## Ejemplo trabajado
 
-Para las categorías de triaje `Cardiología`, `Respiratorio`, `Neurología`, supón que el síntoma `DolorTorácico` toma valores {`Sí`, `No`} con los conteos:
+Para las categorías de enrutamiento `Facturación`, `Soporte técnico`, `Cuenta`, supón que la característica `TienePalabraFactura` toma valores {`Sí`, `No`} con los conteos:
 
-- `Cardiología`: 35 `Sí`, 15 `No`
-- `Respiratorio`: 5 `Sí`, 45 `No`
-- `Neurología`: 2 `Sí`, 48 `No`
+- `Facturación`: 35 `Sí`, 15 `No`
+- `Soporte técnico`: 5 `Sí`, 45 `No`
+- `Cuenta`: 2 `Sí`, 48 `No`
 
-Con $\alpha = 1$ y $|\mathcal{V}_{DolorTorácico}| = 2$:
+Con $\alpha = 1$ y $|\mathcal{V}_{TienePalabraFactura}| = 2$:
 
 $$
 \widehat{P}(\text{Dolor=Sí} \mid \text{Cardiología}) = \frac{35 + 1}{50 + 2} = 0.69, \\
-\widehat{P}(\text{Dolor=Sí} \mid \text{Respiratorio}) = \frac{5 + 1}{50 + 2} = 0.12.
+\widehat{P}(\text{TienePalabraFactura=Sí} \mid \text{Facturación}) = \frac{35 + 1}{50 + 2} = 0.69, \\
+\widehat{P}(\text{TienePalabraFactura=Sí} \mid \text{Soporte\ técnico}) = \frac{5 + 1}{50 + 2} = 0.12.
 $$
 
-Así, `Dolor=Sí` incrementa con fuerza el posterior cardiológico, mientras que el suavizado evita probabilidades nulas en el resto de las clases.
+Así, `TienePalabraFactura=Sí` incrementa con fuerza el posterior de Facturación, mientras que el suavizado evita probabilidades nulas en el resto de las clases.
 
 ## Fortalezas y limitaciones
 
@@ -92,7 +93,7 @@ Así, `Dolor=Sí` incrementa con fuerza el posterior cardiológico, mientras que
 
 ## Vínculo narrativo
 
-Los clínicos pueden inspeccionar las verosimilitudes por característica para justificar predicciones, en línea con la insistencia de Alma en la transparencia. El término de suavizado recuerda la importancia de no descartar síntomas raros por falta de datos.
+Los equipos pueden inspeccionar las verosimilitudes por característica para justificar predicciones, en línea con la insistencia de Alma en la transparencia. El término de suavizado recuerda la importancia de no descartar señales raras por falta de datos.
 
 ## Referencias
 

@@ -4,31 +4,32 @@
 
 <div class="medical-context">
     {{ if eq $lang "es" }}
-    <h2>🏥 Contexto: Descifrando las Notas Clínicas</h2>
+    <h2>🧩 Contexto: Descifrando Tickets y Notas Internas</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
-            <p><strong>El Desafío de Víctor:</strong> "¿Cómo podemos hacer que una IA entienda miles de informes de
-                alta?
-                Están llenos de abreviaturas como 'Rx' o 'ECG' y términos complejos como 'hipercolesterolemia'".</p>
+            <p><strong>El Desafío de Víctor:</strong> "¿Cómo podemos hacer que una IA entienda miles de tickets y notas
+                internas?
+                Están llenos de abreviaturas, nombres de sistemas y jerga del equipo".</p>
             <p class="highlight"><strong>La Solución de Alma:</strong> "Antes de entender, la IA debe aprender a leer
                 nuestro idioma. El algoritmo <strong>Byte-Pair Encoding (BPE)</strong> es como un lingüista que aprende
-                el 'dialecto' del hospital. Identifica y fusiona los fragmentos más comunes ('cardio-', '-patía',
-                '-itis')
-                para crear un vocabulario médico optimizado. Es el primer paso para que el modelo comprenda de
+                el 'dialecto' del equipo. Identifica y fusiona los fragmentos más comunes (prefijos, sufijos y términos
+                repetidos)
+                para crear un vocabulario optimizado. Es el primer paso para que el modelo comprenda de
                 verdad."</p>
         </div>
     </div>
     {{ else }}
-    <h2>🏥 Context: Deciphering Clinical Notes</h2>
+    <h2>🧩 Context: Deciphering Tickets and Internal Notes</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
-            <p><strong>Víctor's Challenge:</strong> "How can we make an AI understand thousands of discharge reports?
-                They're full of abbreviations like 'Rx' or 'ECG' and complex terms like 'hypercholesterolemia'".</p>
+            <p><strong>Víctor's Challenge:</strong> "How can we make an AI understand thousands of support tickets and
+                internal notes?
+                They're full of abbreviations, system names, and team jargon".</p>
             <p class="highlight"><strong>Alma's Solution:</strong> "Before understanding, AI must learn to read
                 our language. The <strong>Byte-Pair Encoding (BPE)</strong> algorithm is like a linguist learning
-                the hospital's 'dialect'. It identifies and merges the most common fragments ('cardio-', '-pathy',
-                '-itis')
-                to create an optimized medical vocabulary. It's the first step for the model to truly understand."</p>
+                the team's 'dialect'. It identifies and merges the most common fragments (repeated prefixes, suffixes,
+                and terms)
+                to create an optimized vocabulary. It's the first step for the model to truly understand."</p>
         </div>
     </div>
     {{ end }}
@@ -47,8 +48,8 @@
         <h2>¿Cómo replicarás el trabajo del equipo?</h2>
         <div class="explanation-columns">
             <div class="column">
-                <h3>1. Entrena con el Corpus del Hospital</h3>
-                <p>El simulador carga por defecto un texto sobre el Hospital Minermont (el 'corpus'). El algoritmo lo
+                <h3>1. Entrena con el Corpus del Equipo</h3>
+                <p>El simulador carga por defecto un texto sobre el Centro de servicio Minermont (el 'corpus'). El algoritmo lo
                     analizará para encontrar los pares de caracteres más comunes.</p>
             </div>
             <div class="column">
@@ -76,8 +77,8 @@
         <h2>How will you replicate the team's work?</h2>
         <div class="explanation-columns">
             <div class="column">
-                <h3>1. Train with the Hospital Corpus</h3>
-                <p>The simulator loads by default a text about Minermont Hospital (the 'corpus'). The algorithm will
+                <h3>1. Train with the Team Corpus</h3>
+                <p>The simulator loads by default a text about the Minermont Service Center (the 'corpus'). The algorithm will
                     analyze it to find the most common character pairs.</p>
             </div>
             <div class="column">

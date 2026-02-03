@@ -338,13 +338,13 @@ document.getElementById('checkButton').addEventListener('click', () => {
         <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
             <tr><td>Precisión</td><td>${accuracy.toFixed(1)}%</td></tr>
-            <tr><td>Pacientes Correctamente Clasificados</td><td>${correct} de ${total}</td></tr>
+            <tr><td>Casos Correctamente Clasificados</td><td>${correct} de ${total}</td></tr>
             <tr><td>Umbral de Decisión</td><td>${currentThreshold.toFixed(2)}</td></tr>
         </table>
     `;
 
     if (accuracy >= 80) {
-        summaryMessage = `¡Excelente trabajo! 🎉 Has conseguido una precisión del ${accuracy.toFixed(1)}%, superando el objetivo del 80%. Tu modelo identifica correctamente el riesgo de no-show en la mayoría de los pacientes.`;
+        summaryMessage = `¡Excelente trabajo! 🎉 Has conseguido una precisión del ${accuracy.toFixed(1)}%, superando el objetivo del 80%. Tu modelo identifica correctamente la clase de la mayoría de los casos.`;
     } else if (accuracy >= 70) {
         summaryMessage = `¡Buen intento! 👍 Has alcanzado una precisión del ${accuracy.toFixed(1)}%. Estás cerca del objetivo. Prueba ajustando un poco más los parámetros.`;
     } else {

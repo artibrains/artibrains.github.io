@@ -13,14 +13,14 @@ Las Máquinas de Vectores de Soporte (SVM por sus siglas en inglés) son algorit
 {{< medical-context 
     type="research"  
     difficulty="intermediate"
-    scenario="Un laboratorio de diagnóstico médico necesita clasificar muestras de tejido como benignas o malignas basándose en dos biomarcadores clave. Usando datos históricos de biopsias previas, el sistema debe encontrar el límite de decisión que mejor separe las muestras de tejido sano del tejido enfermo."
-    highlight="Las SVM encuentran el hiperplano separador óptimo que maximiza el margen entre clases, haciendo las clasificaciones más confiables. En diagnóstico médico, esto se traduce en sistemas de detección más precisos que pueden distinguir mejor entre estados saludables y enfermos, reduciendo tanto los falsos positivos como los falsos negativos."
+    scenario="Un equipo de control de calidad necesita clasificar elementos como válidos o defectuosos basándose en dos características medidas. Usando datos históricos de inspección, el sistema debe encontrar la frontera de decisión que mejor separe ambas clases."
+    highlight="Las SVM encuentran el hiperplano separador que maximiza el margen entre clases, lo que suele mejorar la robustez. En la práctica, esto puede reducir falsas alarmas y defectos no detectados en datos nuevos."
     steps="Ajusta los Parámetros del Hiperplano: Mueve los controles deslizantes para cambiar la posición y el ángulo del límite de decisión. Observa cómo cambia el margen y la precisión de clasificación.|Entiende el Margen: El margen es la distancia entre el hiperplano y los puntos más cercanos de cada clase (vectores de soporte). Un margen mayor generalmente significa mejor generalización.|Encuentra la Solución Óptima: Usa el botón 'Encontrar Mejor Hiperplano' para que el algoritmo SVM calcule automáticamente el límite separador óptimo que maximiza el margen."
 >}}
 
 ## Demostración Interactiva
 
-El gráfico muestra puntos de datos de muestras de tejido donde los puntos azules representan muestras benignas y los puntos rojos representan muestras malignas. La posición de cada punto está determinada por dos mediciones de biomarcadores. La línea es tu límite de decisión (hiperplano), y el área sombreada representa el margen. Tu objetivo es ajustar el límite para maximizar el margen mientras clasificas correctamente todas las muestras.
+El gráfico muestra puntos de datos donde los puntos azules representan una clase (válido) y los puntos rojos representan la otra (defectuoso). La posición de cada punto está determinada por dos características medidas. La línea es tu límite de decisión (hiperplano), y el área sombreada representa el margen. Tu objetivo es ajustar el límite para maximizar el margen mientras clasificas correctamente los puntos.
 
 {{< demo-wrapper title="Optimizador de Clasificador SVM" >}}
 

@@ -1,28 +1,30 @@
 ---
-title: "7 - The Language Revolution: Understanding LLMs"
+title: "Chapter 7: The Language Revolution - Understanding LLMs"
 type: "chapter"
 weight: 7
 draft: false
 slug: "language-revolution-llms"
 ---
 
-With a solid foundation in predictive models, the Hospital Minermont team faces their most complex frontier yet: the vast universe of unstructured data. Every day, thousands of discharge reports, clinical notes, and patient progress records are generated—a treasure trove of information locked in free text. Could AI help them extract knowledge from these clinical narratives?
+## The Language Revolution: Understanding LLMs
 
-This question opens the door to the world of **Large Language Models (LLMs)**. Alma García, from AIA, explains that before a model can analyze, summarize, or generate text, it must learn to “read.” And the first step in reading is not understanding words, but breaking them down into manageable pieces.
-
-In this chapter, you will join the team in exploring the fundamental pillars on which all LLMs are built: **tokenization** and **semantic representations**.
+Large Language Models (LLMs) generate text by learning patterns over sequences. This chapter focuses on the foundations: **tokenization**, **embeddings**, and how text becomes learnable signals.
 
 1.  **[The Word Craftsman: The BPE Tokenizer]({{% relref "how-machines-think/Chapter 7/tokenizer_bpe/tokenizer_bpe.en.md" %}})**: Discover the **Byte-Pair Encoding (BPE)** algorithm. In this interactive simulation, you won't just see how it works—you'll train your own tokenizer. You will understand why this process of "learning a vocabulary" is crucial for an AI model to efficiently handle medical jargon, abbreviations, and the richness of human language.
 
+
 2.  **[Embedding Projector: Visualizing Word Vectors]({{% relref "how-machines-think/Chapter 7/embedding-projector/embedding-projector.en.md" %}})**: You will explore how words transform into mathematical vectors in high-dimensional spaces, where meaning emerges from geometry. Using the **TensorFlow Embedding Projector**, you'll visualize how language models organize medical knowledge, clustering related terms and capturing complex semantic relationships.
+
 
 3.  **[LLM Visualization: Seeing AI from the Inside]({{% relref "how-machines-think/Chapter 7/llm-visualization/llm-visualization.en.md" %}})**: You will discover the inner workings of a large language model through an **interactive 3D visualization**. You can observe how information flows through layers, how the attention mechanism works, and how the model finally predicts the next word. This tool connects everything learned in the chapter in a unique visual experience.
 
-4.  **[Traditional LLMs vs Reasoning LLMs]({{% relref "how-machines-think/Chapter 7/reasoning-llms/reasoning-llms.en.md" %}})**: A concise guide to what explicit reasoning adds (Chain‑of‑Thought, verification and extra test‑time compute) compared to classic LLMs, with an intro video and curated references.
+4.  **[LLM Landscape: The Most Relevant Models]({{% relref "how-machines-think/Chapter 7/llm-landscape/llm-landscape.en.md" %}})**: A practical map of today’s main model families (frontier APIs, open-weight models, on-device options) and the trade-offs that matter in real deployments.
 
-5.  **[Interactive Game: Training a Language Model]({{% relref "how-machines-think/Chapter 7/llm-training-game/llm-training-game.en.md" %}})**: Experience how a language model progressively improves its predictions as it adjusts its internal parameters. In this educational game, you'll train a small neural network on a thematic corpus, visually observing how values change with each processed example.
+5.  **[LLM Benchmarks: Current vs. Saturated]({{% relref "how-machines-think/Chapter 7/llm-benchmarks/llm-benchmarks.en.md" %}})**: A curated guide to the most used LLM benchmarks, which ones still discriminate models, and where to verify leaderboard claims.
 
-Get ready for the first steps on the journey toward understanding artificial language, a skill that is transforming medicine and the world.
+6.  **[Interactive Game: Training a Language Model]({{% relref "how-machines-think/Chapter 7/llm-training-game/llm-training-game.en.md" %}})**: Experience how a language model progressively improves its predictions as it adjusts its internal parameters. In this educational game, you'll train a small neural network on a thematic corpus, visually observing how values change with each processed example.
+
+
 
 ### Algorithm Pseudocode
 
@@ -31,7 +33,7 @@ Get ready for the first steps on the journey toward understanding artificial lan
 ### Mathematical Foundations
 
 - **[Tokenisation & Embedding Geometry]({{% relref "how-machines-think/Chapter 7/math/tokenisation-embeddings.en.md" %}})**: Byte-Pair Encoding math and embedding-space intuition that grounds the tokenizer simulator and projector demo.
-- **[REINFORCE & RLHF]({{% relref "how-machines-think/Chapter 7/math/reinforce.en.md" %}})**: Policy-gradient derivations and the RLHF pipeline aligning language models with Minermont's clinical standards.
+- **[Universal Approximation Theorem]({{% relref "how-machines-think/Chapter 7/math/universal-approximation-theorem.en.md" %}})**: Why a single hidden layer can approximate any continuous function on a compact set (with key references).
 
 ### Bibliography and Additional Resources
 

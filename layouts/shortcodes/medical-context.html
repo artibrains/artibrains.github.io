@@ -1,7 +1,8 @@
 {{/*
-Shortcode unificado para contextos médicos
+Shortcode unificado para contexto narrativo/operativo
 Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlight="...">}}
-    */}}
+Nota: mantenemos el nombre/params por compatibilidad con el contenido existente.
+*/}}
 
     {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
     {{ $type := lower (.Get "type" | default "general") }}
@@ -12,14 +13,14 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
     {{ $intro_text := .Get "intro_text" | default "" }}
     {{ $steps := .Get "steps" | default "" }}
 
-    {{ $type_icon := "⚕️" }}
-    {{ if eq $type "hospital" }}{{ $type_icon = "🏥" }}{{ else if eq $type "clinic" }}{{ $type_icon = "🩺" }}{{ else if
-    eq $type "research" }}{{ $type_icon = "🔬" }}{{ else if eq $type "emergency" }}{{ $type_icon = "🚨" }}{{ else if eq
+    {{ $type_icon := "🧩" }}
+    {{ if eq $type "hospital" }}{{ $type_icon = "🏢" }}{{ else if eq $type "clinic" }}{{ $type_icon = "🏢" }}{{ else if
+    eq $type "research" }}{{ $type_icon = "🔬" }}{{ else if eq $type "emergency" }}{{ $type_icon = "⚠️" }}{{ else if eq
     $type "veterinary" }}{{ $type_icon = "🐾" }}{{ end }}
 
-    {{ $type_labels := dict "hospital" (dict "es" "Hospital" "en" "Hospital") "clinic" (dict "es" "Clínica" "en"
-    "Clinic") "research" (dict "es" "Investigación" "en" "Research") "emergency" (dict "es" "Emergencia" "en"
-    "Emergency") "veterinary" (dict "es" "Veterinaria" "en" "Veterinary") "general" (dict "es" "General" "en" "General")
+    {{ $type_labels := dict "hospital" (dict "es" "Centro de servicio" "en" "Service Center") "clinic" (dict "es" "Equipo" "en"
+    "Team") "research" (dict "es" "Investigación" "en" "Research") "emergency" (dict "es" "Incidencias" "en"
+    "Incidents") "veterinary" (dict "es" "Veterinaria" "en" "Veterinary") "general" (dict "es" "General" "en" "General")
     }}
     {{ $level_labels := dict "beginner" (dict "es" "Principiante" "en" "Beginner") "intermediate" (dict "es"
     "Intermedio" "en" "Intermediate") "advanced" (dict "es" "Avanzado" "en" "Advanced") }}
@@ -36,13 +37,17 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
 
     <link rel="stylesheet" href="/css/unified-demos.css">
 
-    <div class="medical-context medical-context--{{ $type }}">
+        {{/*
+            This site is meant to complement the book. Keep shortcodes compatible, but only render
+            activity-relevant information for interactive demos.
+        */}}
+        {{ if or $highlight $intro_text $steps }}
+        <div class="medical-context medical-context--{{ $type }}">
         <div class="medical-context__header">
             <div class="medical-context__title-group">
                 <div class="medical-context__icon">{{ $type_icon }}</div>
                 <div class="medical-context__titles">
-                    <h3 class="medical-context__main-title">{{ if eq $lang "es" }}Contexto Médico{{ else }}Medical
-                        Context{{ end }}</h3>
+                    <h3 class="medical-context__main-title">{{ if eq $lang "es" }}Actividad{{ else }}Activity{{ end }}</h3>
                     {{ if $title }}
                     <div class="medical-context__subtitle">{{ $title }}</div>
                     {{ end }}
@@ -55,23 +60,11 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
         </div>
 
         <div class="medical-context__body">
-            {{ if $scenario }}
-            <div class="medical-context__section medical-context__section--scenario">
-                <div class="medical-context__section-title">
-                    <span class="medical-context__section-icon">🎯</span>
-                    <span>{{ if eq $lang "es" }}Escenario{{ else }}Scenario{{ end }}</span>
-                </div>
-                <div class="medical-context__section-content">
-                    {{ $scenario | markdownify }}
-                </div>
-            </div>
-            {{ end }}
-
             {{ if $highlight }}
             <div class="medical-context__section medical-context__section--highlight">
                 <div class="medical-context__section-title">
                     <span class="medical-context__section-icon">💡</span>
-                    <span>{{ if eq $lang "es" }}Aplicación Clínica{{ else }}Clinical Application{{ end }}</span>
+                    <span>{{ if eq $lang "es" }}Qué observar{{ else }}What to watch for{{ end }}</span>
                 </div>
                 <div class="medical-context__section-content">
                     {{ $highlight | markdownify }}
@@ -102,3 +95,4 @@ Uso: {{< medical-context type="hospital" level="beginner" scenario="..." highlig
             {{ end }}
         </div>
     </div>
+    {{ end }}

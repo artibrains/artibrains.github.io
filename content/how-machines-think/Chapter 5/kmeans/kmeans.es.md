@@ -1,6 +1,6 @@
 ---
 title: "5.2 El poder del clustering: Descubriendo grupos ocultos"
-description: "Visualizador interactivo del algoritmo K-Means para descubrir perfiles de pacientes ocultos, inspirado en el proyecto del Hospital Minermont."
+description: "Visualizador interactivo del algoritmo K-Means para descubrir segmentos ocultos de usuarios, inspirado en el proyecto del Centro de servicio Minermont."
 weight: 1
 draft: false
 slug: "kmeans-grupos-ocultos"
@@ -13,8 +13,8 @@ El algoritmo **K-Means** es una poderosa herramienta de aprendizaje no supervisa
 {{< medical-context 
     type="hospital" 
     level="intermediate" 
-    scenario="Un hospital necesita identificar perfiles de pacientes similares basándose en síntomas y características clínicas, sin saber de antemano cuántos grupos diferentes existen. El objetivo es descubrir subgrupos de pacientes que podrían beneficiarse de tratamientos especializados."
-    highlight="K-Means revela grupos ocultos de pacientes con características similares, permitiendo al hospital desarrollar protocolos de tratamiento personalizados para cada subgrupo identificado, mejorando la eficacia del cuidado médico."
+    scenario="Un centro de servicio necesita identificar perfiles de usuarios similares basándose en algunas señales de comportamiento, sin saber de antemano cuántos grupos diferentes existen. El objetivo es descubrir segmentos que podrían beneficiarse de distintos flujos de soporte, enrutamiento o mensajes."
+    highlight="K-Means revela grupos ocultos con características similares, ayudando al equipo a diseñar procesos adaptados para cada segmento y a detectar clusters inusuales a tiempo."
 >}}
 
 ## Demostración Interactiva

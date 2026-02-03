@@ -1,6 +1,6 @@
 ---
 title: "4.2 Bosques Aleatorios: La Sabiduría de Múltiples Árboles"
-description: "Visualización interactiva de cómo un Random Forest combina múltiples árboles de decisión para mejorar la precisión y robustez en diagnósticos médicos."
+description: "Visualización interactiva de cómo un Random Forest combina múltiples árboles de decisión para mejorar la precisión y robustez en clasificación multiclase."
 weight: 13
 draft: false
 slug: "bosques-aleatorios"
@@ -8,16 +8,16 @@ slug: "bosques-aleatorios"
 
 ## Introducción
 
-Un **Bosque Aleatorio (Random Forest)** es un conjunto de múltiples árboles de decisión que trabajan juntos para tomar una decisión. Cada árbol se entrena con una muestra aleatoria diferente de los datos, y la predicción final se obtiene por votación mayoritaria. Es como consultar a un equipo de médicos expertos en lugar de uno solo.
+Un **Bosque Aleatorio (Random Forest)** es un conjunto de múltiples árboles de decisión que trabajan juntos para tomar una decisión. Cada árbol se entrena con una muestra aleatoria diferente de los datos, y la predicción final se obtiene por votación mayoritaria. Es como consultar a un equipo de especialistas en lugar de una sola opinión.
 
 {{< demo-intro 
-    title="Visualizador de Bosque Aleatorio: Consejo Médico Colaborativo"
+    title="Visualizador de Bosque Aleatorio: Muchos árboles, una decisión"
     algorithm_type="Ensemble Learning - Random Forest"
     difficulty="intermediate"
-    medical_scenario="Un hospital necesita diagnosticar condiciones médicas complejas donde un solo árbol de decisión podría equivocarse. Al igual que en medicina se busca una segunda opinión, el Random Forest consulta múltiples 'médicos' (árboles) entrenados con diferentes casos para llegar a un diagnóstico más confiable."
-    medical_highlight="Random Forest mejora la precisión y reduce el sobreajuste al combinar predicciones de múltiples árboles. Cada árbol ve una 'muestra' diferente de pacientes y características, lo que hace al bosque más robusto ante datos nuevos o inusuales."
+    medical_scenario="Un equipo de soporte necesita clasificar solicitudes entrantes en varias categorías donde un solo árbol de decisión podría ser frágil. Random Forest consulta múltiples árboles entrenados con distintas muestras para llegar a una clasificación más confiable."
+    medical_highlight="Random Forest mejora la precisión y reduce el sobreajuste al combinar predicciones de múltiples árboles. Cada árbol ve una muestra diferente de datos y un subconjunto de características, lo que hace al bosque más robusto ante entradas nuevas o inusuales."
     intro_text="Explorarás cómo **múltiples árboles de decisión** trabajan juntos en un Random Forest. Verás cómo la aleatoriedad en el entrenamiento conduce a diversidad, y cómo la votación mayoritaria mejora la precisión final."
-    steps="Define el Bosque: Elige cuántos árboles entrenar (típicamente entre 10-100). Más árboles generalmente significan mayor precisión pero más cómputo.|Entrena el Bosque: Cada árbol se entrena con una muestra aleatoria de pacientes (bootstrap) y un subconjunto aleatorio de características. Observa la diversidad entre árboles.|Visualiza las Predicciones: Para un nuevo paciente, ve cómo cada árbol vota. La clase con más votos es la predicción final del bosque."
+    steps="Define el Bosque: Elige cuántos árboles entrenar (típicamente entre 10-100). Más árboles generalmente significan mayor precisión pero más cómputo.|Entrena el Bosque: Cada árbol se entrena con una muestra bootstrap y un subconjunto aleatorio de características. Observa la diversidad entre árboles.|Visualiza las Predicciones: Para un nuevo punto, ve cómo cada árbol vota. La clase con más votos es la predicción final del bosque."
 >}}
     
 ## Demostración Interactiva
@@ -94,7 +94,7 @@ Random Forest es ideal cuando:
 - Quieres un modelo robusto que funcione bien "out of the box"
 
 Usa un árbol único cuando:
-- La interpretabilidad es crítica (ej. regulaciones médicas estrictas)
+- La interpretabilidad es crítica (ej. requisitos estrictos de cumplimiento)
 - Tienes pocos datos
 - Necesitas predicciones en tiempo real extremadamente rápidas
 {{% /notice %}}
@@ -111,16 +111,15 @@ Una característica única de Random Forest es el **error Out-of-Bag (OOB)**:
 Esto hace a Random Forest especialmente útil cuando los datos son limitados, ya que aprovecha todo el conjunto para entrenamiento y validación simultáneamente.
 {{% /notice %}}
 
-## Aplicación en Medicina
+## Aplicaciones prácticas
 
-En el contexto hospitalario de Minermont:
+Random Forest se usa a menudo para:
 
-- **Diagnóstico multi-síntoma**: Combinar múltiples árboles reduce errores en casos complejos con síntomas ambiguos
-- **Predicción de riesgo**: Estimar probabilidades de complicaciones con mayor confianza
-- **Priorización de urgencias**: Clasificar pacientes considerando múltiples factores de manera robusta
-- **Importancia de características**: Identificar qué síntomas o biomarcadores son más predictivos
+- **Enrutamiento y categorización**: Asignar elementos a equipos/colas con varias señales
+- **Puntuaciones de riesgo o propensión**: Combinar señales débiles de forma robusta
+- **Importancia de características**: Identificar qué entradas son más predictivas (con matices)
 
-El equipo médico puede confiar más en un bosque de árboles que en un solo árbol, similar a cómo confían más en el consenso de varios médicos que en la opinión de uno solo.
+Es una buena opción por defecto cuando buscas buen rendimiento sin mucho ajuste.
 
 ## Experimenta
 
@@ -131,5 +130,5 @@ Usa la demostración interactiva para:
 4. Entender cómo la votación mayoritaria suaviza las decisiones
 
 {{% notice style="warning" title="Nota Práctica" %}}
-Aunque Random Forest es muy potente, consume más memoria y tiempo de cómputo que un solo árbol. En aplicaciones médicas críticas en tiempo real (ej. monitoreo de UCI), puede ser necesario balancear precisión con velocidad de respuesta.
+Aunque Random Forest es muy potente, consume más memoria y tiempo de cómputo que un solo árbol. En sistemas sensibles a la latencia, puede ser necesario balancear precisión con velocidad de respuesta.
 {{% /notice %}}

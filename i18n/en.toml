@@ -4,7 +4,7 @@
 other = "A Guided Journey to the Heart of the Machine"
 
 [hero_subtitle]
-other = "A story set in Minermont Hospital that makes the complete journey comprehensible: from classical models to the core of LLMs. Narrative fiction with real references and accurate technical data."
+other = "A story set in the Minermont Service Center that makes the complete journey comprehensible: from classical models to the core of LLMs. Narrative fiction with real references and accurate technical data."
 
 [badge_science]
 other = "Science + Narrative"
@@ -82,10 +82,10 @@ other = "What it means to generalize: overfitting, regularization, and properly 
 other = "Binary classification: from logistic regression to SVM and the role of the margin."
 
 [learn_4]
-other = "Multiclass and clinical metrics: per-class precision, recall, ROC/AUC, and real-world validation."
+other = "Multiclass and practical metrics: per-class precision, recall, ROC/AUC, and real-world validation."
 
 [learn_5]
-other = "Clustering with K‑Means: choosing K (elbow method), centroids, and inertia to discover hidden risks."
+other = "Clustering with K‑Means: choosing K (elbow method), centroids, and inertia to discover hidden patterns."
 
 [learn_6]
 other = "Neural networks: from perceptron to MLP, activations, and backpropagation without magic black boxes."
@@ -145,13 +145,13 @@ other = "Perceptron to MLP, backprop, tools, and your own data."
 other = "LLMs in Depth"
 
 [ch7_desc]
-other = "Transformers, RLHF, safe prompting, and clinical applications."
+other = "Transformers, RLHF, safe prompting, and real-world applications."
 
 [ch8_title]
 other = "Real Cases"
 
 [ch8_desc]
-other = "Frameworks applied in medicine and the \"return journey\"."
+other = "Frameworks applied in high-stakes domains and the \"return journey\"."
 
 [see_excerpt]
 other = "View excerpt →"
@@ -196,10 +196,10 @@ other = "Bilingual or two editions?"
 other = "Two separate editions: Spanish or English. The glossary clarifies key terms and their equivalents."
 
 [faq_q5]
-other = "Is it only oriented to medicine?"
+other = "Is it only oriented to one domain?"
 
 [faq_a5]
-other = "The examples are clinical due to their ethical and validation demands, but the principles and techniques apply to any sector."
+other = "Some examples use high-stakes scenarios because they highlight ethics and validation, but the principles and techniques apply to any sector."
 
 [author_title]
 other = "Author and Purpose"
@@ -227,7 +227,7 @@ other = "How does this tool work?"
 # English translations for context-intro and demo-intro shortcodes
 
 [demo_medical_context]
-other = "Medical Context"
+other = "Context"
 
 [demo_type]
 other = "Type"

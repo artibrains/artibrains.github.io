@@ -1,26 +1,26 @@
 ---
-title: "2. Modelos de aprendizaje automático"
-description: "De la teoría a la práctica: construyendo los primeros modelos predictivos."
+title: "Capítulo 2: Modelos de Aprendizaje Automático"
+description: "Entusiasmo y Frustración: Regresión Lineal"
 weight: 2
 slug: "modelos-aprendizaje-automatico"
 ---
 
-Tras un primer intento fallido con un sistema demasiado complejo, Víctor, Marta, Luis y Carlos aprenden una lección fundamental: a veces, la solución más simple es la más poderosa. Guiados por el consejo de Alma García de AIA, el equipo se embarca en la implementación de un modelo de regresión lineal para predecir la necesidad de suministros médicos.
+## Entusiasmo y Frustración: Regresión Lineal
 
-Este nuevo enfoque no solo es más manejable, sino también transparente e interpretable, ganándose la confianza incluso de los más escépticos, como el doctor Javier.
+Este capítulo se centra en la mecánica básica del aprendizaje supervisado con modelos simples: ajustar una recta, elegir una función de coste y optimizar parámetros.
 
 ## ¿Qué aprenderás?
 
-En este capítulo nos adentramos en el núcleo del aprendizaje automático a través de la experiencia del equipo del hospital. Seguirás sus pasos desde los ajustes manuales hasta el aprendizaje automatizado.
+Usa las actividades interactivas para construir intuición ajustando parámetros y observando cómo cambia el error.
 
 1. **[Ajustar un Modelo de Regresión Lineal]({{% relref "/how-machines-think/Chapter 2/linear-regression/linear_regresion_game.es.md" %}})**  
-   Ponte en la piel de Marta y Luis, ajustando manualmente los parámetros de un modelo para predecir el consumo de mascarillas. Comprende la relación entre pendiente, intercepto y predicción.
+   Ajusta manualmente pendiente e intercepto y compara predicciones vs. datos.
 
 2. **[Visualizar el Descenso del Gradiente]({{% relref "/how-machines-think/Chapter 2/metodo-descenso-gradiente/Metodo-del-descenco-del-gradiente.es.md" %}})**  
-   Captarás la intuición detrás del algoritmo que el equipo utilizó para entrenar su modelo automáticamente. Verás cómo el sistema "desciende" la montaña del error hasta encontrar los parámetros óptimos.
+   Visualiza cómo las actualizaciones iterativas mueven los parámetros hacia menor error.
 
 3. **[Comparar Funciones de Coste]({{% relref "how-machines-think/Chapter 2/error-comparison/error_comparation.es.md" %}})**  
-   Explora por qué la elección de la función de coste (MSE vs. MAE) fue un punto clave en la discusión del equipo y cómo afecta al comportamiento del modelo, especialmente ante valores atípicos.
+   Compara MAE vs. MSE y cómo cada una trata outliers.
 
 ### Implementación práctica
 

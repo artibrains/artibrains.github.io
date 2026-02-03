@@ -9,19 +9,19 @@
         <h3>{{ if eq $lang "es" }}Ajustar Umbral de Decisión:{{ else }}Adjust Decision Threshold:{{ end }} <span
                 id="threshold-value">50%</span></h3>
         <p class="explanation">
-            {{ if eq $lang "es" }}Este es el nivel de "desconfianza" del modelo. Si la probabilidad de que un paciente
-            falte supera este umbral, le enviaremos un recordatorio (predicción: <span
-                class="color-box predicted-miss"></span> Faltará). Si no, confiaremos en que acudirá (predicción: <span
-                class="color-box predicted-attend"></span> Acudirá). El número que aparece representa el porcentaje de
-            confianza de que el paciente no acuda a su cita.{{ else }}This is the model's "distrust" level. If the
-            probability that a patient will miss exceeds this threshold, we will send them a reminder (prediction: <span
-                class="color-box predicted-miss"></span> Will miss). Otherwise, we will trust they will attend
-            (prediction: <span class="color-box predicted-attend"></span> Will attend). The displayed number represents
-            the confidence percentage that the patient will not attend their appointment.{{ end }}
+            {{ if eq $lang "es" }}Este es el umbral de acción del modelo. Si la probabilidad de que un usuario
+            abandone (churn) supera este umbral, le enviaremos un recordatorio (predicción: <span
+                class="color-box predicted-miss"></span> Abandonará). Si no, asumiremos que se quedará (predicción: <span
+                class="color-box predicted-attend"></span> Se quedará). El número que aparece representa el porcentaje de
+            confianza de que el usuario abandonará.{{ else }}This is the model's action threshold. If the
+            probability that a user will churn exceeds this threshold, we will send them a reminder (prediction: <span
+                class="color-box predicted-miss"></span> Will churn). Otherwise, we will assume they will stay
+            (prediction: <span class="color-box predicted-attend"></span> Will stay). The displayed number represents
+            the confidence percentage that the user will churn.{{ end }}
         </p>
         <input type="range" id="threshold-slider" min="0" max="100" value="50">
         <div class="button-group">
-            <button id="reset-btn">{{ if eq $lang "es" }}Generar Nuevos Pacientes{{ else }}Generate New Patients{{ end
+            <button id="reset-btn">{{ if eq $lang "es" }}Generar Nuevos Usuarios{{ else }}Generate New Users{{ end
                 }}</button>
             <button id="find-optimal-btn">{{ if eq $lang "es" }}Encontrar Umbral Óptimo{{ else }}Find Optimal
                 Threshold{{ end }}</button>
@@ -29,43 +29,43 @@
         <div id="dashboard">
             <div id="confusion-matrix">
                 <div class="cell empty"></div>
-                <div class="cell header">{{ if eq $lang "es" }}Predicción: Faltará{{ else }}Prediction: Will Miss{{ end
+                <div class="cell header">{{ if eq $lang "es" }}Predicción: Abandonará{{ else }}Prediction: Will Churn{{ end
                     }}</div>
-                <div class="cell header">{{ if eq $lang "es" }}Predicción: Acudirá{{ else }}Prediction: Will Attend{{
+                <div class="cell header">{{ if eq $lang "es" }}Predicción: Se quedará{{ else }}Prediction: Will Stay{{
                     end }}</div>
 
-                <div class="cell header">{{ if eq $lang "es" }}Realidad: Faltó{{ else }}Reality: Missed{{ end }}</div>
-                <div class="cell" id="vp" title="{{ if eq $lang " es" }}Verdaderos Positivos: Pacientes que iban a
-                    faltar y les enviamos un recordatorio. ¡Bien hecho!{{ else }}True Positives: Patients who were going
-                    to miss and we sent them a reminder. Well done!{{ end }}">
+                <div class="cell header">{{ if eq $lang "es" }}Realidad: Abandonó{{ else }}Reality: Churned{{ end }}</div>
+                <div class="cell" id="vp" title="{{ if eq $lang "es" }}Verdaderos Positivos: Usuarios que iban a
+                    abandonar y les enviamos un recordatorio. ¡Bien hecho!{{ else }}True Positives: Users who were going
+                    to churn and we sent them a reminder. Well done!{{ end }}">
                     0</div>
-                <div class="cell fn-cell" id="fn" title="{{ if eq $lang " es" }}Falsos Negativos: Pacientes que iban a
-                    faltar pero no les avisamos. ¡El peor error, coste muy alto!{{ else }}False Negatives: Patients who
-                    were going to miss but we didn't warn them. The worst error, very high cost!{{ end }}">
+                <div class="cell fn-cell" id="fn" title="{{ if eq $lang "es" }}Falsos Negativos: Usuarios que iban a
+                    abandonar pero no les avisamos. ¡El peor error, coste muy alto!{{ else }}False Negatives: Users who
+                    were going to churn but we didn't warn them. The worst error, very high cost!{{ end }}">
                     0</div>
 
-                <div class="cell header">{{ if eq $lang "es" }}Realidad: Acudió{{ else }}Reality: Attended{{ end }}
+                <div class="cell header">{{ if eq $lang "es" }}Realidad: Se quedó{{ else }}Reality: Stayed{{ end }}
                 </div>
-                <div class="cell" id="fp" title="{{ if eq $lang " es" }}Falsos Positivos: Pacientes que iban a acudir
-                    pero les enviamos un recordatorio innecesario. Un pequeño coste.{{ else }}False Positives: Patients
-                    who were going to attend but we sent them an unnecessary reminder. A small cost.{{ end }}">
+                <div class="cell" id="fp" title="{{ if eq $lang "es" }}Falsos Positivos: Usuarios que se iban a quedar
+                    pero les enviamos un recordatorio innecesario. Un pequeño coste.{{ else }}False Positives: Users
+                    who were going to stay but we sent them an unnecessary reminder. A small cost.{{ end }}">
                     0</div>
-                <div class="cell" id="vn" title="{{ if eq $lang " es" }}Verdaderos Negativos: Pacientes que iban a
-                    acudir y no les enviamos recordatorio. ¡Ahorro!{{ else }}True Negatives: Patients who were going to
-                    attend and we didn't send them a reminder. Savings!{{ end }}">0
+                <div class="cell" id="vn" title="{{ if eq $lang "es" }}Verdaderos Negativos: Usuarios que se iban a
+                    quedar y no les enviamos recordatorio. ¡Ahorro!{{ else }}True Negatives: Users who were going to
+                    stay and we didn't send them a reminder. Savings!{{ end }}">0
                 </div>
             </div>
             <div id="outcomes">
                 <h4>{{ if eq $lang "es" }}Resultados Económicos:{{ else }}Economic Outcomes:{{ end }}</h4>
-                <p>{{ if eq $lang "es" }}Citas Perdidas (FN):{{ else }}Missed Appointments (FN):{{ end }} <span
+                <p>{{ if eq $lang "es" }}Usuarios Perdidos (FN):{{ else }}Churned Users (FN):{{ end }} <span
                         id="citas-perdidas">0</span></p>
                 <p>{{ if eq $lang "es" }}Coste de Recordatorios (VP+FP):{{ else }}Reminder Cost (TP+FP):{{ end }} <span
                         id="coste-recordatorios">0€</span></p>
                 <p class="total-cost">{{ if eq $lang "es" }}Coste Total:{{ else }}Total Cost:{{ end }} <span
                         id="coste-total">0€</span></p>
                 <p class="formula"><strong>{{ if eq $lang "es" }}Fórmula:{{ else }}Formula:{{ end }}</strong> {{ if eq
-                    $lang "es" }}(Nº Recordatorios × 5€) + (Nº Citas Perdidas × 25€){{ else }}(No. Reminders × 5€) +
-                    (No. Missed Appointments × 25€){{ end }}</p>
+                    $lang "es" }}(Nº Recordatorios × 5€) + (Nº Usuarios Perdidos × 25€){{ else }}(No. Reminders × 5€) +
+                    (No. Churned Users × 25€){{ end }}</p>
             </div>
         </div>
         <div id="optimal-graph-container">

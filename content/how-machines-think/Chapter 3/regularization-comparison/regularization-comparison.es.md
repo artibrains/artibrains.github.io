@@ -13,9 +13,9 @@ Cuando entrenamos un modelo predictivo, la **regularización** nos ayuda a contr
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="Un equipo médico está desarrollando un modelo para predecir el riesgo de complicaciones post-operatorias. Tienen muchas variables disponibles: edad, peso, presión arterial, glucosa, colesterol, historial de tabaquismo, medicamentos, etc. No todas son igualmente relevantes, y algunas pueden estar correlacionadas. ¿Cómo decidir qué características mantener y cómo evitar que el modelo se ajuste demasiado a los datos de entrenamiento?"
+    scenario="Un equipo está desarrollando un modelo para predecir el riesgo de un resultado no deseado. Tienen muchas variables disponibles: uso, historial, señales del dispositivo, interacciones de soporte, etc. No todas son igualmente relevantes, y algunas pueden estar correlacionadas. ¿Cómo decidir qué características mantener y cómo evitar que el modelo se ajuste demasiado a los datos de entrenamiento?"
     highlight="La regularización no solo previene el sobreajuste, sino que también puede ayudar en la **selección de características**. L1 (Lasso) tiende a eliminar características irrelevantes llevando sus pesos a cero. L2 (Ridge) reduce todos los pesos pero mantiene todas las características. Elastic Net combina ambos enfoques, siendo especialmente útil cuando hay muchas características correlacionadas."
-    steps="Genera Datos de Pacientes: Crea un conjunto de datos sintético con múltiples biomarcadores, algunos relevantes y otros irrelevantes o redundantes.|Compara Regularizaciones: Ajusta el factor de regularización (λ) y observa cómo L1, L2 y Elastic Net afectan los pesos de cada característica de manera diferente.|Visualiza el Impacto: Ve cómo cambia la curva de predicción y la tabla de pesos según el tipo y la fuerza de regularización aplicada."
+    steps="Genera Datos de Ejemplo: Crea un conjunto de datos sintético con múltiples señales, algunas relevantes y otras irrelevantes o redundantes.|Compara Regularizaciones: Ajusta el factor de regularización (λ) y observa cómo L1, L2 y Elastic Net afectan los pesos de cada característica de manera diferente.|Visualiza el Impacto: Ve cómo cambia la curva de predicción y la tabla de pesos según el tipo y la fuerza de regularización aplicada."
 >}}
 
 ## Demostración Interactiva
@@ -134,8 +134,8 @@ Usa la demostración interactiva para:
 
 5. **Balance en Elastic Net**: Ajusta el parámetro α para ver cómo se comporta más como L1 (α → 1) o más como L2 (α → 0).
 
-{{% notice style="warning" title="Importante en Medicina" %}}
-La selección automática de características por L1/Elastic Net debe complementarse con conocimiento médico. Un modelo podría eliminar una variable que los médicos saben que es clínicamente relevante. Siempre valida los resultados con expertos del dominio.
+{{% notice style="warning" title="Importante en la práctica" %}}
+La selección automática de características por L1/Elastic Net debe complementarse con conocimiento del dominio. Un modelo podría eliminar una variable que expertos del área saben que es relevante. Siempre valida los resultados con expertos del dominio.
 {{% /notice %}}
 
 ## Referencias

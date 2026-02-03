@@ -1,6 +1,6 @@
 ---
 title: "5.2 The Power of Clustering: Discovering Hidden Groups"
-description: "Interactive visualizer of the K-Means algorithm to uncover hidden patient profiles, inspired by the Minermont Hospital project."
+description: "Interactive visualizer of the K-Means algorithm to uncover hidden user segments, inspired by the Minermont Service Center project."
 weight: 1
 draft: false
 slug: "kmeans-hidden-groups"
@@ -13,8 +13,8 @@ The **K-Means** algorithm is a powerful unsupervised learning tool whose mission
 {{< medical-context 
     type="hospital" 
     level="intermediate" 
-    scenario="A hospital needs to identify profiles of similar patients based on symptoms and clinical characteristics, without knowing beforehand how many different groups exist. The goal is to discover patient subgroups that could benefit from specialized treatments."
-    highlight="K-Means uncovers hidden groups of patients with similar characteristics, enabling the hospital to develop tailored treatment protocols for each identified subgroup, improving the effectiveness of medical care."
+    scenario="A service center needs to identify profiles of similar users based on a few behavioral signals, without knowing beforehand how many different groups exist. The goal is to discover segments that may benefit from different routing, messaging, or support workflows."
+    highlight="K-Means uncovers hidden groups with similar characteristics, helping the team design tailored processes for each segment and detect unusual clusters early."
 >}}
 
 ## Interactive Demonstration

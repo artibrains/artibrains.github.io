@@ -4,7 +4,7 @@
 other = "Un viaje guiado al corazón de la máquina"
 
 [hero_subtitle]
-other = "Una historia en el Hospital Minermont que hace comprensible el camino completo: de los modelos clásicos al corazón de los LLMs. Ficción narrativa con referencias reales y datos técnicos ciertos."
+other = "Una historia en el Centro de servicio Minermont que hace comprensible el camino completo: de los modelos clásicos al corazón de los LLMs. Ficción narrativa con referencias reales y datos técnicos ciertos."
 
 [badge_science]
 other = "Ciencia + Narrativa"
@@ -82,10 +82,10 @@ other = "Qué significa generalizar: sobreajuste, regularización y validación 
 other = "Clasificación binaria: de la regresión logística a SVM y el papel del margen."
 
 [learn_4]
-other = "Multiclase y métricas clínicas: precisión por clase, recall, ROC/AUC y validación en el mundo real."
+other = "Multiclase y métricas prácticas: precisión por clase, recall, ROC/AUC y validación en el mundo real."
 
 [learn_5]
-other = "Clustering con K‑Means: elección de K (método del codo), centroides e inercia para descubrir riesgos ocultos."
+other = "Clustering con K‑Means: elección de K (método del codo), centroides e inercia para descubrir patrones ocultos."
 
 [learn_6]
 other = "Redes neuronales: del perceptrón al MLP, activaciones y backpropagation sin cajas negras mágicas."
@@ -145,13 +145,13 @@ other = "Perceptrón a MLP, backprop, herramientas y datos propios."
 other = "LLMs en profundidad"
 
 [ch7_desc]
-other = "Transformers, RLHF, prompting seguro y aplicaciones clínicas."
+other = "Transformers, RLHF, prompting seguro y aplicaciones reales."
 
 [ch8_title]
 other = "Casos reales"
 
 [ch8_desc]
-other = "Frameworks aplicados en medicina y el \"viaje de vuelta\"."
+other = "Frameworks aplicados en dominios de alto impacto y el \"viaje de vuelta\"."
 
 [see_excerpt]
 other = "Ver extracto →"
@@ -196,10 +196,10 @@ other = "¿Bilingüe o dos ediciones?"
 other = "Dos ediciones separadas: Español o Inglés. El glosario aclara términos clave y sus equivalencias."
 
 [faq_q5]
-other = "¿Está orientado solo a medicina?"
+other = "¿Está orientado solo a un sector?"
 
 [faq_a5]
-other = "Los ejemplos son clínicos por su exigencia ética y de validación, pero los principios y técnicas aplican a cualquier sector."
+other = "Algunos ejemplos son de alto impacto por su exigencia ética y de validación, pero los principios y técnicas aplican a cualquier sector."
 
 [author_title]
 other = "Autor y propósito"
@@ -227,7 +227,7 @@ other = "¿Cómo funciona esta herramienta?"
 # Spanish translations for context-intro and demo-intro shortcodes
 
 [demo_medical_context]
-other = "Contexto Médico"
+other = "Contexto"
 
 [demo_type]
 other = "Tipo"

@@ -1,5 +1,4 @@
----
-title: "4.2 Automated Triage in the ER: Decision Trees"
+title: "4.2 Automated Ticket Routing: Decision Trees"
 description: "Interactive visualization of how a decision tree builds classification rules, inspired by the 'Guess Who?' game."
 weight: 12
 draft: false
@@ -11,13 +10,13 @@ slug: "decision-tree-triage"
 A **Decision Tree** is a predictive model that learns a series of simple rules — much like a flowchart — to reach a conclusion. Just like in the game *Guess Who?*, the algorithm looks for the most efficient sequence of questions to classify a case using as few steps as possible.
 
 {{< demo-intro 
-    title="Decision Tree Visualizer: Which Patient Is It?"
+    title="Decision Tree Visualizer: Which Profile Is It?"
     algorithm_type="Interpretable classification"
     difficulty="beginner"
-    medical_scenario="An emergency doctor needs a triage system to quickly classify patients. Based on symptoms and basic data, the system must determine the priority level without reviewing full medical histories."
-    medical_highlight="A Decision Tree builds the perfect 'question protocol'. It learns which features are most distinctive for classifying patients, allowing the doctor to make quick and well-founded decisions by following a clear and explainable path."
-    intro_text="A **Decision Tree** creates a sequence of questions to reach a conclusion, working like a 'Which Patient Is It?' game. Its main strength lies in **interpretability**: every decision can be explained step by step."
-    steps="Define the Patient Group: Choose the set of patients the model will learn to distinguish. Each one has a unique profile with different symptoms, history, and demographic data.|Build the Question Protocol: Click 'Train Tree'. The algorithm will find the most efficient sequence of questions, placing the most discriminative one at the root.|Follow the Identification Path: Explore the generated tree. Each node is a clinical question. Follow the 'yes' or 'no' answers to see how the model guides you to the correct patient."
+    medical_scenario="A support team needs a routing system to quickly categorize incoming requests. Based on a few signals, the system should suggest the right queue or priority without requiring a full manual review."
+    medical_highlight="A Decision Tree builds a clear 'question protocol'. It learns which features are most distinctive for categorizing cases, allowing a team to make quick and well-founded decisions by following an explainable path."
+    intro_text="A **Decision Tree** creates a sequence of questions to reach a conclusion, working like a 'Which Profile Is It?' game. Its main strength lies in **interpretability**: every decision can be explained step by step."
+    steps="Define the Case Set: Choose the set of cases the model will learn to distinguish. Each one has a unique profile with different attributes.|Build the Question Protocol: Click 'Train Tree'. The algorithm will find the most efficient sequence of questions, placing the most discriminative one at the root.|Follow the Identification Path: Explore the generated tree. Each node is a yes/no question about a feature. Follow the answers to see how the model guides you to the correct profile."
 >}}
     
 ## Interactive Demonstration

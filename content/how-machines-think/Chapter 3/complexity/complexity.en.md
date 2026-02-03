@@ -13,8 +13,8 @@ Overfitting and regularization are fundamental concepts for tackling a classic m
 {{< medical-context
     type="research"
     difficulty="intermediate"
-    scenario="You are developing a model to predict disease risk using patient data (lab results, history, symptoms). The model needs to learn useful patterns without memorizing the specific cases in your training set."
-    highlight="A model that is too complex may learn the noise in the data (overfitting) and fail when predicting risk for new patients. A model that is too simple can miss critical indicators (underfitting). Regularization adds a penalty for complexity that helps the model find the optimal balance to generalize correctly to unseen cases."
+    scenario="You are developing a model to predict customer churn risk using account activity and usage signals. The model needs to learn useful patterns without memorizing the specific cases in your training set."
+    highlight="A model that is too complex may learn noise (overfitting) and fail on new customers. A model that is too simple can miss important indicators (underfitting). Regularization adds a penalty for complexity that helps the model find the balance that generalizes best to unseen cases."
     steps="Adjust model complexity: Use the control to increase or decrease complexity and compare training versus validation error. Observe how overly complex models memorize noise.|Apply regularization: Switch to the Regularization tab to add a penalty (lambda) that reins in overly complex models and improves generalization.|Find the optimal trade-off: Press **Find Best Model** to let the tool search for the combination that minimizes validation error."
 >}}
 

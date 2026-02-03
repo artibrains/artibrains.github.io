@@ -1,9 +1,11 @@
 ---
-title: "7.6 Juego Interactivo: Ajuste por Preferencias Humanas (RLHF)"
+title: "8.1 Cuando las máquinas aprenden de nuestras preferencias (RLHF)"
 description: "Experimenta cómo un modelo de lenguaje ya entrenado se ajusta mediante las preferencias de usuarios humanos, aprendiendo qué tipo de respuestas son más adecuadas."
 date: 2024-01-22
-weight: 60
+weight: 10
 slug: "ajuste-preferencias-humanas"
+aliases:
+    - "/how-machines-think/revolucion-lenguaje-llms/ajuste-preferencias-humanas/"
 ---
 
 ## Introducción

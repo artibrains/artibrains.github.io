@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Constants ---
     const NUM_PATIENTS = 100;
-    const MISS_RATE = 0.20; // 20% of patients will miss their appointment
+    const MISS_RATE = 0.20; // 20% will have the negative outcome
     const COST_REMINDER = 5; // 5€ per reminder
-    const COST_LOST_APPOINTMENT = 25; // 25€ per missed appointment
+    const COST_LOST_APPOINTMENT = 25; // 25€ per negative outcome
 
     // --- DOM Elements ---
     const patientContainer = document.getElementById('patient-container');
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Localization & Terminal Support ---
     const translations = {
         es: {
-            init: 'Gestor de Riesgo listo. Ajusta el umbral para equilibrar recordatorios y citas perdidas.',
-            reset: (missCount, missPercent) => `Simulación regenerada: ${NUM_PATIENTS} pacientes, ${missCount} posibles ausencias (~${missPercent}%).`,
-            optimal: (threshold, cost, reminders, fn) => `Umbral óptimo encontrado en ${threshold}%. Coste total: ${cost.toFixed(0)}€. Recordatorios: ${reminders}, Citas perdidas: ${fn}.`
+            init: 'Gestor de Riesgo listo. Ajusta el umbral para equilibrar recordatorios y pérdidas.',
+            reset: (missCount, missPercent) => `Simulación regenerada: ${NUM_PATIENTS} casos, ${missCount} posibles pérdidas (~${missPercent}%).`,
+            optimal: (threshold, cost, reminders, fn) => `Umbral óptimo encontrado en ${threshold}%. Coste total: ${cost.toFixed(0)}€. Recordatorios: ${reminders}, Pérdidas: ${fn}.`
         },
         en: {
-            init: 'Risk Manager ready. Tune the threshold to balance reminders and missed appointments.',
-            reset: (missCount, missPercent) => `Simulation refreshed: ${NUM_PATIENTS} patients, ${missCount} likely no-shows (~${missPercent}%).`,
-            optimal: (threshold, cost, reminders, fn) => `Optimal threshold found at ${threshold}%. Total cost: €${cost.toFixed(0)}. Reminders: ${reminders}, Missed appointments: ${fn}.`
+            init: 'Risk Manager ready. Tune the threshold to balance reminders and losses.',
+            reset: (missCount, missPercent) => `Simulation refreshed: ${NUM_PATIENTS} cases, ${missCount} likely losses (~${missPercent}%).`,
+            optimal: (threshold, cost, reminders, fn) => `Optimal threshold found at ${threshold}%. Total cost: €${cost.toFixed(0)}. Reminders: ${reminders}, Losses: ${fn}.`
         }
     };
 
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (!dataPoint) return [];
                                 return [
                                     ``, // Empty line for spacing
-                                    `Citas Perdidas: ${dataPoint.fn}`,
+                                    `Pérdidas: ${dataPoint.fn}`,
                                     `Recordatorios Enviados: ${dataPoint.reminders}`
                                 ];
                             }

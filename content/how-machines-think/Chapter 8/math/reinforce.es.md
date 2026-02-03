@@ -1,10 +1,12 @@
 ---
-title: "📐 REINFORCE y RLHF"
+title: "8.1 📐 REINFORCE y RLHF"
 description: "Deriva las actualizaciones de gradiente de política y describe el flujo RLHF para alinear modelos de lenguaje."
 weight: 91
 draft: false
 slug: "refuerzo-rlhf"
 math: true
+aliases:
+  - "/how-machines-think/revolucion-lenguaje-llms/refuerzo-rlhf/"
 ---
 
 ## Contexto

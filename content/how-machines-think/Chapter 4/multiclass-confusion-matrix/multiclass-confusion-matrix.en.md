@@ -8,14 +8,14 @@ math: true
 ---
 
 ## Introduction
-A short interactive demo below helps you explore typical errors a triage classifier makes and how those errors affect per-class metrics. Try generating matrices with different accuracies and inspect which specialties are confused most often.
+A short interactive demo below helps you explore typical errors a multiclass routing model makes and how those errors affect per-class metrics. Try generating matrices with different accuracies and inspect which categories are confused most often.
 
 {{< demo-intro 
     title="Multiclass Confusion Matrix"
     algorithm_type="Evaluation metric"
     difficulty="intermediate"
-    medical_scenario="At Minermont Hospital, Alma's team has developed a classification system that assigns patients to one of three specialty categories: Cardiology, Respiratory, or Neurology. They need to evaluate how well the model performs for each class and identify which types of errors it makes."
-    medical_highlight="The confusion matrix allows the medical team to see exactly where the classifier is making mistakes: which specialties are being confused with each other, and whether certain classes are harder to predict correctly. This is critical for patient safety and resource allocation."
+    medical_scenario="At Minermont, Alma's team has developed a system that assigns incoming requests to one of three categories: Billing, Technical, or Account. They need to evaluate how well the model performs for each class and identify which types of errors it makes."
+    medical_highlight="The confusion matrix lets the team see exactly where the classifier is making mistakes: which categories are being confused with each other, and whether certain classes are harder to predict correctly. This is critical for prioritization and staffing decisions."
     intro_text="The **confusion matrix** is a fundamental evaluation tool for multiclass classification that displays all combinations of predicted vs. actual classes. It allows you to calculate per-class metrics (Precision, Recall, F1) and understand the specific types of errors your model makes."
 >}}
 
@@ -66,7 +66,7 @@ $$
 - **Macro averaging**: Gives equal weight to each class, useful for not neglecting minority or rare classes.
 - **Micro averaging**: Aggregates all decisions before calculating, favoring more frequent classes.
 
-In the hospital context, macro averaging is preferable to ensure that critical low-incidence pathologies aren't lost in the averages.
+In many operational settings, macro averaging is preferable when you don't want smaller categories to be ignored just because they are less frequent.
 {{% /notice %}}
 
 ## Interpreting confusions
@@ -77,16 +77,16 @@ When observing the confusion matrix, look for:
 2. **Confusion patterns**: Which classes get confused with each other?
 3. **Asymmetries**: Is the confusion bidirectional or unidirectional?
 
-**Minermont Hospital example**: If many respiratory cases are classified as cardiology but not vice versa, it may indicate that severe respiratory symptoms (dyspnea, tachycardia) are generating false cardiac positives.
+**Example**: If many Technical requests are classified as Billing but not vice versa, it may indicate that certain keywords or features overlap and the model needs better signals for the Technical class.
 
 ## Metric-based decisions
 
-The team uses these metrics to:
+Teams use these metrics to:
 
 - **Adjust decision thresholds** per class
 - **Identify problematic classes** that need more data or better features
-- **Balance trade-offs** between precision and recall based on clinical cost of each error type
-- **Justify the model** to hospital management with quantitative evidence
+- **Balance trade-offs** between precision and recall based on the operational cost of each error type
+- **Justify the model** to stakeholders with quantitative evidence
 
 ## Connection to ROC/AUC
 
@@ -99,6 +99,6 @@ The confusion matrix captures performance at a specific decision point. To explo
 - **[Evaluation metrics algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Complete mathematical derivations of all metrics presented here.
 - **[Multiclass strategies]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.en.md" %}})**: How to extend binary classifiers to multiclass problems.
 
-{{% notice style="info" title="Clinical practice" %}}
-At Minermont Hospital, Teresa and Javier review the confusion matrix weekly in quality meetings. They've identified that neurological cases with a cardiovascular component (such as ischemic stroke) are frequently confused, which has led them to train triage staff to collect more specific features for each specialty.
+{{% notice style="info" title="Operational practice" %}}
+At Minermont, Teresa and Javier review the confusion matrix weekly. They use it to spot systematic confusions (for example, Account issues being misrouted to Billing) and then improve data collection and labeling guidelines so the model has clearer signals.
 {{% /notice %}}

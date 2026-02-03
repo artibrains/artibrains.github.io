@@ -3,24 +3,21 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 <div class="medical-context">
-    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Descubriendo Subtipos de Enfermedades{{ else }}🏥 Medical Context:
-        Discovering Disease Subtypes{{ end }}</h2>
+    <h2>{{ if eq $lang "es" }}🧩 Contexto: Descubriendo Segmentos Ocultos{{ else }}🧩 Context:
+        Discovering Hidden Segments{{ end }}</h2>
     <div class="medical-scenario">
         <div class="scenario-text">
             <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
-                analizando datos de cientos de pacientes diagnosticados con "diabetes
-                tipo 2". Sospechas que no todos los casos son iguales y que existen subgrupos con diferentes perfiles de
-                riesgo o respuesta a tratamientos.{{ else }}You're analyzing data from hundreds of patients diagnosed
-                with "type 2
-                diabetes". You suspect that not all cases are the same and that there are subgroups with different risk
-                profiles or treatment responses.{{ end }}</p>
+                analizando datos de cientos de clientes o usuarios. Sospechas que no todos se comportan igual y que
+                existen subgrupos con diferentes patrones (por ejemplo, distintos motivos de contacto o niveles de uso).{{ else }}You're analyzing data from hundreds of customers or users. You suspect that not everyone behaves the same and that
+                there are subgroups with different patterns (for example, different contact reasons or usage levels).{{ end }}</p>
             <p class="highlight">{{ if eq $lang "es" }}K-Means puede analizar estos datos (niveles de glucosa,
-                biomarcadores, edad) y
-                encontrar "clusters" o grupos de pacientes con perfiles similares. Esto permite descubrir subtipos de la
-                enfermedad que no eran evidentes a simple vista, abriendo la puerta a la medicina personalizada.{{ else
-                }}K-Means can analyze this data (glucose levels, biomarkers, age) and
-                find "clusters" or groups of patients with similar profiles. This allows discovering disease subtypes
-                that weren't evident at first glance, opening the door to personalized medicine.{{ end }}</p>
+                señales de actividad, frecuencia, tiempo de respuesta) y
+                encontrar "clusters" o grupos con perfiles similares. Esto permite descubrir segmentos que no eran
+                evidentes a simple vista y diseñar estrategias más ajustadas a cada grupo.{{ else
+                }}K-Means can analyze this data (activity signals, frequency, response time) and
+                find "clusters" or groups with similar profiles. This helps discover segments that weren't evident at
+                first glance and design strategies tailored to each group.{{ end }}</p>
         </div>
     </div>
 </div>
@@ -32,11 +29,11 @@
         aprendizaje no supervisado
         cuya misión es explorar un conjunto de datos y descubrir "grupos" o "clusters" ocultos sin necesidad de
         etiquetas previas. Funciona agrupando los puntos de datos que son más similares entre sí, permitiendo revelar la
-        estructura inherente de la información, como distintos perfiles de pacientes dentro de una misma patología.{{
+        estructura inherente de la información, como distintos perfiles de comportamiento dentro del mismo servicio.{{
         else }}The <strong>K-Means</strong> algorithm is a powerful unsupervised learning tool
         whose mission is to explore a dataset and discover hidden "groups" or "clusters" without requiring
         prior labels. It works by grouping data points that are most similar to each other, revealing the
-        inherent structure of the information, such as different patient profiles within the same pathology.{{ end }}
+        inherent structure of the information, such as different behavioral profiles within the same service.{{ end }}
     </p>
 
     <div class="how-it-works">
@@ -84,11 +81,11 @@
     {{ if eq $lang "es" }}Inspirado por el desafío de la directora Elena, el equipo se adentró en el aprendizaje no
     supervisado. Su
     herramienta elegida fue <strong>K-Means</strong>, un algoritmo para descubrir agrupaciones naturales en los datos.
-    Como explicó Marta, "es como pedirle a la máquina que encuentre tribus de pacientes con características similares,
+    Como explicó Marta, "es como pedirle a la máquina que encuentre tribus de usuarios con características similares,
     sin decirle de antemano cuáles son esas tribus".{{ else }}Inspired by director Elena's challenge, the team delved
     into unsupervised learning. Their
     tool of choice was <strong>K-Means</strong>, an algorithm to discover natural groupings in the data.
-    As Marta explained, "it's like asking the machine to find tribes of patients with similar characteristics,
+    As Marta explained, "it's like asking the machine to find tribes of users with similar characteristics,
     without telling it beforehand what those tribes are".{{ end }}
 </p>
 <p>
@@ -96,12 +93,11 @@
     you can replicate their discovery process:{{ end }}
 </p>
 <ol>
-    <li><strong>{{ if eq $lang "es" }}Genera Datos de Pacientes{{ else }}Generate Patient Data{{ end }}</strong>: {{ if
+    <li><strong>{{ if eq $lang "es" }}Genera Datos de Ejemplo{{ else }}Generate Sample Data{{ end }}</strong>: {{ if
         eq $lang "es" }}Usa el botón "Reiniciar" para crear un nuevo conjunto de datos de
-        pacientes, donde cada punto representa a una persona en un espacio de características (por ejemplo, edad y nivel
-        de colesterol).{{ else }}Use the "Reset" button to create a new patient dataset,
-        where each point represents a person in a feature space (e.g., age and cholesterol
-        level).{{ end }}</li>
+        ejemplo, donde cada punto representa un usuario en un espacio de características (por ejemplo, actividad y
+        antigüedad).{{ else }}Use the "Reset" button to create a new sample dataset,
+        where each point represents a user in a feature space (e.g., activity and tenure).{{ end }}</li>
     <li><strong>{{ if eq $lang "es" }}Encuentra el K Óptimo{{ else }}Find the Optimal K{{ end }}</strong>: {{ if eq
         $lang "es" }}El primer reto del equipo fue elegir el número correcto de clusters (K).
         Usa el botón <strong>"Calcular Método del Codo"</strong> para generar el gráfico que les guio. El "codo" de la
@@ -110,11 +106,11 @@
         Use the <strong>"Calculate Elbow Method"</strong> button to generate the chart that guided them. The "elbow" of
         the
         curve suggests the optimal number of groups and will adjust the K slider for you.{{ end }}</li>
-    <li><strong>{{ if eq $lang "es" }}Agrupa a los Pacientes{{ else }}Group the Patients{{ end }}</strong>: {{ if eq
+    <li><strong>{{ if eq $lang "es" }}Agrupa los Puntos{{ else }}Group the Points{{ end }}</strong>: {{ if eq
         $lang "es" }}Con el K óptimo seleccionado, pulsa <strong>"Agrupar
-            (Animado)"</strong> para ver cómo el algoritmo K-Means asigna iterativamente a los pacientes a los clusters
+            (Animado)"</strong> para ver cómo el algoritmo K-Means asigna iterativamente los puntos a los clusters
         y mueve los centroides hasta que convergen.{{ else }}With the optimal K selected, press <strong>"Group
-            (Animated)"</strong> to see how the K-Means algorithm iteratively assigns patients to clusters
+            (Animated)"</strong> to see how the K-Means algorithm iteratively assigns points to clusters
         and moves centroids until they converge.{{ end }}</li>
     <li><strong>{{ if eq $lang "es" }}Explora Paso a Paso{{ else }}Explore Step by Step{{ end }}</strong>: {{ if eq
         $lang "es" }}Para un análisis más detallado, como el que hizo Marta con Luis, usa
@@ -127,7 +123,7 @@
 <p>
     {{ if eq $lang "es" }}Experimenta con la inicialización <strong>K-Means++</strong>, una mejora que el equipo adoptó
     para obtener mejores
-    resultados. ¿Puedes descubrir los grupos ocultos en los datos, tal como lo hizo el equipo del Hospital Minermont?{{
+    resultados. ¿Puedes descubrir los grupos ocultos en los datos, tal como lo hizo el equipo de Minermont?{{
     else }}Experiment with <strong>K-Means++</strong> initialization, an improvement the team adopted to get better
-    results. Can you discover the hidden groups in the data, just like the Minermont Hospital team did?{{ end }}
+    results. Can you discover the hidden groups in the data, just like the Minermont team did?{{ end }}
 </p>

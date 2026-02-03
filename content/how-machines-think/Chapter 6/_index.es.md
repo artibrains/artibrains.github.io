@@ -1,14 +1,14 @@
 ---
-title: "6 - Dentro de la Mente de la Máquina: Redes Neuronales"
+title: "Capítulo 6: Redes Neuronales"
 type: "chapter"
 weight: 6
 draft: false
 slug: "redes-neuronales"
 ---
 
-Después de haber implementado con éxito modelos de regresión, clasificación y clustering, el equipo del Hospital Minermont se encuentra en un punto de reflexión. Han visto lo que la IA puede hacer, pero ahora desean comprender *cómo* lo hace. ¿Qué ocurre realmente dentro de esas “cajas negras”? ¿Cómo aprende una red neuronal a partir de los datos?
+## El Límite de los Patrones Conocidos: El Cerebro Artificial
 
-Guiados por Alma, el equipo se embarca en un viaje hacia los fundamentos del aprendizaje profundo. Dejan a un lado las arquitecturas complejas para centrarse en los dos conceptos que lo hacen posible: la neurona artificial y el algoritmo que le permite aprender.
+Un nuevo desafío surge en la clínica de dermatología. Los médicos luchan por distinguir diferencias sutiles en lesiones cutáneas—algunas lesiones que se ven benignas resultan ser melanomas, mientras que las sospechosas resultan inofensivas. Los métodos tradicionales de aprendizaje automático fallan: definir manualmente características como "simetría" o "irregularidad de bordes" es demasiado subjetivo, y el análisis estadístico de píxeles no puede capturar las relaciones espaciales complejas que los dermatólogos expertos ven. Víctor recuerda que Alma mencionó el "momento ImageNet" de 2012 cuando las redes neuronales revolucionaron la visión por computadora. ¿Podrían las redes neuronales convolucionales (CNN) ayudar a analizar imágenes dermatológicas? A pesar de las preocupaciones sobre modelos de "caja negra", el equipo se sumerge en el aprendizaje profundo, descubriendo cómo las neuronas artificiales procesan información a través de capas, aprendiendo características jerárquicas desde bordes simples hasta patrones complejos. Exploran funciones de activación, retropropagación, capas convolucionales y aprendizaje por transferencia. El sistema resultante ayuda a priorizar lesiones sospechosas, acelerando las consultas mientras mantiene a los especialistas firmemente en el bucle diagnóstico. El capítulo revela tanto el poder como la responsabilidad que conlleva las redes neuronales.
 
 En este capítulo te unirás a ellos para desmitificar el funcionamiento interno de las redes neuronales:
 

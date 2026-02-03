@@ -7,8 +7,8 @@
 
     // Class names
     const classNames = {
-        es: ['Cardiología', 'Respiratorio', 'Neurología'],
-        en: ['Cardiology', 'Respiratory', 'Neurology']
+        es: ['Facturación', 'Soporte técnico', 'Cuenta'],
+        en: ['Billing', 'Technical', 'Account']
     };
 
     // State

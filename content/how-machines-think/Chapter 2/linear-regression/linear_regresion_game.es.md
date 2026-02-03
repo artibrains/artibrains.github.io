@@ -13,14 +13,14 @@ La regresión lineal nos permite encontrar la mejor relación entre diferentes v
 {{< medical-context 
     type="research"  
     difficulty="beginner"
-    scenario="Un investigador médico quiere predecir la dosis óptima de un medicamento basándose en el peso del paciente. Usando datos históricos de pacientes anteriores, necesita encontrar la relación matemática que mejor describa esta relación."
-    highlight="La regresión lineal permite encontrar la 'línea de mejor ajuste' que minimiza los errores de predicción. En medicina, esto se traduce en protocolos de dosificación más precisos, reduciendo tanto el riesgo de subdosificación (ineficacia) como de sobredosificación (toxicidad)."
+    scenario="Una persona de logística quiere estimar el coste de envío en función del peso del paquete. Usando datos históricos de envíos, necesita encontrar la relación matemática que mejor describa esta tendencia."
+    highlight="La regresión lineal permite encontrar la 'línea de mejor ajuste' que minimiza los errores de predicción. En contextos operativos, esto se traduce en estimaciones más consistentes sin sobrerreaccionar a unos pocos casos atípicos."
     steps="Ajusta los Parámetros: Mueve los controles deslizantes para cambiar la pendiente y la intersección de la línea. Observa cómo cambia el error total y la calidad del ajuste.|Compara Métricas de Error: Experimenta con diferentes métricas (L1 vs L2) para entender cómo cada una evalúa la calidad del modelo de manera diferente.|Encuentra la Solución Óptima: Usa el botón 'Encontrar Mejor Ajuste' para que el algoritmo calcule automáticamente los parámetros óptimos que minimizan el error."
 >}}
 
 ## Demostración Interactiva
 
-El gráfico muestra puntos de datos de pacientes (puntos azules) donde cada punto representa el peso en el eje x y la dosis del medicamento en el eje y. La línea rosa es tu modelo de predicción. Tu objetivo es ajustar la pendiente y la altura inicial de la línea para que pase lo más cerca posible de todos los puntos, minimizando el error entre los valores predichos y reales.
+El gráfico muestra puntos de datos (puntos azules) donde cada punto representa el peso del paquete en el eje x y el coste de envío en el eje y. La línea rosa es tu modelo de predicción. Tu objetivo es ajustar la pendiente y la altura inicial de la línea para que pase lo más cerca posible de todos los puntos, minimizando el error entre los valores predichos y reales.
 
 {{< demo-wrapper title="Optimizador de Regresión Lineal" >}}
 

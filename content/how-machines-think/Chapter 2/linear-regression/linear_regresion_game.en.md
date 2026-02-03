@@ -15,13 +15,14 @@ title="Interactive Linear Regression Game"
 algorithm_type="Supervised Regression"
 difficulty="beginner"
 medical_scenario="A medical researcher wants to predict the optimal dose of a drug based on a patient's weight. Using historical data from previous patients, he needs to find the mathematical relationship that best describes this relationship."
-medical_highlight="Linear regression allows you to find the 'line of best fit' that minimizes prediction errors. In medicine, this translates into more accurate dosing protocols, reducing both the risk of underdosing (ineffectiveness) and overdosing (toxicity)."
+medical_scenario="A logistics analyst wants to predict shipping cost based on package weight. Using historical shipment data, they need to find the mathematical relationship that best explains this trend."
+medical_highlight="Linear regression finds the 'line of best fit' that minimizes prediction errors. In operations, this translates into more consistent estimates and better decisions without overreacting to a few unusual shipments."
 steps="Adjust Parameters: Move the sliders to change the slope and intercept of the line. Observe how the total error and the quality of fit change. | Compare Error Metrics: Experiment with different metrics (L1 vs. L2) to understand how each evaluates model quality differently. | Find the Optimal Solution: Use the 'Find Best Fit' button to have the algorithm automatically calculate the optimal parameters that minimize error."
 >}}
 
 ## Interactive Demonstration
 
-The graph shows patient data points (blue dots) where each point represents weight on the x-axis and drug dose on the y-axis. The pink line is your prediction model. Your goal is to adjust the line's slope and intercept so it passes as close as possible to all the points, minimizing the error between predicted and actual values.
+The graph shows data points (blue dots) where each point represents package weight on the x-axis and shipping cost on the y-axis. The pink line is your prediction model. Your goal is to adjust the line's slope and intercept so it passes as close as possible to all the points, minimizing the error between predicted and actual values.
 
 {{< demo-wrapper title="Linear Regression Optimizer" >}}
 

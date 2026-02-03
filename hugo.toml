@@ -83,7 +83,7 @@ defaultContentLanguageInSubdir = false
   # Mostrar selector de idiomas
   showLanguageSwitcher = true
   alwaysopen = true
-  disableSearch = true
+  disableSearch = false
   
   # Enable math rendering globally
   math = true

@@ -10,16 +10,16 @@ const rfTranslations = {
         treeTraining: "RF: Entrenando árbol {current}/{total}...",
         trainingComplete: "RF: Entrenamiento completado. Precisión: {accuracy}%",
         predictionMade: "RF: Predicción para punto: {result}",
-        viral: "Viral",
-        bacterial: "Bacteriana",
-        fungal: "Fúngica",
+        viral: "Facturación",
+        bacterial: "Soporte técnico",
+        fungal: "Cuenta",
         accuracy: "Precisión",
         oobError: "Error OOB",
         treesVoting: "Votos de los árboles",
         finalPrediction: "Predicción final",
         confidence: "Confianza",
-        symptom: "Síntoma",
-        biomarker: "Biomarcador"
+        symptom: "Señal",
+        biomarker: "Atributo"
     },
     en: {
         appInitialized: "RF: Random Forest application initialized.",
@@ -28,16 +28,16 @@ const rfTranslations = {
         treeTraining: "RF: Training tree {current}/{total}...",
         trainingComplete: "RF: Training completed. Accuracy: {accuracy}%",
         predictionMade: "RF: Prediction for point: {result}",
-        viral: "Viral",
-        bacterial: "Bacterial",
-        fungal: "Fungal",
+        viral: "Billing",
+        bacterial: "Technical",
+        fungal: "Account",
         accuracy: "Accuracy",
         oobError: "OOB Error",
         treesVoting: "Tree votes",
         finalPrediction: "Final prediction",
         confidence: "Confidence",
-        symptom: "Symptom",
-        biomarker: "Biomarker"
+        symptom: "Signal",
+        biomarker: "Attribute"
     }
 };
 

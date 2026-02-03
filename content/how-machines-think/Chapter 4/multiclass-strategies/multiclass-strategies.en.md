@@ -1,6 +1,6 @@
 ---
 title: "4.1 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)"
-description: "Interactive visualization of OvR and OvO strategies for multiclass classification, applied to diagnosing types of diseases."
+description: "Interactive visualization of OvR and OvO strategies for multiclass classification, applied to routing items into multiple categories."
 weight: 1
 draft: false
 slug: "multiclass-strategies"
@@ -11,13 +11,13 @@ slug: "multiclass-strategies"
 When a problem has **more than two classes** (multiclass), many binary classification algorithms need to be adapted. The two most common strategies are **One-vs-Rest (OvR)** and **One-vs-One (OvO)**. Each decomposes the multiclass problem into multiple simpler binary problems.
 
 {{< demo-intro 
-    title="Multiclass Strategies Visualizer: Which Type of Infection Is It?"
+  title="Multiclass Strategies Visualizer: Which Category Is It?"
     algorithm_type="Multiclass classification strategies"
     difficulty="intermediate"
-    medical_scenario="A doctor needs to classify infections into three types: viral, bacterial, or fungal. Blood tests provide multiple biomarkers, but binary classification algorithms can only distinguish between two classes. How can we extend them to three or more categories?"
-    medical_highlight="OvR and OvO strategies allow reusing binary classifiers for multiclass problems. **OvR** trains one classifier per class (that class vs. all others), while **OvO** trains one classifier for each pair of classes. Each strategy has advantages depending on the medical context."
+  medical_scenario="A support team needs to route incoming requests into three queues: Billing, Technical, or Account. Each request has a couple of numeric signals, but a binary classifier can only separate two classes. How can we extend it to three or more categories?"
+  medical_highlight="OvR and OvO strategies allow reusing binary classifiers for multiclass problems. **OvR** trains one classifier per class (that class vs. all others), while **OvO** trains one classifier for each pair of classes. Each strategy has advantages depending on data size, class balance, and how separable the categories are."
     intro_text="You'll explore how **One-vs-Rest (OvR)** and **One-vs-One (OvO)** strategies work for multiclass classification. You'll see how each strategy decomposes the problem and combines decisions from multiple binary classifiers."
-    steps="Generate Patient Data: Create a set of patients with three infection types (viral, bacterial, fungal) based on two biomarkers.|Compare Strategies: Observe how OvR trains 3 classifiers (one per class) and how OvO trains 3 classifiers (one for each pair of classes).|Visualize Decisions: Explore decision regions and see how each strategy combines votes from its binary classifiers for the final classification."
+  steps="Generate Sample Data: Create a dataset with three categories (Billing, Technical, Account) based on two numeric signals.|Compare Strategies: Observe how OvR trains 3 classifiers (one per class) and how OvO trains 3 classifiers (one for each pair of classes).|Visualize Decisions: Explore decision regions and see how each strategy combines votes from its binary classifiers for the final classification."
 >}}
     
 ## Interactive Demonstration
@@ -98,14 +98,14 @@ For $K = 5$ classes:
   - Each pair of classes has very different separation patterns
 {{% /notice %}}
 
-## Medical Applications
+## Practical Applications
 
-In the hospital triage context:
+In real-world routing and categorization:
 
-- **OvR** could be used to classify urgency levels (critical, urgent, non-urgent, consultation) with one model per level
-- **OvO** would be useful for distinguishing between specific pathology types with very different biomarkers
+- **OvR** is a natural fit when you want a score for each category (one model per category)
+- **OvO** can be useful when certain category pairs are especially hard to separate and need specialized boundaries
 
-Both strategies allow extending algorithms like Logistic Regression, SVM, or Decision Trees to multiclass problems while maintaining their interpretability and effectiveness.
+Both strategies allow extending algorithms like Logistic Regression, SVM, or Decision Trees to multiclass problems while maintaining interpretability.
 
 ## Experiment
 

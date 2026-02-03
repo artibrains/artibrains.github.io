@@ -8,14 +8,14 @@ math: true
 ---
 
 ## Introducción
-Un breve demo interactivo a continuación te ayuda a explorar los errores típicos que comete un clasificador de triaje y cómo esos errores afectan las métricas por clase. Genera matrices con distintas precisiones y observa qué especialidades se confunden con mayor frecuencia.
+Un breve demo interactivo a continuación te ayuda a explorar los errores típicos que comete un modelo multiclase de enrutamiento y cómo esos errores afectan las métricas por clase. Genera matrices con distintas precisiones y observa qué categorías se confunden con mayor frecuencia.
 
 {{< demo-intro 
     title="Matriz de Confusión Multiclase"
     algorithm_type="Métrica de evaluación"
     difficulty="intermedio"
-    medical_scenario="En el Hospital Minermont, el equipo de Alma ha desarrollado un sistema de clasificación que asigna pacientes a una de tres categorías de especialidad: Cardiología, Respiratorio o Neurología. Necesitan evaluar qué tan bien funciona el modelo para cada clase e identificar qué tipos de errores comete."
-    medical_highlight="La matriz de confusión permite al equipo médico ver exactamente dónde el clasificador está cometiendo errores: qué especialidades se están confundiendo entre sí, y si ciertas clases son más difíciles de predecir correctamente. Esto es crítico para la seguridad del paciente y la asignación de recursos."
+    medical_scenario="En Minermont, el equipo de Alma ha desarrollado un sistema que asigna solicitudes entrantes a una de tres categorías: Facturación, Soporte técnico o Cuenta. Necesitan evaluar qué tan bien funciona el modelo para cada clase e identificar qué tipos de errores comete."
+    medical_highlight="La matriz de confusión permite ver exactamente dónde el clasificador está cometiendo errores: qué categorías se están confundiendo entre sí y si ciertas clases son más difíciles de predecir correctamente. Esto es clave para la priorización y la asignación de trabajo."
     intro_text="La **matriz de confusión** es una herramienta fundamental de evaluación para clasificación multiclase que muestra todas las combinaciones de clases predichas vs. reales. Permite calcular métricas por clase (Precisión, Recall, F1) y entender los tipos específicos de errores que comete tu modelo."
 >}}
 
@@ -66,7 +66,7 @@ $$
 - **Macro promediado**: Da igual peso a cada clase, útil para no descuidar clases minoritarias o raras.
 - **Micro promediado**: Agrega todas las decisiones antes de calcular, favoreciendo a clases más frecuentes.
 
-En el contexto hospitalario, el macro promediado es preferible para asegurar que patologías críticas de baja incidencia no se pierdan en los promedios.
+En muchos contextos operativos, el macro promediado es preferible cuando no quieres que las clases menos frecuentes queden ocultas en los promedios.
 {{% /notice %}}
 
 ## Interpretando confusiones
@@ -77,16 +77,16 @@ Cuando observas la matriz de confusión, busca:
 2. **Patrones de confusión**: ¿Qué clases se confunden entre sí?
 3. **Asimetrías**: ¿La confusión es bidireccional o unidireccional?
 
-**Ejemplo del Hospital Minermont**: Si muchos casos respiratorios se clasifican como cardiología pero no viceversa, puede indicar que los síntomas respiratorios graves (disnea, taquicardia) están generando falsos positivos cardíacos.
+**Ejemplo**: Si muchas solicitudes de Soporte técnico se clasifican como Facturación pero no al revés, puede indicar solapamiento de palabras o señales y que falta una característica más discriminante para Soporte técnico.
 
 ## Decisiones basadas en métricas
 
-El equipo usa estas métricas para:
+Los equipos usan estas métricas para:
 
 - **Ajustar umbrales** de decisión por clase
 - **Identificar clases problemáticas** que necesitan más datos o mejores características
-- **Balancear trade-offs** entre precisión y recall según el costo clínico de cada tipo de error
-- **Justificar el modelo** ante la dirección del hospital con evidencia cuantitativa
+- **Balancear trade-offs** entre precisión y recall según el costo operativo de cada tipo de error
+- **Justificar el modelo** ante interesados con evidencia cuantitativa
 
 ## Conexión con ROC/AUC
 
@@ -99,6 +99,6 @@ La matriz de confusión captura el rendimiento en un punto de decisión específ
 - **[Álgebra de métricas de evaluación]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.es.md" %}})**: Derivaciones matemáticas completas de todas las métricas presentadas aquí.
 - **[Estrategias multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.es.md" %}})**: Cómo extender clasificadores binarios a problemas multiclase.
 
-{{% notice style="info" title="Práctica clínica" %}}
-En el Hospital Minermont, Teresa y Javier revisan la matriz de confusión semanalmente en reuniones de calidad. Han identificado que los casos neurológicos con componente cardiovascular (como ACV isquémico) se confunden frecuentemente, lo que les ha llevado a entrenar al personal de triaje para recolectar características más específicas de cada especialidad.
+{{% notice style="info" title="Práctica operativa" %}}
+En Minermont, Teresa y Javier revisan la matriz de confusión semanalmente. La usan para detectar confusiones sistemáticas (por ejemplo, problemas de Cuenta que se enrutan a Facturación) y mejorar las guías de etiquetado y la recolección de señales para que el modelo tenga entradas más claras.
 {{% /notice %}}

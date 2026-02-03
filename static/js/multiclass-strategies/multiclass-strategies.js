@@ -9,11 +9,11 @@ const mcTranslations = {
         trainingStarted: "MC: Iniciando entrenamiento con estrategia {strategy}...",
         trainingComplete: "MC: Entrenamiento completado. Precisión: {accuracy}%",
         classifierTrained: "MC: Clasificador {name} entrenado.",
-        viral: "Viral",
-        bacterial: "Bacteriana",
-        fungal: "Fúngica",
-        biomarker1: "Biomarcador 1",
-        biomarker2: "Biomarcador 2",
+        viral: "Facturación",
+        bacterial: "Soporte técnico",
+        fungal: "Cuenta",
+        biomarker1: "Señal 1",
+        biomarker2: "Señal 2",
         ovrClassifier: "OvR: {class} vs. Resto",
         ovoClassifier: "OvO: {class1} vs. {class2}",
         accuracy: "Precisión",
@@ -27,11 +27,11 @@ const mcTranslations = {
         trainingStarted: "MC: Starting training with {strategy} strategy...",
         trainingComplete: "MC: Training completed. Accuracy: {accuracy}%",
         classifierTrained: "MC: Classifier {name} trained.",
-        viral: "Viral",
-        bacterial: "Bacterial",
-        fungal: "Fungal",
-        biomarker1: "Biomarker 1",
-        biomarker2: "Biomarker 2",
+        viral: "Billing",
+        bacterial: "Technical",
+        fungal: "Account",
+        biomarker1: "Signal 1",
+        biomarker2: "Signal 2",
         ovrClassifier: "OvR: {class} vs. Rest",
         ovoClassifier: "OvO: {class1} vs. {class2}",
         accuracy: "Accuracy",
@@ -63,7 +63,7 @@ class MulticlassClassifier {
     constructor(strategy = 'ovr') {
         this.strategy = strategy;
         this.classifiers = [];
-        this.classes = [0, 1, 2]; // viral, bacterial, fungal
+        this.classes = [0, 1, 2]; // label IDs (display text is localized)
         this.trained = false;
     }
 

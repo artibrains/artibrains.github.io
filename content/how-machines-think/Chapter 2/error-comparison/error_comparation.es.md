@@ -2,6 +2,7 @@
 title: "2.2 - Comparando Error Absoluto (L1) vs Error Cuadrático (L2)"
 weight: 21
 description: "Demostración interactiva para comprender las diferencias entre las funciones de error L1 y L2, y cómo afectan la evaluación de modelos de machine learning en contextos médicos."
+description: "Demostración interactiva para comprender las diferencias entre las funciones de error L1 y L2, y cómo afectan la evaluación de modelos de machine learning en contextos reales."
 date: 2025-04-17
 draft: false
 slug: "comparacion-error-l1-vs-l2"
@@ -9,13 +10,13 @@ slug: "comparacion-error-l1-vs-l2"
 
 ## Introducción
 
-Cuando desarrollamos modelos de machine learning para aplicaciones médicas, la elección de la función de error es crucial. Esta demostración te ayudará a comprender visualmente las diferencias entre el Error Absoluto Medio (L1) y el Error Cuadrático Medio (L2), y cómo cada uno responde de manera diferente a los valores atípicos o outliers.
+Cuando desarrollamos modelos de machine learning, la elección de la función de error es crucial. Esta demostración te ayudará a comprender visualmente las diferencias entre el Error Absoluto Medio (L1) y el Error Cuadrático Medio (L2), y cómo cada uno responde de manera diferente a los valores atípicos o outliers.
 
 {{< medical-context 
     type="research" 
     level="intermediate" 
-    scenario="Estás desarrollando un modelo para predecir el nivel de glucosa en sangre en pacientes diabéticos a partir de variables como la dieta, el ejercicio y la dosis de insulina. Algunos pacientes presentan valores extremos o inconsistentes que podrían afectar la precisión del modelo."
-    highlight="La elección entre L1 y L2 como función de error determina cómo el modelo responde a estos casos atípicos. L1 es más robusto ante outliers, mientras que L2 penaliza más severamente los errores grandes, lo que puede ser crucial para la seguridad del paciente."
+    scenario="Estás desarrollando un modelo para predecir el tiempo de entrega según distancia, tráfico y clima. Algunas rutas tienen valores extremos o inconsistentes (incidencias, retrasos) que pueden sesgar la evaluación."
+    highlight="La elección entre L1 y L2 determina cómo el modelo responde a estos casos atípicos. L1 es más robusto ante outliers, mientras que L2 penaliza más severamente los errores grandes, útil cuando los fallos grandes son especialmente costosos."
 >}}
 
 
@@ -75,13 +76,13 @@ El Error Cuadrático Medio mide la media de los cuadrados de las diferencias:
 - **Optimización**: L2 es diferenciable y facilita algoritmos de optimización
 {{% /notice %}}
 
-{{% notice style="warning" title="Consideraciones en Medicina" %}}
-En aplicaciones médicas, la elección es especialmente crítica:
+{{% notice style="warning" title="Consideraciones de alto impacto" %}}
+En aplicaciones de alto impacto o sensibles a costes, la elección es especialmente importante:
 
-- **Diagnóstico**: L2 puede ser preferible para evitar falsos negativos graves
-- **Dosificación**: L1 puede ser más seguro ante datos inconsistentes del paciente
-- **Monitoreo**: L2 para detectar cambios críticos rápidamente
-- **Investigación**: L1 para análisis robustos de poblaciones heterogéneas
+- **Detección de anomalías**: L2 puede desalentar fuertemente grandes fallos en eventos raros pero críticos
+- **Mediciones ruidosas**: L1 suele ser más estable cuando se esperan outliers puntuales
+- **Monitorización**: L2 reacciona de forma más agresiva ante grandes desviaciones
+- **Datos heterogéneos**: L1 puede dar una evaluación agregada más robusta
 {{% /notice %}}
 
 {{< terminal >}}

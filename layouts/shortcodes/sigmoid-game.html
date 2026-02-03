@@ -58,12 +58,12 @@
                     <div class="demo-control-description">
                         <p><strong>{{ if eq $lang "es" }}Modo Clasificación Simple:{{ else }}Simple Classification
                                 Mode:{{ end }}</strong> {{ if eq $lang "es" }}Muestra en rojo los pacientes clasificados
-                            como "no asistirá" y en azul los que "asistirán".{{ else }}Shows in red the patients
-                            classified as "will not attend" and in blue those who "will attend".{{ end }}</p>
+                            como "alto riesgo" y en azul los de "bajo riesgo".{{ else }}Shows in red the cases
+                            classified as "high risk" and in blue those classified as "low risk".{{ end }}</p>
                         <p><strong>{{ if eq $lang "es" }}Modo Probabilidades:{{ else }}Probabilities Mode:{{ end
                                 }}</strong> {{ if eq $lang "es" }}Muestra un degradado de colores que indica la
-                            probabilidad de no asistencia (más rojo = mayor probabilidad).{{ else }}Shows a color
-                            gradient indicating the probability of non-attendance (more red = higher probability).{{ end
+                            probabilidad de alto riesgo (más rojo = mayor probabilidad).{{ else }}Shows a color
+                            gradient indicating the probability of high risk (more red = higher probability).{{ end
                             }}</p>
                     </div>
                 </div>
