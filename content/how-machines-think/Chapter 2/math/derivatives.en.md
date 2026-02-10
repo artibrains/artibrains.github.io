@@ -21,40 +21,29 @@ It underpins linear approximations, optimization with gradient methods, and the 
 In practice we rely on algebraic rules to differentiate quickly rather than limits from first principles.
 {{% /notice %}}
 
-## Why Derivatives Matter
-
-In this chapter we train models via gradient-based optimization. Derivatives turn model errors into actionable parameter updates. For linear regression with prediction $\hat{y}=\theta_0+\theta_1 x$ and mean squared error
-
-$$
-J(\theta_0,\theta_1) = \frac{1}{N} \sum_{n=1}^N (y_n - \hat{y}_n)^2,
-$$
-
-the partial derivatives are
-
-$$
-\frac{\partial J}{\partial \theta_0} = -\frac{2}{N} \sum_n (y_n-\hat{y}_n), \qquad
-\frac{\partial J}{\partial \theta_1} = -\frac{2}{N} \sum_n x_n\,(y_n-\hat{y}_n).
-$$
-
-Gradient descent updates parameters by stepping opposite the gradient: $\theta \leftarrow \theta - \eta\,\nabla J$.
-
 ## Basic Rules and Derivatives
 
-- Linearity: $(af + bg)' = a f' + b g'$.
-- Constant: $\dfrac{d}{dx}(c) = 0$.
-- Power rule: $\dfrac{d}{dx}(x^n) = n x^{n-1}$ for any real $n$.
-- Exponential: $\dfrac{d}{dx}(e^x) = e^x$, and more generally $\dfrac{d}{dx}(a^x) = a^x \ln a$.
-- Logarithm: $\dfrac{d}{dx}(\ln x) = \dfrac{1}{x}$, and $\dfrac{d}{dx}(\log_a x) = \dfrac{1}{x\ln a}$.
-- Trigonometric:
-  - $\dfrac{d}{dx}(\sin x) = \cos x$, $\dfrac{d}{dx}(\cos x) = -\sin x$.
-  - $\dfrac{d}{dx}(\tan x) = \sec^2 x$, $\dfrac{d}{dx}(\cot x) = -\csc^2 x$.
-  - $\dfrac{d}{dx}(\sec x) = \sec x\tan x$, $\dfrac{d}{dx}(\csc x) = -\csc x\cot x$.
-- Inverse trigonometric:
-  - $\dfrac{d}{dx}(\arcsin x) = \dfrac{1}{\sqrt{1-x^2}}$, $\dfrac{d}{dx}(\arccos x) = -\dfrac{1}{\sqrt{1-x^2}}$.
-  - $\dfrac{d}{dx}(\arctan x) = \dfrac{1}{1+x^2}$.
-- Product rule: $(fg)' = f'g + fg'$.
-- Quotient rule: $\left(\dfrac{f}{g}\right)' = \dfrac{f'g - fg'}{g^2}$ with $g\neq 0$.
-- Chain rule: $\dfrac{d}{dx}\, f(g(x)) = f'(g(x))\, g'(x)$.
+| Rule | Function | Derivative |
+|------|----------|------------|
+| Linearity | af + bg | a f' + b g' |
+| Constant | c | 0 |
+| Power rule | x^n | n x^{n-1} (n real) |
+| Exponential | e^x | e^x |
+|  | a^x | a^x ln a |
+| Logarithm | ln x | 1/x |
+|  | log_a x | 1/(x ln a) |
+| Trigonometric | sin x | cos x |
+|  | cos x | -sin x |
+|  | tan x | sec^2 x |
+|  | cot x | -csc^2 x |
+|  | sec x | sec x tan x |
+|  | csc x | -csc x cot x |
+| Inverse trigonometric | arcsin x | 1/√(1-x^2) |
+|  | arccos x | -1/√(1-x^2) |
+|  | arctan x | 1/(1+x^2) |
+| Product rule | fg | f'g + fg' |
+| Quotient rule | f/g | (f'g - fg')/g^2 (g ≠ 0) |
+| Chain rule | f(g(x)) | f'(g(x)) g'(x) |
 
 ## Interactive Derivative
 

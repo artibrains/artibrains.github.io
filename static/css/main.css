@@ -78,6 +78,16 @@
     display: flex;
 }
 
+/* Chapter subtitles under main title */
+.chapter-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 550;
+    margin: auto;
+    color: var(--RELEARN-TEXT, inherit);
+    width: 100%;
+}
+
 .modal.hidden {
     display: none;
 }

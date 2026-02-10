@@ -14,8 +14,6 @@ El **Método del Descenso del Gradiente** es el algoritmo fundamental que permit
     title="Algortimo del Descenso del Gradiente"
     algorithm_type="Optimización"
     difficulty="intermediate"
-    medical_scenario="Una persona de ingeniería/ciencia de datos necesita ajustar múltiples parámetros de un modelo (o sistema) para minimizar un error. Debe encontrar una buena combinación de forma eficiente, sin probar manualmente miles de posibilidades."
-    medical_highlight="El descenso del gradiente es un método general para ajustar parámetros automáticamente: en cada paso se mueve en la dirección que reduce el error más rápido, evitando el ensayo y error manual."
     intro_text="El **descenso del gradiente** es como tener un GPS que siempre señala 'cuesta abajo' en el paisaje matemático de nuestro problema. El algoritmo sigue esta dirección paso a paso hasta encontrar el valle más profundo."
     steps="Observa la Exploración:Ve cómo el algoritmo se mueve por la superficie de la función, siguiendo siempre la dirección de mayor descenso según el gradiente.|Ajusta los Parámetros:Experimenta con la tasa de aprendizaje para ver cómo afecta la velocidad y estabilidad de convergencia.|Analiza la Convergencia:Observa cómo la norma del gradiente se reduce indicando que se acerca al mínimo, y cuándo el algoritmo decide detenerse."
 >}}

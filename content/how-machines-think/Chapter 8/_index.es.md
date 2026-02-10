@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 8: De Tokens a Pensamiento"
+description: "De Tokens a Pensamiento: Construyendo Mentes desde Texto"
 type: "chapter"
 weight: 8
 draft: false
 slug: "revolucion-lenguaje-llms-aplicaciones"
 ---
 
-## De Tokens a Pensamiento: Construyendo Mentes desde Texto
+{{< chapter-subtitle >}}De Tokens a Pensamiento: Construyendo Mentes desde Texto{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="8" >}}
+
+Sobre esas bases, el equipo prueba LLMs para tareas administrativas y comunicación con pacientes con la insistencia de Alma en la validación humana, enfrentando sesgos, privacidad y alucinaciones.
 
 Basándose en los fundamentos del Capítulo 7, el equipo ahora se centra en lo que ocurre *después* de que un modelo ya sepa predecir texto: alineación con preferencias humanas, razonamiento en inferencia y la mentalidad práctica para desplegar LLMs de forma responsable.
 

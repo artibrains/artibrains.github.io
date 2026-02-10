@@ -1,11 +1,17 @@
+---
 title: "Chapter 4: Multiclass Classification"
+description: "Automated Ticket Routing: Multiclass Classification"
 type: "chapter"
 weight: 4
 draft: false
 slug: "classification-algorithms-depth"
 ---
 
-## Automated Ticket Routing: Multiclass Classification
+{{< chapter-subtitle >}}Automated Ticket Routing: Multiclass Classification{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="4" >}}
+
+Minermont’s emergency desk is overwhelmed, and Ethan partners with Claire to build multiclass triage support that assists nurses while keeping humans in control.
 
 This chapter focuses on **multiclass classification**: extending classifiers beyond yes/no decisions, evaluating performance per class, and using ensemble methods to improve robustness.
 

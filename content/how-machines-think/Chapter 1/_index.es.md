@@ -2,10 +2,15 @@
 title: "Capítulo 1: El Comienzo del Viaje"
 description: "El Problema: Cuando la Tecnología se Hace Necesaria"
 weight: 1
+type: "chapter"
 slug: "viaje-ia-inicios"
 ---
 
-## El Problema: Cuando la Tecnología se Hace Necesaria
+{{< chapter-subtitle >}}El Problema: Cuando la Tecnología se Hace Necesaria{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="1" >}}
+
+En Minermont, Víctor ve una salida a las listas de espera y al personal agotado, y la AIA de Alma convierte su curiosidad en el primer viaje de IA del hospital, aunque Carmen mantiene dudas.
 
 Este capítulo es una introducción rápida e interactiva a la IA: de dónde viene, por qué atravesó “inviernos” y cómo funciona la idea básica de aprender a partir de retroalimentación.
 

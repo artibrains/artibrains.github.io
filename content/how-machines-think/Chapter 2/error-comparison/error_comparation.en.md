@@ -14,9 +14,8 @@ When developing machine learning models, the choice of error function is crucial
 {{< medical-context
 type="research"
 level="intermediate"
-scenario="You are developing a model to predict blood glucose levels in diabetic patients based on variables such as diet, exercise, and insulin dose. Some patients have extreme or inconsistent values that could affect the model's accuracy."
 scenario="You are developing a model to predict delivery time based on factors such as distance, traffic, and weather. Some routes have extreme or inconsistent values (incidents, delays) that can skew the evaluation."
-highlight="The choice between L1 and L2 determines how the model responds to outliers. L1 is more robust to outliers, while L2 penalizes large errors more severely—useful when big misses are particularly costly."
+highlight="- **L1 (MAE)** stays stable under outliers: big misses don’t dominate the average.\n- **L2 (MSE)** punishes big misses much more: great when large errors are especially costly.\n\nWatch how the fitted lines and the average errors react when you introduce outliers."
 >}}
 
 {{< demo-wrapper title="L1 vs L2 Error Function Comparison" >}}
@@ -62,14 +61,10 @@ The Mean Squared Error measures the average of the squares of the differences:
 ### Selection Guide
 
 {{% notice style="tip" title="When to use L1?" %}}
-- **Noisy data**: Presence of many outliers or measurement errors
-- **Robustness**: You need a stable and predictable model
-- **Error fairness**: Small and large errors have similar importance
-- **Interpretability**: You want metrics to be easy to understand
 {{% /notice %}}
 
 {{% notice style="tip" title="When to use L2?" %}}
-- **Critical Errors**: Large errors are especially problematic
+ 
 - **Clean Data**: The dataset is relatively reliable
 - **Extreme Accuracy**: You need to heavily penalize incorrect predictions
 - **Optimization**: L2 is differentiable and facilitates optimization algorithms

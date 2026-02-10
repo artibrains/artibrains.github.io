@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 7: La Revolución del Lenguaje - Entendiendo LLMs"
+description: "La Revolución del Lenguaje: Entendiendo LLMs"
 type: "chapter"
 weight: 7
 draft: false
 slug: "revolucion-lenguaje-llms"
 ---
 
-## La Revolución del Lenguaje: Entendiendo LLMs
+{{< chapter-subtitle >}}La Revolución del Lenguaje: Entendiendo LLMs{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="7" >}}
+
+Con los LLMs por todas partes, Víctor, Marta y Luis se preguntan cómo encajan en Minermont; Alma los guía por tokenización, embeddings y atención.
 
 Los Modelos de Lenguaje Grande como GPT y Claude están en todas partes, generando texto similar al humano, respondiendo preguntas y asistiendo con diversas tareas. El equipo de Minermont los ha estado usando informalmente, pero ¿cómo podrían los LLM encajar en la atención médica donde la privacidad del paciente es primordial? A diferencia de las redes neuronales convolucionales para imágenes, los LLM enfrentan desafíos únicos: el texto es secuencial, dependiente del contexto e infinitamente variable. El equipo se embarca en su viaje de aprendizaje más ambicioso hasta ahora, explorando tokenización (cómo las palabras se convierten en números), incrustaciones (cómo el significado se captura en espacio vectorial), mecanismos de atención (cómo los modelos entienden el contexto) y arquitecturas transformadoras (la base de los LLM modernos). Esta primera parte sienta los fundamentos cruciales para entender cómo funcionan realmente los modelos de lenguaje bajo la superficie.
 

@@ -21,40 +21,30 @@ Sustenta las aproximaciones lineales, la optimización por gradiente y la geomet
 En la práctica empleamos reglas algebraicas para derivar rápido, en lugar de límites desde primeros principios.
 {{% /notice %}}
 
-## Por qué importan las derivadas
-
-En este capítulo entrenamos modelos con optimización basada en gradientes. Las derivadas convierten el error del modelo en actualizaciones de parámetros. Para regresión lineal con predicción $\hat{y}=\theta_0+\theta_1 x$ y error cuadrático medio
-
-$$
-J(\theta_0,\theta_1) = \frac{1}{N} \sum_{n=1}^N (y_n - \hat{y}_n)^2,
-$$
-
-las derivadas parciales son
-
-$$
-\frac{\partial J}{\partial \theta_0} = -\frac{2}{N} \sum_n (y_n-\hat{y}_n), \qquad
-\frac{\partial J}{\partial \theta_1} = -\frac{2}{N} \sum_n x_n\,(y_n-\hat{y}_n).
-$$
-
-El descenso del gradiente actualiza $\theta$ avanzando en dirección opuesta al gradiente: $\theta \leftarrow \theta - \eta\,\nabla J$.
 
 ## Reglas y derivadas básicas
 
-- Linealidad: $(af + bg)' = a f' + b g'$.
-- Constante: $\dfrac{d}{dx}(c) = 0$.
-- Potencias: $\dfrac{d}{dx}(x^n) = n x^{n-1}$ para $n$ real.
-- Exponenciales: $\dfrac{d}{dx}(e^x) = e^x$ y, en general, $\dfrac{d}{dx}(a^x) = a^x \ln a$.
-- Logaritmos: $\dfrac{d}{dx}(\ln x) = \dfrac{1}{x}$ y $\dfrac{d}{dx}(\log_a x) = \dfrac{1}{x\ln a}$.
-- Trigonométricas:
-  - $\dfrac{d}{dx}(\sin x) = \cos x$, $\dfrac{d}{dx}(\cos x) = -\sin x$.
-  - $\dfrac{d}{dx}(\tan x) = \sec^2 x$, $\dfrac{d}{dx}(\cot x) = -\csc^2 x$.
-  - $\dfrac{d}{dx}(\sec x) = \sec x\tan x$, $\dfrac{d}{dx}(\csc x) = -\csc x\cot x$.
-- Inversas trigonométricas:
-  - $\dfrac{d}{dx}(\arcsin x) = \dfrac{1}{\sqrt{1-x^2}}$, $\dfrac{d}{dx}(\arccos x) = -\dfrac{1}{\sqrt{1-x^2}}$.
-  - $\dfrac{d}{dx}(\arctan x) = \dfrac{1}{1+x^2}$.
-- Regla del producto: $(fg)' = f'g + fg'$.
-- Regla del cociente: $\left(\dfrac{f}{g}\right)' = \dfrac{f'g - fg'}{g^2}$ con $g\neq 0$.
-- Regla de la cadena: $\dfrac{d}{dx}\, f(g(x)) = f'(g(x))\, g'(x)$.
+| Regla | Función | Derivada |
+|-------|---------|----------|
+| Linealidad | af + bg | a f' + b g' |
+| Constante | c | 0 |
+| Potencias | x^n | n x^{n-1} (n real) |
+| Exponenciales | e^x | e^x |
+|  | a^x | a^x ln a |
+| Logaritmos | ln x | 1/x |
+|  | log_a x | 1/(x ln a) |
+| Trigonométricas | sin x | cos x |
+|  | cos x | -sin x |
+|  | tan x | sec^2 x |
+|  | cot x | -csc^2 x |
+|  | sec x | sec x tan x |
+|  | csc x | -csc x cot x |
+| Inversas trigonométricas | arcsin x | 1/√(1-x^2) |
+|  | arccos x | -1/√(1-x^2) |
+|  | arctan x | 1/(1+x^2) |
+| Regla del producto | fg | f'g + fg' |
+| Regla del cociente | f/g | (f'g - fg')/g^2 (g ≠ 0) |
+| Regla de la cadena | f(g(x)) | f'(g(x)) g'(x) |
 
 ## Derivada interactiva
 

@@ -2,10 +2,15 @@
 title: "Chapter 2: Machine Learning Models"
 description: "Enthusiasm and Frustration: Linear Regression"
 weight: 2
+type: "chapter"
 slug: "machine-learning-models"
 ---
 
-## Enthusiasm and Frustration: Linear Regression
+{{< chapter-subtitle >}}Enthusiasm and Frustration: Linear Regression{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="2" >}}
+
+Exhausted and buried in trial-and-error, Ethan leans on Noah and AIA while Owen doubts the effort, and linear regression becomes Minermont’s first measurable win.
 
 This chapter focuses on the core mechanics behind supervised learning with simple models: fitting a line, choosing a loss, and optimising parameters.
 

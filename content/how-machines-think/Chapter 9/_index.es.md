@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 9: Casos del Mundo Real"
+description: "Casos del Mundo Real"
 type: "chapter"
 weight: 9
 draft: false
 slug: "casos-mundo-real-minermont"
 ---
 
-## Casos del Mundo Real
+{{< chapter-subtitle >}}Casos del Mundo Real{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="9" >}}
+
+Años después, Minermont se convierte en un caso de estudio y Víctor, Marta y Luis comparten el método: problemas claros, datos de calidad y práctica centrada en la seguridad.
 
 ## ¿Qué Aprenderás?
 

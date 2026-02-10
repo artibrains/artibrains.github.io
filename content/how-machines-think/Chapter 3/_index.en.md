@@ -1,12 +1,17 @@
 ---
 title: "Chapter 3: Binary Classification Systems"
+description: "The Next Step: Logistic Regression and SVM"
 type: "chapter"
 weight: 3
 draft: false
 slug: "classification-model-evaluation"
 ---
 
-## The Next Step: Logistic Regression and SVM
+{{< chapter-subtitle >}}The Next Step: Logistic Regression and SVM{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="3" >}}
+
+With supply predictions working, Ethan and the team tackle no-shows; Hazel guides them through logistic regression and SVM to turn yes/no decisions into better scheduling.
 
 This chapter introduces **binary classification**: turning signals into a yes/no decision, evaluating performance correctly, and controlling overfitting with regularization.
 

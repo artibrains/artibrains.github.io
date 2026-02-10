@@ -60,6 +60,18 @@ Nota: mantenemos el nombre/params por compatibilidad con el contenido existente.
         </div>
 
         <div class="medical-context__body">
+            {{ if $scenario }}
+            <div class="medical-context__section medical-context__section--scenario">
+                <div class="medical-context__section-title">
+                    <span class="medical-context__section-icon">🧭</span>
+                    <span>{{ if eq $lang "es" }}Contexto{{ else }}Scenario{{ end }}</span>
+                </div>
+                <div class="medical-context__section-content">
+                    {{ $scenario | replaceRE "\\\\n" "\n" | markdownify }}
+                </div>
+            </div>
+            {{ end }}
+
             {{ if $highlight }}
             <div class="medical-context__section medical-context__section--highlight">
                 <div class="medical-context__section-title">
@@ -67,7 +79,7 @@ Nota: mantenemos el nombre/params por compatibilidad con el contenido existente.
                     <span>{{ if eq $lang "es" }}Qué observar{{ else }}What to watch for{{ end }}</span>
                 </div>
                 <div class="medical-context__section-content">
-                    {{ $highlight | markdownify }}
+                    {{ $highlight | replaceRE "\\\\n" "\n" | markdownify }}
                 </div>
             </div>
             {{ end }}

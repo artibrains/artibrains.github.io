@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 6: Redes Neuronales"
+description: "El Límite de los Patrones Conocidos: El Cerebro Artificial"
 type: "chapter"
 weight: 6
 draft: false
 slug: "redes-neuronales"
 ---
 
-## El Límite de los Patrones Conocidos: El Cerebro Artificial
+{{< chapter-subtitle >}}El Límite de los Patrones Conocidos: El Cerebro Artificial{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="6" >}}
+
+En dermatología, Víctor recuerda el “momento ImageNet” que Alma mencionó y el equipo recurre a redes neuronales para priorizar lesiones riesgosas sin sacar a los especialistas del bucle.
 
 Un nuevo desafío surge en la clínica de dermatología. Los médicos luchan por distinguir diferencias sutiles en lesiones cutáneas—algunas lesiones que se ven benignas resultan ser melanomas, mientras que las sospechosas resultan inofensivas. Los métodos tradicionales de aprendizaje automático fallan: definir manualmente características como "simetría" o "irregularidad de bordes" es demasiado subjetivo, y el análisis estadístico de píxeles no puede capturar las relaciones espaciales complejas que los dermatólogos expertos ven. Víctor recuerda que Alma mencionó el "momento ImageNet" de 2012 cuando las redes neuronales revolucionaron la visión por computadora. ¿Podrían las redes neuronales convolucionales (CNN) ayudar a analizar imágenes dermatológicas? A pesar de las preocupaciones sobre modelos de "caja negra", el equipo se sumerge en el aprendizaje profundo, descubriendo cómo las neuronas artificiales procesan información a través de capas, aprendiendo características jerárquicas desde bordes simples hasta patrones complejos. Exploran funciones de activación, retropropagación, capas convolucionales y aprendizaje por transferencia. El sistema resultante ayuda a priorizar lesiones sospechosas, acelerando las consultas mientras mantiene a los especialistas firmemente en el bucle diagnóstico. El capítulo revela tanto el poder como la responsabilidad que conlleva las redes neuronales.
 

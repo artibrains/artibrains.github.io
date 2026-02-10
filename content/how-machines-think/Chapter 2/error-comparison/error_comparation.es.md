@@ -16,7 +16,7 @@ Cuando desarrollamos modelos de machine learning, la elección de la función de
     type="research" 
     level="intermediate" 
     scenario="Estás desarrollando un modelo para predecir el tiempo de entrega según distancia, tráfico y clima. Algunas rutas tienen valores extremos o inconsistentes (incidencias, retrasos) que pueden sesgar la evaluación."
-    highlight="La elección entre L1 y L2 determina cómo el modelo responde a estos casos atípicos. L1 es más robusto ante outliers, mientras que L2 penaliza más severamente los errores grandes, útil cuando los fallos grandes son especialmente costosos."
+    highlight="- **L1 (MAE)** es más robusto ante outliers: los errores grandes no dominan la media.\n- **L2 (MSE)** castiga mucho más los fallos grandes: útil cuando los errores grandes son especialmente costosos.\n\nObserva cómo cambian las rectas ajustadas y los errores medios cuando introduces outliers."
 >}}
 
 

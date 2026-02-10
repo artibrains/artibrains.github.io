@@ -3395,3 +3395,101 @@ input[type="number"]:focus {
     box-shadow: var(--demo-shadow-large);
     border: 1px solid var(--demo-border-light);
 }
+
+/* === Error comparison (L1 vs L2) === */
+
+.error-comparison-game {
+    width: 100%;
+}
+
+.error-comparison-game .ecg-intro {
+    margin: 0 0 var(--demo-spacing);
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--demo-text) 85%, var(--demo-bg));
+}
+
+.error-comparison-game .ecg-controls {
+    display: flex;
+    justify-content: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+    margin: 0 0 var(--demo-spacing);
+}
+
+.error-comparison-game .ecg-controls .demo-btn {
+    margin: 0;
+    flex: 1 1 240px;
+    justify-content: center;
+}
+
+.error-comparison-game .ecg-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--demo-grid-gap);
+    align-items: stretch;
+}
+
+.error-comparison-game .ecg-chart {
+    position: relative;
+    width: 100%;
+    height: clamp(320px, 48vh, 520px);
+    background: var(--demo-surface);
+    border: 1px solid var(--demo-border);
+    border-radius: var(--demo-radius);
+    padding: var(--demo-spacing);
+    box-shadow: var(--demo-shadow-sm);
+}
+
+.error-comparison-game .ecg-chart canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.error-comparison-game .ecg-table {
+    width: 100%;
+    background: var(--demo-surface-alt);
+    border: 1px solid var(--demo-border);
+    border-radius: var(--demo-radius);
+    padding: var(--demo-spacing);
+    box-shadow: var(--demo-shadow-sm);
+}
+
+.error-comparison-game .ecg-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.error-comparison-game .ecg-table th,
+.error-comparison-game .ecg-table td {
+    padding: .55rem .6rem;
+    border-bottom: 1px solid var(--demo-border);
+}
+
+.error-comparison-game .ecg-table thead th {
+    text-align: left;
+    color: color-mix(in srgb, var(--demo-text) 85%, var(--demo-bg));
+    font-weight: 700;
+}
+
+.error-comparison-game .ecg-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+@media (min-width: 980px) {
+    .error-comparison-game .ecg-layout {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .error-comparison-game .ecg-chart {
+        flex: 1 1 72%;
+        min-width: 560px;
+    }
+
+    .error-comparison-game .ecg-table {
+        flex: 0 0 320px;
+        max-width: 360px;
+        align-self: stretch;
+    }
+}

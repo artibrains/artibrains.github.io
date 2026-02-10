@@ -2,10 +2,15 @@
 title: "Chapter 1: The Beginning of the Journey"
 description: "The Problem: When Technology Becomes Necessary"
 weight: 1
+type: "chapter"
 slug: "ai-journey-beginnings"
 ---
 
-## The Problem: When Technology Becomes Necessary
+{{< chapter-subtitle >}}The Problem: When Technology Becomes Necessary{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="1" >}}
+
+At Minermont, Ethan spots a path out of long queues and strained staff, and Hazel’s AIA turns his curiosity into the hospital’s first AI journey—even as Grace raises doubts.
 
 This chapter is a fast, interactive introduction to AI: where it came from, why it went through "winters", and what the core idea of learning from feedback looks like.
 

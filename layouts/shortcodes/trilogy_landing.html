@@ -169,6 +169,33 @@
     overflow: hidden;
   }
 
+  .book-cover {
+    display: block;
+    margin: .65rem auto .85rem;
+    width: min(220px, 76%);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px -22px rgba(0,0,0,.55);
+    border: 1px solid var(--tl-border);
+    background: color-mix(in srgb, var(--tl-card) 92%, transparent);
+  }
+
+  .book-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .book-cover-link {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .book-cover-link:hover {
+    transform: translateY(-2px);
+  }
+
   .book-number {
     position: absolute;
     top: .9rem;
@@ -438,6 +465,16 @@
           From foundations to LLMs: why text “starts making sense”
         {{ end }}
       </p>
+
+      <a href="{{ "how-machines-think/" | relLangURL }}" class="book-cover-link">
+        {{ partial "how-machines-learn-cover.html" (dict
+          "lang" $lang
+          "class" "book-cover"
+          "sizes" "(min-width: 1180px) 220px, (min-width: 980px) 200px, 60vw"
+          "loading" "eager"
+          "fetchpriority" "high"
+        ) }}
+      </a>
       <div class="book-description">
         {{ if eq $lang "es" }}
           <p>
@@ -485,35 +522,35 @@
       </h2>
       <p class="book-subtitle">
         {{ if eq $lang "es" }}
-          De la exploración al dominio: aprender sin etiquetas (AlphaZero como brújula)
+          IA cotidiana: recomendaciones, segmentación y aprendizaje con feedback
         {{ else }}
-          From exploration to mastery: learning without labels (AlphaZero as compass)
+          Everyday AI: recommendations, segmentation, and learning from feedback
         {{ end }}
       </p>
       <div class="book-description">
         {{ if eq $lang "es" }}
           <p>
-            ¿Cómo aprende una máquina cuando nadie le dice si está “bien” o “mal”? Este volumen se centra en
-            aprendizaje no supervisado y, sobre todo, en aprendizaje por refuerzo y auto‑juego: la receta que convirtió
-            a AlphaZero en un hito.
+            ¿Cómo aprende una máquina cuando nadie le da etiquetas “correctas”? Este volumen se centra en el
+            aprendizaje a partir de señales reales: patrones en datos sin etiquetar, segmentación de usuarios y
+            productos, recomendaciones a partir de comportamiento, y decisiones que mejoran con feedback.
           </p>
           <ul class="book-highlights">
-            <li><strong>Patrones sin etiquetas</strong>: estructura emergente en datos</li>
-            <li><strong>Recompensa y exploración</strong>: aprender por interacción</li>
-            <li><strong>Auto‑juego</strong>: mejorar jugando contra ti mismo</li>
-            <li><strong>De la intuición al algoritmo</strong>: del “juego” a la matemática</li>
+            <li><strong>Recomendadores</strong>: aprender de clicks, compras y preferencias implícitas</li>
+            <li><strong>Clustering</strong>: segmentar clientes y descubrir estructura</li>
+            <li><strong>Anomalías</strong>: detectar rarezas sin una etiqueta explícita</li>
+            <li><strong>Exploración vs. explotación</strong>: mejorar con feedback en sistemas vivos</li>
           </ul>
         {{ else }}
           <p>
-            How does a machine learn when nobody tells it what’s “right” or “wrong”? This volume focuses on
-            unsupervised learning and, especially, reinforcement learning and self‑play: the recipe that made AlphaZero
-            a milestone.
+            How does a machine learn when nobody hands it “correct” labels? This volume focuses on learning from
+            real-world signals: patterns in unlabeled data, customer/product segmentation, recommendations from
+            behavior, and decisions that improve from feedback.
           </p>
           <ul class="book-highlights">
-            <li><strong>Patterns without labels</strong>: emergent structure in data</li>
-            <li><strong>Reward & exploration</strong>: learning by interaction</li>
-            <li><strong>Self‑play</strong>: improve by playing yourself</li>
-            <li><strong>From intuition to algorithm</strong>: from “game” to math</li>
+            <li><strong>Recommenders</strong>: learning from clicks, purchases, and implicit preferences</li>
+            <li><strong>Clustering</strong>: segmenting users and discovering structure</li>
+            <li><strong>Anomalies</strong>: finding rare events without explicit labels</li>
+            <li><strong>Explore vs exploit</strong>: improving with feedback in live systems</li>
           </ul>
         {{ end }}
       </div>
@@ -585,8 +622,8 @@
         Para responderla con honestidad hay que tocar matemáticas y ciencia de la computación, pero con una narrativa que te guíe.
       </p>
       <ul>
-        <li><strong>Libro 1</strong> — LLMs: cómo entienden y generan texto (tokenización → embeddings → atención → Transformers)</li>
-        <li><strong>Libro 2</strong> — Aprender sin etiquetas: patrones y refuerzo (AlphaZero como ejemplo central)</li>
+        <li><strong>Libro 1</strong> — LLMs: cómo entienden y generan texto</li>
+        <li><strong>Libro 2</strong> — IA cotidiana: recomendaciones, segmentación y aprendizaje con feedback</li>
         <li><strong>Libro 3</strong> — Multimodal: cómo “ven”, “oyen” y crean (imagen, audio, vídeo)</li>
       </ul>
       <p>
@@ -598,8 +635,8 @@
         To answer it honestly, we touch math and computer science — guided by a story and grounded intuition.
       </p>
       <ul>
-        <li><strong>Book 1</strong> — LLMs: how they understand and generate text (tokenization → embeddings → attention → Transformers)</li>
-        <li><strong>Book 2</strong> — Learning without labels: patterns and reinforcement (AlphaZero as the core example)</li>
+        <li><strong>Book 1</strong> — LLMs: how they understand and generate text</li>
+        <li><strong>Book 2</strong> — Everyday AI: recommendations, segmentation, and learning from feedback</li>
         <li><strong>Book 3</strong> — Multimodal: how models “see”, “hear”, and create (image, audio, video)</li>
       </ul>
       <p>

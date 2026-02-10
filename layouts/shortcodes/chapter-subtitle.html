@@ -1,0 +1,9 @@
+{{- /*
+  Chapter subtitle displayed under the main title.
+  Usage: {{< chapter-subtitle >}}Subtitle text{{< /chapter-subtitle >}}
+*/ -}}
+
+{{- $text := trim .Inner "\n\r\t " -}}
+{{- if $text -}}
+<h2 class="chapter-subtitle">{{ $text | markdownify }}</h2>
+{{- end -}}

@@ -2,10 +2,15 @@
 title: "Capítulo 2: Modelos de Aprendizaje Automático"
 description: "Entusiasmo y Frustración: Regresión Lineal"
 weight: 2
+type: "chapter"
 slug: "modelos-aprendizaje-automatico"
 ---
 
-## Entusiasmo y Frustración: Regresión Lineal
+{{< chapter-subtitle >}}Entusiasmo y Frustración: Regresión Lineal{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="2" >}}
+
+Agotado y entre pruebas, Víctor se apoya en Luis y la AIA mientras Javier duda, y la regresión lineal se convierte en el primer logro medible de Minermont.
 
 Este capítulo se centra en la mecánica básica del aprendizaje supervisado con modelos simples: ajustar una recta, elegir una función de coste y optimizar parámetros.
 

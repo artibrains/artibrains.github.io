@@ -1,12 +1,17 @@
 ---
 title: "Chapter 8: From Tokens to Thought"
+description: "From Tokens to Thought: Building Minds from Text"
 type: "chapter"
 weight: 8
 draft: false
 slug: "language-revolution-llms-applications"
 ---
 
-## From Tokens to Thought: Building Minds from Text
+{{< chapter-subtitle >}}From Tokens to Thought: Building Minds from Text{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="8" >}}
+
+Building on the foundations, the team pilots LLMs for admin and patient communication with Hazel’s insistence on human validation, while confronting bias, privacy, and hallucinations.
 
 Building on the foundations from Chapter 7, the team now focuses on what happens *after* a model can predict text: alignment with human preferences, reasoning at inference time, and the practical mindset needed to deploy LLMs responsibly.
 

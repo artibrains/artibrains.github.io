@@ -1,12 +1,17 @@
 ---
 title: "Chapter 9: Real-World Cases"
+description: "Real-World Cases"
 type: "chapter"
 weight: 9
 draft: false
 slug: "real-world-cases-minermont"
 ---
 
-## Real-World Cases
+{{< chapter-subtitle >}}Real-World Cases{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="9" >}}
+
+Years later, Minermont becomes a case study, and Ethan, Sophia, and Noah share the method: clear problems, quality data, and safety-first practice.
 
 ## What Will You Learn?
 

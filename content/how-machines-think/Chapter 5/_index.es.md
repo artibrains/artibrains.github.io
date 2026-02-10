@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 5: Aprendizaje No Supervisado"
+description: "El Poder del Aprendizaje No Supervisado: Descubriendo Patrones sin Etiquetas"
 type: "chapter"
 weight: 5
 draft: false
 slug: "aprendizaje-no-supervisado"
 ---
 
-## El Poder del Aprendizaje No Supervisado: Descubriendo Patrones sin Etiquetas
+{{< chapter-subtitle >}}El Poder del Aprendizaje No Supervisado: Descubriendo Patrones sin Etiquetas{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="5" >}}
+
+Elena desafía al equipo a encontrar grupos ocultos, y Marta introduce el aprendizaje no supervisado para revelar clusters, anomalías y riesgos antes de que escalen.
 
 La Directora Elena plantea un nuevo desafío: ¿Puede la IA ayudar a identificar grupos de usuarios con probabilidad de tener incidencias *antes* de que se conviertan en escalados? A diferencia de los proyectos anteriores donde las categorías eran conocidas (urgente/normal, asiste/no-asiste), esto requiere descubrir patrones ocultos en los datos sin etiquetas predefinidas. Marta introduce al equipo el aprendizaje no supervisado, donde los algoritmos exploran datos para encontrar agrupaciones y estructuras naturales por sí solos. A través de algoritmos de agrupamiento como k-means y agrupamiento jerárquico, más técnicas de reducción de dimensionalidad como PCA, el equipo aprende a descubrir patrones en el uso del servicio. Descubren segmentos que comparten comportamientos similares, detectan anomalías que podrían indicar picos repentinos o cambios de flujo, e identifican correlaciones sutiles entre señales. Pero también aprenden una lección crucial sobre interpretación: el algoritmo no "entiende" a las personas, solo agrupa números basándose en reglas de similitud que el equipo elige. Este capítulo explora la fascinante frontera donde las máquinas nos ayudan a descubrir lo que no sabíamos que no sabíamos.
 

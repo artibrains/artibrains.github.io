@@ -1,12 +1,17 @@
 ---
 title: "Chapter 5: Unsupervised Learning"
+description: "The Power of Unsupervised Learning: Discovering Patterns without Labels"
 type: "chapter"
 weight: 5
 draft: false
 slug: "unsupervised-learning"
 ---
 
-## The Power of Unsupervised Learning: Discovering Patterns without Labels
+{{< chapter-subtitle >}}The Power of Unsupervised Learning: Discovering Patterns without Labels{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="5" >}}
+
+Lucy challenges the team to find hidden patient groups, and Sophia introduces unsupervised learning to reveal clusters, anomalies, and risks before they escalate.
 
 Director Elena poses a new challenge: can AI help identify groups of users that are likely to run into problems *before* they become escalations? Unlike previous projects where categories were known (urgent/normal, attend/no-show), this requires discovering hidden patterns in data without predefined labels. Marta introduces the team to unsupervised learning, where algorithms explore data to find natural groupings and structure on their own. Through clustering algorithms like k-means and hierarchical clustering, plus dimensionality reduction techniques like PCA, the team learns to uncover patterns in service usage. They discover segments that share similar behaviors, detect anomalies that might indicate sudden spikes or workflow changes, and identify subtle correlations between signals. But they also learn a crucial lesson about interpretation—the algorithm doesn't "understand" people, it only groups numbers based on similarity rules the team chooses. This chapter explores the fascinating frontier where machines help us discover what we didn't know we didn't know.
 

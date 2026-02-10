@@ -7,6 +7,25 @@ slug: "gradients"
 math: true
 ---
 
+
+## Why Derivatives Matter
+
+In this chapter we train models via gradient-based optimization. Derivatives turn model errors into actionable parameter updates. For linear regression with prediction $\hat{y}=\theta_0+\theta_1 x$ and mean squared error
+
+$$
+J(\theta_0,\theta_1) = \frac{1}{N} \sum_{n=1}^N (y_n - \hat{y}_n)^2,
+$$
+
+the partial derivatives are
+
+$$
+\frac{\partial J}{\partial \theta_0} = -\frac{2}{N} \sum_n (y_n-\hat{y}_n), \qquad
+\frac{\partial J}{\partial \theta_1} = -\frac{2}{N} \sum_n x_n\,(y_n-\hat{y}_n).
+$$
+
+Gradient descent updates parameters by stepping opposite the gradient: $\theta \leftarrow \theta - \eta\,\nabla J$.
+
+
 ## What Is a Partial Derivative?
 
 For a function $f(x_1,\dots,x_d)$, the partial derivative with respect to $x_k$ measures how $f$ changes when only $x_k$ varies while the rest are held constant:

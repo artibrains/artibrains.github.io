@@ -1,0 +1,44 @@
+{{- /*
+  Responsive cover image for the book "How Machines Learn to Think".
+  Usage:
+    {{ partial "how-machines-learn-cover.html" (dict
+        "lang" $lang
+        "class" "optional-css-class"
+        "sizes" "(min-width: 980px) 220px, 70vw"
+        "loading" "lazy"  (or "eager")
+        "fetchpriority" "low" (or "high")
+    ) }}
+*/ -}}
+
+{{- $lang := .lang | default "en" -}}
+{{- $class := .class | default "" -}}
+{{- $sizes := .sizes | default "(min-width: 980px) 240px, 70vw" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $fetchpriority := .fetchpriority | default "low" -}}
+
+{{- $suffix := cond (eq $lang "es") "ES" "EN" -}}
+{{- $base := printf "/img/covers/how_machines_learn_COVER-%s" $suffix -}}
+
+{{- $alt := "" -}}
+{{- if eq $lang "es" -}}
+  {{- $alt = "Portada del libro \"Cómo piensan las máquinas\"" -}}
+{{- else -}}
+  {{- $alt = "Cover of the book \"How Machines Think\"" -}}
+{{- end -}}
+
+<picture class="{{ $class }}">
+  <source
+    type="image/webp"
+    srcset="{{ $base }}-320.webp 320w, {{ $base }}-480.webp 480w, {{ $base }}-640.webp 640w, {{ $base }}-800.webp 800w, {{ $base }}-1024.webp 1024w, {{ $base }}-1280.webp 1280w, {{ $base }}-1600.webp 1600w"
+    sizes="{{ $sizes }}">
+  <img
+    src="{{ $base }}-640.jpg"
+    srcset="{{ $base }}-320.jpg 320w, {{ $base }}-480.jpg 480w, {{ $base }}-640.jpg 640w, {{ $base }}-800.jpg 800w, {{ $base }}-1024.jpg 1024w, {{ $base }}-1280.jpg 1280w, {{ $base }}-1600.jpg 1600w"
+    sizes="{{ $sizes }}"
+    width="640"
+    height="955"
+    alt="{{ $alt }}"
+    loading="{{ $loading }}"
+    decoding="async"
+    fetchpriority="{{ $fetchpriority }}">
+</picture>

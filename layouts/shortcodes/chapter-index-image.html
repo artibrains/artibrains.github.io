@@ -1,0 +1,46 @@
+{{- /*
+  Chapter index responsive image.
+  Usage: {{< chapter-index-image chapter="1" >}}
+*/ -}}
+
+{{- $chapter := .Get "chapter" -}}
+{{- if not $chapter -}}
+  {{- errorf "chapter-index-image shortcode requires a chapter parameter" -}}
+{{- end -}}
+
+{{- $lang := .Get "lang" | default .Page.Lang | default "en" -}}
+{{- $isSpanish := eq $lang "es" -}}
+{{- $langSuffix := cond $isSpanish "es" "en" -}}
+
+{{- $name := $chapter -}}
+{{- if in (slice "3" "4" "5" "6" "7" "8") $chapter -}}
+  {{- $name = printf "%s-%s" $chapter $langSuffix -}}
+{{- end -}}
+
+{{- $ext := "png" -}}
+{{- if in (slice "6" "7" "8" "9") $chapter -}}
+  {{- $ext = "jpeg" -}}
+{{- end -}}
+
+{{- $base := printf "/img/chapters/how_learn/%s" $name -}}
+{{- $sizes := slice 320 640 960 1280 -}}
+{{- $srcset := slice -}}
+{{- range $sizes -}}
+  {{- $srcset = $srcset | append (printf "%s-%d.%s %dw" $base . $ext .) -}}
+{{- end -}}
+
+{{- $alt := "" -}}
+{{- if $isSpanish -}}
+  {{- $alt = printf "Ilustración del capítulo %s" $chapter -}}
+{{- else -}}
+  {{- $alt = printf "Chapter %s illustration" $chapter -}}
+{{- end -}}
+
+<img
+  class="chapter-index-image"
+  src="{{ printf "%s-640.%s" $base $ext }}"
+  srcset="{{ delimit $srcset ", " }}"
+  sizes="(min-width: 1024px) 720px, 90vw"
+  alt="{{ $alt }}"
+  loading="lazy"
+  decoding="async">

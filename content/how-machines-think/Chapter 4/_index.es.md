@@ -1,11 +1,17 @@
+---
 title: "Capítulo 4: Clasificación Multiclase"
+description: "Enrutamiento automático de tickets: clasificación multiclase"
 type: "chapter"
 weight: 4
 draft: false
 slug: "algoritmos-clasificacion-profundidad"
 ---
 
-## Enrutamiento automático de tickets: clasificación multiclase
+{{< chapter-subtitle >}}Enrutamiento automático de tickets: clasificación multiclase{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="4" >}}
+
+Urgencias en Minermont está desbordada, y Víctor trabaja con Teresa para crear apoyo de triaje multiclase que asista al equipo sin quitar el control humano.
 
 El centro de soporte de Minermont está abrumado. El equipo debe leer manualmente cada solicitud entrante y enviarla al grupo correcto (y a veces con la prioridad adecuada): un proceso que consume tiempo, es estresante y crea cuellos de botella en los días de mayor carga. Víctor propone usar IA para asistir (no reemplazar) el criterio humano en el flujo de entrada. Pero esto es más complejo que los proyectos anteriores: en lugar de predecir un número o una respuesta sí/no, el sistema necesita asignar cada solicitud a una de varias categorías (por ejemplo: Facturación, Soporte técnico o Cuenta). Aquí entra la clasificación multiclase con Bosques Aleatorios y otros algoritmos. El equipo aprende sobre árboles de decisión, métodos de conjunto, matrices de confusión y la importancia del equilibrio de clases. Trabajando estrechamente con Teresa, responsable de operaciones de soporte, desarrollan un sistema que sugiere categorías y prioridad manteniendo siempre a las personas en el bucle para las decisiones finales. El resultado: enrutamiento más rápido, menos carga para el equipo y más tiempo para casos complejos, manteniendo altos estándares de calidad.
 

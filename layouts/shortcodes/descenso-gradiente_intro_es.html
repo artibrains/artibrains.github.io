@@ -2,68 +2,11 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<div class="medical-context">
-    {{ if eq $lang "es" }}
-    <h2>🏥 Contexto Médico: Optimización de Parámetros Terapéuticos</h2>
-    <div class="medical-scenario">
-        <div class="scenario-text">
-            <p><strong>Imagina:</strong> Tu modelo de IA requiere ajusta de forma automática sus parámetros. Para
-                realizar ajustes precisos, es crucial encontrar los valores óptimos que minimicen la función de
-                pérdida del modelo. </p>
-            </p>
-            <p class="highlight">El descenso del gradiente ayuda a identificar los valores que minimizan la función de
-                pérdida, alcanzando un mínimo. El valor mínimo que se alcanza depende de la tasa de aprendizaje y del
-                punto de partida.
-            </p>
-        </div>
-    </div>
-    {{ else }}
-    <h2>🏥 Medical Context: Therapeutic Parameter Optimization</h2>
-    <div class="medical-scenario">
-        <div class="scenario-text">
-            <p><strong>Imagine:</strong> Your AI model requires automatic parameter adjustment. To make precise
-                adjustments, it's crucial to find optimal values that minimize the model's loss function.</p>
-            <p class="highlight">Gradient descent helps identify values that minimize the loss function, reaching a
-                minimum. The minimum value achieved depends on the learning rate and the starting point.
-            </p>
-        </div>
-    </div>
-    {{ end }}
-</div>
-
 <div id="app-explanation">
     {{ if eq $lang "es" }}
     <p class="intro">Explora en 1D y 2D cómo el descenso del gradiente converge hacia el mínimo de una función. Ajusta
-        el tipo de tasa de aprendizaje y el punto de partida para comprender mejor su comportamiento en entornos médicos
-        reales.</p>
+        el tipo de tasa de aprendizaje y el punto de partida para comprender mejor su comportamiento.</p>
 
-    <div class="how-it-works">
-        <h2>¿Cómo funciona?</h2>
-        <div class="explanation-columns">
-            <div class="column">
-                <h3>Selecciona la función</h3>
-                <p>Introduce una función que simule la pérdida del modelo (por ejemplo, error en niveles sanguíneos) y
-                    elige un punto inicial.</p>
-            </div>
-            <div class="column">
-                <h3>Ajusta la tasa de aprendizaje</h3>
-                <p>Prueba con tasa constante o decreciente (simple o exponencial) y observa cómo afecta la velocidad y
-                    estabilidad de la convergencia.</p>
-            </div>
-            <div class="column">
-                <h3>Observa el proceso</h3>
-                <p>Visualiza paso a paso cómo el algoritmo desciende hasta el mínimo, controlando también normatividad
-                    del gradiente para detenerse en un punto óptimo.</p>
-            </div>
-        </div>
-    </div>
-
-    <p>
-        Después de que el equipo decidiera usar la regresión lineal, Marta explicó cómo el <strong>método del descenso
-            del gradiente</strong> les permitiría encontrar automáticamente los mejores valores para los parámetros
-        <em>w</em> (peso) y <em>b</em> (sesgo). Como él mismo dijo, es como "bajar una montaña a ciegas", donde en cada
-        paso se busca la dirección de máxima pendiente para descender.
-    </p>
     <p>
         En esta simulación, puedes visualizar ese proceso. El gráfico de la izquierda muestra la superficie de la
         función de coste (en este caso, el Error Cuadrático Medio o MSE). Cada punto en esta superficie representa el
@@ -74,41 +17,12 @@
         Usa los controles para iniciar el algoritmo. Observa cómo los parámetros se actualizan en cada iteración
         (gráfico de la derecha), siguiendo la dirección opuesta al gradiente, hasta converger en la solución óptima que
         minimiza el error. Puedes experimentar con diferentes tasas de aprendizaje (<em>learning rate</em>) para ver
-        cómo afecta a la velocidad y estabilidad del proceso, un punto que Marta y Luis discutieron para afinar su
-        modelo.
+        cómo afecta a la velocidad y estabilidad del proceso.
     </p>
     {{ else }}
     <p class="intro">Explore in 1D and 2D how gradient descent converges toward the minimum of a function. Adjust
-        the learning rate type and starting point to better understand its behavior in real medical environments.</p>
+        the learning rate type and starting point to better understand its behavior.</p>
 
-    <div class="how-it-works">
-        <h2>How does it work?</h2>
-        <div class="explanation-columns">
-            <div class="column">
-                <h3>Select the function</h3>
-                <p>Enter a function that simulates the model's loss (e.g., error in blood levels) and choose a starting
-                    point.</p>
-            </div>
-            <div class="column">
-                <h3>Adjust the learning rate</h3>
-                <p>Try constant or decreasing rate (simple or exponential) and observe how it affects the speed and
-                    stability of convergence.</p>
-            </div>
-            <div class="column">
-                <h3>Observe the process</h3>
-                <p>Visualize step by step how the algorithm descends to the minimum, also controlling gradient
-                    normalization to stop at an optimal point.</p>
-            </div>
-        </div>
-    </div>
-
-    <p>
-        After the team decided to use linear regression, Marta explained how the <strong>gradient descent
-            method</strong> would allow them to automatically find the best values for the parameters
-        <em>w</em> (weight) and <em>b</em> (bias). As she said, it's like "going down a mountain blindfolded," where at
-        each
-        step you look for the direction of maximum slope to descend.
-    </p>
     <p>
         In this simulation, you can visualize that process. The left graph shows the surface of the
         cost function (in this case, Mean Squared Error or MSE). Each point on this surface represents the
@@ -119,8 +33,7 @@
         Use the controls to start the algorithm. Watch how the parameters are updated in each iteration
         (right graph), following the direction opposite to the gradient, until converging on the optimal solution that
         minimizes the error. You can experiment with different learning rates to see
-        how it affects the speed and stability of the process, a point that Marta and Luis discussed to fine-tune their
-        model.
+        how it affects the speed and stability of the process.
     </p>
     {{ end }}
 </div>

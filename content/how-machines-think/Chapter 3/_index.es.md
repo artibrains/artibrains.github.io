@@ -1,12 +1,17 @@
 ---
 title: "Capítulo 3: Sistemas de Clasificación Binaria"
+description: "El Siguiente Paso: Regresión Logística y SVM"
 type: "chapter"
 weight: 3
 draft: false
 slug: "clasificacion-evaluacion-modelos"
 ---
 
-## El Siguiente Paso: Regresión Logística y SVM
+{{< chapter-subtitle >}}El Siguiente Paso: Regresión Logística y SVM{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="3" >}}
+
+Con la predicción de insumos funcionando, Víctor y el equipo atacan las inasistencias; Alma los guía con regresión logística y SVM para convertir el sí/no en mejores agendas.
 
 Este capítulo introduce la **clasificación binaria**: convertir señales en una decisión sí/no, evaluar bien el rendimiento y controlar el sobreajuste mediante regularización.
 

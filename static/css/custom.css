@@ -3,3 +3,27 @@
 
 @import url("main.css");
 @import url("professional-theme.css");
+
+/* Buy button styling */
+.topbar-button-buy {
+   margin-left: 0.5rem;
+   margin-right: 0.5rem;
+}
+
+.topbar-button-buy .topbar-control {
+   background: linear-gradient(135deg, rgba(0, 123, 255, 0.9), rgba(0, 180, 255, 0.9));
+   border: 1px solid rgba(0, 123, 255, 0.6);
+   color: #ffffff;
+   font-weight: 600;
+   padding: 0.35rem 0.65rem;
+   border-radius: 999px;
+   box-shadow: 0 2px 8px rgba(0, 123, 255, 0.35);
+   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.topbar-button-buy .topbar-control:hover,
+.topbar-button-buy .topbar-control:focus {
+   transform: translateY(-1px);
+   box-shadow: 0 4px 14px rgba(0, 123, 255, 0.45);
+   filter: brightness(1.05);
+}

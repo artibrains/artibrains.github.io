@@ -1,19 +1,19 @@
 ---
 title: "Learning Without a Teacher"
-description: "Discovering Patterns and Learning Through Interaction"
+description: "Everyday AI: recommendations, segmentation, and learning from feedback"
 draft: false
 weight: 2
 ---
 
-{{< book_coming_soon badge="Book 2" title="Learning Without a Teacher" subtitle="Discovering Patterns and Learning Through Interaction" >}}
+{{< book_coming_soon badge="Book 2" title="Learning Without a Teacher" subtitle="Everyday AI: recommendations, segmentation, and learning from feedback" >}}
 How does a machine learn when nobody tells it what is *right* or *wrong*?
 
-This volume is about learning without a teacher: discovering structure in data, learning by interaction, and building skill through exploration. **AlphaZero is the guiding north star**: self‑play, trial‑and‑error, and the surprising idea that a machine can become strong by training against itself.
+This volume is about learning when labels are scarce: discovering structure in data, grouping similar users and items, detecting anomalies, and improving decisions with feedback from the real world.
 
 ### What this book will make intuitive (and rigorous)
-- **Unsupervised learning**: discovering patterns without labels
-- **Reinforcement learning**: reward, value, policy, exploration
-- **Self‑play (AlphaZero)**: improving by playing yourself
-- **From “magic” to mechanism**: the math/CS ideas that make it work
-- **AI literacy**: using these tools responsibly, especially in education
+- **Unsupervised learning**: clustering, representations, and structure without labels
+- **Recommendations**: learning from clicks, views, and implicit preferences
+- **Learning from feedback**: exploration vs. exploitation in live systems
+- **Evaluation in the wild**: what changes when the world moves
+- **AI literacy**: using these tools responsibly
 {{< /book_coming_soon >}}

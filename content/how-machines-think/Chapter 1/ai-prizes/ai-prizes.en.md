@@ -133,11 +133,3 @@ For his work in artificial intelligence. McCarthy coined the term "Artificial In
 For his central role in creating, shaping, promoting, and advancing the field of artificial intelligence. Minsky co-founded the MIT AI Laboratory.
 
 **Links:** [Official Info](https://amturing.acm.org/award_winners/minsky_7440781.cfm)
-
----
-
-## Reflections
-
-"It's impressive to see how AI has achieved recognition from the Nobel Prizes," Carmen observed. "The diversity of contributions recognized shows it's not just about algorithms, but applications transforming multiple fields."
-
-Alma concluded: "These awards demonstrate that AI has become a fundamental force that is changing our world, from medicine to physics."

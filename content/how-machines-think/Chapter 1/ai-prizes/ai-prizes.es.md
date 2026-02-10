@@ -133,11 +133,3 @@ Por su trabajo en IA. McCarthy acuñó el término "Inteligencia Artificial" en 
 Por su papel central en crear, dar forma, promover y avanzar el campo de la IA. Minsky cofundó el Laboratorio de IA del MIT.
 
 **Enlaces:** [Información Oficial](https://amturing.acm.org/award_winners/minsky_7440781.cfm)
-
----
-
-## Reflexiones
-
-"Es impresionante ver cómo la IA ha alcanzado el reconocimiento de los Premios Nobel," observó Carmen. "La diversidad de contribuciones reconocidas muestra que no se trata solo de algoritmos, sino de aplicaciones que transforman múltiples campos."
-
-Alma concluyó: "Estos premios demuestran que la IA se ha convertido en una fuerza fundamental que está cambiando nuestro mundo, desde la medicina hasta la física."

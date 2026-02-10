@@ -1,0 +1,36 @@
+{{- partial "topbar/button/edit.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/source.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/markdown.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/print.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/prev.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/next.html" (dict
+	"page" .
+)}}
+{{- partial "topbar/button/more.html" (dict
+	"page" .
+)}}
+{{- $bookLinks := dict
+  "how-machines-think" (dict "en" "AMAZONLINKBOOK1EN" "es" "AMAZONLINKBOOK1ES")
+  "learning-without-a-teacher" (dict "en" "AMAZONLINKBOOK2EN" "es" "AMAZONLINKBOOK2ES")
+  "eyes-and-ears" (dict "en" "AMAZONLINKBOOK3EN" "es" "AMAZONLINKBOOK3ES")
+}}
+{{- $section := .Section }}
+{{- $lang := .Language.LanguageCode }}
+{{- $link := index (index $bookLinks $section) $lang }}
+{{- if $link }}
+<div class="topbar-button topbar-button-buy">
+<a class="topbar-control" href="{{ $link }}" title="Buy the Book" target="_blank">
+<i class="fa-fw fas fa-shopping-cart"></i> Buy
+</a>
+</div>
+{{- end }}

@@ -1,12 +1,17 @@
 ---
 title: "Chapter 6: Neural Networks"
+description: "The Limit of Known Patterns: The Artificial Brain"
 type: "chapter"
 weight: 6
 draft: false
 slug: "neural-networks"
 ---
 
-## The Limit of Known Patterns: The Artificial Brain
+{{< chapter-subtitle >}}The Limit of Known Patterns: The Artificial Brain{{< /chapter-subtitle >}}
+
+{{< chapter-index-image chapter="6" >}}
+
+In dermatology, Ethan recalls Hazel’s ImageNet moment and the team turns to neural networks to flag risky lesions while specialists stay in the loop.
 
 This chapter demystifies neural networks: the perceptron as a building block, how gradients flow via backpropagation, and how architecture and hyperparameters shape learning.
 

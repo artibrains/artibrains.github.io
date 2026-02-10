@@ -10,6 +10,24 @@
     margin: 0 auto;
   }
 
+  .book-coming-soon .bcs-cover {
+    display: block;
+    margin: 1rem auto 0;
+    max-width: 320px;
+    width: min(320px, 78vw);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 14px 34px -18px rgba(0,0,0,.45);
+    border: 1px solid var(--bcs-border);
+    background: color-mix(in srgb, var(--bcs-card) 92%, transparent);
+  }
+
+  .book-coming-soon .bcs-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .book-coming-soon .book-header {
     border-radius: 16px;
     padding: 1.75rem 1.25rem;
@@ -122,6 +140,17 @@
     <span class="book-badge">{{ .Get "badge" }}</span>
     <h1>{{ .Get "title" }}</h1>
     <div class="book-subtitle">{{ .Get "subtitle" }}</div>
+
+    {{- $cover := .Get "cover" -}}
+    {{- if eq $cover "how_machines_learn" -}}
+      {{ partial "how-machines-learn-cover.html" (dict
+        "lang" .Page.Lang
+        "class" "bcs-cover"
+        "sizes" "(min-width: 980px) 320px, 78vw"
+        "loading" "eager"
+        "fetchpriority" "high"
+      ) }}
+    {{- end -}}
   </div>
 
   <div class="book-intro">

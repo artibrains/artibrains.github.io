@@ -154,6 +154,9 @@ window.addEventListener('DOMContentLoaded', () => {
         // Inicialmente oculto para que el botón tenga efecto
         if (resumenDiv) resumenDiv.style.display = 'none';
     }
+
+    // Initialize the plot on load
+    if (initializeAlgorithm()) { plotInitialFunction(); }
 });
 
 // --- Textos Explicativos ---
@@ -218,12 +221,18 @@ function setupEventListeners() {
     // Resetear desplegables a "custom" si se editan los inputs manualmente
     const inputs1D = [functionInput1D, startPointInputX];
     inputs1D.forEach(input => {
-        input.addEventListener('input', () => { if(preset1DSelect) preset1DSelect.value = 'custom'; });
+        input.addEventListener('input', () => { 
+            if(preset1DSelect) preset1DSelect.value = 'custom';
+            if (initializeAlgorithm()) { plotInitialFunction(); clearPlotPath(true); }
+        });
     });
 
     const inputs2D = [functionInput2D, startPointInputX2D, startPointInputY2D];
     inputs2D.forEach(input => {
-        input.addEventListener('input', () => { if(preset2DSelect) preset2DSelect.value = 'custom'; });
+        input.addEventListener('input', () => { 
+            if(preset2DSelect) preset2DSelect.value = 'custom';
+            if (initializeAlgorithm()) { plotInitialFunction(); clearPlotPath(true); }
+        });
     });
 }
 

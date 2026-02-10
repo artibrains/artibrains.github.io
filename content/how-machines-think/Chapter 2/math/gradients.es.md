@@ -7,6 +7,24 @@ slug: "gradientes"
 math: true
 ---
 
+
+## Por qué importan las derivadas
+
+En este capítulo entrenamos modelos con optimización basada en gradientes. Las derivadas convierten el error del modelo en actualizaciones de parámetros. Para regresión lineal con predicción $\hat{y}=\theta_0+\theta_1 x$ y error cuadrático medio
+
+$$
+J(\theta_0,\theta_1) = \frac{1}{N} \sum_{n=1}^N (y_n - \hat{y}_n)^2,
+$$
+
+las derivadas parciales son
+
+$$
+\frac{\partial J}{\partial \theta_0} = -\frac{2}{N} \sum_n (y_n-\hat{y}_n), \qquad
+\frac{\partial J}{\partial \theta_1} = -\frac{2}{N} \sum_n x_n\,(y_n-\hat{y}_n).
+$$
+
+El descenso del gradiente actualiza $\theta$ avanzando en dirección opuesta al gradiente: $\theta \leftarrow \theta - \eta\,\nabla J$.
+
 ## ¿Qué es una derivada parcial?
 
 Para una función $f(x_1,\dots,x_d)$, la derivada parcial respecto a $x_k$ mide cómo cambia $f$ cuando solo varía $x_k$ manteniendo el resto fijo:
