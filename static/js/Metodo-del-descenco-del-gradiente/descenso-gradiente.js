@@ -194,7 +194,7 @@ function setupEventListeners() {
     stepButton.addEventListener('click', handleStep);
     resetButton.addEventListener('click', handleReset);
     learningRateTypeSelect.addEventListener('change', updateLearningRateVisibility);
-    
+
     learningRateConstantInput.addEventListener('input', () => {
         if (!gradientDescentState.isRunning || gradientDescentState.isPaused) {
             gradientDescentState.learningRateConstant = parseFloat(learningRateConstantInput.value) || 0.1;
@@ -221,16 +221,16 @@ function setupEventListeners() {
     // Resetear desplegables a "custom" si se editan los inputs manualmente
     const inputs1D = [functionInput1D, startPointInputX];
     inputs1D.forEach(input => {
-        input.addEventListener('input', () => { 
-            if(preset1DSelect) preset1DSelect.value = 'custom';
+        input.addEventListener('input', () => {
+            if (preset1DSelect) preset1DSelect.value = 'custom';
             if (initializeAlgorithm()) { plotInitialFunction(); clearPlotPath(true); }
         });
     });
 
     const inputs2D = [functionInput2D, startPointInputX2D, startPointInputY2D];
     inputs2D.forEach(input => {
-        input.addEventListener('input', () => { 
-            if(preset2DSelect) preset2DSelect.value = 'custom';
+        input.addEventListener('input', () => {
+            if (preset2DSelect) preset2DSelect.value = 'custom';
             if (initializeAlgorithm()) { plotInitialFunction(); clearPlotPath(true); }
         });
     });
@@ -277,7 +277,7 @@ function loadPresetConfig(mode, presetName) {
         clearPlotPath(true);
         plotErrorHistory();
     }
-    
+
     updateUI();
 }
 
@@ -330,7 +330,7 @@ function initializeAlgorithm() {
         gradientDescentState.isRunning = false; gradientDescentState.isPaused = false; gradientDescentState.stopReason = null;
         const initialGradResult = calculateGradient(gradientDescentState.currentPoint);
         if (initialGradResult) { gradientDescentState.gradientMagnitudes.push(initialGradResult.magnitude); } else { throw new Error(t.errorInitGrad); }
-        
+
         logToTerminal(t.terminalInit);
         logToTerminal(`Function: ${funcStr}`);
         logToTerminal(`Start: ${formatPoint(gradientDescentState.initialPoint)}`);
@@ -388,7 +388,7 @@ function performStep() {
     } catch (error) { gradientDescentState.stopReason = t.stopErrorPoint; stopAlgorithm(); updateUI(); return; }
 
     gradientDescentState.iteration++; gradientDescentState.currentPoint = nextPoint; gradientDescentState.history.push(nextPoint);
-    
+
     let logMsg = t.terminalIter
         .replace('{iter}', gradientDescentState.iteration)
         .replace('{x}', formatPoint(currentPoint))
@@ -405,7 +405,7 @@ function stopAlgorithm() {
         const finalPoint = gradientDescentState.currentPoint || gradientDescentState.initialPoint;
         const lastMag = gradientDescentState.gradientMagnitudes.slice(-1)[0];
         showFinalResultBox(finalPoint, gradientDescentState.funcCompiled, gradientDescentState.stopReason, gradientDescentState.iteration, lastMag);
-        
+
         let stopMsg = t.terminalStop
             .replace('{reason}', gradientDescentState.stopReason)
             .replace('{x}', formatPoint(finalPoint));

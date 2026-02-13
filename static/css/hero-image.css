@@ -5,10 +5,23 @@
     max-width: none;
 }
 
+/* Ensure article with hero image has no top margin or padding */
+article.default:has(.hero-image-wrapper) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Remove any top spacing from flex-block-wrapper when it contains hero image */
+.flex-block-wrapper:has(.hero-image-wrapper) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
 .hero-image {
     margin: 0;
     padding: 0;
     width: 100%;
+    line-height: 0;
 }
 
 .hero-image img {
@@ -16,7 +29,6 @@
     height: auto;
     display: block;
     object-fit: cover;
-    max-height: 400px;
 }
 
 .hero-image figcaption {
@@ -42,7 +54,5 @@
         width: calc(100% + 2.5rem);
     }
 
-    .hero-image img {
-        max-height: 300px;
-    }
+
 }

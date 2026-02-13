@@ -134,9 +134,8 @@
     background-color: var(--prof-bg);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
     border-radius: 8px;
-    margin: 20px auto;
     max-width: 1200px;
-    padding: 40px;
+    padding: 0 40px 40px 40px;
 }
 
 /* Trilogy Landing Styles (Extracted & Refined) */
@@ -862,5 +861,4 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
-}
 }

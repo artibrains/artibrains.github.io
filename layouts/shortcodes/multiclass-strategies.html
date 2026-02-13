@@ -1,7 +1,7 @@
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
 
 <link rel="stylesheet" href="/css/unified-demos.css">
-<link rel="stylesheet" href="/css/multiclass-strategies.css?v=1">
+<link rel="stylesheet" href="/css/multiclass-strategies.css?v=5">
 
 <div class="multiclass-demo">
     <div class="demo-content-panel">
@@ -9,11 +9,17 @@
         
         <div class="demo-control-section">
             <div class="demo-control-group">
-                <label class="control-label">{{ if eq $lang "es" }}Estrategia de clasificación:{{ else }}Classification strategy:{{ end }}</label>
-                <select id="mc-strategy-select" class="demo-control-select">
-                    <option value="ovr">{{ if eq $lang "es" }}Uno contra Resto (OvR){{ else }}One-vs-Rest (OvR){{ end }}</option>
-                    <option value="ovo">{{ if eq $lang "es" }}Uno contra Uno (OvO){{ else }}One-vs-One (OvO){{ end }}</option>
-                    <option value="both">{{ if eq $lang "es" }}Comparar ambas{{ else }}Compare both{{ end }}</option>
+                <label class="control-label">{{ if eq $lang "es" }}Número de clases:{{ else }}Number of classes:{{ end }}</label>
+                <select id="mc-num-classes" class="demo-control-select">
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
             </div>
             
@@ -37,6 +43,19 @@
     <div id="mc-visualization-container" class="demo-content-panel hidden">
         <h2 class="demo-section-title">{{ if eq $lang "es" }}Visualización{{ else }}Visualization{{ end }}</h2>
         
+        <!-- Tabs navigation -->
+        <div id="mc-tabs-container" class="mc-tabs hidden">
+            <button class="mc-tab-button active" data-tab="ovr">
+                {{ if eq $lang "es" }}One-vs-Rest (OvR){{ else }}One-vs-Rest (OvR){{ end }}
+            </button>
+            <button class="mc-tab-button" data-tab="ovo">
+                {{ if eq $lang "es" }}One-vs-One (OvO){{ else }}One-vs-One (OvO){{ end }}
+            </button>
+            <button class="mc-tab-button" data-tab="comparison">
+                {{ if eq $lang "es" }}Comparación{{ else }}Comparison{{ end }}
+            </button>
+        </div>
+        
         <div id="mc-charts-container">
             <!-- Charts will be inserted here -->
         </div>
@@ -59,7 +78,7 @@
 
 {{ partial "terminal.html" . }}
 
-<script src="/js/multiclass-strategies/multiclass-strategies.js?v=1"></script>
+<script src="/js/multiclass-strategies/multiclass-strategies.js?v=5"></script>
 <script>
     window.multiclassLanguage = "{{ $lang }}";
 </script>

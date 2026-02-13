@@ -23,7 +23,7 @@ En este capítulo, te unirás al equipo en el análisis de dos de los algoritmos
 
 2.  **[Árboles de Decisión]({{% relref "how-machines-think/Chapter 4/decision-tree/decision-tree.es.md" %}})**: Construirás un modelo que imita el razonamiento humano. Verás por qué Teresa y Javier se sintieron tan identificados con este enfoque, que crea un conjunto de reglas explícitas y fáciles de seguir, similar a un diagrama de flujo de resolución.
 
-3.  **[Estrategias Multiclase (OvR y OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.es.md" %}})**: Descubrirás cómo extender algoritmos de clasificación binaria a problemas con múltiples clases. Compararás las estrategias Uno contra Resto (OvR) y Uno contra Uno (OvO), entendiendo cuándo usar cada una en contextos más complejos.
+3.  **[Estrategias Multiclase (OvR y OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.es.md" %}})**: Descubrirás cómo extender algoritmos de clasificación binaria a problemas con múltiples clases. Compararás las estrategias Uno contra Resto (OvR) y Uno contra Uno (OvO), entendiendo cuándo usar cada una en contextos más complejos.
 
 4.  **[Matriz de Confusión Multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.es.md" %}})**: Aprenderás a evaluar clasificadores multiclase usando la matriz de confusión. Explorarás interactivamente cómo calcular Verdaderos/Falsos Positivos/Negativos, Precisión, Recall y F1-Score para cada clase, y cómo interpretar estas métricas cuando hay que enrutar solicitudes a varias colas.
 

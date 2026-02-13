@@ -97,7 +97,7 @@ La matriz de confusión captura el rendimiento en un punto de decisión específ
 ### Referencias complementarias
 
 - **[Álgebra de métricas de evaluación]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.es.md" %}})**: Derivaciones matemáticas completas de todas las métricas presentadas aquí.
-- **[Estrategias multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.es.md" %}})**: Cómo extender clasificadores binarios a problemas multiclase.
+- **[Estrategias multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.es.md" %}})**: Cómo extender clasificadores binarios a problemas multiclase.
 
 {{% notice style="info" title="Práctica operativa" %}}
 En Minermont, Teresa y Javier revisan la matriz de confusión semanalmente. La usan para detectar confusiones sistemáticas (por ejemplo, problemas de Cuenta que se enrutan a Facturación) y mejorar las guías de etiquetado y la recolección de señales para que el modelo tenga entradas más claras.

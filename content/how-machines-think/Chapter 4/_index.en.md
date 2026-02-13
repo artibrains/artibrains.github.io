@@ -20,7 +20,7 @@ This chapter focuses on **multiclass classification**: extending classifiers bey
 2. **[Decision Trees]({{% relref "how-machines-think/Chapter 4/decision-tree/decision-tree.en.md" %}})**: You'll build a model that mimics human reasoning. You'll discover why Teresa and Javier felt so aligned with this approach, which creates a set of explicit, easy-to-follow rules—much like a troubleshooting flowchart.
 
 
-3. **[Multiclass Strategies (OvR and OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.en.md" %}})**: You'll discover how to extend binary classification algorithms to problems with multiple classes. You'll compare One-vs-Rest (OvR) and One-vs-One (OvO) strategies, understanding when to use each in more complex real-world settings.
+3. **[Multiclass Strategies (OvR and OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.en.md" %}})**: You'll discover how to extend binary classification algorithms to problems with multiple classes. You'll compare One-vs-Rest (OvR) and One-vs-One (OvO) strategies, understanding when to use each in more complex real-world settings.
 
 4. **[Multiclass Confusion Matrix]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.en.md" %}})**: You'll learn to evaluate multiclass classifiers using the confusion matrix. You'll interactively explore how to calculate True/False Positives/Negatives, Precision, Recall, and F1-Score for each class, and how to interpret these metrics when you’re routing requests into multiple queues.
 

@@ -11,6 +11,157 @@
 #mc-charts-container canvas {
     max-width: 100%;
     height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Tabs styling */
+.mc-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.mc-tab-button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mc-tab-button:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.mc-tab-button.active {
+    background: #fff;
+    color: #2c3e50;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mc-tab-content {
+    display: none;
+}
+
+.mc-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Binary classifiers grid */
+.binary-classifiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+.binary-classifiers-grid-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.binary-classifier-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.binary-classifier-card-small {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.binary-classifier-card canvas,
+.binary-classifier-card-small canvas {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    height: auto;
+}
+
+.classifier-label {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.classifier-label-small {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Comparison container */
+.comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.strategy-section {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.strategy-title {
+    color: #2c3e50;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.strategy-explanation {
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.accuracy-display {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #27ae60;
+    margin-top: 0.5rem;
 }
 
 #mc-classifiers-info ul {
@@ -37,4 +188,53 @@
     text-align: center;
     font-weight: bold;
     margin-left: 0.5rem;
+}
+
+/* Canvas containers */
+.demo-info-card canvas {
+    border: 1px solid var(--INTERNAL-Border-color, #ddd);
+    border-radius: 4px;
+    background: #fff;
+}
+
+/* Grid layout for comparison view */
+#mc-charts-container>div[style*="grid"] {
+    gap: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .comparison-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .binary-classifiers-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    #mc-charts-container>div[style*="grid"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .binary-classifiers-grid,
+    .binary-classifiers-grid-small {
+        grid-template-columns: 1fr;
+    }
+
+    .strategy-section {
+        padding: 1rem;
+    }
+
+    .mc-tabs {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .mc-tab-button {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.9em;
+    }
 }

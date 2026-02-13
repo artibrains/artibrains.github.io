@@ -97,7 +97,7 @@ The confusion matrix captures performance at a specific decision point. To explo
 ### Complementary references
 
 - **[Evaluation metrics algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Complete mathematical derivations of all metrics presented here.
-- **[Multiclass strategies]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/multiclass-strategies.en.md" %}})**: How to extend binary classifiers to multiclass problems.
+- **[Multiclass strategies]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.en.md" %}})**: How to extend binary classifiers to multiclass problems.
 
 {{% notice style="info" title="Operational practice" %}}
 At Minermont, Teresa and Javier review the confusion matrix weekly. They use it to spot systematic confusions (for example, Account issues being misrouted to Billing) and then improve data collection and labeling guidelines so the model has clearer signals.
