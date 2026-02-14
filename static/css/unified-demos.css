@@ -592,6 +592,85 @@ body.modal-open {
     }
 }
 
+/* Optimization Status Modal for Linear Regression Game */
+.optimization-modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.optimization-modal.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.optimization-modal-content {
+    background: linear-gradient(145deg,
+            var(--demo-surface) 0%,
+            color-mix(in srgb, var(--demo-surface) 96%, var(--demo-accent) 4%) 100%);
+    padding: 2.5rem 3rem;
+    border-radius: var(--demo-radius-lg);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.3),
+        0 8px 20px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid color-mix(in srgb, var(--demo-border) 50%, transparent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 300px;
+    animation: optimizationFadeIn 0.3s ease-out;
+}
+
+@keyframes optimizationFadeIn {
+    from {
+        transform: scale(0.95) translateY(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.optimization-modal .spinner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 4px solid color-mix(in srgb, var(--demo-surface-alt) 70%, transparent);
+    border-top-color: var(--demo-accent);
+    animation: optimizationSpinner 0.9s linear infinite;
+}
+
+@keyframes optimizationSpinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.optimization-modal .optimization-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--demo-text);
+    letter-spacing: 0.02em;
+}
+
 /* Tabla dentro de modales */
 .comparison-tables table {
     width: 100%;
@@ -2584,6 +2663,7 @@ canvas:hover {
 /* =============================================================
  * Medical Context Component (Redesigned)
  * =========================================================== */
+/* Minimalist clean style for medical context */
 .medical-context {
     --mc-accent: var(--demo-accent);
     --mc-bg: var(--demo-surface);
@@ -2594,79 +2674,152 @@ canvas:hover {
     position: relative;
     margin: 2rem 0;
     background: var(--mc-bg);
-    border: 1px solid var(--mc-border);
-    border-radius: var(--demo-radius-lg);
+    border-top: 4px solid var(--mc-accent);
+    /* Top accent bar only */
+    border-bottom: 1px solid var(--mc-border);
+    border-left: 1px solid var(--mc-border);
+    border-right: 1px solid var(--mc-border);
+    border-radius: var(--demo-radius);
     box-shadow: var(--demo-shadow-sm);
-    overflow: hidden;
     font-family: var(--demo-font);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .medical-context:hover {
     box-shadow: var(--demo-shadow);
 }
 
-/* Header Section */
+/* Header - minimal */
 .medical-context__header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    background: linear-gradient(to right, color-mix(in srgb, var(--mc-accent) 8%, transparent), transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--mc-border) 60%, transparent);
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--demo-border);
+    background: transparent;
     gap: 1rem;
-    flex-wrap: wrap;
 }
 
 .medical-context__title-group {
     display: flex;
     align-items: center;
     gap: 1rem;
-    flex: 1;
-    min-width: 280px;
 }
 
 .medical-context__icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    background: var(--demo-surface);
-    border-radius: 50%;
-    box-shadow: var(--demo-shadow-sm);
-    border: 1px solid color-mix(in srgb, var(--mc-accent) 20%, var(--demo-border));
 }
 
 .medical-context__titles {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
 }
 
 .medical-context__main-title {
-    margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--mc-muted);
-    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--demo-neutral);
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
 }
 
 .medical-context__subtitle {
     font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--mc-text);
-    line-height: 1.3;
+    font-weight: 700;
+    color: var(--demo-text);
+    margin: 0;
+    line-height: 1.2;
 }
 
-/* Meta Badges */
+/* Body - Single Column Strict */
+.medical-context__body {
+    padding: 1.5rem;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem;
+}
+
+/* Text Blocks - clean, distinct hierarchy */
+.medical-context .intro-text {
+    margin: 0;
+    padding: 0;
+    /* Clean text, no boxes */
+    color: var(--demo-text);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.medical-context .intro-text strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--demo-text-strong, #111);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+/* Steps - Minimalist List */
+.medical-context .steps {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.medical-context .steps h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--demo-text-strong, #111);
+    opacity: 0.7;
+    margin-bottom: 0.8rem;
+    text-align: left;
+    font-weight: 700;
+}
+
+.medical-context .steps ol {
+    padding-left: 1.2rem;
+    margin: 0;
+    list-style: none;
+    /* Custom counters probably cleaner, or just keep numbers */
+}
+
+.medical-context .steps li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--demo-text);
+}
+
+.medical-context .steps li::before {
+    content: "•";
+    color: var(--mc-accent);
+    position: absolute;
+    left: -0.3rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    top: -0.2rem;
+}
+
+.medical-context .steps li strong {
+    color: var(--demo-text);
+    font-weight: 600;
+}
+
+/* Meta badges - keep them simple */
 .medical-context__meta {
     display: flex;
     gap: 0.5rem;
-    align-items: center;
 }
 
 .mc-badge {
@@ -2708,8 +2861,34 @@ canvas:hover {
 /* Body Section */
 .medical-context__body {
     padding: 1.5rem;
-    display: grid;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.medical-context .intro-text {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: var(--demo-text);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.medical-context .intro-text strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--demo-text);
+    font-weight: 700;
+    text-transform: none;
+    font-size: 0.95rem;
+    letter-spacing: 0;
+}
+
+.medical-context .steps {
+    margin: 0.5rem 0 0 0;
 }
 
 /* Sections (Scenario & Highlight) */
@@ -2815,21 +2994,11 @@ canvas:hover {
     --mc-accent: #2ecc71;
 }
 
-/* Responsive */
+/* Responsive - Force single column */
 @media (min-width: 768px) {
     .medical-context__body {
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-    }
-
-    .medical-context__section--highlight {
-        height: 100%;
-        /* Match height if side by side */
-    }
-
-    .medical-context__intro,
-    .medical-context__steps {
-        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -2852,8 +3021,6 @@ canvas:hover {
 .medical-context__title {
     font-size: .95rem;
 }
-}
-
 
 /* === CONTROLES UNIFICADOS === */
 
@@ -3453,17 +3620,20 @@ input[type="number"]:focus {
     border-radius: var(--demo-radius);
     padding: var(--demo-spacing);
     box-shadow: var(--demo-shadow-sm);
+    overflow-x: auto;
 }
 
 .error-comparison-game .ecg-table table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 280px;
 }
 
 .error-comparison-game .ecg-table th,
 .error-comparison-game .ecg-table td {
     padding: .55rem .6rem;
     border-bottom: 1px solid var(--demo-border);
+    white-space: nowrap;
 }
 
 .error-comparison-game .ecg-table thead th {
@@ -3476,20 +3646,192 @@ input[type="number"]:focus {
     border-bottom: none;
 }
 
-@media (min-width: 980px) {
+/* Medium screens: side-by-side with flexible sizing */
+@media (min-width: 1024px) {
     .error-comparison-game .ecg-layout {
         flex-direction: row;
         align-items: stretch;
     }
 
     .error-comparison-game .ecg-chart {
-        flex: 1 1 72%;
-        min-width: 560px;
+        flex: 1 1 65%;
+        min-width: 0;
     }
 
     .error-comparison-game .ecg-table {
-        flex: 0 0 320px;
+        flex: 0 1 280px;
+        min-width: 260px;
         max-width: 360px;
         align-self: stretch;
     }
+}
+
+/* Large screens: more space for chart */
+@media (min-width: 1280px) {
+    .error-comparison-game .ecg-chart {
+        flex: 1 1 70%;
+    }
+
+    .error-comparison-game .ecg-table {
+        flex: 0 1 320px;
+    }
+}
+
+/* =============================================================
+ * Unified Activity Wrapper (Activity + Demo)
+ * =========================================================== */
+
+/* The outer wrapper that holds both explanation and game */
+.demo-container.unified-activity {
+    background: var(--demo-bg);
+    border: 1px solid var(--demo-border);
+    border-top: 4px solid var(--demo-accent);
+    border-radius: var(--demo-radius-lg);
+    box-shadow: var(--demo-shadow);
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 
+ * Flatten ALL children when inside unified wrapper 
+ * Remove borders, shadows, margins from nested components
+ */
+.demo-container.unified-activity>*,
+.demo-container.unified-activity .medical-context,
+.demo-container.unified-activity .demo-wrapper,
+.demo-container.unified-activity .interactive-demo,
+.demo-container.unified-activity .controls-panel {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+}
+
+/* Intro Section - no bottom border, transparent transition to game */
+.demo-container.unified-activity .medical-context {
+    background: var(--demo-surface);
+    padding: 0;
+}
+
+/* Game Section - seamless continuation */
+.demo-container.unified-activity>.demo-wrapper {
+    padding: var(--demo-spacing-lg);
+    margin-top: 0 !important;
+}
+
+/* Ensure controls panel inside game also has no extra borders */
+.demo-container.unified-activity .controls-panel {
+    background: var(--demo-surface);
+    padding: var(--demo-spacing);
+    border-radius: var(--demo-radius);
+    margin-bottom: var(--demo-spacing);
+}
+
+
+/* 
+ * Modern Header Styling for Unified Activity 
+ */
+.demo-container.unified-activity .medical-context__header {
+    background: var(--demo-surface-alt);
+    /* Subtle contrast background */
+    padding: var(--demo-spacing) var(--demo-spacing-lg);
+    border-bottom: 1px solid var(--demo-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--demo-spacing);
+}
+
+/* Title Group Layout */
+.demo-container.unified-activity .medical-context__title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--demo-spacing-sm);
+}
+
+/* Icon Cleanup */
+.demo-container.unified-activity .medical-context__icon {
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: var(--demo-spacing-xs);
+    opacity: 0.9;
+}
+
+/* Typography Refinement */
+.demo-container.unified-activity .medical-context__titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.demo-container.unified-activity .medical-context__main-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--demo-accent);
+    margin: 0;
+    line-height: 1.2;
+    opacity: 0.9;
+}
+
+.demo-container.unified-activity .medical-context__subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--demo-text);
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Hide or restyle the Meta/Difficulty tags in header if they clutter */
+.demo-container.unified-activity .medical-context__meta {
+    margin-left: auto;
+    /* Push to right */
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Content inside the Intro (below header) */
+.demo-container.unified-activity .medical-context__content {
+    padding: var(--demo-spacing-lg);
+}
+
+
+/* 
+ * "How to Explore It" Section Specific Styling 
+ */
+.medical-context .steps {
+    background: var(--demo-surface-muted);
+    border-left: 4px solid var(--demo-accent);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    border-radius: 0 var(--demo-radius) var(--demo-radius) 0;
+    /* Remove shadow to keep it flat within the card */
+    box-shadow: none;
+}
+
+[data-theme="dark"] .medical-context .steps {
+    background: color-mix(in srgb, var(--demo-bg) 95%, #fff);
+    color: var(--demo-text);
+}
+
+.medical-context .steps h3 {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--demo-text);
+}
+
+.medical-context .steps li,
+.medical-context .steps strong {
+    color: var(--demo-text);
 }

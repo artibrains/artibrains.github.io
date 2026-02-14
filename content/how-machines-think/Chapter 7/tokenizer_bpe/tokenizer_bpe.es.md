@@ -11,8 +11,7 @@ slug: "tokenizador-bpe"
 El **Byte-Pair Encoding (BPE)** es un algoritmo de tokenización que aprende a "hablar" el lenguaje de un texto específico. En lugar de usar un diccionario fijo, comienza con caracteres individuales y construye un vocabulario de forma inteligente, fusionando los pares de símbolos que aparecen juntos con más frecuencia. Este método crea un conjunto de tokens optimizado que captura desde morfemas (como prefijos y sufijos) hasta palabras completas, siendo una pieza clave en los modelos de lenguaje modernos.
 
 {{< medical-context 
-    type="research" 
-    level="advanced" 
+    type="research"  
     scenario="Un centro de investigación médica necesita procesar miles de informes clínicos en diferentes idiomas para extraer información sobre síntomas, diagnósticos y tratamientos. Los textos contienen terminología médica especializada, abreviaciones y variaciones lingüísticas."
     highlight="BPE permite crear un vocabulario adaptado específicamente al lenguaje médico, capturando sufijos comunes (-itis, -oma), prefijos (hiper-, hipo-) y términos completos, optimizando el procesamiento de textos médicos especializados."
 >}}

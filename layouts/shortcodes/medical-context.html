@@ -41,7 +41,7 @@ Nota: mantenemos el nombre/params por compatibilidad con el contenido existente.
             This site is meant to complement the book. Keep shortcodes compatible, but only render
             activity-relevant information for interactive demos.
         */}}
-        {{ if or $highlight $intro_text $steps }}
+        {{ if or $scenario $highlight $intro_text $steps }}
         <div class="medical-context medical-context--{{ $type }}">
         <div class="medical-context__header">
             <div class="medical-context__title-group">

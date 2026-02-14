@@ -13,7 +13,6 @@ The **Perceptron** is the simplest model of an artificial neuron and the histori
 
 {{< medical-context 
     type="clinic" 
-    level="beginner" 
     scenario="A pathologist needs to classify biopsy cells as 'benign' or 'malignant' based on two measurable features, such as nucleus size and cell uniformity."
     highlight="A Perceptron can learn a linear 'decision rule' from these two markers. The goal is to draw a line that best separates the two cell types, creating a fast, automated diagnostic support system."
 >}}

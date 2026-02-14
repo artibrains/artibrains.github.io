@@ -13,7 +13,6 @@ La **Regresión Logística** es un modelo fundamental para predecir resultados c
 
 {{< medical-context 
     type="clinic" 
-    level="intermediate" 
     scenario="Tu equipo quiere reducir el churn (abandono). Necesitas un modelo que identifique qué usuarios tienen alta probabilidad de abandonar, basándose en su historial de uso y características de comportamiento."
     highlight="La regresión logística permite estimar la probabilidad de un evento a partir de variables de entrada. Esa probabilidad permite tomar acciones preventivas como recordatorios o intervenciones selectivas."
 >}}

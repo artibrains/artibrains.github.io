@@ -10,19 +10,14 @@ slug: "regularization-comparison"
 
 When training a predictive model, **regularization** helps us control its complexity by adding a penalty to the model's weights (coefficients). There are three main types of regularization: **L1 (Lasso)**, **L2 (Ridge)**, and **Elastic Net** (combination of both). Each has different effects on how the model selects and weights features.
 
-{{< medical-context
-    type="research"
-    difficulty="intermediate"
-    scenario="A team is developing a model to predict the risk of an undesired outcome. They have many available variables: usage, history, device signals, support interactions, etc. Not all are equally relevant, and some may be correlated. How do you decide which features to keep and how do you prevent the model from overfitting the training data?"
-    highlight="Regularization not only prevents overfitting but can also help with **feature selection**. L1 (Lasso) tends to eliminate irrelevant features by driving their weights to zero. L2 (Ridge) reduces all weights but keeps all features. Elastic Net combines both approaches, being especially useful when there are many correlated features."
-    steps="Generate Example Data: Create a synthetic dataset with multiple signals, some relevant and others irrelevant or redundant.|Compare Regularizations: Adjust the regularization factor (λ) and observe how L1, L2, and Elastic Net affect each feature's weights differently.|Visualize the Impact: See how the prediction curve and weight table change according to the type and strength of regularization applied."
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="en"
+title="Regularization Comparison: L1, L2, Elastic Net"
+scenario="A team is developing a model to predict the risk of an undesired outcome. They have many available variables: usage, history, device signals, support interactions, etc. Not all are equally relevant, and some may be correlated. You must compare how different regularization techniques control complexity by penalizing weights, and see how feature selection differs between L1 (Lasso), L2 (Ridge), and Elastic Net approaches."
+steps="Generate Example Data: Create a synthetic dataset with multiple signals, some relevant and others irrelevant or redundant.|Compare Regularizations: Adjust the regularization factor (λ) and observe how L1, L2, and Elastic Net affect each feature's weights differently.|Visualize the Impact: See how the prediction curve and weight table change according to the type and strength of regularization applied."
+medical_highlight="Regularization not only prevents overfitting but can also help with feature selection. L1 (Lasso) tends to eliminate irrelevant features by driving their weights to zero. L2 (Ridge) reduces all weights but keeps all features. Elastic Net combines both approaches, being especially useful when there are many correlated features."
 >}}
-
-## Interactive Demonstration
-
-This tool allows you to compare the three main regularization types and see their effect in real-time:
-
-{{< demo-wrapper title="Regularization Comparator" >}}
 
 {{< regularization-comparison >}}
 

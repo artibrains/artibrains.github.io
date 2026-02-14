@@ -13,7 +13,6 @@ Backpropagation is the fundamental algorithm that allows neural networks to lear
 {{< demo-intro 
     lang="en"
     title="Backpropagation Tutorial"
-    medical_scenario="The Minermont research team needs to understand exactly how their diagnostic AI learns from its mistakes to improve predictions."
     medical_highlight="Each training example flows through the network (forward pass), produces an error, and that error flows backward (backward pass) to update every weight. You will perform these calculations yourself."
     intro_text="**Backpropagation** combines the chain rule from calculus with efficient computation to train neural networks. This tutorial breaks it down into manageable steps."
     steps="🔢 You'll see a simple network with random initial weights.|📥 An input-output training example is presented.|➡️ You compute the forward pass step by step.|📊 You calculate the error at the output.|⬅️ You propagate gradients backward using the chain rule.|🔄 You update the weights using gradient descent.|🎯 See how the network improves with each pass!"

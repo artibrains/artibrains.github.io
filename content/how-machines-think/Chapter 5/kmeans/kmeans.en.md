@@ -12,7 +12,6 @@ The **K-Means** algorithm is a powerful unsupervised learning tool whose mission
 
 {{< medical-context 
     type="hospital" 
-    level="intermediate" 
     scenario="A service center needs to identify profiles of similar users based on a few behavioral signals, without knowing beforehand how many different groups exist. The goal is to discover segments that may benefit from different routing, messaging, or support workflows."
     highlight="K-Means uncovers hidden groups with similar characteristics, helping the team design tailored processes for each segment and detect unusual clusters early."
 >}}

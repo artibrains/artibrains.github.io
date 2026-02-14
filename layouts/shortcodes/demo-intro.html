@@ -3,7 +3,6 @@ Shortcode unificado y mejorado para introducciones de demos interactivas
 Parámetros:
 - lang: Idioma (es/en) - opcional, por defecto usa el del sitio
 - title: Título de la demo
-- medical_scenario: Texto del escenario (se mantiene el nombre por compatibilidad)
 - medical_highlight: Texto destacado (se mantiene el nombre por compatibilidad)
 - algorithm_type: Tipo de algoritmo (classification, regression, clustering, etc.) - opcional
 - difficulty: Dificultad (beginner, intermediate, advanced) - opcional
@@ -16,8 +15,8 @@ Parámetros:
 
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
 {{ $title := .Get "title" | default "" }}
-{{ $medical_scenario := .Get "medical_scenario" | default "" }}
 {{ $medical_highlight := .Get "medical_highlight" | default "" }}
+{{ $scenario := .Get "scenario" | default "" }}
 {{ $algorithm_type := .Get "algorithm_type" | default "" }}
 {{ $difficulty := .Get "difficulty" | default "" }}
 {{ $difficulty_lc := lower $difficulty }}
@@ -35,15 +34,17 @@ $type_icon = "⚠️" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon
     This site complements the book, so we avoid extra narrative scenarios here.
 */}}
 
-{{ if or $medical_highlight $intro_text $steps }}
-<h3 class="medical-context__title">{{ if eq $lang "es" }}Actividad{{ else }}Activity{{ end }}</h3>
+{{ if or $scenario $medical_highlight $intro_text $steps }}
 <div class="medical-context medical-context--{{ $context_type }}">
     <div class="medical-context__header">
-        <div class="medical-context__icon">{{ $type_icon }}</div>
-        <div class="medical-context__heading">
-            {{ if $title }}
-            <p class="medical-context__subtitle">{{ $title }}</p>
-            {{ end }}
+        <div class="medical-context__title-group">
+            <div class="medical-context__icon">{{ $type_icon }}</div>
+            <div class="medical-context__titles">
+                <h3 class="medical-context__main-title">{{ if eq $lang "es" }}Actividad{{ else }}Activity{{ end }}</h3>
+                {{ if $title }}
+                <p class="medical-context__subtitle">{{ $title }}</p>
+                {{ end }}
+            </div>
         </div>
         <div class="medical-context__meta">
             {{ if $algorithm_type }}
@@ -67,31 +68,40 @@ $type_icon = "⚠️" }}{{ else if eq $context_type "veterinary" }}{{ $type_icon
         </div>
     </div>
 
-    {{ if $medical_highlight }}
-    <div class="intro-text">
-        <strong>{{ if eq $lang "es" }}Qué observar{{ else }}What to watch for{{ end }}:</strong>
-        {{ $medical_highlight | markdownify }}
-    </div>
-    {{ end }}
+    <div class="medical-context__body">
+        {{ if $scenario }}
+        <div class="intro-text">
+            <strong>{{ if eq $lang "es" }}Contexto{{ else }}Scenario{{ end }}:</strong>
+            {{ $scenario | markdownify }}
+        </div>
+        {{ end }}
 
-    {{ if $intro_text }}
-    <div class="intro-text">{{ $intro_text | markdownify }}</div>
-    {{ end }}
+        {{ if $intro_text }}
+        <div class="intro-text">{{ $intro_text | markdownify }}</div>
+        {{ end }}
 
-    {{ if $steps }}
-    <div class="steps">
-        <h3>{{ if eq $lang "es" }}Cómo explorarlo{{ else }}How to Explore It{{ end }}</h3>
-        <ol>
-            {{ range (split $steps "|") }}
-            {{ $step := split . ":" }}
-            <li>
-                <strong>{{ index $step 0 }}</strong>{{ if ge (len $step) 2 }}: {{ index $step 1 | markdownify }}{{ end
-                }}
-            </li>
-            {{ end }}
-        </ol>
+        {{ if $steps }}
+        <div class="steps">
+            <h3>{{ if eq $lang "es" }}Cómo explorarlo{{ else }}How to Explore It{{ end }}</h3>
+            <ol>
+                {{ range (split $steps "|") }}
+                {{ $step := split . ":" }}
+                <li>
+                    <strong>{{ index $step 0 }}</strong>{{ if ge (len $step) 2 }}: {{ index $step 1 | markdownify }}{{ end
+                    }}
+                </li>
+                {{ end }}
+            </ol>
+        </div>
+        {{ end }}
+
+        {{ if $medical_highlight }}
+        <div class="intro-text">
+            <strong>{{ if eq $lang "es" }}Qué observar{{ else }}What to watch for{{ end }}:</strong>
+            {{ $medical_highlight | markdownify }}
+        </div>
+        {{ end }}
     </div>
-    {{ end }}
 </div>
 
 {{ end }}

@@ -12,11 +12,7 @@ The **K-Nearest Neighbors** (K-NN) algorithm is one of the simplest and most eff
 
 {{< demo-intro 
     title="Interactive K-NN Classifier"
-    algorithm_type="Supervised classification"
-    difficulty="beginner"
-    medical_scenario="A team wants to automatically label simple items as either ‘cat’ or ‘dog’ based on a couple of extracted features. They have a labeled dataset available for training."
-    medical_highlight="K-NN classifies a new item by comparing it to the K most similar examples in the historical dataset, leveraging known patterns for fast, intuitive predictions."
-    intro_text="The **K-NN** algorithm classifies new data based on its proximity to known data points. It is a form of **lazy learning** that does not build an explicit model but instead uses the training data directly."
+    medical_highlight="The **K-NN** algorithm classifies new data based on its proximity to known data points. It is a form of **lazy learning** that does not build an explicit model but instead uses the training data directly."
 >}}
 
 ## Interactive Demonstration

@@ -10,19 +10,14 @@ slug: "comparacion-regularizacion"
 
 Cuando entrenamos un modelo predictivo, la **regularización** nos ayuda a controlar su complejidad añadiendo una penalización a los pesos (coeficientes) del modelo. Existen tres tipos principales de regularización: **L1 (Lasso)**, **L2 (Ridge)** y **Elastic Net** (combinación de ambas). Cada una tiene efectos diferentes sobre cómo el modelo selecciona y pondera las características.
 
-{{< medical-context
-    type="research"
-    difficulty="intermediate"
-    scenario="Un equipo está desarrollando un modelo para predecir el riesgo de un resultado no deseado. Tienen muchas variables disponibles: uso, historial, señales del dispositivo, interacciones de soporte, etc. No todas son igualmente relevantes, y algunas pueden estar correlacionadas. ¿Cómo decidir qué características mantener y cómo evitar que el modelo se ajuste demasiado a los datos de entrenamiento?"
-    highlight="La regularización no solo previene el sobreajuste, sino que también puede ayudar en la **selección de características**. L1 (Lasso) tiende a eliminar características irrelevantes llevando sus pesos a cero. L2 (Ridge) reduce todos los pesos pero mantiene todas las características. Elastic Net combina ambos enfoques, siendo especialmente útil cuando hay muchas características correlacionadas."
-    steps="Genera Datos de Ejemplo: Crea un conjunto de datos sintético con múltiples señales, algunas relevantes y otras irrelevantes o redundantes.|Compara Regularizaciones: Ajusta el factor de regularización (λ) y observa cómo L1, L2 y Elastic Net afectan los pesos de cada característica de manera diferente.|Visualiza el Impacto: Ve cómo cambia la curva de predicción y la tabla de pesos según el tipo y la fuerza de regularización aplicada."
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="es"
+title="Comparación de Regularización: L1, L2, Elastic Net"
+scenario="Un equipo está desarrollando un modelo para predecir el riesgo de un resultado no deseado. Tienen muchas variables disponibles: uso, historial, señales del dispositivo, interacciones de soporte, etc. No todas son igualmente relevantes, y algunas pueden estar correlacionadas. Debes comparar cómo diferentes técnicas de regularización controlan la complejidad penalizando pesos, y observar cómo la selección de características difiere entre enfoques L1 (Lasso), L2 (Ridge) y Elastic Net."
+steps="Genera Datos de Ejemplo: Crea un conjunto de datos sintético con múltiples señales, algunas relevantes y otras irrelevantes o redundantes.|Compara Regularizaciones: Ajusta el factor de regularización (λ) y observa cómo L1, L2 y Elastic Net afectan los pesos de cada característica de manera diferente.|Visualiza el Impacto: Ve cómo cambia la curva de predicción y la tabla de pesos según el tipo y la fuerza de regularización aplicada."
+medical_highlight="La regularización no solo previene el sobreajuste, sino que también puede ayudar en la selección de características. L1 (Lasso) tiende a eliminar características irrelevantes llevando sus pesos a cero. L2 (Ridge) reduce todos los pesos pero mantiene todas las características. Elastic Net combina ambos enfoques, siendo especialmente útil cuando hay muchas características correlacionadas."
 >}}
-
-## Demostración Interactiva
-
-Esta herramienta te permite comparar los tres tipos de regularización principales y ver su efecto en tiempo real:
-
-{{< demo-wrapper title="Comparador de Regularización" >}}
 
 {{< regularization-comparison >}}
 

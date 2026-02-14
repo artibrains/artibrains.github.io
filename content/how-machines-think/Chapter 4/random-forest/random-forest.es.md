@@ -12,9 +12,6 @@ Un **Bosque Aleatorio (Random Forest)** es un conjunto de múltiples árboles de
 
 {{< demo-intro 
     title="Visualizador de Bosque Aleatorio: Muchos árboles, una decisión"
-    algorithm_type="Ensemble Learning - Random Forest"
-    difficulty="intermediate"
-    medical_scenario="Un equipo de soporte necesita clasificar solicitudes entrantes en varias categorías donde un solo árbol de decisión podría ser frágil. Random Forest consulta múltiples árboles entrenados con distintas muestras para llegar a una clasificación más confiable."
     medical_highlight="Random Forest mejora la precisión y reduce el sobreajuste al combinar predicciones de múltiples árboles. Cada árbol ve una muestra diferente de datos y un subconjunto de características, lo que hace al bosque más robusto ante entradas nuevas o inusuales."
     intro_text="Explorarás cómo **múltiples árboles de decisión** trabajan juntos en un Random Forest. Verás cómo la aleatoriedad en el entrenamiento conduce a diversidad, y cómo la votación mayoritaria mejora la precisión final."
     steps="Define el Bosque: Elige cuántos árboles entrenar (típicamente entre 10-100). Más árboles generalmente significan mayor precisión pero más cómputo.|Entrena el Bosque: Cada árbol se entrena con una muestra bootstrap y un subconjunto aleatorio de características. Observa la diversidad entre árboles.|Visualiza las Predicciones: Para un nuevo punto, ve cómo cada árbol vota. La clase con más votos es la predicción final del bosque."

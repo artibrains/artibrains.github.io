@@ -2783,9 +2783,6 @@ body #R-logo svg :not([fill='#000000']) {
 
 #R-body .tab-content {
   background-color: var(--VARIABLE-BOX-color);
-  border-color: var(--VARIABLE-BOX-color);
-  border-style: solid;
-  border-width: 1px;
   display: none;
   /* if setting a border to 1px, a browser instead sets it to 1dppx which is not
     usable as a unit yet, so we have to calculate it ourself */

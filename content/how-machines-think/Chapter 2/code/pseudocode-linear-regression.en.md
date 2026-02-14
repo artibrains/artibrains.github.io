@@ -11,34 +11,6 @@ Linear regression is one of the foundational algorithms in machine learning. It 
 
 ## The Algorithm
 
-### Closed-Form Solution (Normal Equation)
-
-For a dataset with $n$ samples and $m$ features, linear regression finds weights $\mathbf{w}$ that minimize the Mean Squared Error (MSE).
-
-```
-ALGORITHM: Linear Regression (Normal Equation)
-─────────────────────────────────────────────────────────────────
-
-INPUT:
-    X: Feature matrix of shape (n_samples, n_features)
-    y: Target vector of shape (n_samples,)
-
-OUTPUT:
-    w: Weight vector of shape (n_features + 1,)
-
-PROCEDURE:
-    1. Add bias term: X_b ← [1, X]  // Prepend column of ones
-    
-    2. Compute optimal weights using Normal Equation:
-       w ← (X_bᵀ · X_b)⁻¹ · X_bᵀ · y
-    
-    3. RETURN w
-
-PREDICTION:
-    Given new sample x:
-    ŷ ← w₀ + w₁·x₁ + w₂·x₂ + ... + wₘ·xₘ
-    // Or in matrix form: ŷ ← [1, x] · w
-```
 
 ### Gradient Descent Solution
 
@@ -85,6 +57,36 @@ PROCEDURE:
     
     5. RETURN w
 ```
+
+### Closed-Form Solution (Normal Equation)
+
+For a dataset with $n$ samples and $m$ features, linear regression finds weights $\mathbf{w}$ that minimize the Mean Squared Error (MSE).
+
+```
+ALGORITHM: Linear Regression (Normal Equation)
+─────────────────────────────────────────────────────────────────
+
+INPUT:
+    X: Feature matrix of shape (n_samples, n_features)
+    y: Target vector of shape (n_samples,)
+
+OUTPUT:
+    w: Weight vector of shape (n_features + 1,)
+
+PROCEDURE:
+    1. Add bias term: X_b ← [1, X]  // Prepend column of ones
+    
+    2. Compute optimal weights using Normal Equation:
+       w ← (X_bᵀ · X_b)⁻¹ · X_bᵀ · y
+    
+    3. RETURN w
+
+PREDICTION:
+    Given new sample x:
+    ŷ ← w₀ + w₁·x₁ + w₂·x₂ + ... + wₘ·xₘ
+    // Or in matrix form: ŷ ← [1, x] · w
+```
+
 
 ## Mathematical Foundation
 

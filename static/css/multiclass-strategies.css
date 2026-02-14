@@ -15,59 +15,18 @@
     margin: 0 auto;
 }
 
-/* Tabs styling */
-.mc-tabs {
+/* Control layout aligned with mouse-cheese demo */
+.multiclass-demo .control-group {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    background: #f8f9fa;
-    padding: 0.5rem;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
+    flex-direction: column;
+    gap: var(--demo-spacing-xs);
+    min-width: 220px;
 }
 
-.mc-tab-button {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.95em;
-    font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.mc-tab-button:hover {
-    background: #e9ecef;
-    color: #495057;
-}
-
-.mc-tab-button.active {
-    background: #fff;
-    color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.mc-tab-content {
-    display: none;
-}
-
-.mc-tab-content.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.multiclass-demo .demo-btn-full-width {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
 }
 
 /* Binary classifiers grid */
@@ -226,15 +185,5 @@
 
     .strategy-section {
         padding: 1rem;
-    }
-
-    .mc-tabs {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-
-    .mc-tab-button {
-        padding: 0.6rem 0.75rem;
-        font-size: 0.9em;
     }
 }

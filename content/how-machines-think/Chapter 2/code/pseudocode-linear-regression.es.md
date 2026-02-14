@@ -11,34 +11,6 @@ La regresión lineal es uno de los algoritmos fundamentales del aprendizaje auto
 
 ## El Algoritmo
 
-### Solución en Forma Cerrada (Ecuación Normal)
-
-Para un conjunto de datos con $n$ muestras y $m$ características, la regresión lineal encuentra los pesos $\mathbf{w}$ que minimizan el Error Cuadrático Medio (MSE).
-
-```
-ALGORITMO: Regresión Lineal (Ecuación Normal)
-─────────────────────────────────────────────────────────────────
-
-ENTRADA:
-    X: Matriz de características de forma (n_muestras, n_características)
-    y: Vector objetivo de forma (n_muestras,)
-
-SALIDA:
-    w: Vector de pesos de forma (n_características + 1,)
-
-PROCEDIMIENTO:
-    1. Añadir término de sesgo: X_b ← [1, X]  // Anteponer columna de unos
-    
-    2. Calcular pesos óptimos usando la Ecuación Normal:
-       w ← (X_bᵀ · X_b)⁻¹ · X_bᵀ · y
-    
-    3. DEVOLVER w
-
-PREDICCIÓN:
-    Dada una nueva muestra x:
-    ŷ ← w₀ + w₁·x₁ + w₂·x₂ + ... + wₘ·xₘ
-    // O en forma matricial: ŷ ← [1, x] · w
-```
 
 ### Solución por Descenso del Gradiente
 
@@ -85,6 +57,38 @@ PROCEDIMIENTO:
     
     5. DEVOLVER w
 ```
+
+### Solución en Forma Cerrada (Ecuación Normal)
+
+La **ecuación normal** es una fórmula que calcula directamente los pesos óptimos de la regresión lineal, sin iteraciones. En la práctica, se construye la matriz con sesgo $X_b$, se aplica $\mathbf{w}^*=(X_b^T X_b)^{-1}X_b^T y$, y con esos pesos se hacen predicciones lineales sobre nuevos datos.
+
+Para un conjunto de datos con $n$ muestras y $m$ características, la regresión lineal encuentra los pesos $\mathbf{w}$ que minimizan el Error Cuadrático Medio (MSE).
+
+```
+ALGORITMO: Regresión Lineal (Ecuación Normal)
+─────────────────────────────────────────────────────────────────
+
+ENTRADA:
+    X: Matriz de características de forma (n_muestras, n_características)
+    y: Vector objetivo de forma (n_muestras,)
+
+SALIDA:
+    w: Vector de pesos de forma (n_características + 1,)
+
+PROCEDIMIENTO:
+    1. Añadir término de sesgo: X_b ← [1, X]  // Anteponer columna de unos
+    
+    2. Calcular pesos óptimos usando la Ecuación Normal:
+       w ← (X_bᵀ · X_b)⁻¹ · X_bᵀ · y
+    
+    3. DEVOLVER w
+
+PREDICCIÓN:
+    Dada una nueva muestra x:
+    ŷ ← w₀ + w₁·x₁ + w₂·x₂ + ... + wₘ·xₘ
+    // O en forma matricial: ŷ ← [1, x] · w
+```
+
 
 ## Fundamento Matemático
 

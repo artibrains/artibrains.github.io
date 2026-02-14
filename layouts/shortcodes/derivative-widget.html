@@ -1,13 +1,30 @@
-<div class="derivative-widget">
-  <label for="dw-function">f(x) =</label>
-  <input id="dw-function" type="text" placeholder="e.g. sin(x)^2 * ln(x)" style="min-width: 320px;" />
-  <button id="dw-compute">Compute f′(x)</button>
-  <button id="dw-walpha">Open in WolframAlpha</button>
-  <div id="dw-result" style="margin-top: 0.75rem;"></div>
-  <div id="dw-error" style="margin-top: 0.5rem; color: var(--ERROR-fg, #b00020);"></div>
-  <small style="display:block; margin-top:0.5rem; opacity:0.8;">This widget uses math.js for symbolic differentiation. For step-by-step explanations, use the WolframAlpha button.</small>
+<link rel="stylesheet" href="/css/unified-demos.css">
+
+<div class="demo-wrapper derivative-widget-container">
+  <div class="derivative-widget-header">
+    <h3 class="derivative-widget-title">🎮 Interactive Derivative Calculator</h3>
+    <p class="derivative-widget-subtitle">Enter any function of x to compute its derivative symbolically</p>
+  </div>
+  
+  <div class="derivative-widget-content">
+    <div class="derivative-input-group">
+      <label for="dw-function" class="derivative-label">f(x) =</label>
+      <input id="dw-function" type="text" placeholder="e.g., sin(x)^2 * ln(x)" value="sin(x)^2" class="derivative-input" />
+    </div>
+    
+    <div class="derivative-button-group">
+      <button id="dw-compute" class="demo-btn demo-btn-primary">✨ Compute f′(x)</button>
+      <button id="dw-walpha" class="demo-btn demo-btn-secondary">🔗 Open in WolframAlpha</button>
+    </div>
+    
+    <div id="dw-result" class="derivative-result"></div>
+    <div id="dw-error" class="derivative-error"></div>
+    <small class="derivative-hint">This widget uses math.js for symbolic differentiation. For step-by-step explanations, use the WolframAlpha button.</small>
+  </div>
 </div>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.1/lib/browser/math.min.js"></script>
 <script>
   (function(){
@@ -19,18 +36,17 @@
     const err = $("dw-error");
 
     function renderLatex(latex) {
-      // Try KaTeX if present; else just show plain text
       out.innerHTML = '';
       const block = document.createElement('div');
       block.style.padding = '0.5rem 0';
       out.appendChild(block);
-      if (window.katex) {
-        try {
+      try {
+        if (window.katex) {
           katex.render(latex, block, { throwOnError: false, displayMode: true });
-        } catch(e) {
+        } else {
           block.textContent = latex;
         }
-      } else {
+      } catch(e) {
         block.textContent = latex;
       }
     }
@@ -67,5 +83,184 @@
 </script>
 
 <style>
-.derivative-widget button { margin-left: 0.25rem; }
+.derivative-widget-container {
+  margin: 2rem 0;
+  background: linear-gradient(145deg, 
+    var(--demo-surface-alt) 0%, 
+    color-mix(in srgb, var(--demo-surface-alt) 96%, var(--demo-accent) 4%) 100%);
+  border: 2px solid color-mix(in srgb, var(--demo-accent) 30%, var(--demo-border));
+  box-shadow: var(--demo-shadow);
+  position: relative;
+}
+
+.derivative-widget-container::before {
+  content: '⚡';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.derivative-widget-header {
+  text-align: center;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 2px solid var(--demo-border);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--demo-accent) 10%, var(--demo-surface)) 0%,
+    var(--demo-surface) 100%);
+}
+
+.derivative-widget-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--demo-accent);
+  letter-spacing: -0.02em;
+}
+
+.derivative-widget-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--demo-text) 75%, var(--demo-bg));
+  line-height: 1.4;
+}
+
+.derivative-widget-content {
+  padding: 1.5rem;
+}
+
+.derivative-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.derivative-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--demo-text);
+  font-family: var(--demo-font-mono);
+  min-width: 50px;
+}
+
+.derivative-input {
+  flex: 1;
+  min-width: 280px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: var(--demo-font-mono);
+  background: var(--demo-surface);
+  border: 2px solid var(--demo-border);
+  border-radius: var(--demo-radius-sm);
+  color: var(--demo-text);
+  transition: all 0.2s ease;
+}
+
+.derivative-input:focus {
+  outline: none;
+  border-color: var(--demo-accent);
+  box-shadow: var(--demo-focus-ring);
+  background: color-mix(in srgb, var(--demo-surface) 98%, var(--demo-accent) 2%);
+}
+
+.derivative-input::placeholder {
+  opacity: 0.6;
+}
+
+.derivative-button-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.derivative-button-group .demo-btn {
+  margin: 0;
+}
+
+.derivative-result {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--demo-surface);
+  border: 2px solid color-mix(in srgb, var(--demo-success) 30%, var(--demo-border));
+  border-radius: var(--demo-radius);
+  min-height: 60px;
+  display: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.derivative-result:not(:empty) {
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+.derivative-result .katex-display {
+  margin: 0.5rem 0;
+}
+
+.derivative-error {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--demo-danger) 10%, var(--demo-surface));
+  border-left: 4px solid var(--demo-danger);
+  border-radius: var(--demo-radius-sm);
+  color: var(--demo-danger);
+  font-weight: 500;
+  display: none;
+}
+
+.derivative-error:not(:empty) {
+  display: block;
+  animation: shake 0.3s ease-out;
+}
+
+.derivative-hint {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  opacity: 0.7;
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@media (max-width: 600px) {
+  .derivative-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .derivative-label {
+    min-width: auto;
+  }
+  
+  .derivative-button-group {
+    flex-direction: column;
+  }
+  
+  .derivative-button-group .demo-btn {
+    width: 100%;
+  }
+}
 </style>

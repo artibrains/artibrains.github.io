@@ -13,9 +13,8 @@ Language models don't memorize phrases. Instead, they adjust millions of numbers
 {{< demo-intro 
     lang="en"
     title="Training a Language Model"
-    medical_scenario="The Minermont team wants to understand how an AI system can learn to predict words in clinical reports."
     medical_highlight="The model explores different textual contexts, adjusting its internal parameters. With each processed example, its predictions gradually improve. You'll understand how accumulated context makes predictions more accurate."
-    intro_text="**Language model training** allows AI to discover patterns in text without explicit rules, only through repeated exposure to related examples."
+    intro_text="Language model training allows AI to discover patterns in text without explicit rules, only through repeated exposure to related examples."
     steps="📝 Goal: Predict missing, next, or incorrect words in a thematic paragraph.|🧠 Mechanics: A small neural network adjusts its values after each prediction.|📊 Learning: Network nodes change color based on their values (blue = negative, white = zero, red = positive).|🎯 Progress: As you advance through the paragraph, predictions become easier thanks to accumulated context."
 >}}
 

@@ -11,12 +11,7 @@ math: true
 A short interactive demo below helps you explore typical errors a multiclass routing model makes and how those errors affect per-class metrics. Try generating matrices with different accuracies and inspect which categories are confused most often.
 
 {{< demo-intro 
-    title="Multiclass Confusion Matrix"
-    algorithm_type="Evaluation metric"
-    difficulty="intermediate"
-    medical_scenario="At Minermont, Alma's team has developed a system that assigns incoming requests to one of three categories: Billing, Technical, or Account. They need to evaluate how well the model performs for each class and identify which types of errors it makes."
-    medical_highlight="The confusion matrix lets the team see exactly where the classifier is making mistakes: which categories are being confused with each other, and whether certain classes are harder to predict correctly. This is critical for prioritization and staffing decisions."
-    intro_text="The **confusion matrix** is a fundamental evaluation tool for multiclass classification that displays all combinations of predicted vs. actual classes. It allows you to calculate per-class metrics (Precision, Recall, F1) and understand the specific types of errors your model makes."
+    title="Multiclass Confusion Matrix" medical_highlight="The **confusion matrix** is a fundamental evaluation tool for multiclass classification that displays all combinations of predicted vs. actual classes. It allows you to calculate per-class metrics (Precision, Recall, F1) and understand the specific types of errors your model makes."
 >}}
 
 ## What is a confusion matrix?

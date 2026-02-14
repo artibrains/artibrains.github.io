@@ -65,7 +65,7 @@ Optimization methods such as gradient descent update parameters $\theta$ by foll
 
 Enter a multivariable function and variables to compute $\nabla f$ symbolically. Use WolframAlpha for stepwise explanations.
 
-{{< gradient-widget >}}
+
 
 ## Worked Example
 
@@ -81,6 +81,8 @@ and
 $$
 \nabla f(x,y) = \begin{bmatrix} 2xy + y\cos(xy) \\ x^2 + x\cos(xy) \end{bmatrix}.
 $$
+
+{{< gradient-widget >}}
 
 ## Practical Considerations
 

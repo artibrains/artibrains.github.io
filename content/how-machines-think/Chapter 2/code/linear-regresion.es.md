@@ -1,6 +1,6 @@
 ---
 title: "⚡ Regresión lineal desde cero"
-weight: 65
+weight: 67
 description: "Demostración interactiva: cómo crear un modelo de regresión lineal desde cero y aplicarlo."
 date: 
 draft: false

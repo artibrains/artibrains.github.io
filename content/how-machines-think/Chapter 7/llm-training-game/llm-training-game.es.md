@@ -13,9 +13,8 @@ Los modelos de lenguaje no aprenden frases de memoria. En su lugar, ajustan mill
 {{< demo-intro 
     lang="es"
     title="Entrenando un Modelo de Lenguaje"
-    medical_scenario="El equipo de Minermont quiere entender cómo un sistema de IA puede aprender a predecir palabras en informes clínicos."
     medical_highlight="El modelo explora diferentes contextos textuales, ajustando sus parámetros internos. Con cada ejemplo procesado, sus predicciones mejoran gradualmente. Comprenderás cómo el contexto acumulado hace más precisas las predicciones."
-    intro_text="El **entrenamiento de modelos de lenguaje** permite que la IA descubra patrones en el texto sin necesidad de reglas explícitas, solo mediante la exposición repetida a ejemplos relacionados."
+    intro_text="El entrenamiento de modelos de lenguaje permite que la IA descubra patrones en el texto sin necesidad de reglas explícitas, solo mediante la exposición repetida a ejemplos relacionados."
     steps="📝 Objetivo: Predecir palabras faltantes, siguientes o incorrectas en un párrafo temático.|🧠 Mecánica: Una pequeña red neuronal ajusta sus valores tras cada predicción.|📊 Aprendizaje: Los nodos de la red cambian de color según sus valores (azul = negativo, blanco = cero, rojo = positivo).|🎯 Progreso: A medida que avanzas en el párrafo, las predicciones se vuelven más fáciles gracias al contexto acumulado."
 >}}
 

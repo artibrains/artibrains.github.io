@@ -64,8 +64,6 @@ Los métodos de optimización como el descenso del gradiente actualizan parámet
 
 Introduce una función multivariable y las variables para calcular $\nabla f$ simbólicamente. Usa WolframAlpha para explicaciones paso a paso.
 
-{{< gradient-widget >}}
-
 ## Ejemplo trabajado
 
 Sea $f(x,y) = x^2 y + \sin(xy)$. Entonces
@@ -80,6 +78,8 @@ y
 $$
 \nabla f(x,y) = \begin{bmatrix} 2xy + y\cos(xy) \\ x^2 + x\cos(xy) \end{bmatrix}.
 $$
+
+{{< gradient-widget >}}
 
 ## Consideraciones prácticas
 

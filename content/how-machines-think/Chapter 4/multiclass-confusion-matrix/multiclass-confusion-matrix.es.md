@@ -12,9 +12,6 @@ Un breve demo interactivo a continuación te ayuda a explorar los errores típic
 
 {{< demo-intro 
     title="Matriz de Confusión Multiclase"
-    algorithm_type="Métrica de evaluación"
-    difficulty="intermedio"
-    medical_scenario="En Minermont, el equipo de Alma ha desarrollado un sistema que asigna solicitudes entrantes a una de tres categorías: Facturación, Soporte técnico o Cuenta. Necesitan evaluar qué tan bien funciona el modelo para cada clase e identificar qué tipos de errores comete."
     medical_highlight="La matriz de confusión permite ver exactamente dónde el clasificador está cometiendo errores: qué categorías se están confundiendo entre sí y si ciertas clases son más difíciles de predecir correctamente. Esto es clave para la priorización y la asignación de trabajo."
     intro_text="La **matriz de confusión** es una herramienta fundamental de evaluación para clasificación multiclase que muestra todas las combinaciones de clases predichas vs. reales. Permite calcular métricas por clase (Precisión, Recall, F1) y entender los tipos específicos de errores que comete tu modelo."
 >}}

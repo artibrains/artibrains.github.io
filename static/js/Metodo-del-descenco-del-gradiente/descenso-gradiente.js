@@ -556,7 +556,7 @@ function plotInitialFunction() {
         } else {
             funcStr = functionInput2D.value; const xRange = math.range(-5, 5, 0.25).toArray(); const yRange = math.range(-5, 5, 0.25).toArray(); const zValues = [];
             for (let i = 0; i < yRange.length; i++) { const row = []; for (let j = 0; j < xRange.length; j++) { try { row.push(compiledFunc.evaluate({ x: xRange[j], y: yRange[i] })); } catch { row.push(NaN); } } zValues.push(row); }
-            const traceSurface = { x: xRange, y: yRange, z: zValues, type: 'surface', colorscale: 'Viridis', name: `f(x, y)`, showscale: false, contours: { z: { show: true, usecolormap: true, highlightcolor: "#f1c40f", project: { z: true } } } };
+            const traceSurface = { x: xRange, y: yRange, z: zValues, type: 'surface', colorscale: 'Viridis', name: `f(x, y)`, showscale: false, opacity: 0.4, contours: { z: { show: true, usecolormap: true, highlightcolor: "#f1c40f", project: { z: true } } } };
             const layout = { title: `f(x, y) = ${funcStr}`, scene: { xaxis: { title: 'X', autorange: true }, yaxis: { title: 'Y', autorange: true }, zaxis: { title: 'Z=f(X,Y)', autorange: true }, camera: { eye: { x: 1.8, y: -1.8, z: 1.0 } } }, margin: { l: 5, r: 5, b: 5, t: 40 }, autosize: true };
             Plotly.newPlot(plotDiv, [traceSurface], layout);
         }

@@ -14,7 +14,6 @@ Without backpropagation, a neural network would be just a static structure capab
 
 {{< medical-context 
     type="hospital" 
-    level="advanced" 
     scenario="Imagine a diagnostic system analyzing chest X-rays. Initially, it might confuse a healthy lung with a pathological one. The system needs a way to 'know' not just that it was wrong, but *why* and *where* in its internal structure the error occurred."
     highlight="Backpropagation acts as a feedback signal that travels backward from the diagnosis to the input pixels, adjusting the internal parameters so that the next time it sees a similar image, the diagnosis is more accurate."
 >}}

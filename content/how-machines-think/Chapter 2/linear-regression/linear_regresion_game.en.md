@@ -10,26 +10,16 @@ slug: "linear-regression-game"
 
 Linear regression allows us to find the best relationship between different variables to predict continuous outcomes when the variables are linearly related. It is one of the fundamental algorithms in machine learning and the basis for understanding more complex methods.
 
+{{< demo-wrapper class="unified-activity" >}}
 {{< demo-intro
-title="Interactive Linear Regression Game"
-algorithm_type="Supervised Regression"
-difficulty="beginner"
-medical_scenario="A medical researcher wants to predict the optimal dose of a drug based on a patient's weight. Using historical data from previous patients, he needs to find the mathematical relationship that best describes this relationship."
-medical_scenario="A logistics analyst wants to predict shipping cost based on package weight. Using historical shipment data, they need to find the mathematical relationship that best explains this trend."
-medical_highlight="Linear regression finds the 'line of best fit' that minimizes prediction errors. In operations, this translates into more consistent estimates and better decisions without overreacting to a few unusual shipments."
-steps="Adjust Parameters: Move the sliders to change the slope and intercept of the line. Observe how the total error and the quality of fit change. | Compare Error Metrics: Experiment with different metrics (L1 vs. L2) to understand how each evaluates model quality differently. | Find the Optimal Solution: Use the 'Find Best Fit' button to have the algorithm automatically calculate the optimal parameters that minimize error."
+	lang="en"
+	title="Linear Regression: Best Fit Line"
+	scenario="Linear regression allows you to find the best fit line that minimizes prediction errors. In operational settings, this leads to more consistent estimates without overreacting to a few outlier cases."
+	steps="Adjust Parameters: Move the sliders to change the slope and intercept of the line. Observe how the total error and the quality of fit change.|Compare Error Metrics: Experiment with different metrics (L1 vs. L2) to understand how each evaluates model quality differently.|Find the Optimal Solution: Use the 'Find Best Fit' button to have the algorithm automatically calculate the optimal parameters that minimize error."
+	medical_highlight="Observe how the line fits the data to approximate the relationship between variables. The error metric shows you how well the line fits the data, and how different metrics can penalize errors differently."
 >}}
 
-## Interactive Demonstration
-
-The graph shows data points (blue dots) where each point represents package weight on the x-axis and shipping cost on the y-axis. The pink line is your prediction model. Your goal is to adjust the line's slope and intercept so it passes as close as possible to all the points, minimizing the error between predicted and actual values.
-
-{{< demo-wrapper title="Linear Regression Optimizer" >}}
-
-{{< game-results >}}
-
 {{< linear-regression-game lang="en" >}}
-
 {{< /demo-wrapper >}}
 
 ## Fundamental Concepts

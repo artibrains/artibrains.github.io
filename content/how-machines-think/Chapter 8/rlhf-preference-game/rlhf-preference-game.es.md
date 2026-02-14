@@ -15,7 +15,6 @@ Una vez que un modelo de lenguaje ha sido entrenado para predecir texto, todaví
 {{< demo-intro 
     lang="es"
     title="Ajuste por Preferencias Humanas"
-    medical_scenario="El equipo de Minermont necesita ajustar un modelo de lenguaje para responder de forma clara y prudente a consultas médicas."
     medical_highlight="El modelo genera múltiples respuestas posibles. Los evaluadores humanos indican cuál prefieren. Con cada preferencia, el modelo aprende a generar respuestas más alineadas con las expectativas de los usuarios."
     intro_text="El **ajuste por preferencias humanas** permite que un modelo aprenda qué estilo, tono y nivel de detalle son más apropiados, sin necesidad de definir reglas explícitas."
     steps="📋 Se muestra una pregunta realista.|🔄 Se presentan dos respuestas plausibles generadas por el modelo.|👆 Tú eliges la respuesta que prefieres.|🧠 La red ajusta sus valores internos según tu preferencia.|📊 Tras varias elecciones, las respuestas se adaptan a tu estilo preferido."

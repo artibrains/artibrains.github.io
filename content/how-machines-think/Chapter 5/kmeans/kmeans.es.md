@@ -12,7 +12,6 @@ El algoritmo **K-Means** es una poderosa herramienta de aprendizaje no supervisa
 
 {{< medical-context 
     type="hospital" 
-    level="intermediate" 
     scenario="Un centro de servicio necesita identificar perfiles de usuarios similares basándose en algunas señales de comportamiento, sin saber de antemano cuántos grupos diferentes existen. El objetivo es descubrir segmentos que podrían beneficiarse de distintos flujos de soporte, enrutamiento o mensajes."
     highlight="K-Means revela grupos ocultos con características similares, ayudando al equipo a diseñar procesos adaptados para cada segmento y a detectar clusters inusuales a tiempo."
 >}}

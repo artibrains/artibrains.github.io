@@ -12,7 +12,6 @@ slug: "bpe-tokenizer"
 
 {{< medical-context 
     type="research" 
-    level="advanced" 
     scenario="A medical research center needs to process thousands of clinical reports in multiple languages to extract information on symptoms, diagnoses, and treatments. The texts contain specialized medical terminology, abbreviations, and linguistic variations."
     highlight="BPE allows building a vocabulary specifically adapted to the medical language, capturing common suffixes (-itis, -oma), prefixes (hyper-, hypo-), and complete terms, optimizing the processing of specialized medical texts."
 >}}

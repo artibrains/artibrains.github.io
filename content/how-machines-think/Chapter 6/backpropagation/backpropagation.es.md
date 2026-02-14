@@ -12,7 +12,6 @@ El algoritmo de **Backpropagation** (retropropagación del error) es el corazón
 
 {{< medical-context 
     type="hospital" 
-    level="advanced" 
     scenario="Un sistema de diagnóstico médico utiliza una red neuronal para clasificar radiografías como normales o patológicas. Para mejorar su precisión, la red debe aprender de sus errores y ajustar internamente sus parámetros."
     highlight="Backpropagation permite que la red neuronal aprenda automáticamente qué características de las radiografías son más importantes para el diagnóstico, propagando los errores desde la salida hacia atrás para ajustar cada conexión neuronal."
 >}}

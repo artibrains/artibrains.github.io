@@ -11,28 +11,14 @@ slug: "clasificador-funcion-sigmoide"
 
 Comprende cómo la función sigmoide transforma cualquier combinación lineal en una probabilidad entre 0 y 1 y se convierte en la pieza clave de la regresión logística. En esta simulación interactiva jugarás a separar casos de alto y bajo riesgo ajustando la pendiente y la altura inicial de la curva.
 
-{{< medical-context 
-    type="research"
-    difficulty="intermediate"
-    scenario="Has creado un modelo que estima la **probabilidad de un resultado no deseado** a partir de dos señales de entrada. Tu objetivo es ajustar la frontera de decisión para separar correctamente casos de bajo y alto riesgo."
-    highlight="La función sigmoide transforma cualquier valor numérico en una probabilidad entre 0 y 1, convirtiendo puntuaciones en confianza interpretable. Ajustar la curva controla qué tan agresivo es el sistema al marcar casos de alto riesgo, equilibrando fallos vs. falsas alarmas."
-    steps="Ajusta los parámetros: Usa los deslizadores w₁, w₂ y sesgo (b) para modificar la pendiente y posición de la curva sigmoide. Observa cómo cambian las métricas de desempeño en tiempo real.|Minimiza la Log-Loss: Separa los puntos verdes (bajo riesgo) de los rojos (alto riesgo) ajustando los parámetros de la función sigmoide para lograr la mejor clasificación.|Evalúa las métricas: Consulta la exactitud y la pérdida logística para evaluar la calidad de tu clasificación. Ajusta el umbral para ser más o menos estricto al marcar casos de alto riesgo."
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="es"
+title="Función de Decisión Sigmoide"
+scenario="Has creado un modelo que estima la probabilidad de un resultado no deseado a partir de dos señales de entrada. Tu objetivo es ajustar la frontera de decisión para separar correctamente casos de bajo y alto riesgo. El gráfico muestra puntos definidos por dos señales de entrada. Los puntos verdes indican casos de bajo riesgo y los rojos casos de alto riesgo. La curva sigmoide es tu modelo de clasificación. Tu objetivo es ajustar los parámetros de la curva para que separe lo mejor posible ambos grupos, minimizando el error entre las clasificaciones predichas y reales."
+steps="Ajusta los parámetros: Usa los deslizadores w₁, w₂ y sesgo (b) para modificar la pendiente y posición de la curva sigmoide. Observa cómo cambian las métricas de desempeño en tiempo real.|Minimiza la Log-Loss: Separa los puntos verdes (bajo riesgo) de los rojos (alto riesgo) ajustando los parámetros de la función sigmoide para lograr la mejor clasificación.|Evalúa las métricas: Consulta la exactitud y la pérdida logística para evaluar la calidad de tu clasificación. Ajusta el umbral para ser más o menos estricto al marcar casos de alto riesgo."
+medical_highlight="La función sigmoide transforma cualquier valor numérico en una probabilidad entre 0 y 1, convirtiendo puntuaciones en confianza interpretable. Ajustar la curva controla qué tan agresivo es el sistema al marcar casos de alto riesgo, equilibrando fallos vs. falsas alarmas."
 >}}
-
-## Demostración Interactiva
-
-El gráfico muestra puntos definidos por dos señales de entrada. Los puntos verdes indican casos de bajo riesgo y los rojos casos de alto riesgo. La curva sigmoide es tu modelo de clasificación. Tu objetivo es ajustar los parámetros de la curva para que separe lo mejor posible ambos grupos, minimizando el error entre las clasificaciones predichas y reales.
-
-{{< demo-wrapper title="Simulador de Función Sigmoide" >}}
-
-<h3>Cómo usar la simulación</h3>
-
-<ul>
-<li><strong>Ajusta los parámetros w₁, w₂ y sesgo (b)</strong> con los deslizadores para modificar la pendiente y posición de la curva sigmoide.</li>
-<li><strong>Observa las métricas en tiempo real</strong>: La exactitud y la pérdida logística (log-loss) se actualizan instantáneamente mostrando la calidad de tu clasificación.</li>
-<li><strong>Experimenta con el umbral</strong> para ajustar qué tan estricta es la clasificación de alto riesgo.</li>
-<li><strong>Alterna entre modos</strong> para ver la clasificación discreta o el mapa de calor de probabilidades.</li>
-</ul>
 
 {{< sigmoid-legend >}}
 

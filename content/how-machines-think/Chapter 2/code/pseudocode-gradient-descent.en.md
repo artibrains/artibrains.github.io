@@ -1,6 +1,6 @@
 ---
 title: "📝 Gradient Descent Pseudocode"
-weight: 67
+weight: 65
 description: "The optimization algorithm that powers machine learning: understanding gradient descent step by step."
 date: 
 draft: false
@@ -91,87 +91,7 @@ PROCEDURE:
     4. RETURN θ, history
 ```
 
-## Variants of Gradient Descent
-
-### Stochastic Gradient Descent (SGD)
-
-Updates parameters using one random sample at a time:
-
-```
-ALGORITHM: Stochastic Gradient Descent (One Epoch)
-─────────────────────────────────────────────────────────────────
-
-INPUT:
-    θ: Current parameter vector
-    X: Training data of shape (n_samples, n_features)
-    y: Target values of shape (n_samples,)
-    α: Learning rate
-
-OUTPUT:
-    θ: Updated parameter vector
-
-PROCEDURE:
-    1. Shuffle the dataset indices
-    
-    2. FOR each sample i in shuffled order:
-        
-        a. Get single sample: xᵢ, yᵢ
-        
-        b. Compute prediction: ŷᵢ ← predict(xᵢ, θ)
-        
-        c. Compute gradient for single sample:
-           ∇Lᵢ ← gradient(xᵢ, yᵢ, ŷᵢ, θ)
-        
-        d. Update parameters:
-           θ ← θ - α · ∇Lᵢ
-    
-    3. RETURN θ
-```
-
-### Mini-Batch Gradient Descent
-
-The most common variant, balancing speed and stability:
-
-```
-ALGORITHM: Mini-Batch Gradient Descent (One Epoch)
-─────────────────────────────────────────────────────────────────
-
-INPUT:
-    θ: Current parameter vector
-    X: Training data of shape (n_samples, n_features)
-    y: Target values of shape (n_samples,)
-    α: Learning rate
-    batch_size: Number of samples per batch (e.g., 32)
-
-OUTPUT:
-    θ: Updated parameter vector
-
-PROCEDURE:
-    1. n ← number of samples
-    
-    2. Shuffle the dataset
-    
-    3. n_batches ← ceil(n / batch_size)
-    
-    4. FOR batch_idx = 0 TO n_batches - 1:
-        
-        a. // Extract mini-batch
-           start ← batch_idx × batch_size
-           end ← min(start + batch_size, n)
-           X_batch ← X[start:end]
-           y_batch ← y[start:end]
-        
-        b. // Forward pass
-           ŷ_batch ← predict(X_batch, θ)
-        
-        c. // Compute gradient on mini-batch
-           ∇L ← gradient(X_batch, y_batch, ŷ_batch, θ)
-        
-        d. // Update parameters
-           θ ← θ - α · ∇L
-    
-    5. RETURN θ
-```
+{{< gradient-descent-variants >}}
 
 ## Mathematical Foundation
 

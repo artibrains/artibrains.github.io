@@ -1,13 +1,29 @@
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
 {{ $isEs := eq $lang "es" }}
 
+<link rel="stylesheet" href="/css/unified-demos.css">
 <link rel="stylesheet" href="/css/gradient-descens-graphs.css">
-<div class="container responsive-container" id="gradient-descent-container" data-lang="{{ $lang }}">
-    <!-- Parámetros y Explicaciones -->
-    <div class="tabs" style="margin-left: 10px;">
-        <button class="tab-button active" onclick="showTab('1d')">1D (y = f(x))</button>
-        <button class="tab-button" onclick="showTab('2d')">2D (z = f(x, y))</button>
+<style>
+    @media (min-width: 1200px) {
+        #gradient-descent-container .responsive-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        #gradient-descent-container .responsive-main .bottom-panels {
+            margin-top: 0;
+        }
+    }
+</style>
+<div class="demo-wrapper container responsive-container" id="gradient-descent-container" data-lang="{{ $lang }}">
+    <!-- Mode Selection Tabs -->
+    <div class="tab-navigation">
+        <button class="tab-button active" onclick="showTab('1d')">{{ if $isEs }}1D (y = f(x)){{ else }}1D (y = f(x)){{ end }}</button>
+        <button class="tab-button" onclick="showTab('2d')">{{ if $isEs }}2D (z = f(x, y)){{ else }}2D (z = f(x, y)){{ end }}</button>
     </div>
+    
     <div class="controls-panel">
 
 
@@ -60,12 +76,12 @@
                 <div class="demo-control-group">
                     <label for="functionInput2D" class="control-label">{{ if $isEs }}Función f(x, y):{{ else }}Function
                         f(x, y):{{ end }}</label>
-                    <input type="text" id="functionInput2D" value="(x^2 + y - 11)^2 + (x + y^2 - 7)^2">
+                    <input type="text" id="functionInput2D" value="x^2 + y^2">
                 </div>
                 <div class="demo-control-group">
                     <label for="startPointInputX2D">{{ if $isEs }}Punto Inicial (x₀):{{ else }}Start Point (x₀):{{ end
                         }}</label>
-                    <input type="number" id="startPointInputX2D" value="-4" step="any">
+                    <input type="number" id="startPointInputX2D" value="4" step="any">
                 </div>
                 <div class="demo-control-group">
                     <label for="startPointInputY2D">{{ if $isEs }}Punto Inicial (y₀):{{ else }}Start Point (y₀):{{ end

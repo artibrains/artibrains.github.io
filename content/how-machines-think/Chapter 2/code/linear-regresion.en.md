@@ -1,6 +1,6 @@
 ---
 title: "⚡ Linear Regression from Scratch"
-weight: 65
+weight: 67
 description: "Interactive demonstration: how to build a linear regression model from scratch and apply it."
 date: 
 draft: false

@@ -13,7 +13,6 @@ Backpropagation es el algoritmo fundamental que permite a las redes neuronales a
 {{< demo-intro 
     lang="es"
     title="Tutorial de Backpropagation"
-    medical_scenario="El equipo de investigación de Minermont necesita entender exactamente cómo su IA de diagnóstico aprende de sus errores para mejorar las predicciones."
     medical_highlight="Cada ejemplo de entrenamiento fluye a través de la red (propagación hacia adelante), produce un error, y ese error fluye hacia atrás (propagación hacia atrás) para actualizar cada peso. Tú realizarás estos cálculos."
     intro_text="**Backpropagation** combina la regla de la cadena del cálculo diferencial con computación eficiente para entrenar redes neuronales. Este tutorial lo descompone en pasos manejables."
     steps="🔢 Verás una red simple con pesos iniciales aleatorios.|📥 Se presenta un ejemplo de entrenamiento (entrada-salida).|➡️ Calculas la propagación hacia adelante paso a paso.|📊 Calculas el error en la salida.|⬅️ Propagas los gradientes hacia atrás usando la regla de la cadena.|🔄 Actualizas los pesos usando descenso de gradiente.|🎯 ¡Observa cómo la red mejora con cada pasada!"

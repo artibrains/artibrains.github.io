@@ -10,30 +10,16 @@ slug: "juego-svm"
 
 Las Máquinas de Vectores de Soporte (SVM por sus siglas en inglés) son algoritmos de aprendizaje supervisado muy potentes utilizados para tareas de clasificación. La idea fundamental es encontrar el hiperplano óptimo que separa datos de diferentes clases, maximizando el margen entre ellas. Esta maximización del margen hace que las SVM sean particularmente robustas y efectivas para problemas de clasificación binaria.
 
-{{< medical-context 
-    type="research"  
-    difficulty="intermediate"
-    scenario="Un equipo de control de calidad necesita clasificar elementos como válidos o defectuosos basándose en dos características medidas. Usando datos históricos de inspección, el sistema debe encontrar la frontera de decisión que mejor separe ambas clases."
-    highlight="Las SVM encuentran el hiperplano separador que maximiza el margen entre clases, lo que suele mejorar la robustez. En la práctica, esto puede reducir falsas alarmas y defectos no detectados en datos nuevos."
-    steps="Ajusta los Parámetros del Hiperplano: Mueve los controles deslizantes para cambiar la posición y el ángulo del límite de decisión. Observa cómo cambia el margen y la precisión de clasificación.|Entiende el Margen: El margen es la distancia entre el hiperplano y los puntos más cercanos de cada clase (vectores de soporte). Un margen mayor generalmente significa mejor generalización.|Encuentra la Solución Óptima: Usa el botón 'Encontrar Mejor Hiperplano' para que el algoritmo SVM calcule automáticamente el límite separador óptimo que maximiza el margen."
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="es"
+title="Juego de Clasificación SVM"
+scenario="Un equipo de control de calidad necesita clasificar elementos como válidos o defectuosos basándose en dos características medidas. Usando datos históricos de inspección, el sistema debe encontrar la frontera de decisión que mejor separe ambas clases. El gráfico muestra puntos de datos donde los puntos azules representan una clase (válido) y los puntos rojos representan la otra (defectuoso). La posición de cada punto está determinada por dos características medidas. La línea es tu límite de decisión (hiperplano), y el área sombreada representa el margen. Tu objetivo es ajustar el límite para maximizar el margen mientras clasificas correctamente los puntos."
+steps="Ajusta los Parámetros del Hiperplano: Mueve los controles deslizantes para cambiar la posición y el ángulo del límite de decisión. Observa cómo cambia el margen y la precisión de clasificación.|Entiende el Margen: El margen es la distancia entre el hiperplano y los puntos más cercanos de cada clase (vectores de soporte). Un margen mayor generalmente significa mejor generalización.|Encuentra la Solución Óptima: Usa el botón 'Encontrar Mejor Hiperplano' para que el algoritmo SVM calcule automáticamente el límite separador óptimo que maximiza el margen."
+medical_highlight="Las SVM encuentran el hiperplano separador que maximiza el margen entre clases, lo que suele mejorar la robustez. En la práctica, esto puede reducir falsas alarmas y defectos no detectados en datos nuevos."
 >}}
 
-## Demostración Interactiva
-
-El gráfico muestra puntos de datos donde los puntos azules representan una clase (válido) y los puntos rojos representan la otra (defectuoso). La posición de cada punto está determinada por dos características medidas. La línea es tu límite de decisión (hiperplano), y el área sombreada representa el margen. Tu objetivo es ajustar el límite para maximizar el margen mientras clasificas correctamente los puntos.
-
-{{< demo-wrapper title="Optimizador de Clasificador SVM" >}}
-
 {{< game-results >}}
-
-<h3>Cómo usar la simulación</h3>
-
-<ul>
-<li><strong>Ajusta posición y ángulo</strong> con los controles para ver cómo cambia el límite de decisión y el <strong>margen</strong>.</li>
-<li><strong>Observa los vectores de soporte</strong>: estos son los puntos críticos (resaltados) que definen el margen.</li>
-<li><strong>Verifica la precisión de clasificación</strong>: ve cuántos puntos están correctamente clasificados en cada lado del límite.</li>
-<li><strong>Pulsa "Encontrar Mejor Hiperplano"</strong> para que el algoritmo SVM encuentre automáticamente los parámetros óptimos que maximizan el margen.</li>
-</ul>
 
 {{< svm-game lang="es" >}}
 

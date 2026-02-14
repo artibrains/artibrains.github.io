@@ -12,8 +12,7 @@ slug: "perceptron-neurona-artificial"
 El **Perceptrón** es el modelo más simple de una neurona artificial y el bloque de construcción histórico de las redes neuronales. Concebido en la década de 1950, es un clasificador lineal binario: toma varias entradas, las pondera, las suma y, si el resultado supera un cierto umbral, "dispara" una salida (normalmente 1); de lo contrario, emite otra (normalmente 0 o -1).
 
 {{< medical-context 
-    type="clinic" 
-    level="beginner" 
+    type="clinic"
     scenario="Un patólogo necesita clasificar células de una biopsia como \"benignas\" o \"malignas\" basándose en dos características medibles, como el tamaño del núcleo y la uniformidad de la célula."
     highlight="Un Perceptrón puede aprender una \"regla de decisión\" lineal a partir de estos dos marcadores. El objetivo es trazar una línea que separe de la mejor manera posible los dos tipos de células, creando un sistema de apoyo al diagnóstico rápido y automatizado."
 >}}

@@ -3,14 +3,14 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 <link rel="stylesheet" href="/css/multiclass-strategies.css?v=5">
 
-<div class="multiclass-demo">
-    <div class="demo-content-panel">
-        <h2 class="demo-section-title">{{ if eq $lang "es" }}Configuración del Experimento{{ else }}Experiment Setup{{ end }}</h2>
+<div class="demo-wrapper multiclass-demo">
+    <div class="controls-panel">
+        <h3 class="demo-mb-md">{{ if eq $lang "es" }}Controles y Configuración{{ else }}Controls and Configuration{{ end }}</h3>
         
-        <div class="demo-control-section">
-            <div class="demo-control-group">
+        <div class="control-section">
+            <div class="control-group">
                 <label class="control-label">{{ if eq $lang "es" }}Número de clases:{{ else }}Number of classes:{{ end }}</label>
-                <select id="mc-num-classes" class="demo-control-select">
+                <select id="mc-num-classes" class="control-select">
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
                     <option value="4">4</option>
@@ -23,20 +23,26 @@
                 </select>
             </div>
             
-            <div class="demo-control-group">
+            <div class="control-group">
                 <label class="control-label">{{ if eq $lang "es" }}Número de muestras por clase:{{ else }}Samples per class:{{ end }}</label>
-                <input type="range" id="mc-samples-slider" class="demo-control-slider" min="10" max="50" value="30" step="5">
+                <input type="range" id="mc-samples-slider" min="10" max="50" value="30" step="5">
                 <span id="mc-samples-value" class="slider-value">30</span>
             </div>
             
-            <div class="demo-control-group">
+            <div class="control-group">
                 <label class="control-label">{{ if eq $lang "es" }}Separación entre clases:{{ else }}Class separation:{{ end }}</label>
-                <input type="range" id="mc-separation-slider" class="demo-control-slider" min="1" max="5" value="2.5" step="0.5">
+                <input type="range" id="mc-separation-slider" min="1" max="5" value="2.5" step="0.5">
                 <span id="mc-separation-value" class="slider-value">2.5</span>
             </div>
-            
-            <button id="mc-generate-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}</button>
-            <button id="mc-train-btn" class="demo-btn demo-btn-secondary" disabled>{{ if eq $lang "es" }}Entrenar Clasificadores{{ else }}Train Classifiers{{ end }}</button>
+        </div>
+
+        <div class="control-section">
+            <div class="control-group">
+                <button id="mc-generate-btn" class="demo-btn demo-btn-primary demo-btn-full-width">{{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}</button>
+            </div>
+            <div class="control-group">
+                <button id="mc-train-btn" class="demo-btn demo-btn-secondary demo-btn-full-width" disabled>{{ if eq $lang "es" }}Entrenar Clasificadores{{ else }}Train Classifiers{{ end }}</button>
+            </div>
         </div>
     </div>
 
@@ -44,14 +50,14 @@
         <h2 class="demo-section-title">{{ if eq $lang "es" }}Visualización{{ else }}Visualization{{ end }}</h2>
         
         <!-- Tabs navigation -->
-        <div id="mc-tabs-container" class="mc-tabs hidden">
-            <button class="mc-tab-button active" data-tab="ovr">
+        <div id="mc-tabs-container" class="tab-navigation hidden">
+            <button class="tab-button active" data-tab="ovr">
                 {{ if eq $lang "es" }}One-vs-Rest (OvR){{ else }}One-vs-Rest (OvR){{ end }}
             </button>
-            <button class="mc-tab-button" data-tab="ovo">
+            <button class="tab-button" data-tab="ovo">
                 {{ if eq $lang "es" }}One-vs-One (OvO){{ else }}One-vs-One (OvO){{ end }}
             </button>
-            <button class="mc-tab-button" data-tab="comparison">
+            <button class="tab-button" data-tab="comparison">
                 {{ if eq $lang "es" }}Comparación{{ else }}Comparison{{ end }}
             </button>
         </div>

@@ -260,7 +260,7 @@ class MulticlassClassifier {
 
     predictOvO(X) {
         return X.map(point => {
-            const votes = [0, 0, 0];
+            const votes = new Array(this.numClasses).fill(0);
 
             this.classifiers.forEach(clf => {
                 const score = clf.w[0] * point[0] + clf.w[1] * point[1] + clf.b;
@@ -606,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTab = tabName;
 
         // Update tab buttons
-        document.querySelectorAll('.mc-tab-button').forEach(btn => {
+        document.querySelectorAll('.tab-button').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.tab === tabName);
         });
 
@@ -623,7 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add event listeners to tab buttons
-    document.querySelectorAll('.mc-tab-button').forEach(btn => {
+    document.querySelectorAll('.tab-button').forEach(btn => {
         btn.addEventListener('click', () => {
             switchTab(btn.dataset.tab);
         });

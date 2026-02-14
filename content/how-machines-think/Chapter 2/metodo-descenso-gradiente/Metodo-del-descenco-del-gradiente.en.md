@@ -10,22 +10,18 @@ slug: "gradient-descent-method"
 
 The **Gradient Descent Method** is the fundamental algorithm that allows machine learning models to "learn" by finding optimal values for their parameters. It works like an explorer searching for the lowest point on a mountain by always following the direction of greatest descent.
 
+{{< demo-wrapper class="unified-activity" >}}
 {{< demo-intro
+lang="en"
 title="Gradient Descent Algorithm"
-algorithm_type="Optimization"
-difficulty="intermediate"
-intro_text="**Gradient descent** is like having a GPS that always points 'downhill' in the mathematical landscape of your problem. The algorithm follows this direction step by step until it finds the deepest valley."
+scenario="In this simulation, you can visualize that process. The left graph shows the surface of the cost function (in this case, Mean Squared Error or MSE). Each point on this surface represents the total error for a specific combination of w and b. The goal is to find the lowest point in the valley. Use the controls to start the algorithm. Watch how the parameters are updated in each iteration (right graph), following the direction opposite to the gradient, until converging on the optimal solution that minimizes the error. You can experiment with different learning rates to see how it affects the speed and stability of the process."
 steps="Observe the Exploration: See how the algorithm moves across the surface of the function, always following the direction of greatest descent according to the gradient.|Adjust the Parameters: Experiment with the learning rate to see how it affects the speed and stability of convergence.|Analyze the Convergence: Observe how the gradient norm decreases, indicating that it is approaching the minimum, and when the algorithm decides to stop."
+medical_highlight="Watch how each step updates the current position using the gradient direction. A suitable learning rate produces stable convergence, while extreme values can cause slow learning or oscillations."
 >}}
-
-## Interactive Demo
-
-{{< demo-wrapper title="Gradient Descent Explorer" >}}
 
 {{< descenso-gradiente_intro_es lang="en" >}}
 
-{{< descenso-gradiente >}}
-
+{{< descenso-gradiente lang="en" >}}
 {{< /demo-wrapper >}}
 
 ## Fundamental Concepts

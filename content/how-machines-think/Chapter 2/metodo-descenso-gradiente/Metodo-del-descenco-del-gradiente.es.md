@@ -10,22 +10,18 @@ slug: "metodo-descenso-gradiente"
 
 El **Método del Descenso del Gradiente** es el algoritmo fundamental que permite a los modelos de machine learning "aprender" encontrando los valores óptimos de sus parámetros. Funciona como un explorador que busca el punto más bajo de una montaña siguiendo siempre la dirección de mayor descenso.
 
+{{< demo-wrapper class="unified-activity" >}}
 {{< demo-intro 
-    title="Algortimo del Descenso del Gradiente"
-    algorithm_type="Optimización"
-    difficulty="intermediate"
-    intro_text="El **descenso del gradiente** es como tener un GPS que siempre señala 'cuesta abajo' en el paisaje matemático de nuestro problema. El algoritmo sigue esta dirección paso a paso hasta encontrar el valle más profundo."
-    steps="Observa la Exploración:Ve cómo el algoritmo se mueve por la superficie de la función, siguiendo siempre la dirección de mayor descenso según el gradiente.|Ajusta los Parámetros:Experimenta con la tasa de aprendizaje para ver cómo afecta la velocidad y estabilidad de convergencia.|Analiza la Convergencia:Observa cómo la norma del gradiente se reduce indicando que se acerca al mínimo, y cuándo el algoritmo decide detenerse."
+    lang="es"
+    title="Algoritmo del Descenso del Gradiente"
+    scenario="En esta simulación, puedes visualizar ese proceso. El gráfico de la izquierda muestra la superficie de la función de coste (en este caso, el Error Cuadrático Medio o MSE). Cada punto en esta superficie representa el error total para una combinación específica de w y b. El objetivo es encontrar el punto más bajo del valle. Usa los controles para iniciar el algoritmo. Observa cómo los parámetros se actualizan en cada iteración (gráfico de la derecha), siguiendo la dirección opuesta al gradiente, hasta converger en la solución óptima que minimiza el error. Puedes experimentar con diferentes tasas de aprendizaje para ver cómo afecta a la velocidad y estabilidad del proceso."
+    steps="Observa la Exploración: Ve cómo el algoritmo se mueve por la superficie de la función, siguiendo siempre la dirección de mayor descenso según el gradiente.|Ajusta los Parámetros: Experimenta con la tasa de aprendizaje para ver cómo afecta la velocidad y estabilidad de convergencia.|Analiza la Convergencia: Observa cómo la norma del gradiente se reduce indicando que se acerca al mínimo, y cuándo el algoritmo decide detenerse."
+    medical_highlight="Observa cómo cada paso actualiza la posición actual usando la dirección del gradiente. Una tasa de aprendizaje adecuada genera convergencia estable, mientras que valores extremos pueden provocar aprendizaje lento u oscilaciones."
 >}}
-
-## Demostración Interactiva
-
-{{< demo-wrapper title="Explorador del Descenso del Gradiente" >}}
 
 {{< descenso-gradiente_intro_es lang="es" >}}
 
-{{< descenso-gradiente >}}
-
+{{< descenso-gradiente lang="es" >}}
 {{< /demo-wrapper >}}
 
 ## Conceptos Fundamentales

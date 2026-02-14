@@ -2,17 +2,12 @@
 
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-<div class="demo-main-layout">
+<div class="demo-wrapper demo-main-layout">
     <div class="demo-content-panel">
         <div class="demo-chart-container">
             <h3 class="demo-chart-title">{{ if eq $lang "es" }}Gráfico de Regresión Lineal{{ else }}Linear Regression
                 Chart{{ end }}</h3>
             <canvas id="gameChart"></canvas>
-            <div id="optimizationStatus" class="demo-status-indicator demo-status-warning demo-hidden">
-                <div class="spinner"></div>
-                <span>{{ if eq $lang "es" }}Encontrando la mejor solución...{{ else }}Finding the best solution...{{ end
-                    }}</span>
-            </div>
         </div>
     </div>
 
@@ -66,6 +61,14 @@
                 </button>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Optimization Status Modal Overlay -->
+<div id="optimizationStatus" class="optimization-modal hidden">
+    <div class="optimization-modal-content">
+        <div class="spinner"></div>
+        <span class="optimization-text">{{ if eq $lang "es" }}Encontrando la mejor solución...{{ else }}Finding the best solution...{{ end }}</span>
     </div>
 </div>
 

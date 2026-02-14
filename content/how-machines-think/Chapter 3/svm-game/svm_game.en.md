@@ -10,30 +10,16 @@ slug: "svm-game"
 
 Support Vector Machines (SVM) are powerful supervised learning algorithms used for classification tasks. The fundamental idea is to find the optimal hyperplane that separates data from different classes, maximizing the margin between them. This margin maximization makes SVMs particularly robust and effective for binary classification problems.
 
-{{< medical-context 
-    type="research"  
-    difficulty="intermediate"
-    scenario="A quality-control team needs to classify items as pass/fail based on two measured features. Using historical inspection data, the system must find the decision boundary that best separates both classes."
-    highlight="SVMs find the separating hyperplane that maximizes the margin between classes, often improving robustness. In practice, that can reduce both false alarms and missed defects on new, unseen items."
-    steps="Adjust Hyperplane Parameters: Move the sliders to change the position and angle of the decision boundary. Watch how the margin and classification accuracy change.|Understand the Margin: The margin is the distance between the hyperplane and the nearest points from each class (support vectors). A larger margin generally means better generalization.|Find the Optimal Solution: Use the 'Find Best Hyperplane' button to have the SVM algorithm automatically calculate the optimal separating boundary that maximizes the margin."
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="en"
+title="SVM Classification Game"
+scenario="A quality-control team needs to classify items as pass/fail based on two measured features. Using historical inspection data, the system must find the decision boundary that best separates both classes. The graph shows data points where blue dots represent one class (pass) and red dots represent the other (fail). Each point's position is determined by two measured features. The line is your decision boundary (hyperplane), and the shaded area represents the margin. Your goal is to adjust the boundary to maximize the margin while correctly classifying the samples."
+steps="Adjust Hyperplane Parameters: Move the sliders to change the position and angle of the decision boundary. Watch how the margin and classification accuracy change.|Understand the Margin: The margin is the distance between the hyperplane and the nearest points from each class (support vectors). A larger margin generally means better generalization.|Find the Optimal Solution: Use the 'Find Best Hyperplane' button to have the SVM algorithm automatically calculate the optimal separating boundary that maximizes the margin."
+medical_highlight="SVMs find the separating hyperplane that maximizes the margin between classes, often improving robustness. In practice, that can reduce both false alarms and missed defects on new, unseen items."
 >}}
 
-## Interactive Demonstration
-
-The graph shows data points where blue dots represent one class (pass) and red dots represent the other (fail). Each point's position is determined by two measured features. The line is your decision boundary (hyperplane), and the shaded area represents the margin. Your goal is to adjust the boundary to maximize the margin while correctly classifying the samples.
-
-{{< demo-wrapper title="SVM Classifier Optimizer" >}}
-
 {{< game-results >}}
-
-<h3>How to Use the Simulation</h3>
-
-<ul>
-<li><strong>Adjust position and angle</strong> with the controls to see how the decision boundary and <strong>margin</strong> change.</li>
-<li><strong>Observe support vectors</strong>: these are the critical points (highlighted) that define the margin.</li>
-<li><strong>Check classification accuracy</strong>: see how many points are correctly classified on each side of the boundary.</li>
-<li><strong>Click "Find Best Hyperplane"</strong> to let the SVM algorithm automatically find the optimal parameters that maximize the margin.</li>
-</ul>
 
 {{< svm-game lang="en" >}}
 

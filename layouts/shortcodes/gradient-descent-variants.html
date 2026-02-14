@@ -1,0 +1,580 @@
+{{- /* Gradient Descent Pseudocode Variants with Tabs */ -}}
+{{- $isEs := eq .Page.Lang "es" -}}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+
+<div class="variant-tabs-container">
+  <div class="variant-tabs-header">
+    {{- if $isEs -}}
+      <h2>📋 Variantes del Descenso del Gradiente</h2>
+    {{- else -}}
+      <h2>📋 Variants of Gradient Descent</h2>
+    {{- end -}}
+  </div>
+
+  <div class="tab-navigation">
+    <button class="tab-button active" onclick="switchVariantTab(event, 'batch-gd')" data-tab="batch-gd">
+      {{- if $isEs -}}
+        Batch GD
+      {{- else -}}
+        Batch GD
+      {{- end -}}
+    </button>
+    <button class="tab-button" onclick="switchVariantTab(event, 'full-loop')" data-tab="full-loop">
+      {{- if $isEs -}}
+        Bucle Completo
+      {{- else -}}
+        Full Loop
+      {{- end -}}
+    </button>
+    <button class="tab-button" onclick="switchVariantTab(event, 'sgd')" data-tab="sgd">
+      {{- if $isEs -}}
+        SGD
+      {{- else -}}
+        SGD
+      {{- end -}}
+    </button>
+    <button class="tab-button" onclick="switchVariantTab(event, 'minibatch')" data-tab="minibatch">
+      {{- if $isEs -}}
+        Mini-Batch
+      {{- else -}}
+        Mini-Batch
+      {{- end -}}
+    </button>
+  </div>
+
+  <div class="variant-pseudocode-content">
+    <!-- Batch Gradient Descent -->
+    <div class="variant-tab-pane active" id="batch-gd">
+      {{- if $isEs -}}
+      <p class="variant-intro">Usamos <strong>Batch GD</strong> cuando queremos una dirección de descenso estable en cada paso, calculada con todo el dataset. Es la variante más didáctica para entender el algoritmo base y comparar convergencia.</p>
+<pre class="pseudocode-block"><code>ALGORITMO: Descenso del Gradiente por Lotes (Una Época)
+─────────────────────────────────────────────────────────────────
+
+ENTRADA:
+    θ: Vector de parámetros actual
+    X: Conjunto de datos completo (n_muestras, n_características)
+    y: Valores objetivo (n_muestras,)
+    α: Tasa de aprendizaje
+    función_pérdida: Función para calcular la pérdida
+    función_gradiente: Función para calcular el gradiente
+
+SALIDA:
+    θ: Vector de parámetros actualizado
+
+PROCEDIMIENTO:
+    1. Calcular predicciones para todas las muestras:
+       ŷ ← predecir(X, θ)
+    
+    2. Calcular pérdida (opcional, para monitoreo):
+       L ← función_pérdida(y, ŷ)
+    
+    3. Calcular gradiente sobre todo el conjunto de datos:
+       ∇L ← función_gradiente(X, y, ŷ, θ)
+    
+    4. Actualizar parámetros:
+       θ ← θ - α · ∇L
+    
+    5. DEVOLVER θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Características:</strong></p>
+        <ul>
+          <li>Utiliza todo el conjunto de datos en cada actualización</li>
+          <li>Actualización única por época</li>
+          <li>Convergencia suave y estable</li>
+          <li>Mayor consumo de memoria</li>
+          <li>Ideal para conjuntos de datos pequeños</li>
+        </ul>
+      </div>
+      {{- else -}}
+      <p class="variant-intro">We use <strong>Batch GD</strong> when we want a stable descent direction at each step, computed from the full dataset. It is the clearest baseline variant for understanding core gradient descent behavior.</p>
+<pre class="pseudocode-block"><code>ALGORITHM: Batch Gradient Descent (One Epoch)
+─────────────────────────────────────────────────────────────────
+
+INPUT:
+    θ: Current parameter vector
+    X: Full training dataset (n_samples, n_features)
+    y: Target values (n_samples,)
+    α: Learning rate
+    loss_function: Function to compute loss
+    gradient_function: Function to compute gradient
+
+OUTPUT:
+    θ: Updated parameter vector
+
+PROCEDURE:
+    1. Compute predictions for all samples:
+       ŷ ← predict(X, θ)
+    
+    2. Compute loss (optional, for monitoring):
+       L ← loss_function(y, ŷ)
+    
+    3. Compute gradient over entire dataset:
+       ∇L ← gradient_function(X, y, ŷ, θ)
+    
+    4. Update parameters:
+       θ ← θ - α · ∇L
+    
+    5. RETURN θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Characteristics:</strong></p>
+        <ul>
+          <li>Uses entire dataset for each update</li>
+          <li>Single update per epoch</li>
+          <li>Smooth and stable convergence</li>
+          <li>Higher memory consumption</li>
+          <li>Best for small datasets</li>
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+
+    <!-- Full Training Loop -->
+    <div class="variant-tab-pane" id="full-loop">
+      {{- if $isEs -}}
+      <p class="variant-intro">Incluimos el <strong>bucle completo</strong> para mostrar cómo Batch GD se usa realmente en entrenamiento: múltiples épocas, registro de pérdida y criterio de parada. Esta vista conecta la idea matemática con una implementación práctica.</p>
+<pre class="pseudocode-block"><code>ALGORITMO: Entrenamiento con Descenso del Gradiente
+─────────────────────────────────────────────────────────────────
+
+ENTRADA:
+    X: Datos de entrenamiento de forma (n_muestras, n_características)
+    y: Valores objetivo de forma (n_muestras,)
+    α: Tasa de aprendizaje (ej., 0.01)
+    max_épocas: Número máximo de épocas
+    tolerancia: Umbral de convergencia (ej., 1e-6)
+    función_pérdida: Función para calcular la pérdida
+    función_gradiente: Función para calcular el gradiente
+
+SALIDA:
+    θ: Vector de parámetros optimizado
+    historial: Lista de valores de pérdida por época
+
+PROCEDIMIENTO:
+    1. Inicializar parámetros θ aleatoriamente o a ceros
+    
+    2. historial ← lista vacía
+    
+    3. PARA época = 1 HASTA max_épocas:
+        
+        a. // Paso hacia adelante: calcular predicciones
+           ŷ ← predecir(X, θ)
+        
+        b. // Calcular y registrar pérdida
+           L ← función_pérdida(y, ŷ)
+           AÑADIR L a historial
+        
+        c. // Calcular gradiente
+           ∇L ← función_gradiente(X, y, ŷ, θ)
+        
+        d. // Actualizar parámetros (paso del gradiente)
+           θ ← θ - α · ∇L
+        
+        e. // Verificar convergencia
+           SI ||∇L|| < tolerancia:
+               IMPRIMIR "Convergido en época", época
+               ROMPER
+    
+    4. DEVOLVER θ, historial</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Características:</strong></p>
+        <ul>
+          <li>Bucle completo de entrenamiento con múltiples épocas</li>
+          <li>Monitorea la pérdida en cada época</li>
+          <li>Incluye criterio de convergencia</li>
+          <li>Retorna historial de pérdida para análisis</li>
+          <li>Base para todos los métodos de optimización modernos</li>
+        </ul>
+      </div>
+      {{- else -}}
+      <p class="variant-intro">We include the <strong>full loop</strong> to show how gradient descent is used in real training: multiple epochs, loss tracking, and a stopping condition. This bridges the math update rule and practical implementation.</p>
+<pre class="pseudocode-block"><code>ALGORITHM: Gradient Descent Training
+─────────────────────────────────────────────────────────────────
+
+INPUT:
+    X: Training data of shape (n_samples, n_features)
+    y: Target values of shape (n_samples,)
+    α: Learning rate (e.g., 0.01)
+    max_epochs: Maximum number of epochs
+    tolerance: Convergence threshold (e.g., 1e-6)
+    loss_function: Function to compute loss
+    gradient_function: Function to compute gradient
+
+OUTPUT:
+    θ: Optimized parameter vector
+    history: List of loss values per epoch
+
+PROCEDURE:
+    1. Initialize parameters θ randomly or to zeros
+    
+    2. history ← empty list
+    
+    3. FOR epoch = 1 TO max_epochs:
+        
+        a. // Forward pass: compute predictions
+           ŷ ← predict(X, θ)
+        
+        b. // Compute and record loss
+           L ← loss_function(y, ŷ)
+           APPEND L to history
+        
+        c. // Compute gradient
+           ∇L ← gradient_function(X, y, ŷ, θ)
+        
+        d. // Update parameters (gradient step)
+           θ ← θ - α · ∇L
+        
+        e. // Check for convergence
+           IF ||∇L|| < tolerance:
+               PRINT "Converged at epoch", epoch
+               BREAK
+    
+    4. RETURN θ, history</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Characteristics:</strong></p>
+        <ul>
+          <li>Complete training loop with multiple epochs</li>
+          <li>Monitors loss at each epoch</li>
+          <li>Includes convergence criterion</li>
+          <li>Returns loss history for analysis</li>
+          <li>Foundation for all modern optimization methods</li>
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+
+    <!-- Stochastic Gradient Descent -->
+    <div class="variant-tab-pane" id="sgd">
+      {{- if $isEs -}}
+      <p class="variant-intro">Usamos <strong>SGD</strong> cuando el dataset es grande o queremos actualizaciones muy frecuentes y baratas. Introduce ruido útil en el entrenamiento, lo que puede ayudar a escapar de mínimos locales y acelerar el aprendizaje inicial.</p>
+<pre class="pseudocode-block"><code>ALGORITMO: Descenso del Gradiente Estocástico (Una Época)
+─────────────────────────────────────────────────────────────────
+
+ENTRADA:
+    θ: Vector de parámetros actual
+    X: Datos de entrenamiento de forma (n_muestras, n_características)
+    y: Valores objetivo de forma (n_muestras,)
+    α: Tasa de aprendizaje
+
+SALIDA:
+    θ: Vector de parámetros actualizado
+
+PROCEDIMIENTO:
+    1. Barajar los índices del conjunto de datos
+    
+    2. PARA cada muestra i en orden barajado:
+        
+        a. Obtener muestra individual: xᵢ, yᵢ
+        
+        b. Calcular predicción: ŷᵢ ← predecir(xᵢ, θ)
+        
+        c. Calcular gradiente para muestra individual:
+           ∇Lᵢ ← gradiente(xᵢ, yᵢ, ŷᵢ, θ)
+        
+        d. Actualizar parámetros:
+           θ ← θ - α · ∇Lᵢ
+    
+    3. DEVOLVER θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Características:</strong></p>
+        <ul>
+          <li>Actualización para cada muestra individual</li>
+          <li>Muy ruidoso pero rápido en memoria</li>
+          <li>Puede escapar mínimos locales</li>
+          <li>Excelente para conjuntos de datos muy grandes</li>
+          <li>Menos estable que Batch GD</li>
+        </ul>
+      </div>
+      {{- else -}}
+      <p class="variant-intro">We use <strong>SGD</strong> when datasets are large or we need very frequent, cheap updates. It introduces useful noise during training, which can help escape local minima and speed up early learning.</p>
+<pre class="pseudocode-block"><code>ALGORITHM: Stochastic Gradient Descent (One Epoch)
+─────────────────────────────────────────────────────────────────
+
+INPUT:
+    θ: Current parameter vector
+    X: Training data of shape (n_samples, n_features)
+    y: Target values of shape (n_samples,)
+    α: Learning rate
+
+OUTPUT:
+    θ: Updated parameter vector
+
+PROCEDURE:
+    1. Shuffle the dataset indices
+    
+    2. FOR each sample i in shuffled order:
+        
+        a. Get single sample: xᵢ, yᵢ
+        
+        b. Compute prediction: ŷᵢ ← predict(xᵢ, θ)
+        
+        c. Compute gradient for single sample:
+           ∇Lᵢ ← gradient(xᵢ, yᵢ, ŷᵢ, θ)
+        
+        d. Update parameters:
+           θ ← θ - α · ∇Lᵢ
+    
+    3. RETURN θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Characteristics:</strong></p>
+        <ul>
+          <li>Update for each individual sample</li>
+          <li>Very noisy but memory efficient</li>
+          <li>Can escape local minima</li>
+          <li>Excellent for very large datasets</li>
+          <li>Less stable than Batch GD</li>
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+
+    <!-- Mini-Batch Gradient Descent -->
+    <div class="variant-tab-pane" id="minibatch">
+      {{- if $isEs -}}
+      <p class="variant-intro">Usamos <strong>Mini-Batch GD</strong> para equilibrar estabilidad y eficiencia: cada actualización ve más de una muestra, pero no todo el dataset. Por eso es la variante estándar en deep learning y entrenamiento moderno.</p>
+<pre class="pseudocode-block"><code>ALGORITMO: Descenso del Gradiente por Mini-Lotes (Una Época)
+─────────────────────────────────────────────────────────────────
+
+ENTRADA:
+    θ: Vector de parámetros actual
+    X: Datos de entrenamiento de forma (n_muestras, n_características)
+    y: Valores objetivo de forma (n_muestras,)
+    α: Tasa de aprendizaje
+    tamaño_lote: Número de muestras por lote (ej., 32)
+
+SALIDA:
+    θ: Vector de parámetros actualizado
+
+PROCEDIMIENTO:
+    1. n ← número de muestras
+    
+    2. Barajar el conjunto de datos
+    
+    3. n_lotes ← techo(n / tamaño_lote)
+    
+    4. PARA idx_lote = 0 HASTA n_lotes - 1:
+        
+        a. // Extraer mini-lote
+           inicio ← idx_lote × tamaño_lote
+           fin ← min(inicio + tamaño_lote, n)
+           X_lote ← X[inicio:fin]
+           y_lote ← y[inicio:fin]
+        
+        b. // Paso hacia adelante
+           ŷ_lote ← predecir(X_lote, θ)
+        
+        c. // Calcular gradiente sobre mini-lote
+           ∇L ← gradiente(X_lote, y_lote, ŷ_lote, θ)
+        
+        d. // Actualizar parámetros
+           θ ← θ - α · ∇L
+    
+    5. DEVOLVER θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Características:</strong></p>
+        <ul>
+          <li>Equilibrio perfecto entre Batch GD y SGD</li>
+          <li>Actualización para cada mini-lote (típicamente 32-256 muestras)</li>
+          <li>Buen balance entre velocidad y estabilidad</li>
+          <li>Menos ruido que SGD, más eficiente en memoria que Batch GD</li>
+          <li>Método más utilizado en práctica moderna</li>
+        </ul>
+      </div>
+      {{- else -}}
+      <p class="variant-intro">We use <strong>Mini-Batch GD</strong> to balance stability and efficiency: each update sees more than one sample, but not the whole dataset. That is why it is the standard choice in modern deep learning training.</p>
+<pre class="pseudocode-block"><code>ALGORITHM: Mini-Batch Gradient Descent (One Epoch)
+─────────────────────────────────────────────────────────────────
+
+INPUT:
+    θ: Current parameter vector
+    X: Training data of shape (n_samples, n_features)
+    y: Target values of shape (n_samples,)
+    α: Learning rate
+    batch_size: Number of samples per batch (e.g., 32)
+
+OUTPUT:
+    θ: Updated parameter vector
+
+PROCEDURE:
+    1. n ← number of samples
+    
+    2. Shuffle the dataset
+    
+    3. n_batches ← ceil(n / batch_size)
+    
+    4. FOR batch_idx = 0 TO n_batches - 1:
+        
+        a. // Extract mini-batch
+           start ← batch_idx × batch_size
+           end ← min(start + batch_size, n)
+           X_batch ← X[start:end]
+           y_batch ← y[start:end]
+        
+        b. // Forward pass
+           ŷ_batch ← predict(X_batch, θ)
+        
+        c. // Compute gradient on mini-batch
+           ∇L ← gradient(X_batch, y_batch, ŷ_batch, θ)
+        
+        d. // Update parameters
+           θ ← θ - α · ∇L
+    
+    5. RETURN θ</code></pre>
+
+      <div class="pseudocode-description">
+        <p><strong>Characteristics:</strong></p>
+        <ul>
+          <li>Perfect balance between Batch GD and SGD</li>
+          <li>Update for each mini-batch (typically 32-256 samples)</li>
+          <li>Good balance between speed and stability</li>
+          <li>Less noise than SGD, more memory-efficient than Batch GD</li>
+          <li>Most widely used method in modern practice</li>
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+
+<style>
+.variant-tabs-container {
+  margin: 2rem 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border-left: 0;
+  box-shadow: none;
+}
+
+.variant-tabs-header h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary, #1a1a1a);
+  font-size: 1.5rem;
+}
+
+.variant-pseudocode-content {
+  margin-top: 1.5rem;
+}
+
+.variant-intro {
+  margin: 0 0 1rem;
+  padding: .85rem 1rem;
+  border: 1px solid var(--demo-border);
+  border-left: 4px solid var(--demo-accent);
+  background: color-mix(in srgb, var(--demo-accent) 8%, var(--demo-surface));
+  border-radius: var(--demo-radius-sm);
+  color: var(--demo-text);
+  line-height: 1.55;
+  font-size: .95rem;
+}
+
+/* Tab pane visibility */
+.variant-tab-pane {
+  display: none;
+}
+
+.variant-tab-pane.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pseudocode-block {
+  background: var(--code-bg, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--code-text, #2d2d2d);
+  margin: 0 0 1rem 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.pseudocode-description {
+  background: var(--info-bg, #eff6ff);
+  border-left: 3px solid var(--accent-color, #2563eb);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.pseudocode-description p {
+  margin: 0.5rem 0 0.5rem 0;
+  color: var(--text-secondary, #4a4a4a);
+}
+
+.pseudocode-description ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.pseudocode-description li {
+  margin: 0.25rem 0;
+  color: var(--text-secondary, #4a4a4a);
+}
+
+.pseudocode-description strong {
+  color: var(--text-primary, #1a1a1a);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .variant-tabs-container {
+    padding: 1rem;
+  }
+  
+  .variant-tabs-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pseudocode-block {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+</style>
+
+<script>
+function switchVariantTab(event, tabName) {
+  event.preventDefault();
+  const button = event.currentTarget;
+  const container = button.closest('.variant-tabs-container');
+  if (!container) return;
+  
+  // Hide all tab panes
+  const panes = container.querySelectorAll('.variant-pseudocode-content .variant-tab-pane');
+  panes.forEach(pane => pane.classList.remove('active'));
+  
+  // Remove active class from all buttons
+  const buttons = container.querySelectorAll('.tab-navigation .tab-button');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  
+  // Show selected tab and mark button as active
+  const selectedPane = document.getElementById(tabName);
+  if (selectedPane) {
+    selectedPane.classList.add('active');
+  }
+  
+  button.classList.add('active');
+}
+</script>

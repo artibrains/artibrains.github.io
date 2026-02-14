@@ -1,19 +1,34 @@
-<div class="gradient-widget">
-  <div style="margin-bottom:0.5rem;">
-    <label for="gw-function">f(variables) =</label>
-    <input id="gw-function" type="text" placeholder="e.g. x^2*y + sin(x*y)" style="min-width: 360px;" />
+<link rel="stylesheet" href="/css/unified-demos.css">
+
+<div class="demo-wrapper derivative-widget-container gradient-widget-container">
+  <div class="derivative-widget-header">
+    <h3 class="derivative-widget-title">🎮 Interactive Gradient Calculator</h3>
+    <p class="derivative-widget-subtitle">Compute the gradient vector ∇f for multivariable functions</p>
   </div>
-  <div style="margin-bottom:0.5rem;">
-    <label for="gw-vars">Variables (comma-separated):</label>
-    <input id="gw-vars" type="text" placeholder="e.g. x, y" value="x, y" />
+  
+  <div class="derivative-widget-content">
+    <div class="derivative-input-group">
+      <label for="gw-function" class="derivative-label">f =</label>
+      <input id="gw-function" type="text" placeholder="e.g., x^2*y + sin(x*y)" value="x^2 + y^2" class="derivative-input" />
+    </div>
+    <div class="derivative-input-group" style="margin-top: 0.75rem;">
+      <label for="gw-vars" class="derivative-label">Variables:</label>
+      <input id="gw-vars" type="text" placeholder="e.g., x, y" value="x, y" class="derivative-input" />
+    </div>
+    
+    <div class="derivative-button-group">
+      <button id="gw-compute" class="demo-btn demo-btn-primary">✨ Compute ∇f</button>
+      <button id="gw-walpha" class="demo-btn demo-btn-secondary">🔗 Open in WolframAlpha</button>
+    </div>
+    
+    <div id="gw-result" class="derivative-result"></div>
+    <div id="gw-error" class="derivative-error"></div>
+    <small class="derivative-hint">Symbolic gradient via math.js. For step-by-step derivations, use WolframAlpha.</small>
   </div>
-  <button id="gw-compute">Compute ∇f</button>
-  <button id="gw-walpha">Open in WolframAlpha</button>
-  <div id="gw-result" style="margin-top: 0.75rem;"></div>
-  <div id="gw-error" style="margin-top: 0.5rem; color: var(--ERROR-fg, #b00020);"></div>
-  <small style="display:block; margin-top:0.5rem; opacity:0.8;">Symbolic gradient via math.js. For step-by-step derivations, use WolframAlpha.</small>
 </div>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.1/lib/browser/math.min.js"></script>
 <script>
   (function(){
@@ -28,11 +43,15 @@
     function renderLatex(latex) {
       out.innerHTML = '';
       const block = document.createElement('div');
+      block.style.padding = '0.5rem 0';
       out.appendChild(block);
-      if (window.katex) {
-        try { katex.render(latex, block, { throwOnError:false, displayMode:true }); }
-        catch(e) { block.textContent = latex; }
-      } else {
+      try {
+        if (window.katex) {
+          katex.render(latex, block, { throwOnError: false, displayMode: true });
+        } else {
+          block.textContent = latex;
+        }
+      } catch(e) {
         block.textContent = latex;
       }
     }
@@ -69,7 +88,7 @@
           parts.push(ds.toTex({parenthesis:'auto'}));
         }
         const fLatex = `f(${vars.join(',')}) = \\; ${fnode.toTex({parenthesis:'auto'})}`;
-        const grad = parts.join(' \\ \\ ');
+        const grad = parts.join(' \\, , \\, ');
         const gradLatex = `\\nabla f = \\begin{bmatrix} ${grad} \\end{bmatrix}`;
         renderLatex(`${fLatex}\\\\ ${gradLatex}`);
       } catch(e) {
@@ -91,6 +110,26 @@
 </script>
 
 <style>
-.gradient-widget button { margin-right: 0.25rem; }
-.gradient-widget input { margin-left: 0.25rem; }
+/* Gradient widget variation with slightly different color */
+.gradient-widget-container {
+  border-color: color-mix(in srgb, var(--demo-accent-alt) 30%, var(--demo-border));
+}
+
+.gradient-widget-container .derivative-widget-header {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--demo-accent-alt) 10%, var(--demo-surface)) 0%,
+    var(--demo-surface) 100%);
+}
+
+.gradient-widget-container .derivative-widget-title {
+  color: var(--demo-accent-alt);
+}
+
+.gradient-widget-container .derivative-input:focus {
+  border-color: var(--demo-accent-alt);
+}
+
+.gradient-widget-container .derivative-result {
+  border-color: color-mix(in srgb, var(--demo-accent-alt) 30%, var(--demo-border));
+}
 </style>

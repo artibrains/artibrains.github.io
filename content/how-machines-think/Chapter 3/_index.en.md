@@ -17,13 +17,18 @@ This chapter introduces **binary classification**: turning signals into a yes/no
 
 Use the interactive sections below to experiment with decision boundaries, thresholds, validation, and regularization:
 
-1. **[SVM Classification Game]({{% relref "how-machines-think/Chapter 3/svm-game/svm_game.en.md" %}})**: Learn about **Support Vector Machines**, one of the most powerful classification algorithms. Find the optimal decision boundary that separates two classes by maximizing the margin.
-2. **[The Probability Translator]({{% relref "how-machines-think/Chapter 3/probabilities_translator/probabilities_translator.en.md" %}})**: Discover **logistic regression**, the engine behind the team’s new model. See how it transforms input signals into actionable probabilities.
-3. **[The Classifier]({{% relref "how-machines-think/Chapter 3/juego-sigmoide/juego-sigmoide.en.md" %}})**: Learn to find the optimal classification boundary by tuning the model’s different parameters. Experiment with the **decision threshold** and observe how it affects predictions.
-4. **[The Risk Manager]({{% relref "how-machines-think/Chapter 3/risk_gestor/risk_gestor.en.md" %}})**: Step into the shoes of a manager and adjust the model’s **decision threshold**. Experience the critical balance between the cost of false positives and false negatives.
-5. **[The Honest Validator]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.en.md" %}})**: Understand why a single test isn’t enough. Compare simple validation with **cross-validation (K-Fold)** — the method the team uses to obtain a stable and reliable error estimate.
-6. **[The Complexity Tamer]({{% relref "how-machines-think/Chapter 3/complexity/complexity.en.md" %}})**: Battle **overfitting**. Adjust complexity and **regularization** to create a model that learns real patterns instead of memorizing noise, ensuring it performs well on future cases.
-7. **[Regularization Comparison]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.en.md" %}})**: Discover the differences between **L1 (Lasso)**, **L2 (Ridge)**, and **Elastic Net**. See in real-time how each regularization type affects model weights and feature selection, helping you choose the best strategy for your problem.
+- **[3.1 - SVM Classification Game]({{% relref "how-machines-think/Chapter 3/svm-game/svm_game.en.md" %}})**: Learn about *Support Vector Machines*, one of the most powerful classification algorithms. Find the optimal decision boundary that separates two classes by maximizing the margin.
+
+- **[3.1 - The Probability Translator]({{% relref "how-machines-think/Chapter 3/probabilities_translator/probabilities_translator.en.md" %}})**: Discover *logistic regression*, the engine behind the team’s new model. See how it transforms input signals into actionable probabilities.
+- **[3.2 - The Classifier]({{% relref "how-machines-think/Chapter 3/juego-sigmoide/juego-sigmoide.en.md" %}})**: Learn to find the optimal classification boundary by tuning the model’s different parameters. Experiment with the *decision threshold* and observe how it affects predictions.
+
+- **[3.3 - The Risk Manager]({{% relref "how-machines-think/Chapter 3/risk_gestor/risk_gestor.en.md" %}})**: Step into the shoes of a manager and adjust the model’s *decision threshold*. Experience the critical balance between the cost of false positives and false negatives.
+
+- **[3.3 - The Honest Validator]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.en.md" %}})**: Understand why a single test isn’t enough. Compare simple validation with *cross-validation (K-Fold)* — the method the team uses to obtain a stable and reliable error estimate.
+
+- **[3.5 - The Complexity Tamer]({{% relref "how-machines-think/Chapter 3/complexity/complexity.en.md" %}})**: Battle *overfitting*. Adjust complexity and *regularization* to create a model that learns real patterns instead of memorizing noise, ensuring it performs well on future cases.
+
+- **[3.5 - Regularization Comparison]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.en.md" %}})**: Discover the differences between *L1 (Lasso)*, *L2 (Ridge)*, and *Elastic Net*. See in real-time how each regularization type affects model weights and feature selection, helping you choose the best strategy for your problem.
  
 
 ### Algorithm Pseudocode
@@ -32,5 +37,5 @@ Use the interactive sections below to experiment with decision boundaries, thres
 
 ### Bibliography and Additional Resources
 
-- **[Logistic Regression & Probability Translators]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.en.md" %}})**: Theoretical foundations, tooling, and interpretability for The Probability Translator.
-- **[Classification Thresholds, Validation & Regularization]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-classification-evaluation.en.md" %}})**: Metrics, cross-validation strategies, and complexity control supporting the Risk Manager, Honest Validator, and Complexity Tamer demos.
+- **[📚 Logistic Regression & Probability Translators]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.en.md" %}})**: Theoretical foundations, tooling, and interpretability for The Probability Translator.
+- **[📚 Classification Thresholds, Validation & Regularization]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-classification-evaluation.en.md" %}})**: Metrics, cross-validation strategies, and complexity control supporting the Risk Manager, Honest Validator, and Complexity Tamer demos.

@@ -2,7 +2,6 @@
 Shortcode unificado y mejorado para introducciones de demos interactivas
 Parámetros:
 - title: Título de la demo
-- medical_scenario: Texto del escenario médico
 - medical_highlight: Texto destacado del contexto médico
 - intro_text: Texto introductorio de la aplicación
 - steps: Array de pasos explicativos (título:descripción|título:descripción)
@@ -14,7 +13,6 @@ Uses Hugo's native i18n system for translations
 <link rel="stylesheet" href="/css/unified-demos.css">
 
 {{ $title := .Get "title" | default (i18n "demo_title_default") }}
-{{ $medical_scenario := .Get "medical_scenario" | default "" }}
 {{ $medical_highlight := .Get "medical_highlight" | default "" }}
 {{ $intro_text := .Get "intro_text" | default "" }}
 {{ $algorithm_type := .Get "algorithm_type" | default "" }}
@@ -35,9 +33,6 @@ Uses Hugo's native i18n system for translations
     {{ end }}
 
     <div class="scenario-text">
-        {{ if $medical_scenario }}
-        <p><strong>{{ i18n "demo_scenario" }}:</strong> {{ $medical_scenario | markdownify }}</p>
-        {{ end }}
         {{ if $medical_highlight }}
         <div class="highlight">
             <span class="status-indicator status-success"></span>

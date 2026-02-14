@@ -1,6 +1,6 @@
 ---
 title: "📝 Pseudocódigo del Descenso del Gradiente"
-weight: 67
+weight: 65
 description: "El algoritmo de optimización que impulsa el aprendizaje automático: entendiendo el descenso del gradiente paso a paso."
 date: 
 draft: false
@@ -91,87 +91,7 @@ PROCEDIMIENTO:
     4. DEVOLVER θ, historial
 ```
 
-## Variantes del Descenso del Gradiente
-
-### Descenso del Gradiente Estocástico (SGD)
-
-Actualiza parámetros usando una muestra aleatoria a la vez:
-
-```
-ALGORITMO: Descenso del Gradiente Estocástico (Una Época)
-─────────────────────────────────────────────────────────────────
-
-ENTRADA:
-    θ: Vector de parámetros actual
-    X: Datos de entrenamiento de forma (n_muestras, n_características)
-    y: Valores objetivo de forma (n_muestras,)
-    α: Tasa de aprendizaje
-
-SALIDA:
-    θ: Vector de parámetros actualizado
-
-PROCEDIMIENTO:
-    1. Barajar los índices del conjunto de datos
-    
-    2. PARA cada muestra i en orden barajado:
-        
-        a. Obtener muestra individual: xᵢ, yᵢ
-        
-        b. Calcular predicción: ŷᵢ ← predecir(xᵢ, θ)
-        
-        c. Calcular gradiente para muestra individual:
-           ∇Lᵢ ← gradiente(xᵢ, yᵢ, ŷᵢ, θ)
-        
-        d. Actualizar parámetros:
-           θ ← θ - α · ∇Lᵢ
-    
-    3. DEVOLVER θ
-```
-
-### Descenso del Gradiente por Mini-Lotes
-
-La variante más común, equilibrando velocidad y estabilidad:
-
-```
-ALGORITMO: Descenso del Gradiente por Mini-Lotes (Una Época)
-─────────────────────────────────────────────────────────────────
-
-ENTRADA:
-    θ: Vector de parámetros actual
-    X: Datos de entrenamiento de forma (n_muestras, n_características)
-    y: Valores objetivo de forma (n_muestras,)
-    α: Tasa de aprendizaje
-    tamaño_lote: Número de muestras por lote (ej., 32)
-
-SALIDA:
-    θ: Vector de parámetros actualizado
-
-PROCEDIMIENTO:
-    1. n ← número de muestras
-    
-    2. Barajar el conjunto de datos
-    
-    3. n_lotes ← techo(n / tamaño_lote)
-    
-    4. PARA idx_lote = 0 HASTA n_lotes - 1:
-        
-        a. // Extraer mini-lote
-           inicio ← idx_lote × tamaño_lote
-           fin ← min(inicio + tamaño_lote, n)
-           X_lote ← X[inicio:fin]
-           y_lote ← y[inicio:fin]
-        
-        b. // Paso hacia adelante
-           ŷ_lote ← predecir(X_lote, θ)
-        
-        c. // Calcular gradiente sobre mini-lote
-           ∇L ← gradiente(X_lote, y_lote, ŷ_lote, θ)
-        
-        d. // Actualizar parámetros
-           θ ← θ - α · ∇L
-    
-    5. DEVOLVER θ
-```
+{{< gradient-descent-variants >}}
 
 ## Fundamento Matemático
 

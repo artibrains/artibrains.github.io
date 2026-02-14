@@ -13,7 +13,6 @@ slug: "probability-translator-logistic-regression"
 
 {{< medical-context
     type="clinic"
-    level="intermediate"
     scenario="Your team wants to reduce drop-off. You need a model that pinpoints which users are likely to churn, based on usage history and behavioral features."
     highlight="Logistic regression estimates the probability of an event from input features. That probability allows you to take preventive actions like reminders or targeted interventions."
 >}}
