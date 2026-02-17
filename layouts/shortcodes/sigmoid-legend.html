@@ -1,28 +1,29 @@
-<link rel="stylesheet" href="/css/unified-demos.css">
-<div class="legend-container">
-    <div class="legend-grid">
-        <div class="legend-column">
-            <h5>Predicción Correcta</h5>
-            <div class="legend-item">
+{{ $lang := .Page.Language.Lang | default .Site.Language.Lang }}
+{{ $unifiedDemosHash := md5 (readFile "static/css/unified-demos.css") }}
+
+<link rel="stylesheet" href="/css/unified-demos.css?v={{ $unifiedDemosHash }}">
+<div class="sigmoid-legend legend-container">
+    <div class="sigmoid-legend-grid legend-grid">
+        <div class="sigmoid-legend-column legend-column">
+            <h5>{{ if eq $lang "es" }}Predicción Correcta{{ else }}Correct Prediction{{ end }}</h5>
+            <div class="sigmoid-legend-item legend-item">
                 <span class="dot real-no-show border-no-show"></span>
-                <span class="legend-text"><strong>Verdadero Positivo:</strong> Predice "No asistirá" y realmente no
-                    asistió</span>
+                <span class="legend-text"><strong>{{ if eq $lang "es" }}Verdadero Positivo{{ else }}True Positive{{ end }}:</strong> {{ if eq $lang "es" }}Predice "No asistirá" y realmente no asistió{{ else }}Predicts "Will not attend" and actually did not attend{{ end }}</span>
             </div>
-            <div class="legend-item">
+            <div class="sigmoid-legend-item legend-item">
                 <span class="dot real-show border-show"></span>
-                <span class="legend-text"><strong>Verdadero Negativo:</strong> Predice "Asistirá" y realmente
-                    asistió</span>
+                <span class="legend-text"><strong>{{ if eq $lang "es" }}Verdadero Negativo{{ else }}True Negative{{ end }}:</strong> {{ if eq $lang "es" }}Predice "Asistirá" y realmente asistió{{ else }}Predicts "Will attend" and actually attended{{ end }}</span>
             </div>
         </div>
-        <div class="legend-column">
-            <h5>Predicción Incorrecta</h5>
-            <div class="legend-item">
+        <div class="sigmoid-legend-column legend-column">
+            <h5>{{ if eq $lang "es" }}Predicción Incorrecta{{ else }}Incorrect Prediction{{ end }}</h5>
+            <div class="sigmoid-legend-item legend-item">
                 <span class="dot real-show border-no-show"></span>
-                <span class="legend-text"><strong>Falso Positivo:</strong> Predice "No asistirá" pero sí asistió</span>
+                <span class="legend-text"><strong>{{ if eq $lang "es" }}Falso Positivo{{ else }}False Positive{{ end }}:</strong> {{ if eq $lang "es" }}Predice "No asistirá" pero sí asistió{{ else }}Predicts "Will not attend" but actually attended{{ end }}</span>
             </div>
-            <div class="legend-item">
+            <div class="sigmoid-legend-item legend-item">
                 <span class="dot real-no-show border-show"></span>
-                <span class="legend-text"><strong>Falso Negativo:</strong> Predice "Asistirá" pero no asistió</span>
+                <span class="legend-text"><strong>{{ if eq $lang "es" }}Falso Negativo{{ else }}False Negative{{ end }}:</strong> {{ if eq $lang "es" }}Predice "Asistirá" pero no asistió{{ else }}Predicts "Will attend" but actually did not attend{{ end }}</span>
             </div>
         </div>
     </div>

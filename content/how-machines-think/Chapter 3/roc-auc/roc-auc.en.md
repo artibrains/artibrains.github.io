@@ -5,20 +5,24 @@ weight: 10
 draft: false
 ---
 
-## Simulation Guide
+## Introduction
 
 This interactive tool allows you to visualize how two popular classification algorithms behave: **Logistic Regression** and **SVM (Support Vector Machines)**, and how to evaluate their performance using the ROC curve and AUC.
 
-### How to use the controls
-
-*   **Model**: Select the algorithm you want to visualize. You can choose "Logistic Regression", "SVM", or **"Both"** to compare their performance simultaneously.
-*   **Class Separation**: Adjust how far apart the two data groups (Class 0 and Class 1) are. Greater separation makes it easier for the model to distinguish them.
-*   **Noise**: Increase or decrease the spread of the points. More noise causes the data to mix more, making classification harder.
-*   **New Data**: Generate a new set of random points with the current parameters.
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+    lang="en"
+    title="ROC and AUC Visualization"
+    context_type="research"
+    scenario="You are validating two classifiers that flag high-risk cases from diagnostic signals. Before deployment, you need to compare how each model balances detection sensitivity and false alarms across different thresholds."
+    medical_highlight="ROC analysis helps compare classifiers beyond a single threshold. AUC summarizes discriminative power: higher AUC means the model separates classes more reliably across operating points."
+    steps="Choose the model: Select Logistic Regression, SVM, or Both to compare their behavior side-by-side.|Adjust data difficulty: Tune class separation and noise to make the classification task easier or harder and observe how ROC changes.|Generate and compare: Click New Data and inspect how the ROC curve and AUC move for each model under different conditions."
+>}}
 
 {{< roc-auc-visualization >}}
+{{< /demo-wrapper >}}
 
-### How to read the charts
+## How to read the charts
 
 1.  **Classification Space (Left)**:
     *   Shows the generated data points.

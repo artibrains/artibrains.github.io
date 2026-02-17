@@ -1185,36 +1185,6 @@ canvas:hover {
     flex-wrap: wrap;
 }
 
-#reset-btn,
-#find-optimal-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: all .25s ease;
-    border: 1px solid var(--demo-accent);
-}
-
-#reset-btn {
-    background: linear-gradient(145deg, var(--demo-surface-alt), color-mix(in srgb, var(--demo-accent) 6%, var(--demo-surface-alt)));
-    color: var(--demo-accent);
-    border: 1px solid color-mix(in srgb, var(--demo-accent) 40%, var(--demo-border));
-}
-
-#reset-btn:hover {
-    filter: brightness(1.05);
-}
-
-#find-optimal-btn {
-    background: linear-gradient(145deg, var(--demo-success), color-mix(in srgb, var(--demo-success) 82%, #111));
-    border: 1px solid color-mix(in srgb, var(--demo-success) 65%, var(--demo-border));
-    color: #fff;
-}
-
-#find-optimal-btn:hover {
-    filter: brightness(1.08);
-}
-
 #dashboard {
     display: flex;
     justify-content: space-around;
@@ -2441,17 +2411,17 @@ canvas:hover {
  * Complexity & Regularization Simulator (integrado)
  * =========================================================== */
 #main-content.complexity-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, .95fr);
+    align-items: start;
     gap: var(--demo-spacing-lg);
-    flex-wrap: wrap;
 }
 
 .complexity-layout .graph-panel {
-    flex: 2;
     display: flex;
     flex-direction: column;
     gap: var(--demo-spacing);
-    min-width: 300px;
+    min-width: 0;
 }
 
 .complexity-layout .graph-panel h3 {
@@ -2463,7 +2433,6 @@ canvas:hover {
 }
 
 .complexity-layout .controls-panel {
-    flex: 1;
     background: var(--demo-surface-alt);
     padding: var(--demo-spacing-lg);
     border: 1px solid var(--demo-border);
@@ -2472,7 +2441,10 @@ canvas:hover {
     position: sticky;
     top: var(--demo-spacing);
     box-shadow: var(--demo-shadow-sm);
-    min-width: 260px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--demo-spacing);
 }
 
 .complexity-layout .controls-panel h2 {
@@ -2526,10 +2498,12 @@ canvas:hover {
 .tab-content {
     display: none;
     animation: fadeIn .35s ease;
+    flex-direction: column;
+    gap: var(--demo-spacing-sm);
 }
 
 .tab-content.active {
-    display: block;
+    display: flex;
 }
 
 @keyframes fadeIn {
@@ -2567,6 +2541,74 @@ canvas:hover {
     margin: 0 auto;
     max-width: 100%;
     height: auto;
+}
+
+.complexity-layout .control-section {
+    margin: 0;
+    border-left: 4px solid color-mix(in srgb, var(--demo-accent) 58%, var(--demo-border));
+    background: color-mix(in srgb, var(--demo-surface) 88%, var(--demo-accent) 4%);
+    border-radius: var(--demo-radius-sm);
+    padding: .65rem .75rem;
+}
+
+.complexity-layout .demo-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    width: 100%;
+}
+
+.complexity-layout .control-label {
+    margin: 0;
+    color: var(--demo-text);
+    font-size: .9rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .55rem;
+    flex-wrap: wrap;
+}
+
+.complexity-layout .demo-range-input {
+    width: 100%;
+    margin: .15rem 0 0;
+}
+
+.complexity-layout .demo-range-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: .12rem .52rem;
+    border-radius: 999px;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: #fff;
+    background: var(--demo-accent);
+}
+
+.complexity-layout .controls-note {
+    font-size: .82rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--demo-text) 78%, var(--demo-bg));
+}
+
+.complexity-layout .optimization-section {
+    display: grid;
+    gap: var(--demo-spacing-sm);
+    margin-top: var(--demo-spacing-xs);
+}
+
+.complexity-layout .demo-btn-full-width {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+}
+
+.complexity-layout .result-box {
+    margin-top: var(--demo-spacing-xs);
 }
 
 .improvement-found {
@@ -2642,12 +2684,11 @@ canvas:hover {
 
 @media (max-width:860px) {
     #main-content.complexity-layout {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     .complexity-layout .controls-panel {
         position: static;
-        order: -1;
     }
 
     .tab-navigation {
@@ -3683,7 +3724,7 @@ input[type="number"]:focus {
 
 /* The outer wrapper that holds both explanation and game */
 .demo-container.unified-activity {
-    background: var(--demo-bg);
+    background: var(--demo-surface);
     border: 1px solid var(--demo-border);
     border-top: 4px solid var(--demo-accent);
     border-radius: var(--demo-radius-lg);
@@ -3834,4 +3875,88 @@ input[type="number"]:focus {
 .medical-context .steps li,
 .medical-context .steps strong {
     color: var(--demo-text);
+}
+
+/* Sigmoid game: legend + goal styling integration */
+.sigmoid-legend {
+    background: var(--demo-surface-alt);
+    border: 1px solid var(--demo-border);
+    border-radius: var(--demo-radius);
+    padding: .95rem 1rem;
+    margin: .65rem 0 .9rem;
+}
+
+.sigmoid-legend-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.sigmoid-legend-column h5 {
+    margin: 0 0 .55rem;
+    color: var(--demo-accent);
+    font-size: .96rem;
+    font-weight: 700;
+}
+
+.sigmoid-legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    margin: 0 0 .48rem;
+}
+
+.sigmoid-legend .legend-text {
+    font-size: .84rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--demo-text) 92%, var(--demo-bg));
+}
+
+.sigmoid-legend .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex: 0 0 11px;
+    margin-top: .22rem;
+}
+
+.sigmoid-legend .real-no-show {
+    background: rgba(255, 0, 0, 0.32);
+}
+
+.sigmoid-legend .real-show {
+    background: rgba(0, 0, 255, 0.3);
+}
+
+.sigmoid-legend .border-no-show {
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.88);
+}
+
+.sigmoid-legend .border-show {
+    box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.86);
+}
+
+.demo-main-layout #goalText {
+    margin: .5rem 0;
+    /* small margin around the goal */
+    padding: .35rem .6rem;
+    /* subtle padding for breathing space */
+    text-align: center;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--demo-accent);
+    border-radius: .35rem;
+}
+
+.demo-main-layout #goalText::before {
+    content: "🎯 ";
+}
+
+@media (max-width: 900px) {
+    .sigmoid-legend-grid {
+        grid-template-columns: 1fr;
+    }
 }

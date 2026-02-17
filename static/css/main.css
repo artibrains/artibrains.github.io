@@ -725,8 +725,6 @@
     /* Max width for larger screens */
     margin: 40px auto;
     /* Center the container with good vertical spacing */
-    background-color: #ffffff;
-    /* White background for the content */
     border-radius: 12px;
     /* Slightly rounded corners for the frame */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
@@ -1009,8 +1007,6 @@ article a.highlight:focus,
     /* Max width for larger screens */
     margin: 40px auto;
     /* Center the container with good vertical spacing */
-    background-color: #fcfcfc;
-    /* Very light, almost white background for a fresh feel */
     border-radius: 15px;
     /* More rounded corners for a softer look */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);

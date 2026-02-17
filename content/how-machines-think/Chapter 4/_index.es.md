@@ -41,5 +41,9 @@ Prepárate para desmontar la "caja negra" y comprender la lógica que impulsa a 
 
 ### Fundamentos Matemáticos
 
-- **[Álgebra de métricas de evaluación]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.es.md" %}})**: Derivaciones formales de la matriz de confusión, las variantes de precisión/recall y la AUC multiclase que respaldan los tableros del capítulo.
-- **[Fundamentos de Naive Bayes]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.es.md" %}})**: De la regla de Bayes al suavizado y la interpretabilidad que sostienen la confianza de Alma en el modelo probabilístico.
+- **[📐 Álgebra de métricas de evaluación]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.es.md" %}})**: Derivaciones formales de la matriz de confusión, las variantes de precisión/recall y la AUC multiclase que respaldan los tableros del capítulo.
+- **[📐 Fundamentos de Naive Bayes]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.es.md" %}})**: De la regla de Bayes al suavizado y la interpretabilidad que sostienen la confianza de Alma en el modelo probabilístico.
+
+### Bibliografía y Recursos Adicionales
+- **[📚 K-NN y Árboles de Decisión]({{% relref "how-machines-think/Chapter 4/bibliography/bibliography-knn-decision-trees.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clasificación, métricas de distancia e interpretabilidad.
+

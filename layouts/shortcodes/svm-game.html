@@ -2,70 +2,34 @@
 
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-<style>
-    #svmChartContainer {
-        max-height: 500px;
-        height: 500px;
-        position: relative;
-    }
-    .svm-metrics-panel {
-        background: var(--INTERNAL-BOX-BG-color);
-        border: 1px solid var(--INTERNAL-BOX-NEUTRAL-color);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-    }
-    .svm-metrics-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-    }
-    .svm-metric-item {
-        text-align: center;
-        padding: 0.75rem;
-        background: var(--INTERNAL-MAIN-TITLES-TEXT-color);
-        border-radius: 6px;
-    }
-    .svm-metric-label {
-        display: block;
-        font-size: 0.85rem;
-        color: var(--INTERNAL-MAIN-TEXT-color);
-        opacity: 0.8;
-        margin-bottom: 0.25rem;
-    }
-    .svm-metric-value {
-        display: block;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--INTERNAL-MAIN-LINK-color);
-    }
-</style>
-
-<div class="demo-main-layout">
+<div class="demo-wrapper demo-main-layout">
     <div class="demo-content-panel">
-        <!-- Controls Section (moved to top) -->
-        <div class="control-section" style="margin-bottom: 1.5rem;">
-            <h4 class="demo-text-center">{{ if eq $lang "es" }}Parámetros del Hiperplano{{ else }}Hyperplane Parameters{{ end }}</h4>
-            
+        <div class="demo-chart-container" style="max-width: 600px; margin: 0 auto;">
+            <h3 class="demo-chart-title">{{ if eq $lang "es" }}Gráfico de Clasificación SVM{{ else }}SVM Classification Chart{{ end }}</h3>
+            <canvas id="svmChart"></canvas>
+        </div>
+    </div>
+
+    <div class="controls-panel">
+        
+
+        <div class="control-section">
             <div class="demo-control-group">
                 <label for="svmPositionSlider" class="control-label">
-                    {{ if eq $lang "es" }}Posición (b){{ else }}Position (b){{ end }}: <span id="svmPositionValue"
-                        class="demo-range-value">0.0</span>
+                    {{ if eq $lang "es" }}Posición (b){{ else }}Position (b){{ end }}: <span id="svmPositionValue" class="demo-range-value">0.0</span>
                 </label>
                 <input type="range" id="svmPositionSlider" min="-10" max="10" step="0.1" value="0" class="demo-range-input">
             </div>
 
             <div class="demo-control-group">
                 <label for="svmAngleSlider" class="control-label">
-                    {{ if eq $lang "es" }}Ángulo (grados){{ else }}Angle (degrees){{ end }}: <span id="svmAngleValue"
-                        class="demo-range-value">45</span>
+                    {{ if eq $lang "es" }}Ángulo (grados){{ else }}Angle (degrees){{ end }}: <span id="svmAngleValue" class="demo-range-value">45</span>
                 </label>
                 <input type="range" id="svmAngleSlider" min="-90" max="90" step="1" value="45" class="demo-range-input">
             </div>
         </div>
 
-        <!-- Buttons Section -->
-        <div class="control-section" style="margin-bottom: 1.5rem;">
+        <div class="control-section">
             <div class="demo-control-group">
                 <button id="svmCheckButton" class="demo-btn demo-btn-primary demo-btn-full-width">
                     {{ if eq $lang "es" }}Verificar Resultado{{ else }}Check Result{{ end }}
@@ -79,40 +43,37 @@
             </div>
         </div>
 
-        <!-- Chart Section -->
-        <div class="demo-chart-container">
-            <h3 class="demo-chart-title">{{ if eq $lang "es" }}Gráfico de Clasificación SVM{{ else }}SVM Classification
-                Chart{{ end }}</h3>
-            <div id="svmChartContainer">
-                <canvas id="svmChart"></canvas>
-            </div>
-            <div id="svmOptimizationStatus" class="demo-status-indicator demo-status-warning demo-hidden">
-                <div class="spinner"></div>
-                <span>{{ if eq $lang "es" }}Encontrando el mejor hiperplano...{{ else }}Finding the best hyperplane...{{ end
-                    }}</span>
-            </div>
-        </div>
-
-        <!-- Metrics Section (moved to bottom) -->
-        <div class="svm-metrics-panel">
-            <h4 class="demo-text-center" style="margin-bottom: 1rem;">{{ if eq $lang "es" }}Métricas de Rendimiento{{ else }}Performance Metrics{{ end }}</h4>
-            <div class="svm-metrics-grid">
-                <div class="svm-metric-item">
-                    <span class="svm-metric-label">{{ if eq $lang "es" }}Margen{{ else }}Margin{{ end }}</span>
-                    <span id="marginValue" class="svm-metric-value">0.00</span>
+        <!-- Metrics Section -->
+        <div style="background: var(--demo-surface-alt); border: 1px solid var(--demo-border); border-radius: 8px; padding: 1.5rem; margin-top: 1rem;">
+            <h4 class="demo-text-center" style="margin-bottom: 1rem; margin-top: 0;">{{ if eq $lang "es" }}Métricas de Rendimiento{{ else }}Performance Metrics{{ end }}</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                <div style="text-align: center; padding: 0.75rem; background: var(--demo-surface); border: 1px solid var(--demo-border); border-radius: 6px;">
+                    <span style="display: block; font-size: 0.85rem; color: var(--demo-text); opacity: 0.75; margin-bottom: 0.25rem;">{{ if eq $lang "es" }}Margen{{ else }}Margin{{ end }}</span>
+                    <span id="marginValue" style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--demo-accent);">0.00</span>
                 </div>
-                <div class="svm-metric-item">
-                    <span class="svm-metric-label">{{ if eq $lang "es" }}Precisión{{ else }}Accuracy{{ end }}</span>
-                    <span id="accuracyValue" class="svm-metric-value">0%</span>
+                <div style="text-align: center; padding: 0.75rem; background: var(--demo-surface); border: 1px solid var(--demo-border); border-radius: 6px;">
+                    <span style="display: block; font-size: 0.85rem; color: var(--demo-text); opacity: 0.75; margin-bottom: 0.25rem;">{{ if eq $lang "es" }}Precisión{{ else }}Accuracy{{ end }}</span>
+                    <span id="accuracyValue" style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--demo-accent);">0%</span>
                 </div>
-                <div class="svm-metric-item">
-                    <span class="svm-metric-label">{{ if eq $lang "es" }}Vectores de Soporte{{ else }}Support Vectors{{ end }}</span>
-                    <span id="supportVectorCount" class="svm-metric-value">0</span>
+                <div style="text-align: center; padding: 0.75rem; background: var(--demo-surface); border: 1px solid var(--demo-border); border-radius: 6px;">
+                    <span style="display: block; font-size: 0.85rem; color: var(--demo-text); opacity: 0.75; margin-bottom: 0.25rem;">{{ if eq $lang "es" }}Vectores de Soporte{{ else }}Support Vectors{{ end }}</span>
+                    <span id="supportVectorCount" style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--demo-accent);">0</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Optimization Status Modal Overlay -->
+<div id="optimizationStatus" class="optimization-modal hidden">
+    <div class="optimization-modal-content">
+        <div class="spinner"></div>
+        <span class="optimization-text">{{ if eq $lang "es" }}Encontrando el mejor hiperplano...{{ else }}Finding the best hyperplane...{{ end }}</span>
+    </div>
+</div>
+
+<!-- Game Results Modal -->
+{{ partial "game-results.html" }}
 
 <script>
     // Configure language for JavaScript

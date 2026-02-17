@@ -11,20 +11,17 @@ slug: "validador-honesto-k-fold"
 
 La validación cruzada (K-Fold) es una técnica fundamental para evaluar el rendimiento de un modelo de forma robusta. En lugar de depender de una única división de datos para prueba, cuyo resultado puede ser poco fiable por pura suerte, este método promedia múltiples mediciones sobre diferentes subconjuntos de datos, ofreciendo una estimación mucho más estable y realista de cómo se comportará el modelo con casos nuevos.
 
-{{< medical-context
-    type="research"
-    difficulty="intermediate"
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+    lang="es"
+    title="Analizador de Estabilidad: División vs. K-Fold"
+    context_type="research"
     scenario="Has desarrollado un modelo para detectar dispositivos defectuosos a partir de trazas de sensores. Tienes 1000 registros etiquetados y necesitas saber qué tan confiable es tu modelo antes de usarlo en un flujo real."
-    highlight="En aplicaciones de alto impacto, la estabilidad en la evaluación es crítica. Un modelo que parece funcionar bien por casualidad en una partición puede fallar en producción. K-Fold sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento, obteniendo una estimación más estable y realista."
-    steps="Haz una división simple: Calcula el rendimiento con un solo train/test y observa cómo puede fluctuar significativamente según la partición aleatoria.|Repite la división: Prueba varias particiones aleatorias para notar lo inestable que puede ser el error. Vers como cada división da resultados diferentes.|Activa K-Fold: Cambia a la validación cruzada y comprueba cómo el error promedio se estabiliza entre los folds, proporcionando una medida más confiable del rendimiento real del modelo."
+    medical_highlight="En aplicaciones de alto impacto, la estabilidad en la evaluación es crítica. Un modelo que parece funcionar bien por casualidad en una partición puede fallar en producción. K-Fold sustituye una partición afortunada (o desafortunada) por un proceso sistemático de múltiples divisiones que promedia su rendimiento, obteniendo una estimación más estable y realista."
+    steps="Haz una división simple: Calcula el rendimiento con un solo train/test y observa cómo puede fluctuar significativamente según la partición aleatoria.|Repite la división: Prueba varias particiones aleatorias para notar lo inestable que puede ser el error. Verás cómo cada división da resultados diferentes.|Activa K-Fold: Cambia a la validación cruzada y comprueba cómo el error promedio se estabiliza entre los folds, proporcionando una medida más confiable del rendimiento real del modelo."
 >}}
 
-## Demostración Interactiva
-
-{{< demo-wrapper title="Analizador de Estabilidad: División vs. K-Fold" >}}
-
 {{< k_fold_validator lang="es" >}}
-
 {{< /demo-wrapper >}}
 
 ## Conceptos Fundamentales

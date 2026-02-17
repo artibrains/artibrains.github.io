@@ -2,37 +2,40 @@
 
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-<div id="main-container">
-    <div class="graph-panel" style="position:relative;">
-        <canvas id="classification-chart"></canvas>
-        <!-- Pop-up explicativo flotante -->
-        <div id="info-popup"
-            style="display:none; position:absolute; z-index:1000; min-width:270px; max-width:340px; background:white; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18); padding:1.2em 1em; font-size:0.98em; border:1px solid #e0e0e0;">
-            <button id="close-info-popup"
-                style="position:absolute; top:0.3em; right:0.7em; background:none; border:none; font-size:1.3em; color:#888; cursor:pointer;">&times;</button>
+<div class="demo-wrapper demo-main-layout prob-translator">
+    <div class="demo-content-panel">
+        <div class="demo-chart-container" style="max-width: 600px; margin: 0 auto; position: relative;">
+            <h3 class="demo-chart-title">{{ if eq $lang "es" }}Gráfico de Predicción de Probabilidades{{ else }}Probability Prediction Chart{{ end }}</h3>
+            <canvas id="classification-chart"></canvas>
+            
+            <!-- Pop-up información flotante -->
+            <div id="info-popup"
+                style="display:none; position:absolute; z-index:1000; min-width:270px; max-width:340px; background: var(--demo-surface-alt); border-radius: var(--demo-radius-lg); box-shadow: 0 4px 24px rgba(0,0,0,0.18); padding:1.2em 1em; font-size:0.98em; border: 1px solid var(--demo-border-strong);">
+                <button id="close-info-popup"
+                    style="position:absolute; top:0.3em; right:0.7em; background:none; border:none; font-size:1.3em; color: var(--demo-text); opacity: 0.6; cursor:pointer; transition: opacity 0.2s;">&times;</button>
 
-            <div style="display: flex; align-items: center;">
-                <h2 style="margin-right: 10px; margin-top: 0; margin-bottom: 1rem;">{{ if eq $lang "es" }}Predicción del
-                    Caso{{ else }}Case Prediction{{ end }}</h2>
-            </div>
-            <div id="prediction-container">
-                <div class="prediction-box linear">
-                    <h4>{{ if eq $lang "es" }}Puntuación Lineal (Z){{ else }}Linear Score (Z){{ end }}</h4>
-                    <p id="linear-output">N/A</p>
+                <div style="display: flex; align-items: center;">
+                    <h3 style="margin: 0 0 1rem 0; color: var(--demo-accent); font-size: 1.1em;">{{ if eq $lang "es" }}Predicción del Caso{{ else }}Case Prediction{{ end }}</h3>
                 </div>
-                <div class="prediction-box logistic">
-                    <h4>{{ if eq $lang "es" }}Probabilidad de No Acudir (Sigmoid){{ else }}Probability of Non-Attendance
-                        (Sigmoid){{ end }}</h4>
-                    <p id="logistic-output">N/A</p>
+                <div id="prediction-container">
+                    <div class="prediction-box" style="background: var(--demo-surface); border: 1px solid var(--demo-border); border-radius: var(--demo-radius-sm); padding: 0.75rem; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--demo-text); font-size: 0.9em;">{{ if eq $lang "es" }}Puntuación Lineal (Z){{ else }}Linear Score (Z){{ end }}</h4>
+                        <p id="linear-output" style="margin: 0; color: var(--demo-accent); font-weight: 600;">N/A</p>
+                    </div>
+                    <div class="prediction-box" style="background: var(--demo-surface); border: 1px solid var(--demo-border); border-radius: var(--demo-radius-sm); padding: 0.75rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--demo-text); font-size: 0.9em;">{{ if eq $lang "es" }}Probabilidad de No Acudir (Sigmoid){{ else }}Probability of Non-Attendance (Sigmoid){{ end }}</h4>
+                        <p id="logistic-output" style="margin: 0; color: var(--demo-accent); font-weight: 600;">N/A</p>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-    <div class="controls-panel demo-controls">
-        <button id="regenerate-btn" class="demo-button">{{ if eq $lang "es" }}Generar Nuevos Datos de Ejemplo{{ else
-            }}Generate New
-            Sample Data{{ end }}</button>
+    
+    <div class="controls-panel">   
+                <button id="regenerate-btn" class="demo-btn demo-btn-primary demo-btn-full-width">
+                    {{ if eq $lang "es" }}Generar Nuevos Datos de Ejemplo{{ else }}Generate New Sample Data{{ end }}
+                </button>
     </div>
 </div>
 

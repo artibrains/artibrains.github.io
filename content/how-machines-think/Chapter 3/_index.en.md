@@ -24,12 +24,13 @@ Use the interactive sections below to experiment with decision boundaries, thres
 
 - **[3.3 - The Risk Manager]({{% relref "how-machines-think/Chapter 3/risk_gestor/risk_gestor.en.md" %}})**: Step into the shoes of a manager and adjust the model’s *decision threshold*. Experience the critical balance between the cost of false positives and false negatives.
 
-- **[3.3 - The Honest Validator]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.en.md" %}})**: Understand why a single test isn’t enough. Compare simple validation with *cross-validation (K-Fold)* — the method the team uses to obtain a stable and reliable error estimate.
+- **[3.3 - The Complexity Tamer]({{% relref "how-machines-think/Chapter 3/complexity/complexity.en.md" %}})**: Battle *overfitting*. Adjust complexity and *regularization* to create a model that learns real patterns instead of memorizing noise, ensuring it performs well on future cases.
 
-- **[3.5 - The Complexity Tamer]({{% relref "how-machines-think/Chapter 3/complexity/complexity.en.md" %}})**: Battle *overfitting*. Adjust complexity and *regularization* to create a model that learns real patterns instead of memorizing noise, ensuring it performs well on future cases.
+- **[3.3 - Regularization Comparison]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.en.md" %}})**: Discover the differences between *L1 (Lasso)*, *L2 (Ridge)*, and *Elastic Net*. See in real-time how each regularization type affects model weights and feature selection, helping you choose the best strategy for your problem.
 
-- **[3.5 - Regularization Comparison]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.en.md" %}})**: Discover the differences between *L1 (Lasso)*, *L2 (Ridge)*, and *Elastic Net*. See in real-time how each regularization type affects model weights and feature selection, helping you choose the best strategy for your problem.
- 
+- **[3.5 - The Honest Validator]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.en.md" %}})**: Understand why a single test isn’t enough. Compare simple validation with *cross-validation (K-Fold)* — the method the team uses to obtain a stable and reliable error estimate.
+
+ - **[3.5 - ROC Curves and AUC]({{% relref "how-machines-think/Chapter 3/roc-auc/roc-auc.en.md" %}})**: Explore the trade-offs between true positive and false positive rates. Learn how to interpret ROC curves and calculate AUC to evaluate model performance across different thresholds.
 
 ### Algorithm Pseudocode
 

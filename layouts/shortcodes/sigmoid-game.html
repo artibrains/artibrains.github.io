@@ -1,13 +1,21 @@
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+{{ $sigmoidGameHash := md5 (readFile "static/js/sigmoid-game/sigmoid-game.js") }}
+{{ $unifiedDemosHash := md5 (readFile "static/css/unified-demos.css") }}
 
-<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/unified-demos.css?v={{ $unifiedDemosHash }}">
 
 <div class="demo-main-layout">
-    <div class="controls-panel">
-        <h3 class="controls-panel-title demo-mb-md">{{ if eq $lang "es" }}Controles y Configuración{{ else }}Controls
-            and
-            Configuration{{ end }}</h3>
+        <div class="demo-content-panel">
+        <div class="demo-info-card">
+            <p id="goalText" class="demo-text-center"></p>
+        </div>
+        <div class="demo-chart-container">
+            <canvas id="gameChart"></canvas>
+        </div>
 
+    </div>
+
+    <div class="controls-panel">
         <div class="control-section">
             <div class="demo-control-group">
                 <label class="control-label" for="w1Slider">
@@ -80,15 +88,7 @@
         </div>
     </div>
 
-    <div class="demo-content-panel">
-        <div class="demo-chart-container">
-            <canvas id="gameChart"></canvas>
-        </div>
-        <div class="demo-info-card">
-            <p class="demo-text-center">{{ if eq $lang "es" }}Objetivo: Lograr una precisión superior al 80%{{ else
-                }}Goal: Achieve accuracy above 80%{{ end }}</p>
-        </div>
-    </div>
+
 </div>
 
 <!-- Cargar Chart.js y el script interactivo -->
@@ -97,4 +97,4 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-<script src="/js/sigmoid-game/sigmoid-game.js"></script>
+<script src="/js/sigmoid-game/sigmoid-game.js?v={{ $sigmoidGameHash }}"></script>

@@ -2,6 +2,107 @@
 const POINT_COUNT = 100;
 const CANVAS_SIZE = 400;
 
+// --- Translations ---
+const sigmoidTranslations = {
+    es: {
+        modeNotProb: "Modo actual: Clasificación Simple",
+        modeProb: "Modo actual: Probabilidades",
+        toggleToProb: "Ver Probabilidades",
+        toggleToClass: "Ver Clasificación",
+        titleSimple: "Clasificación de Pacientes",
+        titleProb: "Probabilidad de No Asistencia",
+        gameLabelProb: "Probabilidad",
+        newGameMsg: "Nueva partida",
+        checkMsg: "Comprobar clasificación",
+        gameReset: "Juego Sigmoide reiniciado. Nuevos datos generados y parámetros reseteados.",
+        logComprobacion: "Comprobación de clasificación: Precisión={accuracy}%, Correctos={correct}/{total}, Umbral={threshold}",
+        excellent: "¡Excelente trabajo! 🎉 Has conseguido una precisión del {accuracy}%, superando el objetivo del 80%. Tu modelo identifica correctamente la clase de la mayoría de los casos.",
+        veryGood: "¡Buen intento! 👍 Has alcanzado una precisión del {accuracy}%. Estás cerca del objetivo. Prueba ajustando un poco más los parámetros.",
+        canImprove: "Sigue intentándolo 💪 Tu precisión actual es del {accuracy}%. Consejo: Observa cómo la línea verde separa los grupos de puntos y ajusta los parámetros para mejorar la clasificación.",
+        modalTitle: "Resultados de la Clasificación",
+        metric: "Métrica",
+        value: "Valor",
+        accuracy: "Precisión",
+        correct: "Casos Correctamente Clasificados",
+        incorrect: "Casos Incorrectamente Clasificados",
+        threshold: "Umbral de Decisión",
+        modelParams: "Parámetros del Modelo",
+        modalError: "Error: GameResultsModal no disponible para mostrar resultados.",
+        goal: "Objetivo: Lograr una precisión superior al 80%",
+        outOf: "de",
+        patientsLabel: "Pacientes",
+        decisionBoundaryLabel: "Frontera de decisión",
+        zoneLabelsLabel: "Etiquetas de zona",
+        zoneWillNotAttend: "No asistirán",
+        zoneWillAttend: "Asistirán",
+        tooltipReal: "Real",
+        tooltipPrediction: "Predicción",
+        tooltipProbability: "Probabilidad",
+        classWillNotAttend: "No asistirá",
+        classWillAttend: "Asistirá",
+        indicator1: "Indicador 1",
+        indicator2: "Indicador 2",
+        initLog: "Juego Sigmoide: Gráfico inicializado."
+    },
+    en: {
+        modeNotProb: "Current mode: Simple Classification",
+        modeProb: "Current mode: Probabilities",
+        toggleToProb: "Show Probabilities",
+        toggleToClass: "Show Classification",
+        titleSimple: "Patient Classification",
+        titleProb: "Non-Attendance Probability",
+        gameLabelProb: "Probability",
+        newGameMsg: "New game",
+        checkMsg: "Check classification",
+        gameReset: "Sigmoid Game restarted. New data generated and parameters reset.",
+        logComprobacion: "Classification check: Accuracy={accuracy}%, Correct={correct}/{total}, Threshold={threshold}",
+        excellent: "Excellent work! 🎉 You've achieved an accuracy of {accuracy}%, exceeding the 80% goal. Your model correctly identifies the class for most cases.",
+        veryGood: "Good attempt! 👍 You've achieved an accuracy of {accuracy}%. You're close to the goal. Try adjusting the parameters a bit more.",
+        canImprove: "Keep trying 💪 Your current accuracy is {accuracy}%. Tip: Look at how the green line separates the groups of points and adjust the parameters to improve the classification.",
+        modalTitle: "Classification Results",
+        metric: "Metric",
+        value: "Value",
+        accuracy: "Accuracy",
+        correct: "Correctly Classified Cases",
+        incorrect: "Incorrectly Classified Cases",
+        threshold: "Threshold",
+        modelParams: "Model Parameters",
+        modalError: "Error: GameResultsModal unavailable to display results.",
+        goal: "Goal: Achieve accuracy above 80%",
+        outOf: "of",
+        patientsLabel: "Patients",
+        decisionBoundaryLabel: "Decision boundary",
+        zoneLabelsLabel: "Zone labels",
+        zoneWillNotAttend: "Will not attend",
+        zoneWillAttend: "Will attend",
+        tooltipReal: "Actual",
+        tooltipPrediction: "Prediction",
+        tooltipProbability: "Probability",
+        classWillNotAttend: "Will not attend",
+        classWillAttend: "Will attend",
+        indicator1: "Indicator 1",
+        indicator2: "Indicator 2",
+        initLog: "Sigmoid Game: Chart initialized."
+    }
+};
+
+// Helper function to get translated text
+function sigmoidT(key, params = {}) {
+    const pageLang = (document.documentElement.lang || '').toLowerCase();
+    const windowLang = (window.gameLanguage || '').toLowerCase();
+    // Prioritize windowLang (set by shortcode) over pageLang
+    const langSource = windowLang || pageLang || 'es';
+    const lang = langSource.startsWith('en') ? 'en' : 'es';
+    let text = sigmoidTranslations[lang]?.[key] || sigmoidTranslations['es'][key] || key;
+
+    // Replace parameters in the text
+    Object.keys(params).forEach(param => {
+        text = text.replace(`{${param}}`, params[param]);
+    });
+
+    return text;
+}
+
 // Generación de datos
 function generateData() {
     const data = [];
@@ -39,6 +140,12 @@ function sigmoid(z) {
     return 1 / (1 + Math.exp(-z));
 }
 
+function probabilityToColor(probability, alpha = 0.75) {
+    const red = Math.round(255 * probability);
+    const blue = Math.round(255 * (1 - probability));
+    return `rgba(${red}, 0, ${blue}, ${alpha})`;
+}
+
 // Generar puntos de la línea de decisión
 function generateDecisionBoundary() {
     const points = [];
@@ -57,12 +164,12 @@ function generateZoneLabels() {
     const y = (-w1 * x - b) / w2;  // Punto en la línea de decisión
 
     return [{
-        label: 'No asistirán',
+        label: sigmoidT('zoneWillNotAttend'),
         position: { x: x, y: y + 1 },  // Etiqueta encima de la línea
         color: 'rgba(255, 0, 0, 0.8)',
         anchor: 'center'
     }, {
-        label: 'Asistirán',
+        label: sigmoidT('zoneWillAttend'),
         position: { x: x, y: y - 1 },  // Etiqueta debajo de la línea
         color: 'rgba(0, 0, 255, 0.8)',
         anchor: 'center'
@@ -137,11 +244,18 @@ const chart = new Chart(ctx, {
     type: 'scatter',
     data: {
         datasets: [{
-            label: 'Pacientes',
+            label: sigmoidT('patientsLabel'),
             data: data,
             pointBackgroundColor: function (context) {
                 const index = context.dataIndex;
                 const point = data[index];
+
+                const z = w1 * point.x + w2 * point.y + b;
+                const prob = sigmoid(z);
+
+                if (showSigmoid) {
+                    return probabilityToColor(prob, 0.75);
+                }
 
                 // Color según su clase real (no predicha)
                 const trueColor = point.class === 1 ? 'rgba(255, 0, 0, 0.3)' : 'rgba(0, 0, 255, 0.3)';
@@ -153,13 +267,18 @@ const chart = new Chart(ctx, {
                 const point = data[index];
                 const z = w1 * point.x + w2 * point.y + b;
                 const prob = sigmoid(z);
+
+                if (showSigmoid) {
+                    return probabilityToColor(prob, 1);
+                }
+
                 return prob > threshold ? 'rgba(255, 0, 0, 0.9)' : 'rgba(0, 0, 255, 0.9)';
             },
             pointBorderWidth: 2,
             pointRadius: 6
         },
         {
-            label: 'Frontera de decisión',
+            label: sigmoidT('decisionBoundaryLabel'),
             data: generateDecisionBoundary(),
             type: 'line',
             borderColor: '#28a745',
@@ -168,7 +287,7 @@ const chart = new Chart(ctx, {
             pointRadius: 0
         },
         {
-            label: 'Etiquetas de zona',
+            label: sigmoidT('zoneLabelsLabel'),
             data: generateZoneLabels().map(label => label.position),
             backgroundColor: 'transparent',
             datalabels: {
@@ -177,7 +296,7 @@ const chart = new Chart(ctx, {
                 },
                 font: { size: 16, weight: 'bold' },
                 formatter: function (value, context) {
-                    return context.dataIndex === 0 ? 'No asistirán' : 'Asistirán';
+                    return context.dataIndex === 0 ? sigmoidT('zoneWillNotAttend') : sigmoidT('zoneWillAttend');
                 }
             }
         }]
@@ -187,7 +306,7 @@ const chart = new Chart(ctx, {
         plugins: {
             title: {
                 display: true,
-                text: 'Clasificación de Pacientes' // Título inicial para modo clasificación
+                text: sigmoidT('titleSimple')
             },
             legend: {
                 display: true,
@@ -204,14 +323,14 @@ const chart = new Chart(ctx, {
                 callbacks: {
                     label: function (context) {
                         const point = data[context.dataIndex];
-                        const realClass = point.class === 1 ? 'No asistirá' : 'Asistirá';
+                        const realClass = point.class === 1 ? sigmoidT('classWillNotAttend') : sigmoidT('classWillAttend');
                         const z = w1 * point.x + w2 * point.y + b;
                         const prob = sigmoid(z);
-                        const predicted = prob > threshold ? 'No asistirá' : 'Asistirá';
+                        const predicted = prob > threshold ? sigmoidT('classWillNotAttend') : sigmoidT('classWillAttend');
                         return [
-                            `Real: ${realClass}`,
-                            `Predicción: ${predicted}`,
-                            `Probabilidad: ${(prob * 100).toFixed(1)}%`
+                            `${sigmoidT('tooltipReal')}: ${realClass}`,
+                            `${sigmoidT('tooltipPrediction')}: ${predicted}`,
+                            `${sigmoidT('tooltipProbability')}: ${(prob * 100).toFixed(1)}%`
                         ];
                     }
                 }
@@ -221,7 +340,7 @@ const chart = new Chart(ctx, {
             x: {
                 title: {
                     display: true,
-                    text: 'Indicador 1'
+                    text: sigmoidT('indicator1')
                 },
                 min: -3,
                 max: 3,
@@ -232,7 +351,7 @@ const chart = new Chart(ctx, {
             y: {
                 title: {
                     display: true,
-                    text: 'Indicador 2'
+                    text: sigmoidT('indicator2')
                 },
                 min: -3,
                 max: 3,
@@ -277,13 +396,13 @@ document.getElementById('toggleSigmoid').addEventListener('click', () => {
     const modeText = document.getElementById('modeText');
 
     if (showSigmoid) {
-        toggleText.textContent = 'Ver Clasificación';
-        modeText.textContent = 'Modo actual: Probabilidades';
-        chart.options.plugins.title.text = 'Probabilidad de No Asistencia';
+        toggleText.textContent = sigmoidT('toggleToClass');
+        modeText.textContent = sigmoidT('modeProb');
+        chart.options.plugins.title.text = sigmoidT('titleProb');
     } else {
-        toggleText.textContent = 'Ver Probabilidades';
-        modeText.textContent = 'Modo actual: Clasificación Simple';
-        chart.options.plugins.title.text = 'Clasificación de Pacientes';
+        toggleText.textContent = sigmoidT('toggleToProb');
+        modeText.textContent = sigmoidT('modeNotProb');
+        chart.options.plugins.title.text = sigmoidT('titleSimple');
     }
 
     chart.data.datasets[0].pointBackgroundColor = chart.data.datasets[0].pointBackgroundColor;
@@ -314,8 +433,8 @@ document.getElementById('resetButton').addEventListener('click', () => {
     document.getElementById('thresholdValue').textContent = threshold.toFixed(1);
 
     // Reset mode text
-    document.getElementById('toggleText').textContent = 'Ver Probabilidades';
-    document.getElementById('modeText').textContent = 'Modo actual: Clasificación Simple';
+    document.getElementById('toggleText').textContent = sigmoidT('toggleToProb');
+    document.getElementById('modeText').textContent = sigmoidT('modeNotProb');
 
     // Actualizar gráfico con los nuevos datos
     chart.data.datasets[0].data = data;
@@ -323,47 +442,55 @@ document.getElementById('resetButton').addEventListener('click', () => {
     if (window.GameResultsModal) { // Hide modal on reset
         window.GameResultsModal.hide();
     }
-    logToTerminal("Juego Sigmoide reiniciado. Nuevos datos generados y parámetros reseteados.\n");
+    logToTerminal(sigmoidT('gameReset') + "\n");
 });
 
 // Modificar el event listener del botón de comprobar
 document.getElementById('checkButton').addEventListener('click', () => {
     const accuracy = calculateAccuracy();
     const correct = Math.round(accuracy * data.length / 100);
+    const incorrect = data.length - correct;
     const total = data.length;
     const currentThreshold = parseFloat(document.getElementById('thresholdSlider').value);
 
     let summaryMessage;
     let detailsHtml = `
         <table>
-            <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Precisión</td><td>${accuracy.toFixed(1)}%</td></tr>
-            <tr><td>Casos Correctamente Clasificados</td><td>${correct} de ${total}</td></tr>
-            <tr><td>Umbral de Decisión</td><td>${currentThreshold.toFixed(2)}</td></tr>
+            <tr><th>${sigmoidT('metric')}</th><th>${sigmoidT('value')}</th></tr>
+            <tr><td>${sigmoidT('accuracy')}</td><td>${accuracy.toFixed(1)}%</td></tr>
+            <tr><td>${sigmoidT('correct')}</td><td>${correct} ${sigmoidT('outOf')} ${total}</td></tr>
+            <tr><td>${sigmoidT('incorrect')}</td><td>${incorrect} ${sigmoidT('outOf')} ${total}</td></tr>
+            <tr><td>${sigmoidT('threshold')}</td><td>${currentThreshold.toFixed(2)}</td></tr>
+            <tr><td>${sigmoidT('modelParams')}</td><td>w₁=${w1.toFixed(2)}, w₂=${w2.toFixed(2)}, b=${b.toFixed(2)}</td></tr>
         </table>
     `;
 
     if (accuracy >= 80) {
-        summaryMessage = `¡Excelente trabajo! 🎉 Has conseguido una precisión del ${accuracy.toFixed(1)}%, superando el objetivo del 80%. Tu modelo identifica correctamente la clase de la mayoría de los casos.`;
+        summaryMessage = sigmoidT('excellent', { accuracy: accuracy.toFixed(1) });
     } else if (accuracy >= 70) {
-        summaryMessage = `¡Buen intento! 👍 Has alcanzado una precisión del ${accuracy.toFixed(1)}%. Estás cerca del objetivo. Prueba ajustando un poco más los parámetros.`;
+        summaryMessage = sigmoidT('veryGood', { accuracy: accuracy.toFixed(1) });
     } else {
-        summaryMessage = `Sigue intentándolo 💪 Tu precisión actual es del ${accuracy.toFixed(1)}%. Consejo: Observa cómo la línea verde separa los grupos de puntos y ajusta los parámetros para mejorar la clasificación.`;
+        summaryMessage = sigmoidT('canImprove', { accuracy: accuracy.toFixed(1) });
     }
 
-    logToTerminal(`Comprobación de clasificación: Precisión=${accuracy.toFixed(1)}%, Correctos=${correct}/${total}, Umbral=${currentThreshold.toFixed(2)}\n`);
+    logToTerminal(sigmoidT('logComprobacion', {
+        accuracy: accuracy.toFixed(1),
+        correct: correct,
+        total: total,
+        threshold: currentThreshold.toFixed(2)
+    }) + "\n");
 
     if (window.GameResultsModal) {
         window.GameResultsModal.show(
-            'Resultados de la Clasificación',
+            sigmoidT('modalTitle'),
             summaryMessage,
             detailsHtml
         );
     } else {
-        console.error("GameResultsModal no está disponible.");
-        logToTerminal("Error: GameResultsModal no disponible para mostrar resultados.\n");
+        console.error(sigmoidT('modalError'));
+        logToTerminal(sigmoidT('modalError') + "\n");
         // Fallback to alert if modal is not available
-        alert(`Resultados:\nPrecisión: ${accuracy.toFixed(1)}%\nCorrectos: ${correct}/${total}\nUmbral: ${currentThreshold.toFixed(2)}\n\n${summaryMessage}`);
+        alert(`${sigmoidT('modalTitle')}:\n${sigmoidT('accuracy')}: ${accuracy.toFixed(1)}%\n${sigmoidT('correct')}: ${correct}/${total}\n${sigmoidT('threshold')}: ${currentThreshold.toFixed(2)}\n\n${summaryMessage}`);
     }
 });
 
@@ -392,19 +519,5 @@ function updateChart() {
 
 // Inicialización
 updateChart();
-logToTerminal("Juego Sigmoide: Gráfico inicializado.\n");
-// Mostrar botón de resultados
-const showResultsButton = document.getElementById('showResultsButton');
-showResultsButton.classList.remove('hidden');
-showResultsButton.classList.add('show');
-
-
-// Event listeners para el modal
-document.querySelector('.close-button').addEventListener('click', hideModal);
-document.getElementById('showResultsButton').addEventListener('click', showModal);
-document.getElementById('resultsModal').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) hideModal();
-});
-
-// Inicialización
-updateChart();
+document.getElementById('goalText').textContent = sigmoidT('goal');
+logToTerminal(sigmoidT('initLog') + "\n");

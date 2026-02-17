@@ -12,20 +12,17 @@ slug: "honest-validator-k-fold"
 **K-Fold cross-validation** is a cornerstone technique for evaluating a model in a robust way.
 Instead of relying on a single train/test split—whose outcome may be unreliable due to randomness—it averages multiple measurements across different subsets of the data, yielding a far more stable and realistic estimate of how the model will behave on new cases.
 
-{{< medical-context
-    type="research"
-    difficulty="intermediate"
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+    lang="en"
+    title="Stability Analyzer: Train/Test vs. K-Fold"
+    context_type="research"
     scenario="You have developed a model to detect faulty devices from sensor traces. With 1,000 labelled records, you must know how trustworthy the model is before shipping it into a real workflow."
-    highlight="In high-stakes applications, stability in evaluation is essential. A model that looks good by chance on one split can fail badly in production. K-Fold cross-validation replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average performance, yielding a more stable and realistic estimate."
+    medical_highlight="In high-stakes applications, stability in evaluation is essential. A model that looks good by chance on one split can fail badly in production. K-Fold cross-validation replaces a single lucky (or unlucky) train/test split with repeated, systematic splits that average performance, yielding a more stable and realistic estimate."
     steps="Run a single split: Measure performance with a simple train/test split and notice how it fluctuates significantly depending on the random partition.|Repeat the split: Try multiple random splits to see how unstable the error can be. You'll see how each split gives different results.|Activate K-Fold: Switch to cross-validation and observe how the average error stabilizes across folds, providing a more reliable measure of the model's true performance."
 >}}
 
-## Interactive Demonstration
-
-{{< demo-wrapper title="Stability Analyzer: Train/Test vs. K-Fold" >}}
-
 {{< k_fold_validator lang="en" >}}
-
 {{< /demo-wrapper >}}
 
 ## Core Concepts

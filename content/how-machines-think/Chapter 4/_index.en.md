@@ -38,8 +38,8 @@ This chapter focuses on **multiclass classification**: extending classifiers bey
 
 ### Mathematical Foundations
 
-- **[Evaluation Metrics Algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Formal derivations of confusion matrices, precision/recall variants, and multiclass ROC/AUC underpinning the evaluation dashboards discussed in the chapter.
-- **[Naive Bayes Foundations]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.en.md" %}})**: Bayes’ rule, smoothing strategies, and interpretability hooks that justify Alma’s confidence in the model’s probabilistic reasoning.
+- **[📐 Evaluation Metrics Algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Formal derivations of confusion matrices, precision/recall variants, and multiclass ROC/AUC underpinning the evaluation dashboards discussed in the chapter.
+- **[📐 Naive Bayes Foundations]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.en.md" %}})**: Bayes’ rule, smoothing strategies, and interpretability hooks that justify Alma’s confidence in the model’s probabilistic reasoning.
 
 ### Bibliography and Additional Resources
-- **[K-NN and Decision Trees]({{% relref "how-machines-think/Chapter 4/bibliography/bibliography-knn-decision-trees.en.md" %}})**: Verified resources and references on classification algorithms, distance metrics, and interpretability.
+- **[📚 K-NN and Decision Trees]({{% relref "how-machines-think/Chapter 4/bibliography/bibliography-knn-decision-trees.en.md" %}})**: Verified resources and references on classification algorithms, distance metrics, and interpretability.

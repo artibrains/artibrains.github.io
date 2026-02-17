@@ -25,11 +25,14 @@ A lo largo de las siguientes secciones interactivas, explorarás:
 
 - **[3.3 - El Gestor de Riesgos]({{% relref "how-machines-think/Chapter 3/risk_gestor/risk_gestor.es.md" %}})**: Te pondrás en la piel de un gestor y ajustarás el *umbral de decisión* del modelo. Experimentarás el equilibrio crítico entre el coste de los falsos positivos y los falsos negativos.
 
-- **[3.3 - El Validador Honesto]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.es.md" %}})**: Entenderás por qué una simple prueba no es suficiente. Compararás la validación simple con la *validación cruzada (K-Fold)*, el método que el equipo elige para obtener una medida de error estable y fiable.
+- **[3.3 - El Domador de Complejidad]({{% relref "how-machines-think/Chapter 3/complexity/complexity.es.md" %}})**: Lucharás contra el *sobreajuste (overfitting)*. Ajustarás la complejidad y la *regularización* para crear un modelo que aprenda patrones reales sin memorizar el ruido, asegurando que funcione bien en casos futuros.
 
-- **[3.5 - El Domador de Complejidad]({{% relref "how-machines-think/Chapter 3/complexity/complexity.es.md" %}})**: Lucharás contra el *sobreajuste (overfitting)*. Ajustarás la complejidad y la *regularización* para crear un modelo que aprenda patrones reales sin memorizar el ruido, asegurando que funcione bien en casos futuros.
 
-- **[3.5 - Comparación de Regularización]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.es.md" %}})**: Descubrirás las diferencias entre *L1 (Lasso)*, *L2 (Ridge)* y *Elastic Net*. Verás en tiempo real cómo cada tipo de regularización afecta los pesos del modelo y la selección de características, ayudándote a elegir la mejor estrategia según el problema.
+- **[3.3 - Comparación de Regularización]({{% relref "how-machines-think/Chapter 3/regularization-comparison/regularization-comparison.es.md" %}})**: Descubrirás las diferencias entre *L1 (Lasso)*, *L2 (Ridge)* y *Elastic Net*. Verás en tiempo real cómo cada tipo de regularización afecta los pesos del modelo y la selección de características, ayudándote a elegir la mejor estrategia según el problema.
+
+- **[3.5 - El Validador Honesto]({{% relref "how-machines-think/Chapter 3/k_fold_validator/k_fold_validator.es.md" %}})**: Entenderás por qué una simple prueba no es suficiente. Compararás la validación simple con la *validación cruzada (K-Fold)*, el método que el equipo elige para obtener una medida de error estable y fiable.
+
+- **[3.5 - Curvas ROC y AUC]({{% relref "how-machines-think/Chapter 3/roc-auc/roc-auc.es.md" %}})**: Explorarás los trade-offs entre las tasas de verdaderos positivos y falsos positivos. Aprenderás a interpretar las curvas ROC y calcular el AUC para evaluar el rendimiento del modelo en diferentes umbrales.
 
 Prepárate para profundizar en el arte de la clasificación y la evaluación, dos pilares fundamentales para cualquier aplicación de inteligencia artificial en el mundo real.
 

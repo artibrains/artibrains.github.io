@@ -5,20 +5,24 @@ weight: 10
 draft: false
 ---
 
-## Guía de la Simulación
+## Introducción
 
 Esta herramienta interactiva te permite visualizar cómo se comportan dos de los algoritmos de clasificación más populares: **Regresión Logística** y **SVM (Máquinas de Vectores de Soporte)**, y cómo evaluar su rendimiento mediante la curva ROC y el AUC.
 
-### Cómo usar los controles
-
-*   **Modelo**: Selecciona el algoritmo que quieres visualizar. Puedes elegir "Regresión Logística", "SVM" o **"Ambos"** para comparar su rendimiento simultáneamente.
-*   **Separación de Clases**: Ajusta qué tan separados están los dos grupos de datos (Clase 0 y Clase 1). A mayor separación, más fácil es para el modelo distinguirlos.
-*   **Ruido**: Aumenta o disminuye la dispersión de los puntos. Más ruido hace que los datos se mezclen más, dificultando la clasificación.
-*   **Nuevos Datos**: Genera un nuevo conjunto de puntos aleatorios con los parámetros actuales.
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+    lang="es"
+    title="Visualización ROC y AUC"
+    context_type="research"
+    scenario="Estás validando dos clasificadores que detectan casos de alto riesgo a partir de señales diagnósticas. Antes de desplegarlos, necesitas comparar cómo equilibran sensibilidad y falsas alarmas en distintos umbrales."
+    medical_highlight="El análisis ROC permite comparar clasificadores más allá de un único umbral. El AUC resume la capacidad de discriminación: cuanto mayor el AUC, mejor separa el modelo ambas clases en distintos puntos de operación."
+    steps="Elige el modelo: Selecciona Regresión Logística, SVM o Ambos para comparar su comportamiento lado a lado.|Ajusta la dificultad: Modifica separación de clases y ruido para hacer el problema más fácil o más difícil y observar cómo cambia la ROC.|Genera y compara: Pulsa Nuevos Datos e inspecciona cómo se mueven la curva ROC y el AUC para cada modelo en distintas condiciones."
+>}}
 
 {{< roc-auc-visualization >}}
+{{< /demo-wrapper >}}
 
-### Cómo interpretar las gráficas
+## Cómo interpretar las gráficas
 
 1.  **Espacio de Clasificación (Izquierda)**:
     *   Muestra los puntos de datos generados.

@@ -446,7 +446,7 @@ document.getElementById('svmCheckButton').addEventListener('click', () => {
     document.getElementById('svmCheckButton').disabled = true;
     document.getElementById('svmPositionSlider').disabled = true;
     document.getElementById('svmAngleSlider').disabled = true;
-    document.getElementById('svmOptimizationStatus').classList.remove('demo-hidden');
+    document.getElementById('optimizationStatus').classList.remove('hidden');
 
     // Find optimal solution
     if (!optimalSolution) {
@@ -455,7 +455,7 @@ document.getElementById('svmCheckButton').addEventListener('click', () => {
 
     // Animate to optimal solution
     animateToOptimal(optimalSolution, () => {
-        document.getElementById('svmOptimizationStatus').classList.add('demo-hidden');
+        document.getElementById('optimizationStatus').classList.add('hidden');
 
         // Determine result message
         let message = '';

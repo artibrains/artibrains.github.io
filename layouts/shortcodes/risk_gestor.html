@@ -1,14 +1,13 @@
 {{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+{{ $unifiedDemosHash := md5 (readFile "static/css/unified-demos.css") }}
+{{ $riskGestorCssHash := md5 (readFile "static/css/risk_gestor.css") }}
+{{ $riskGestorJsHash := md5 (readFile "static/js/risk_gestor/risk_gestor.js") }}
 
-<link rel="stylesheet" href="/css/unified-demos.css">
-<link rel="stylesheet" href="/css/risk_gestor.css">
+<link rel="stylesheet" href="/css/unified-demos.css?v={{ $unifiedDemosHash }}">
+<link rel="stylesheet" href="/css/risk_gestor.css?v={{ $riskGestorCssHash }}">
 
 <div id="app-container">
-    <div id="patient-container"></div>
-    <div class="controls-panel">
-        <h3>{{ if eq $lang "es" }}Ajustar Umbral de Decisión:{{ else }}Adjust Decision Threshold:{{ end }} <span
-                id="threshold-value">50%</span></h3>
-        <p class="explanation">
+    <p class="explanation">
             {{ if eq $lang "es" }}Este es el umbral de acción del modelo. Si la probabilidad de que un usuario
             abandone (churn) supera este umbral, le enviaremos un recordatorio (predicción: <span
                 class="color-box predicted-miss"></span> Abandonará). Si no, asumiremos que se quedará (predicción: <span
@@ -19,11 +18,16 @@
             (prediction: <span class="color-box predicted-attend"></span> Will stay). The displayed number represents
             the confidence percentage that the user will churn.{{ end }}
         </p>
+    <div id="patient-container"></div>
+    <div class="controls-panel">
         <input type="range" id="threshold-slider" min="0" max="100" value="50">
+        
+        <h3>{{ if eq $lang "es" }}Ajustar Umbral de Decisión:{{ else }}Adjust Decision Threshold:{{ end }} <span
+                id="threshold-value">50%</span></h3>
         <div class="button-group">
-            <button id="reset-btn">{{ if eq $lang "es" }}Generar Nuevos Usuarios{{ else }}Generate New Users{{ end
+            <button id="reset-btn" class="demo-btn secondary">{{ if eq $lang "es" }}Generar Nuevos Usuarios{{ else }}Generate New Users{{ end
                 }}</button>
-            <button id="find-optimal-btn">{{ if eq $lang "es" }}Encontrar Umbral Óptimo{{ else }}Find Optimal
+            <button id="find-optimal-btn" class="demo-btn secondary">{{ if eq $lang "es" }}Encontrar Umbral Óptimo{{ else }}Find Optimal
                 Threshold{{ end }}</button>
         </div>
         <div id="dashboard">
@@ -78,4 +82,4 @@
     window.gameLanguage = "{{ $lang }}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/js/risk_gestor/risk_gestor.js"></script>
+<script src="/js/risk_gestor/risk_gestor.js?v={{ $riskGestorJsHash }}"></script>

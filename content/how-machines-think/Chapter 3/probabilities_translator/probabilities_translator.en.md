@@ -11,17 +11,16 @@ slug: "probability-translator-logistic-regression"
 
 **Logistic Regression** is a foundational model for predicting categorical outcomes, such as deciding whether a case belongs to one group or another. Instead of producing a continuous value, it estimates the probability that a case belongs to a specific category (for example, “will drop off”), making it an essential tool for classification.
 
-{{< medical-context
-    type="clinic"
-    scenario="Your team wants to reduce drop-off. You need a model that pinpoints which users are likely to churn, based on usage history and behavioral features."
-    highlight="Logistic regression estimates the probability of an event from input features. That probability allows you to take preventive actions like reminders or targeted interventions."
->}}
-
 ## Interactive Demonstration
 
-{{< demo-wrapper title="Logistic Regression: Probability Translator" >}}
-
-<p>The graph below shows how logistic regression converts input features into probabilities. Each point represents a case: <strong>blue</strong> indicates the positive outcome and <strong>red</strong> indicates the negative outcome. The colored background represents the model's predicted probability across different combinations of features—darker red areas indicate higher predicted risk, while darker blue areas suggest lower risk. The decision boundary (where probability = 0.5) separates these two regions.</p>
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="en"
+title="Logistic Regression: Probability Translator"
+scenario="A retention team needs to estimate churn risk from behavioral signals (recency and age). The chart shows historical users where blue points indicate one outcome and red points indicate the opposite. The background color visualizes predicted probability across feature combinations, and the boundary around probability 0.5 separates both regions."
+steps="Explore the Probability Surface: Observe how color intensity changes as feature values vary, representing different risk levels.|Inspect Individual Cases: Click a point to see the linear score (Z), sigmoid probability, and actual outcome.|Regenerate Scenarios: Generate new sample data to compare how coefficients and the decision boundary shift."
+medical_highlight="Logistic regression transforms input features into actionable probabilities, enabling targeted interventions before churn happens."
+>}}
 
 {{< probabilities_translator lang="en" >}}
 

@@ -4,7 +4,7 @@
 
 <div class="demo-wrapper demo-main-layout">
     <div class="demo-content-panel">
-        <div class="demo-chart-container">
+        <div class="demo-chart-container" style="max-width: 600px; margin: 0 auto;">
             <h3 class="demo-chart-title">{{ if eq $lang "es" }}Gráfico de Regresión Lineal{{ else }}Linear Regression
                 Chart{{ end }}</h3>
             <canvas id="gameChart"></canvas>
@@ -12,9 +12,6 @@
     </div>
 
     <div class="controls-panel">
-        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Controles del Juego{{ else }}Game Controls{{ end
-            }}</h3>
-
         <div class="control-section">
             <div class="demo-control-group">
                 <label for="errorType" class="control-label">{{ if eq $lang "es" }}Método de error:{{ else }}Error
@@ -71,6 +68,9 @@
         <span class="optimization-text">{{ if eq $lang "es" }}Encontrando la mejor solución...{{ else }}Finding the best solution...{{ end }}</span>
     </div>
 </div>
+
+<!-- Game Results Modal -->
+{{ partial "game-results.html" }}
 
 <script>
     // Configure language for JavaScript

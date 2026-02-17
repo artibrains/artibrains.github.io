@@ -11,17 +11,16 @@ slug: "traductor-probabilidades-regresion-logistica"
 
 La **Regresión Logística** es un modelo fundamental para predecir resultados categóricos, como decidir si un caso pertenece a un grupo u otro. En lugar de predecir un valor continuo, calcula la probabilidad de que un caso pertenezca a una categoría específica (por ejemplo, "abandonará"), convirtiéndola en una herramienta esencial para la clasificación.
 
-{{< medical-context 
-    type="clinic" 
-    scenario="Tu equipo quiere reducir el churn (abandono). Necesitas un modelo que identifique qué usuarios tienen alta probabilidad de abandonar, basándose en su historial de uso y características de comportamiento."
-    highlight="La regresión logística permite estimar la probabilidad de un evento a partir de variables de entrada. Esa probabilidad permite tomar acciones preventivas como recordatorios o intervenciones selectivas."
->}}
-
 ## Demostración Interactiva
 
-{{< demo-wrapper title="Regresión Logística: Traductor de Probabilidades" >}}
-
-<p>El gráfico muestra cómo la regresión logística convierte variables de entrada en probabilidades. Cada punto representa un caso: <strong>azul</strong> indica el resultado positivo y <strong>rojo</strong> el resultado negativo. El fondo coloreado representa la probabilidad predicha por el modelo en diferentes combinaciones de características—las áreas rojas más oscuras indican mayor riesgo, mientras que las áreas azules más oscuras sugieren menor riesgo. La frontera de decisión (donde probabilidad = 0.5) separa estas dos regiones.</p>
+{{< demo-wrapper class="unified-activity" >}}
+{{< demo-intro
+lang="es"
+title="Regresión Logística: Traductor de Probabilidades"
+scenario="Un equipo de retención necesita estimar el riesgo de abandono a partir de señales de comportamiento (recencia y edad). El gráfico muestra usuarios históricos donde los puntos azules representan un resultado y los rojos el contrario. El fondo coloreado visualiza la probabilidad predicha según las combinaciones de variables, y la frontera cercana a probabilidad 0.5 separa ambas regiones."
+steps="Explora la Superficie de Probabilidad: Observa cómo cambia la intensidad del color según los valores de las variables, representando distintos niveles de riesgo.|Inspecciona Casos Individuales: Haz clic en un punto para ver la puntuación lineal (Z), la probabilidad sigmoide y el resultado real.|Regenera Escenarios: Genera nuevos datos de ejemplo para comparar cómo cambian los coeficientes y la frontera de decisión."
+medical_highlight="La regresión logística convierte variables de entrada en probabilidades accionables, permitiendo intervenciones selectivas antes de que ocurra el abandono."
+>}}
 
 {{< probabilities_translator lang="es" >}}
 
