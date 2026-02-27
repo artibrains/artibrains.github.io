@@ -28,14 +28,3 @@ Duolingo Max es una suscripción que añade funciones como **Roleplay** y **Vide
 Si el sistema se equivoca con confianza, escala malentendidos.
 {{< /notice >}}
 
-Patrón más seguro:
-
-- IA propone pistas y feedback.
-- El sistema obliga a mostrar pasos intermedios.
-- Profesorado, rúbricas o verificadores automáticos validan resultados.
-
-## Qué añadir a este capítulo (checklist)
-
-- Un bucle de “muéstrame el proceso”.
-- Priorizar dominios con corrección automática (mates, código, drills de idioma).
-- Reporte de errores fácil + mejora continua.

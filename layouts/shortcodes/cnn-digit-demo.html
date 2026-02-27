@@ -1,0 +1,113 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
+<link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/cnn-digit-demo.css">
+
+<div class="cnn-demo" id="cnnDigitDemo">
+  <div class="cnn-topbar">
+    <div class="cnn-topbar-left">
+      <h4>{{ if eq $lang "es" }}Laboratorio CNN: Reconocimiento de Dígitos{{ else }}CNN Lab: Digit Recognition{{ end }}</h4>
+      <p class="cnn-subtitle">{{ if eq $lang "es" }}Dibuja un número y deja que una red convolucional lo clasifique.{{ else }}Draw a number and let a convolutional neural network classify it.{{ end }}</p>
+    </div>
+    <div class="cnn-topbar-right">
+      <span class="cnn-status-badge" id="cnnModelStatus">{{ if eq $lang "es" }}Modelo: sin entrenar{{ else }}Model: untrained{{ end }}</span>
+      <button class="demo-btn demo-btn-secondary cnn-state-btn" id="cnnTrainingStateBtn" type="button" aria-live="polite">
+        {{ if eq $lang "es" }}Estado: no entrenada{{ else }}State: not trained{{ end }}
+      </button>
+    </div>
+  </div>
+
+ 
+
+  <section class="cnn-panel cnn-step-panel">
+    <h5>{{ if eq $lang "es" }}1) Entrena el modelo{{ else }}1) Train the model{{ end }}</h5>
+    <div class="cnn-train-layout">
+      <div class="cnn-hyperparams">
+        <label>
+          <span>{{ if eq $lang "es" }}Épocas{{ else }}Epochs{{ end }}</span>
+          <input id="cnnEpochsInput" type="number" min="1" max="80" value="16">
+        </label>
+        <label>
+          <span>{{ if eq $lang "es" }}Muestras/época{{ else }}Samples/epoch{{ end }}</span>
+          <input id="cnnSamplesInput" type="number" min="200" max="8000" value="1800">
+        </label>
+        <label>
+          <span>{{ if eq $lang "es" }}Learning rate{{ else }}Learning rate{{ end }}</span>
+          <input id="cnnLrInput" type="number" min="0.001" max="0.2" step="0.001" value="0.02">
+        </label>
+      </div>
+
+      <div class="cnn-actions">
+        <button class="demo-btn demo-btn-primary" id="cnnTrainBtn">{{ if eq $lang "es" }}Entrenar desde cero{{ else }}Train from scratch{{ end }}</button>
+        <button class="demo-btn demo-btn-secondary" id="cnnStopBtn" disabled>{{ if eq $lang "es" }}Detener{{ else }}Stop{{ end }}</button>
+        <button class="demo-btn demo-btn-secondary" id="cnnResetBtn">{{ if eq $lang "es" }}Reiniciar pesos{{ else }}Reset weights{{ end }}</button>
+      </div>
+
+      <div class="cnn-training-log" id="cnnTrainingLog" aria-live="polite"></div>
+    </div>
+  </section>
+
+   <section class="cnn-panel cnn-step-panel">
+    <h5>{{ if eq $lang "es" }}2 Dibuja y predice{{ else }}2) Draw and predict{{ end }}</h5>
+    <div class="cnn-draw-layout">
+      <div class="cnn-draw-col">
+        <canvas id="cnnDrawCanvas" width="280" height="280" aria-label="digit canvas"></canvas>
+        <div class="cnn-canvas-controls">
+          <button class="demo-btn demo-btn-secondary" id="cnnClearBtn">{{ if eq $lang "es" }}Limpiar{{ else }}Clear{{ end }}</button>
+          <button class="demo-btn demo-btn-primary" id="cnnPredictBtn">{{ if eq $lang "es" }}Predecir{{ else }}Predict{{ end }}</button>
+        </div>
+      </div>
+      <div class="cnn-pred-col">
+        <div class="cnn-mini-preview-wrap">
+          <div>
+            <span class="cnn-mini-label">{{ if eq $lang "es" }}Entrada 20×20{{ else }}Input 20×20{{ end }}</span>
+            <canvas id="cnnInputPreview" width="120" height="120"></canvas>
+          </div>
+        </div>
+        <div class="cnn-prediction-box">
+          <div class="cnn-pred-title">{{ if eq $lang "es" }}Predicción{{ else }}Prediction{{ end }}</div>
+          <div id="cnnPredictionNotice" class="cnn-predict-notice">
+            {{ if eq $lang "es" }}⚠️ Predicciones aleatorias: la red aún no está completamente entrenada.{{ else }}⚠️ Random predictions: the network is not fully trained yet.{{ end }}
+          </div>
+          <div class="cnn-pred-main"><span id="cnnPredictedDigit">-</span></div>
+          <div id="cnnProbBars" class="cnn-prob-bars"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cnn-panel cnn-step-panel cnn-explain-panel">
+    <h5>{{ if eq $lang "es" }}3) Mira cómo “ve” la CNN{{ else }}3) See how the CNN “sees”{{ end }}</h5>
+    <p class="cnn-help-text">{{ if eq $lang "es" }}Cada filtro convolucional (3×3) detecta trazos simples. Combinados, producen una representación que termina en probabilidades para cada dígito. Pasa el cursor por neuronas y conexiones para ver más detalle.{{ else }}Each convolutional filter (3×3) detects simple strokes. Combined, they form a representation that ends in class probabilities for each digit. Hover neurons and connections to inspect extra detail.{{ end }}</p>
+
+    <div class="cnn-network-box">
+      <div class="cnn-mini-label">{{ if eq $lang "es" }}Activaciones en tiempo real{{ else }}Live activations{{ end }}</div>
+      <svg id="cnnNetworkSvg" viewBox="0 0 520 250" role="img" aria-label="cnn activations"></svg>
+      <div id="cnnHoverInfo" class="cnn-hover-info">
+        {{ if eq $lang "es" }}Pasa el cursor por una neurona o conexión para ver su interpretación.{{ else }}Hover a neuron or connection to see its interpretation.{{ end }}
+      </div>
+    </div>
+
+    <div class="cnn-colormap-legend">
+      <div class="cnn-legend-item">
+        <span>{{ if eq $lang "es" }}Activación baja{{ else }}Low activation{{ end }}</span>
+        <div class="cnn-legend-gradient cnn-legend-activation"></div>
+        <span>{{ if eq $lang "es" }}Activación alta{{ else }}High activation{{ end }}</span>
+      </div>
+      <div class="cnn-legend-item">
+        <span>{{ if eq $lang "es" }}Peso negativo{{ else }}Negative weight{{ end }}</span>
+        <div class="cnn-legend-gradient cnn-legend-filter"></div>
+        <span>{{ if eq $lang "es" }}Peso positivo{{ else }}Positive weight{{ end }}</span>
+      </div>
+      <p class="cnn-small-note">{{ if eq $lang "es" }}Mapa de color: en la red, nodos más verdes indican mayor activación. En los filtros, rojo = peso negativo y verde = peso positivo.{{ else }}Color map: in the network, greener nodes mean higher activation. In filters, red = negative weight and green = positive weight.{{ end }}</p>
+    </div>
+
+    <div id="cnnFiltersGrid" class="cnn-filters-grid"></div>
+    <p class="cnn-small-note">{{ if eq $lang "es" }}Consejo: prueba dibujar el mismo número con diferentes estilos para ver cómo cambian las activaciones y probabilidades.{{ else }}Tip: draw the same number with different writing styles and observe how activations and probabilities change.{{ end }}</p>
+  </section>
+</div>
+
+<script>
+  window.cnnDigitDemoLanguage = "{{ $lang }}";
+</script>
+<script src="/js/cnn-digit-demo.js"></script>

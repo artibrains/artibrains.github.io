@@ -8,24 +8,46 @@ draft: false
 
 ## Why mathematics is a perfect “truth test” for AI
 
-Math is where you can’t hide behind plausibility. Either the proof checks, or it doesn’t.
+In mathematics, sounding plausible is not enough: a solution is either correct or it is not. That makes math a useful way for general readers to understand how AI is evolving.
 
-That’s why the most important breakthroughs here look like this:
+## From “solving hard problems” to broader discovery
 
-> **Generator + checker** (a creative proposer paired with a strict verifier).
+One simple way to see the shift:
 
-## Concrete breakthrough: AlphaGeometry (Olympiad-level geometry)
+- On one side, AI systems now solve difficult problems that most people cannot solve by hand.
+- On the other side, those same reasoning abilities are being used to explore hypotheses and accelerate discovery across science.
 
-DeepMind’s **AlphaGeometry** is a good example of “AI that can be checked”. It combines:
+This is not about hype; it is about **generation + verification**.
 
-- A neural model that proposes useful geometric constructions.
-- A symbolic deduction engine that produces a proof with machine-verifiable structure.
+## The clearest example: Olympiad geometry
 
-DeepMind reports that AlphaGeometry solved **25 out of 30** Olympiad geometry problems in a benchmark set, under competition time limits, and provides references + code.
+DeepMind’s AlphaGeometry introduced a neuro-symbolic approach (model + deduction engine) with verifiable results on Olympiad-style geometry.
 
-- Overview: https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/
-- Paper (Nature): https://www.nature.com/articles/s41586-023-06747-5
-- Code: https://github.com/google-deepmind/alphageometry
+- Official AlphaGeometry announcement: https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/
+- Nature paper: https://www.nature.com/articles/s41586-023-06747-5
+
+The next system, AlphaGeometry2, was published in a peer-reviewed venue (JMLR), with official public code for reproducible parts of the pipeline.
+
+- AlphaGeometry2 JMLR paper: https://www.jmlr.org/papers/v26/25-1654.html
+- Official AlphaGeometry2 repository: https://github.com/google-deepmind/alphageometry2
+
+## What about OpenAI in 2025?
+
+OpenAI also published 2025 releases focused on reasoning and tool use, with official math benchmark reporting (including AIME) and stronger multi-step task performance.
+
+- Official OpenAI o3 / o4-mini announcement: https://openai.com/index/introducing-o3-and-o4-mini/
+- Official GPT-5 announcement: https://openai.com/index/introducing-gpt-5/
+- OpenAI research index: https://openai.com/research
+
+## Why this matters beyond math
+
+The story is not “AI knows everything.” The story is that AI is moving from answering questions to **working in verifiable workflows** across domains:
+
+- Mathematics: formal proofs and symbolic checking.
+- Software: generation with tests and code review.
+- Science: proposals that can be tested against evidence.
+
+When verification is built in, trust increases. That is why AI progress now affects many branches of knowledge, not just one.
 
 ## What this teaches us (beyond math)
 

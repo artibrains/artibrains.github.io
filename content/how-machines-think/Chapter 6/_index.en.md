@@ -25,6 +25,8 @@ This chapter demystifies neural networks: the perceptron as a building block, ho
 
 3. **[Neural Network Playground: Experimenting with Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.en.md" %}})**: Experience hands-on experimentation with TensorFlow Playground. Build, train, and visualize neural networks in your browser, exploring how architecture, hyperparameters, and data affect learning in real time.
 
+4. **[CNN Digit Lab: Draw, Train, and Predict]({{% relref "how-machines-think/Chapter 6/cnn-digit-lab/cnn-digit-lab.en.md" %}})**: Build intuition for convolutional neural networks by recognizing handwritten digits. Draw in the canvas, compare predictions, train a compact CNN from scratch, or jump directly to a pretrained snapshot.
+
 ### Algorithm Pseudocode
 
 - **[📝 Perceptron Training Pseudocode]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-perceptron.en.md" %}})**: The perceptron learning rule, convergence theorem, Pocket algorithm, and Voted Perceptron variants.

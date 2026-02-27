@@ -1,38 +1,50 @@
 ---
 title: "AI in Software Engineering"
-description: "Coding assistants, code review, and the shift to human‑verified automation."
+description: "How AI tools changed software development: less mechanical coding, more design and validation."
 weight: 5
 slug: "ai-software-engineering"
 draft: false
 ---
 
-## Real deployments that changed day-to-day development
+AI changed more than speed: it changed the **kind of work** developers do. Today we spend less time writing mechanical code and more time designing, validating, and making decisions.
 
-This is one of the clearest “AI is already here” domains because changes ship directly into production codebases.
+## Tool categories that matter
 
-## Concrete implementation: GitHub Copilot (IDE-native assistant)
+Instead of memorizing specific model versions, focus on categories:
 
-GitHub Copilot is a widely deployed coding assistant integrated into popular IDEs.
+- **Editor assistants**: suggest code, explain errors, and help refactor.
+- **Terminal agents**: run project tasks (tests, migrations, scripts).
+- **Review assistants**: support pull requests, docs, and quality checks.
+- **Repo-aware tools**: understand files, dependencies, and architecture.
 
-- Product overview: https://github.com/features/copilot
-- GitHub Copilot X announcement (chat in editor, PR assistance, docs Q&A): https://github.blog/2023-03-22-github-copilot-x-the-ai-powered-developer-experience/
+Well-known examples in this new generation include GitHub Copilot, OpenAI Codex, Claude Code, and Cursor.
 
-Why it matters: it puts AI *inside* a workflow that already has checkers (tests, compilers, code review).
+## What changed in daily workflow
 
-## Concrete implementation: AlphaDev in LLVM libc++ (algorithms in the standard library)
+Before: write almost everything by hand.
 
-Not all “AI for software” is about generating code. Sometimes it discovers better low-level algorithms.
+Now:
+- describe a task,
+- the tool proposes an implementation,
+- you verify with tests and review,
+- iterate in shorter cycles.
 
-DeepMind’s **AlphaDev** discovered faster sorting routines that were integrated into the **LLVM libc++** sorting library, and also discovered a faster hashing routine released into **Abseil**.
+For beginners, this reduces friction. For experienced teams, it removes repetitive work and speeds up delivery.
 
-- DeepMind write-up: https://deepmind.google/discover/blog/alphadev-discovers-faster-sorting-algorithms/
+## How to use AI without losing quality
 
-## The safe, reusable workflow
+- Ask for small, specific changes.
+- Require automated tests before accepting changes.
+- Review every diff like a teammate’s PR.
+- Never share secrets or credentials in prompts.
 
-- Use AI to propose code or changes.
-- Validate with tooling (builds/tests/linters).
-- Review like a teammate’s PR.
-
-{{< notice style="info" title="Why this domain works" >}}
-Software has strong, automated “checkers”. That’s why AI adoption here is so fast.
+{{< notice style="info" title="Key idea" >}}
+AI speeds up implementation; human engineering secures the outcome.
 {{< /notice >}}
+
+## Stable links to go deeper
+
+- GitHub Copilot: https://github.com/features/copilot
+- OpenAI Codex: https://openai.com/codex/
+- Claude Code: https://claude.com/product/claude-code
+- Cursor: https://cursor.com

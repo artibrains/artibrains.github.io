@@ -1,38 +1,50 @@
 ---
 title: "IA en Ingeniería de Software"
-description: "Asistentes de código, revisión y el paso a automatización verificada por humanos."
+description: "Cómo las herramientas de IA cambiaron el desarrollo de software: menos mecánica, más diseño y validación."
 weight: 5
 slug: "ia-ingenieria-software"
 draft: false
 ---
 
-## Despliegues reales que ya cambiaron el trabajo diario
+La IA no cambió solo la velocidad: cambió el **tipo de trabajo** del programador. Hoy dedicamos menos tiempo a escribir código mecánico y más a diseñar, validar y tomar decisiones.
 
-Este es uno de los dominios donde más se nota que “la IA ya está aquí”, porque impacta directamente en repositorios y despliegues.
+## Tipos de herramientas que importan
 
-## Implementación concreta: GitHub Copilot (asistente en el IDE)
+Más que memorizar modelos concretos, conviene entender categorías:
 
-GitHub Copilot es un asistente integrado en IDEs que ayuda con autocompletado, chat en el editor y tareas del ciclo de desarrollo.
+- **Asistentes en el editor**: sugieren código, explican errores y ayudan a refactorizar.
+- **Agentes de terminal**: ejecutan tareas de proyecto (tests, migraciones, scripts).
+- **Asistentes de revisión**: ayudan en pull requests, documentación y calidad.
+- **Herramientas con contexto del repositorio**: entienden archivos, dependencias y arquitectura.
 
-- Producto: https://github.com/features/copilot
-- Anuncio Copilot X (chat en el editor, PRs, docs): https://github.blog/2023-03-22-github-copilot-x-the-ai-powered-developer-experience/
+Ejemplos conocidos de esta nueva generación: GitHub Copilot, OpenAI Codex, Claude Code y Cursor.
 
-Por qué importa: mete la IA dentro de un flujo que ya tiene “verificadores” (tests, compilación, revisión).
+## Qué cambió en el flujo diario
 
-## Implementación concreta: AlphaDev en LLVM libc++ (mejores algoritmos)
+Antes: escribir casi todo a mano.
 
-No toda “IA para software” genera código. A veces descubre mejores rutinas de bajo nivel.
+Ahora:
+- describes una tarea,
+- la herramienta propone una solución,
+- tú verificas con tests y revisión,
+- iteras en ciclos más cortos.
 
-DeepMind describe cómo **AlphaDev** encontró rutinas de ordenación más rápidas que acabaron integradas en **LLVM libc++**, y también mejoras de hashing publicadas en **Abseil**.
+Para quien empieza, esto reduce fricción. Para equipos con experiencia, reduce trabajo repetitivo y acelera entregas.
 
-- Artículo de DeepMind: https://deepmind.google/discover/blog/alphadev-discovers-faster-sorting-algorithms/
+## Cómo usar IA sin perder calidad
 
-## El flujo seguro (reutilizable)
+- Pide cambios pequeños y específicos.
+- Exige pruebas automáticas antes de aceptar cambios.
+- Revisa cada diff como revisarías el de otra persona.
+- Nunca compartas secretos ni credenciales en prompts.
 
-- IA propone cambios.
-- Herramientas verifican (build/tests/linters).
-- Humanos revisan y asumen responsabilidad.
-
-{{< notice style="info" title="Por qué funciona aquí" >}}
-En software existen verificadores automáticos potentes. Por eso la adopción es rápida.
+{{< notice style="info" title="Idea clave" >}}
+La IA acelera la implementación; la ingeniería humana asegura el resultado.
 {{< /notice >}}
+
+## Enlaces estables para profundizar
+
+- GitHub Copilot: https://github.com/features/copilot
+- OpenAI Codex: https://openai.com/codex/
+- Claude Code: https://claude.com/product/claude-code
+- Cursor: https://cursor.com

@@ -1,0 +1,50 @@
+{{- .Store.Set "relearnIsNested" false }}
+
+{{- if .IsHome }}
+<article class="home">
+  <header class="headline">
+    {{- partial "content-header.html" . }}
+  </header>
+{{ partial "heading-pre.html" . }}{{ partial "heading.html" . }}{{ partial "heading-post.html" . }}
+
+{{ partial "article-content.html" . }}
+  <footer class="footline">
+    {{- partial "content-footer.html" . }}
+  </footer>
+</article>
+{{- else if eq .Type "chapter" }}
+<article class="chapter narrow">
+  <header class="headline">
+    {{- partial "content-header.html" . }}
+  </header>
+{{ partial "heading-pre.html" . }}{{ with .Params.Weight }}<div class="article-subheading">{{ T "Chapter" . }}</div>{{ end }}
+{{ partial "heading.html" . }}{{ partial "heading-post.html" . }}
+
+{{ partial "article-content.html" . }}
+  <footer class="footline">
+    {{- partial "content-footer.html" . }}
+  </footer>
+</article>
+{{- else }}
+<article class="default">
+{{- if .Params.heroImage }}
+<div class="hero-image-wrapper">
+  <figure class="hero-image">
+    <img src="{{ .Params.heroImage }}" alt="{{ .Params.heroImageAlt | default .Title }}" />
+    {{- if .Params.heroImageCaption }}
+    <figcaption>{{ .Params.heroImageCaption | markdownify }}</figcaption>
+    {{- end }}
+  </figure>
+</div>
+{{- end }}
+  <header class="headline">
+    {{- partial "content-header.html" . }}
+  </header>
+{{ partial "heading-pre.html" . }}{{ partial "heading.html" . }}{{ partial "heading-post.html" . }}
+
+{{ partial "article-content.html" . }}
+  <footer class="footline">
+    {{- partial "content-footer.html" . }}
+  </footer>
+</article>
+{{- end }}

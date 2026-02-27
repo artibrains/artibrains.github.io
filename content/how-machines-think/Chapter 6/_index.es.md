@@ -27,6 +27,8 @@ En este capítulo te unirás a ellos para desmitificar el funcionamiento interno
 
 3. **[Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
 
+4. **[Laboratorio CNN: Dibuja, Entrena y Predice]({{% relref "how-machines-think/Chapter 6/cnn-digit-lab/cnn-digit-lab.es.md" %}})**: Construye intuición sobre redes convolucionales reconociendo dígitos escritos a mano. Dibuja en el lienzo, compara predicciones, entrena una CNN compacta desde cero o carga un snapshot preentrenado para empezar al instante.
+
 ### Pseudocódigo de Algoritmos
 
 - **[📝 Pseudocódigo del Entrenamiento del Perceptrón]({{% relref "/how-machines-think/Chapter 6/code/pseudocode-perceptron.es.md" %}})**: La regla de aprendizaje del perceptrón, teorema de convergencia, algoritmo Pocket y variantes del Perceptrón Votado.

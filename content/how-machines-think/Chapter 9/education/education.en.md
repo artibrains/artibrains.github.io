@@ -27,15 +27,4 @@ Duolingo Max is a paid tier that adds features like **Roleplay** and **Video Cal
 {{< notice style="warning" title="The tutoring trap" >}}
 If a system explains confidently but incorrectly, it scales misunderstandings.
 {{< /notice >}}
-
-The safer pattern is exactly what we’ve repeated throughout the book:
-
-- AI proposes hints / feedback.
-- The system forces intermediate steps.
-- Teachers, rubrics, or automated checkers validate outcomes.
-
-## What to add to this chapter (practical checklist)
-
-- Always include a “show your work” loop.
-- Prefer domains with built-in graders (math, code, language drills).
-- Make reporting errors easy, and iterate.
+º
