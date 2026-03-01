@@ -12,7 +12,7 @@ The **K-Nearest Neighbors** (K-NN) algorithm is one of the simplest and most eff
 
 {{< demo-intro 
     title="Interactive K-NN Classifier"
-    medical_highlight="The **K-NN** algorithm classifies new data based on its proximity to known data points. It is a form of **lazy learning** that does not build an explicit model but instead uses the training data directly."
+    medical_highlight="The K-NN algorithm classifies new data based on its proximity to known data points. It is a form of lazy learning that does not build an explicit model but instead uses the training data directly."
 >}}
 
 ## Interactive Demonstration

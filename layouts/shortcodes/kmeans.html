@@ -1,54 +1,67 @@
+{{ $lang := (.Get "lang") | default .Site.Language.Lang }}
+
 <link rel="stylesheet" href="/css/unified-demos.css">
+<link rel="stylesheet" href="/css/kmeans.css">
 
-<div class="controls-panel">
-    <div class="controls-panel-title">Configuración del Algoritmo K-Means</div>
+<div class="demo-wrapper kmeans-demo">
 
-    <section class="control-section">
-        <div class="control-group">
-            <label class="control-label" for="k-slider">
-                Número de Clusters (K): <span class="value-display" id="k-value">3</span>
-            </label>
-            <input type="range" id="k-slider" class="control-slider" min="2" max="10" value="3">
+    <!-- CONTROLS -->
+    <div class="controls-panel top-controls">
+        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Configuración del Algoritmo K-Means{{ else }}K-Means Algorithm Settings{{ end }}</h3>
+
+        <div class="control-section">
+            <div class="demo-control-group">
+                <label class="control-label" for="k-slider">
+                    {{ if eq $lang "es" }}Número de Clusters (K):{{ else }}Number of Clusters (K):{{ end }}
+                    <span class="demo-range-value" id="k-value">3</span>
+                    <button id="info-icon" class="info-icon" aria-label="Info">ⓘ</button>
+                </label>
+                <input type="range" id="k-slider" class="demo-control-slider" min="2" max="10" value="3">
+            </div>
+
+            <div class="demo-control-group" style="flex-direction: row; align-items: center; gap: 0.5rem;">
+                <input type="checkbox" id="kmeans-plus-plus-checkbox" class="demo-checkbox" checked>
+                <label for="kmeans-plus-plus-checkbox" class="control-label" style="margin: 0;">{{ if eq $lang "es" }}Usar K-Means++{{ else }}Use K-Means++{{ end }}</label>
+            </div>
         </div>
 
-        <div class="control-checkbox-group">
-            <input type="checkbox" id="kmeans-plus-plus-checkbox" class="control-checkbox" checked>
-            <label for="kmeans-plus-plus-checkbox" class="control-label">Usar K-Means++</label>
-            <span id="info-icon" class="info-icon">ⓘ</span>
+        <div class="control-section">
+            <div class="demo-control-group" style="flex-direction: row; flex-wrap: wrap; gap: 0.5rem;">
+                <button id="cluster-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Agrupar con K-Means{{ else }}Cluster with K-Means{{ end }}</button>
+                <button id="reset-btn" class="demo-btn demo-btn-secondary">{{ if eq $lang "es" }}Generar Nuevos Datos{{ else }}Generate New Data{{ end }}</button>
+            </div>
         </div>
-    </section>
 
-    <section class="control-section">
-        <button id="cluster-btn" class="control-button-primary">Agrupar con K-Means</button>
-        <button id="reset-btn" class="control-button-secondary">Generar Nuevos Datos</button>
-    </section>
+        <div class="control-section">
+            <div class="demo-control-group" style="flex-direction: row; flex-wrap: wrap; gap: 0.5rem;">
+                <button id="start-step-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Iniciar Paso a Paso{{ else }}Start Step by Step{{ end }}</button>
+                <button id="next-step-btn" class="demo-btn demo-btn-primary" disabled>{{ if eq $lang "es" }}Siguiente Paso{{ else }}Next Step{{ end }}</button>
+                <button id="play-pause-btn" class="demo-btn demo-btn-secondary" disabled>{{ if eq $lang "es" }}Reproducir{{ else }}Play{{ end }}</button>
+            </div>
+        </div>
+    </div>
 
-    <section class="control-section">
-        <button id="start-step-btn" class="control-button-primary">Iniciar Paso a Paso</button>
-        <button id="next-step-btn" class="control-button-primary" disabled>Siguiente Paso</button>
-        <button id="play-pause-btn" class="control-button-primary" disabled>Reproducir</button>
-    </section>
+    <!-- VISUALIZATION -->
+    <div class="demo-content-panel" style="text-align: center;">
+        <canvas id="kmeans-canvas" width="600" height="400" style="max-width: 100%; height: auto;"></canvas>
+        <p id="status-message" class="demo-description" style="margin-top: 0.5rem;"></p>
+    </div>
+
+    <!-- ELBOW METHOD -->
+    <div class="controls-panel">
+        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Método del Codo{{ else }}Elbow Method{{ end }}</h3>
+        <p class="demo-description">{{ if eq $lang "es" }}Usa el Método del Codo para estimar el mejor número de clusters para tus datos.{{ else }}Use the Elbow Method to estimate the best number of clusters for your data.{{ end }}</p>
+
+        <div class="control-section">
+            <div class="demo-control-group" style="align-items: center;">
+                <button id="elbow-btn" class="demo-btn demo-btn-primary">{{ if eq $lang "es" }}Calcular K Óptimo (Método del Codo){{ else }}Calculate Optimal K (Elbow Method){{ end }}</button>
+            </div>
+        </div>
+
+        <canvas id="elbow-canvas" width="600" height="300" style="display: none; max-width: 100%; height: auto;"></canvas>
+        <p id="elbow-status-message" class="demo-description" style="margin-top: 0.5rem;"></p>
+    </div>
+
 </div>
-
-<main class="kmeans-visualization">
-    <canvas id="kmeans-canvas" width="600" height="400"></canvas>
-    <p id="status-message" class="status-message"></p>
-</main>
-
-<hr class="section-divider">
-
-<div class="controls-panel">
-    <div class="controls-panel-title">Método del Codo</div>
-    <p class="control-description">Usa el Método del Codo para estimar el mejor número de clusters para tus datos.</p>
-
-    <section class="control-section">
-        <button id="elbow-btn" class="control-button-primary">Calcular K Óptimo (Método del Codo)</button>
-    </section>
-
-    <canvas id="elbow-canvas" width="600" height="300" style="display: none;"></canvas>
-    <p id="elbow-status-message" class="status-message"></p>
-</div>
-
-
 
 <script defer src="/js/kmeans/kmeans.js"></script>

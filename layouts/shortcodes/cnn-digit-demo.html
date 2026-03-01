@@ -65,11 +65,7 @@
           </div>
         </div>
         <div class="cnn-prediction-box">
-          <div class="cnn-pred-title">{{ if eq $lang "es" }}Predicción{{ else }}Prediction{{ end }}</div>
-          <div id="cnnPredictionNotice" class="cnn-predict-notice">
-            {{ if eq $lang "es" }}⚠️ Predicciones aleatorias: la red aún no está completamente entrenada.{{ else }}⚠️ Random predictions: the network is not fully trained yet.{{ end }}
-          </div>
-          <div class="cnn-pred-main"><span id="cnnPredictedDigit">-</span></div>
+          <div class="cnn-pred-title">{{ if eq $lang "es" }}Distribución de probabilidad{{ else }}Probability distribution{{ end }}</div>
           <div id="cnnProbBars" class="cnn-prob-bars"></div>
         </div>
       </div>
@@ -106,6 +102,20 @@
     <p class="cnn-small-note">{{ if eq $lang "es" }}Consejo: prueba dibujar el mismo número con diferentes estilos para ver cómo cambian las activaciones y probabilidades.{{ else }}Tip: draw the same number with different writing styles and observe how activations and probabilities change.{{ end }}</p>
   </section>
 </div>
+
+  <!-- Prediction modal -->
+  <div id="cnnPredictModal" class="cnn-modal-overlay" role="dialog" aria-modal="true" hidden>
+    <div class="cnn-modal-box">
+      <div class="cnn-modal-title">{{ if eq $lang "es" }}Resultado de la predicción{{ else }}Prediction result{{ end }}</div>
+      <div id="cnnModalUntrainedWarning" class="cnn-modal-warning" hidden>
+        {{ if eq $lang "es" }}⚠️ La red no está completamente entrenada. La predicción puede no ser fiable.{{ else }}⚠️ The network is not fully trained. The prediction may not be reliable.{{ end }}
+      </div>
+      <div class="cnn-modal-digit"><span id="cnnPredictedDigit">-</span></div>
+      <button class="demo-btn demo-btn-secondary cnn-modal-close-btn" id="cnnModalCloseBtn" type="button">
+        {{ if eq $lang "es" }}Cerrar{{ else }}Close{{ end }}
+      </button>
+    </div>
+  </div>
 
 <script>
   window.cnnDigitDemoLanguage = "{{ $lang }}";

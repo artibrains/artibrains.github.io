@@ -1,4 +1,5 @@
 {{- $lang := .Page.Language.Lang -}}
+{{- $bookLink := cond (eq $lang "es") "https://www.amazon.es/dp/B0GQD33N6T" "https://www.amazon.com/dp/B0GQD23YVM" -}}
 
 <style>
 /* Enhanced Book 1 Landing Page Styles */
@@ -1424,7 +1425,7 @@
       
       <details>
         <summary>{{ if eq $lang "es" }}¿Dónde puedo comprar el libro?{{ else }}Where can I buy the book?{{ end }}</summary>
-        <p>{{ if eq $lang "es" }}El libro está disponible en Amazon.{{ else }}The book is available on Amazon.{{ end }}</p>
+        <p>{{ if eq $lang "es" }}El libro está disponible en <a href="{{ $bookLink }}" target="_blank" rel="noopener noreferrer">Amazon.es</a>.{{ else }}The book is available on <a href="{{ $bookLink }}" target="_blank" rel="noopener noreferrer">Amazon.com</a>.{{ end }}</p>
       </details>
     </div>
   </section>
@@ -1447,7 +1448,10 @@
       </p>
       
       <div class="b1l-cta-buttons">
-        <a href="{{ "how-machines-think/chapter-1/" | relLangURL }}" class="b1l-btn b1l-btn-primary">
+        <a href="{{ $bookLink }}" class="b1l-btn b1l-btn-primary" target="_blank" rel="noopener noreferrer">
+          {{ if eq $lang "es" }}🛒 Comprar en Amazon{{ else }}🛒 Buy on Amazon{{ end }}
+        </a>
+        <a href="{{ "how-machines-think/chapter-1/" | relLangURL }}" class="b1l-btn b1l-btn-secondary">
           {{ if eq $lang "es" }}🚀 Empezar a Leer{{ else }}🚀 Start Reading{{ end }}
         </a>
         <a href="{{ "/" | relLangURL }}" class="b1l-btn b1l-btn-secondary">

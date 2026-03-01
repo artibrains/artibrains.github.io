@@ -1,7 +1,7 @@
 ---
-title: "LLM Benchmarks: What’s Current, What’s Saturated, and How to Read Scores"
+title: "7.5 LLM Benchmarks: What’s Current, What’s Saturated, and How to Read Scores"
 description: "A practical guide to modern LLM benchmarks, which ones still discriminate models, and where to verify results."
-weight: 5
+weight: 6
 draft: false
 slug: "llm-benchmarks"
 ---

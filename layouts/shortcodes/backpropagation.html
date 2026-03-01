@@ -55,7 +55,7 @@
 
 <link rel="stylesheet" href="/css/backpropagation-scoped.css">
 
-<div class="backpropagation-demo">
+<div class="demo-wrapper backpropagation-demo">
     <div class="panel">
         <h2>{{ $t.viz_title }}</h2>
         <svg id="network-visualization"></svg>
@@ -67,9 +67,9 @@
             <div class="panel" id="controls-panel">
                 <h2>{{ $t.controls_title }}</h2>
                 <div class="buttons">
-                    <button id="step-btn">{{ $t.step_btn }}</button>
-                    <button id="run-btn">{{ $t.run_btn }}</button>
-                    <button id="reset-btn">{{ $t.reset_btn }}</button>
+                    <button id="step-btn" class="demo-btn demo-btn-primary">{{ $t.step_btn }}</button>
+                    <button id="run-btn" class="demo-btn demo-btn-primary">{{ $t.run_btn }}</button>
+                    <button id="reset-btn" class="demo-btn demo-btn-secondary">{{ $t.reset_btn }}</button>
                 </div>
 
                 <div class="control-group">

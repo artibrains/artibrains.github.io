@@ -1,5 +1,5 @@
 ---
-title: "El Artesano de Palabras: El Tokenizador BPE"
+title: "7.1 El Artesano de Palabras: El Tokenizador BPE"
 description: "Visualizador interactivo del algoritmo de tokenización Byte-Pair Encoding (BPE), la base de los LLMs."
 weight: 1
 draft: false

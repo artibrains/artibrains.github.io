@@ -12,7 +12,7 @@ Un **Árbol de Decisión** es un modelo predictivo que aprende una serie de regl
 {{< demo-intro 
     title="Visualizador de Árbol de Decisión: ¿Qué Perfil Es?"
     medical_highlight="Un Árbol de Decisión construye un 'protocolo de preguntas' claro. Aprende qué características son más distintivas para categorizar casos, permitiendo tomar decisiones rápidas y fundamentadas siguiendo un camino explicable."
-    intro_text="Un **Árbol de Decisión** es un modelo que crea una secuencia de preguntas para llegar a una conclusión, funcionando como un juego de '¿Qué Perfil Es?'. Su gran ventaja es la **interpretabilidad**: cada decisión se puede explicar paso a paso."
+    intro_text="Un Árbol de Decisión es un modelo que crea una secuencia de preguntas para llegar a una conclusión, funcionando como un juego de '¿Qué Perfil Es?'. Su gran ventaja es la interpretabilidad: cada decisión se puede explicar paso a paso."
     steps="Define el Conjunto de Casos: Elige el conjunto de casos que el modelo debe aprender a diferenciar. Cada uno tiene un perfil único con distintos atributos.|Construye el Protocolo de Preguntas: Pulsa 'Entrenar Árbol'. El algoritmo encontrará la secuencia de preguntas más eficiente, colocando la que mejor distingue en la raíz del árbol.|Sigue la Ruta de Identificación: Explora el árbol generado. Cada nodo es una pregunta de sí/no sobre una característica. Sigue las respuestas para ver cómo el modelo te guía hasta identificar el perfil correcto."
 >}}
     

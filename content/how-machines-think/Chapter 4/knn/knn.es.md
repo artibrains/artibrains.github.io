@@ -12,7 +12,7 @@ El algoritmo **K-Nearest Neighbors** (K-NN) es uno de los algoritmos de aprendiz
 
 {{< demo-intro 
     title="Clasificador K-NN Interactivo"
-    medical_highlight="El algoritmo **K-NN** clasifica nuevos datos basándose en la proximidad a datos conocidos. Es un método de **aprendizaje perezoso** que no construye un modelo explícito, sino que utiliza directamente los datos de entrenamiento."
+    medical_highlight="El algoritmo K-NN clasifica nuevos datos basándose en la proximidad a datos conocidos. Es un método de aprendizaje perezoso que no construye un modelo explícito, sino que utiliza directamente los datos de entrenamiento."
     steps="Selecciona el valor de K: Elige cuántos vecinos cercanos considerar para la clasificación. Un K pequeño es más sensible al ruido, mientras que un K grande suaviza las decisiones.|Observa las distancias: Haz clic en cualquier punto para ver cómo se calculan las distancias a todos los puntos de entrenamiento y cuáles son los K vecinos más cercanos.|Analiza la clasificación: El punto se clasifica según la clase mayoritaria entre sus K vecinos más cercanos. Experimenta con diferentes valores de K para ver cómo cambia la clasificación."
 >}}
 

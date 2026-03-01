@@ -5,23 +5,7 @@
     window.perceptronLanguage = "{{ .Page.Language.Lang }}";
 </script>
 
-<div class="demo-main-layout">
-    <div class="demo-content-panel">
-        <div class="demo-chart-container">
-            <canvas id="perceptronCanvas" width="600" height="400"></canvas>
-        </div>
-
-        <div id="info-panel" class="info-box">
-            <h3>{{ i18n "perceptron_model_state" | default "Model State" }}</h3>
-            <p>{{ i18n "perceptron_epoch" | default "Epoch" }}: <span id="epochDisplay">0</span></p>
-            <p>{{ i18n "perceptron_epoch_error" | default "Epoch Error" }}: <span id="errorDisplay">N/A</span></p>
-            <p>{{ i18n "perceptron_best_error" | default "Best Error" }}: <span id="minErrorDisplay">N/A</span></p>
-            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₁: <span id="w1Display">N/A</span></p>
-            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₂: <span id="w2Display">N/A</span></p>
-            <p>{{ i18n "perceptron_bias" | default "Bias" }} b: <span id="bDisplay">N/A</span></p>
-        </div>
-    </div>
-
+<div class="demo-wrapper demo-main-layout">
     <div class="controls-panel">
         <h3 class="demo-text-center demo-mb-md">{{ i18n "perceptron_controls_title" | default "Controls" }}</h3>
 
@@ -67,6 +51,22 @@
                 </label>
                 <input type="range" id="speedSlider" min="10" max="500" step="10" value="100" class="demo-range-input" disabled>
             </div>
+        </div>
+    </div>
+
+    <div class="demo-content-panel">
+        <div class="demo-chart-container">
+            <canvas id="perceptronCanvas" width="600" height="400"></canvas>
+        </div>
+
+        <div id="info-panel" class="info-box">
+            <h3>{{ i18n "perceptron_model_state" | default "Model State" }}</h3>
+            <p>{{ i18n "perceptron_epoch" | default "Epoch" }}: <span id="epochDisplay">0</span></p>
+            <p>{{ i18n "perceptron_epoch_error" | default "Epoch Error" }}: <span id="errorDisplay">N/A</span></p>
+            <p>{{ i18n "perceptron_best_error" | default "Best Error" }}: <span id="minErrorDisplay">N/A</span></p>
+            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₁: <span id="w1Display">N/A</span></p>
+            <p>{{ i18n "perceptron_weight" | default "Weight" }} w₂: <span id="w2Display">N/A</span></p>
+            <p>{{ i18n "perceptron_bias" | default "Bias" }} b: <span id="bDisplay">N/A</span></p>
         </div>
     </div>
 </div>

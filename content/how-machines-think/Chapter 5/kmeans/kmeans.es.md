@@ -10,21 +10,17 @@ slug: "kmeans-grupos-ocultos"
 
 El algoritmo **K-Means** es una poderosa herramienta de aprendizaje no supervisado cuya misión es explorar un conjunto de datos y descubrir "grupos" o "clusters" ocultos sin necesidad de etiquetas previas. Funciona agrupando los puntos de datos que son más similares entre sí, permitiendo revelar la estructura inherente de la información.
 
-{{< medical-context 
-    type="hospital" 
-    scenario="Un centro de servicio necesita identificar perfiles de usuarios similares basándose en algunas señales de comportamiento, sin saber de antemano cuántos grupos diferentes existen. El objetivo es descubrir segmentos que podrían beneficiarse de distintos flujos de soporte, enrutamiento o mensajes."
-    highlight="K-Means revela grupos ocultos con características similares, ayudando al equipo a diseñar procesos adaptados para cada segmento y a detectar clusters inusuales a tiempo."
+{{< demo-intro
+    title="Explorador de Clusters K-Means"
+    intro_text="El algoritmo **K-Means** es la herramienta central del capítulo para descubrir segmentos ocultos sin etiquetas previas. El centro de servicio de Minermont necesita identificar perfiles de usuarios distintos a partir de señales de comportamiento, sin saber de antemano cuántos grupos existen."
+    medical_highlight="K-Means revela grupos con características similares, ayudando al equipo a diseñar procesos adaptados para cada segmento y a detectar clusters inusuales a tiempo."
+    context_type="hospital"
+    difficulty="beginner"
 >}}
 
 ## Demostración Interactiva
 
-{{< demo-wrapper title="Explorador de Clusters K-Means" >}}
-
-{{< kmeans_intro_es >}}
-
 {{< kmeans lang="es" >}}
-
-{{< /demo-wrapper >}}
 
 ## Conceptos Fundamentales
 

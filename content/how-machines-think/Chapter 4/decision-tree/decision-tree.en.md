@@ -11,7 +11,7 @@ A **Decision Tree** is a predictive model that learns a series of simple rules â
 
 {{< demo-intro 
     title="Decision Tree Visualizer: Which Profile Is It?"
-    medical_highlight="A **Decision Tree** creates a sequence of questions to reach a conclusion, working like a 'Which Profile Is It?' game. Its main strength lies in **interpretability**: every decision can be explained step by step."
+    medical_highlight="A Decision Tree creates a sequence of questions to reach a conclusion, working like a 'Which Profile Is It?' game. Its main strength lies in interpretability: every decision can be explained step by step."
     steps="Define the Case Set: Choose the set of cases the model will learn to distinguish. Each one has a unique profile with different attributes.|Build the Question Protocol: Click 'Train Tree'. The algorithm will find the most efficient sequence of questions, placing the most discriminative one at the root.|Follow the Identification Path: Explore the generated tree. Each node is a yes/no question about a feature. Follow the answers to see how the model guides you to the correct profile."
 >}}
     

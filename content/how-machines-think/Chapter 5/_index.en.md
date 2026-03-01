@@ -17,7 +17,7 @@ Director Elena poses a new challenge: can AI help identify groups of users that 
 
 In this chapter, you’ll follow the team through their first major unsupervised learning project, where they use the **K-Means** algorithm to segment users. Through an interactive simulation, you’ll experience their process of discovery:
 
-1. **[The Discoverer of Hidden Groups]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.en.md" %}})**: Step into the shoes of Marta and Luis. First, you'll use the **Elbow Method** to determine the optimal number of clusters (K)—the same methodological dilemma they faced. Then, you'll run the K-Means algorithm to visualize how it groups users, recreating the "eureka moment" when they identified a previously invisible behavior segment.
+1. **[5.2 The Power of Clustering: Discovering Hidden Groups]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.en.md" %}})**: Step into the shoes of Marta and Luis. First, you'll use the **Elbow Method** to determine the optimal number of clusters (K)—the same methodological dilemma they faced. Then, you'll run the K-Means algorithm to visualize how it groups users, recreating the "eureka moment" when they identified a previously invisible behavior segment.
 
 Get ready for a new way of thinking—where AI doesn't just answer our questions, but helps us discover the ones we didn't yet know we needed to ask.
 
@@ -27,4 +27,4 @@ Get ready for a new way of thinking—where AI doesn't just answer our questions
 
 ### Bibliography and Additional Resources
 
-- **[K-Means and Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.en.md" %}})**: Verified resources and references on clustering algorithms, unsupervised learning and the elbow method.
+- **[📚 Bibliography: K-Means and Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.en.md" %}})**: Verified resources and references on clustering algorithms, unsupervised learning and the elbow method.

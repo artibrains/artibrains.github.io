@@ -29,4 +29,4 @@ This chapter focuses on post-training and deployment mindset: learning from pref
 
 ### Bibliography and Additional Resources
 
-- **[LLMs Applications and Safety]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.en.md" %}})**: Resources on prompting, post-training, evaluation, and responsible LLM deployment.
+- **[📚 Bibliography: LLM Applications and Safety]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.en.md" %}})**: Resources on prompting, post-training, evaluation, and responsible LLM deployment.

@@ -1,7 +1,7 @@
 ---
 title: "6.4 CNN Digit Lab: Draw, Train, and Predict"
 description: "Interactive CNN lab to recognize handwritten digits: train from scratch or load a pretrained snapshot."
-weight: 4
+weight: 7
 draft: false
 slug: "cnn-digit-lab"
 ---

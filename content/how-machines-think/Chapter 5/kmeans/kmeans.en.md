@@ -10,21 +10,17 @@ slug: "kmeans-hidden-groups"
 
 The **K-Means** algorithm is a powerful unsupervised learning tool whose mission is to explore a dataset and discover hidden "groups" or "clusters" without requiring prior labels. It works by grouping data points that are most similar to each other, revealing the inherent structure of the information.
 
-{{< medical-context 
-    type="hospital" 
-    scenario="A service center needs to identify profiles of similar users based on a few behavioral signals, without knowing beforehand how many different groups exist. The goal is to discover segments that may benefit from different routing, messaging, or support workflows."
-    highlight="K-Means uncovers hidden groups with similar characteristics, helping the team design tailored processes for each segment and detect unusual clusters early."
+{{< demo-intro
+    title="K-Means Cluster Explorer"
+    intro_text="**K-Means** is the central algorithm of this chapter for discovering hidden segments without prior labels. Minermont's service center needs to identify distinct user profiles from behavioural signals, without knowing in advance how many groups exist."
+    medical_highlight="K-Means uncovers groups with similar characteristics, helping the team design tailored processes for each segment and detect unusual clusters early."
+    context_type="hospital"
+    difficulty="beginner"
 >}}
 
 ## Interactive Demonstration
 
-{{< demo-wrapper title="K-Means Cluster Explorer" >}}
-
-{{< kmeans_intro_es lang="en" >}}
-
 {{< kmeans lang="en" >}}
-
-{{< /demo-wrapper >}}
 
 ## Core Concepts
 

@@ -2,29 +2,6 @@
 
 <link rel="stylesheet" href="/css/unified-demos.css">
 
-<div class="medical-context">
-    <h2>{{ if eq $lang "es" }}🏥 Contexto Médico: Clasificación de Células Tumorales{{ else }}🏥 Medical Context: Tumor
-        Cell Classification{{ end }}</h2>
-    <div class="medical-scenario">
-        <div class="scenario-text">
-            <p><strong>{{ if eq $lang "es" }}Imagina:{{ else }}Imagine:{{ end }}</strong> {{ if eq $lang "es" }}Estás
-                analizando células de una biopsia para determinar si un tumor es benigno
-                o maligno. Dispones de características medibles como el tamaño del núcleo, la textura de la membrana y
-                la uniformidad de la célula.{{ else }}You're analyzing cells from a biopsy to determine if a tumor is
-                benign
-                or malignant. You have measurable characteristics such as nucleus size, membrane texture, and
-                cell uniformity.{{ end }}</p>
-            <p class="highlight">{{ if eq $lang "es" }}El algoritmo K-NN puede clasificar una nueva célula (un caso
-                desconocido) comparándola
-                con las células ya diagnosticadas. Si sus vecinos más cercanos son mayoritariamente malignos, el modelo
-                predecirá que la nueva célula también lo es.{{ else }}The K-NN algorithm can classify a new cell (an
-                unknown case) by comparing it
-                with already diagnosed cells. If its nearest neighbors are mostly malignant, the model
-                will predict that the new cell is also malignant.{{ end }}</p>
-        </div>
-    </div>
-</div>
-
 <div id="app-explanation">
     <h1>{{ if eq $lang "es" }}Simulador Interactivo: K-Vecinos más Cercanos (K-NN){{ else }}Interactive Simulator:
         K-Nearest Neighbors (K-NN){{ end }}</h1>

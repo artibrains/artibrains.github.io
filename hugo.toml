@@ -78,7 +78,7 @@ defaultContentLanguageInSubdir = false
 
 [params]
   themeVariant = ['auto','zen-light', 'zen-dark']
-    themeVariantAuto = ['zen-light', 'zen-dark']
+  themeVariantAuto = ['zen-light', 'zen-dark']
 
   # Mostrar selector de idiomas
   showLanguageSwitcher = true
@@ -88,4 +88,8 @@ defaultContentLanguageInSubdir = false
   # Enable math rendering globally
   math = true
   customMathJaxURL = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+
+  # Book purchase links
+  bookLinkEn = 'https://www.amazon.com/dp/B0GQD23YVM'
+  bookLinkEs = 'https://www.amazon.es/dp/B0GQD33N6T'
 

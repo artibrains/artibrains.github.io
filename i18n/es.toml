@@ -16,7 +16,7 @@ other = "Edición bilingüe (ES/EN)"
 other = "Guías prácticas (Prompting, Métricas, K‑Means, Transformers)"
 
 [coming_soon]
-other = "📚 Próximamente disponible - Finales de 2025"
+other = "📚 Próximamente disponible - 2026"
 
 [cover_alt]
 other = "Portada del libro"
@@ -405,3 +405,9 @@ other = "Próximamente"
 
 [in_development]
 other = "En desarrollo"
+
+[buy_on_amazon]
+other = "🛒 Comprar en Amazon"
+
+[book_link]
+other = "https://www.amazon.es/dp/B0GQD33N6T"

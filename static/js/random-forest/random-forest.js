@@ -1,438 +1,390 @@
-// Random Forest Visualization
-// Demonstrates how multiple decision trees work together
+// Random Forest Visualization v2 – canvas-based graphical output
 
-// --- Translation System ---
-const rfTranslations = {
+// ── Colours ──────────────────────────────────────────────────────────────────
+const RF_COLORS = ['#e85d04', '#0077b6', '#2d6a4f'];
+const RF_COLORS_BG = ['rgba(232,93,4,0.20)', 'rgba(0,119,182,0.20)', 'rgba(45,106,79,0.20)'];
+
+// ── i18n ─────────────────────────────────────────────────────────────────────
+const rfI18n = {
     es: {
-        appInitialized: "RF: Aplicación de Random Forest inicializada.",
-        dataGenerated: "RF: Datos generados - {samples} muestras, {features} características.",
-        trainingStarted: "RF: Iniciando entrenamiento de {trees} árboles...",
-        treeTraining: "RF: Entrenando árbol {current}/{total}...",
-        trainingComplete: "RF: Entrenamiento completado. Precisión: {accuracy}%",
-        predictionMade: "RF: Predicción para punto: {result}",
-        viral: "Facturación",
-        bacterial: "Soporte técnico",
-        fungal: "Cuenta",
-        accuracy: "Precisión",
-        oobError: "Error OOB",
-        treesVoting: "Votos de los árboles",
-        finalPrediction: "Predicción final",
-        confidence: "Confianza",
-        symptom: "Señal",
-        biomarker: "Atributo"
+        init: 'RF: Aplicación inicializada.',
+        generated: 'RF: Datos generados – {n} muestras.',
+        training: 'RF: Entrenando {t} árboles...',
+        done: 'RF: Entrenamiento completado. Precisión: {a}%',
+        predicted: 'RF: Predicción → {cls} (confianza: {c}%)',
+        c0: 'Facturación', c1: 'Soporte técnico', c2: 'Cuentas',
+        accuracy: 'Precisión', trees: 'Árboles', depth: 'Profundidad',
+        treeLabel: 'Árbol', votes: 'votos'
     },
     en: {
-        appInitialized: "RF: Random Forest application initialized.",
-        dataGenerated: "RF: Data generated - {samples} samples, {features} features.",
-        trainingStarted: "RF: Starting training of {trees} trees...",
-        treeTraining: "RF: Training tree {current}/{total}...",
-        trainingComplete: "RF: Training completed. Accuracy: {accuracy}%",
-        predictionMade: "RF: Prediction for point: {result}",
-        viral: "Billing",
-        bacterial: "Technical",
-        fungal: "Account",
-        accuracy: "Accuracy",
-        oobError: "OOB Error",
-        treesVoting: "Tree votes",
-        finalPrediction: "Final prediction",
-        confidence: "Confidence",
-        symptom: "Signal",
-        biomarker: "Attribute"
+        init: 'RF: Application initialized.',
+        generated: 'RF: Data generated – {n} samples.',
+        training: 'RF: Training {t} trees...',
+        done: 'RF: Training complete. Accuracy: {a}%',
+        predicted: 'RF: Prediction → {cls} (confidence: {c}%)',
+        c0: 'Billing', c1: 'Tech support', c2: 'Accounts',
+        accuracy: 'Accuracy', trees: 'Trees', depth: 'Depth',
+        treeLabel: 'Tree', votes: 'votes'
     }
 };
 
-let rfLang = 'en';
-
-function rf_t(key, params = {}) {
-    const currentLang = window.randomForestLanguage || rfLang;
-    let text = (rfTranslations[currentLang] && rfTranslations[currentLang][key]) || rfTranslations['en'][key] || key;
-    Object.keys(params).forEach(k => {
-        text = text.replace(`{${k}}`, params[k]);
-    });
-    return text;
+function rfT(key, vars = {}) {
+    const lang = window.randomForestLanguage || 'en';
+    const dict = rfI18n[lang] || rfI18n.en;
+    let s = dict[key] || key;
+    Object.keys(vars).forEach(k => { s = s.replace(`{${k}}`, vars[k]); });
+    return s;
 }
 
-function writeToTerminal(message) {
+function toTerminal(msg) {
     if (window.CustomTerminal && typeof window.CustomTerminal.write === 'function') {
-        window.CustomTerminal.write(message + "\n");
+        window.CustomTerminal.write(msg + '\n');
     }
 }
 
-// Simple Decision Tree class
-class SimpleDecisionTree {
-    constructor(maxDepth = 4, minSamples = 5, featuresRatio = 0.7) {
+// ── Gaussian helper ───────────────────────────────────────────────────────────
+function randn() {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+// ── Data generator (2-D so we can plot it) ───────────────────────────────────
+function generateData(n = 30) {
+    const clusters = [
+        { cx: 0.25, cy: 0.75, s: 0.10 },
+        { cx: 0.75, cy: 0.75, s: 0.10 },
+        { cx: 0.50, cy: 0.25, s: 0.10 }
+    ];
+    const X = [], y = [];
+    clusters.forEach((c, cls) => {
+        for (let i = 0; i < n; i++) {
+            const x = Math.max(0.02, Math.min(0.98, c.cx + randn() * c.s));
+            const z = Math.max(0.02, Math.min(0.98, c.cy + randn() * c.s));
+            X.push([x, z]);
+            y.push(cls);
+        }
+    });
+    return { X, y };
+}
+
+// ── Decision Tree ─────────────────────────────────────────────────────────────
+class DecisionTree {
+    constructor(maxDepth = 4, minSamples = 3, featRatio = 0.7) {
         this.maxDepth = maxDepth;
         this.minSamples = minSamples;
-        this.featuresRatio = featuresRatio;
-        this.tree = null;
+        this.featRatio = featRatio;
+        this.root = null;
     }
 
-    fit(X, y, availableFeatures = null) {
-        const features = availableFeatures || [...Array(X[0].length).keys()];
-        this.tree = this.buildTree(X, y, features, 0);
+    fit(X, y) {
+        const nFeat = X[0].length;
+        this.root = this._build(X, y, [...Array(nFeat).keys()], 0);
     }
 
-    buildTree(X, y, features, depth) {
-        // Base cases
-        if (depth >= this.maxDepth || X.length < this.minSamples) {
-            return this.createLeaf(y);
+    _build(X, y, feats, depth) {
+        if (depth >= this.maxDepth || X.length < this.minSamples || this._pure(y)) {
+            return this._leaf(y);
         }
 
-        // Check if all samples have same class
-        const uniqueClasses = [...new Set(y)];
-        if (uniqueClasses.length === 1) {
-            return this.createLeaf(y);
-        }
+        const k = Math.max(1, Math.round(feats.length * this.featRatio));
+        const sub = feats.slice().sort(() => Math.random() - 0.5).slice(0, k);
+        const split = this._bestSplit(X, y, sub);
+        if (!split) return this._leaf(y);
 
-        // Select random subset of features
-        const numFeatures = Math.max(1, Math.floor(features.length * this.featuresRatio));
-        const selectedFeatures = this.randomSubset(features, numFeatures);
-
-        // Find best split
-        const bestSplit = this.findBestSplit(X, y, selectedFeatures);
-        
-        if (!bestSplit) {
-            return this.createLeaf(y);
-        }
-
-        // Create split
-        const leftIndices = [];
-        const rightIndices = [];
-        
-        X.forEach((sample, idx) => {
-            if (sample[bestSplit.feature] <= bestSplit.threshold) {
-                leftIndices.push(idx);
-            } else {
-                rightIndices.push(idx);
-            }
-        });
-
-        if (leftIndices.length === 0 || rightIndices.length === 0) {
-            return this.createLeaf(y);
-        }
-
-        const leftX = leftIndices.map(i => X[i]);
-        const leftY = leftIndices.map(i => y[i]);
-        const rightX = rightIndices.map(i => X[i]);
-        const rightY = rightIndices.map(i => y[i]);
+        const li = [], ri = [];
+        X.forEach((s, i) => (s[split.f] <= split.t ? li : ri).push(i));
+        if (!li.length || !ri.length) return this._leaf(y);
 
         return {
-            feature: bestSplit.feature,
-            threshold: bestSplit.threshold,
-            left: this.buildTree(leftX, leftY, features, depth + 1),
-            right: this.buildTree(rightX, rightY, features, depth + 1)
+            leaf: false, f: split.f, t: split.t,
+            left: this._build(li.map(i => X[i]), li.map(i => y[i]), feats, depth + 1),
+            right: this._build(ri.map(i => X[i]), ri.map(i => y[i]), feats, depth + 1)
         };
     }
 
-    findBestSplit(X, y, features) {
-        let bestGini = Infinity;
-        let bestSplit = null;
+    _pure(y) { return new Set(y).size === 1; }
 
-        features.forEach(feature => {
-            const values = X.map(sample => sample[feature]);
-            const uniqueValues = [...new Set(values)].sort((a, b) => a - b);
-
-            for (let i = 0; i < uniqueValues.length - 1; i++) {
-                const threshold = (uniqueValues[i] + uniqueValues[i + 1]) / 2;
-                
-                const leftY = [];
-                const rightY = [];
-                
-                X.forEach((sample, idx) => {
-                    if (sample[feature] <= threshold) {
-                        leftY.push(y[idx]);
-                    } else {
-                        rightY.push(y[idx]);
-                    }
-                });
-
-                if (leftY.length === 0 || rightY.length === 0) continue;
-
-                const gini = (leftY.length / y.length) * this.giniImpurity(leftY) +
-                            (rightY.length / y.length) * this.giniImpurity(rightY);
-
-                if (gini < bestGini) {
-                    bestGini = gini;
-                    bestSplit = { feature, threshold };
-                }
-            }
+    _bestSplit(X, y, feats) {
+        let best = null, bestG = Infinity;
+        feats.forEach(f => {
+            const vals = [...new Set(X.map(s => s[f]))].sort((a, b) => a - b);
+            const thresholds = vals.slice(0, -1).map((v, i) => (v + vals[i + 1]) / 2).slice(0, 12);
+            thresholds.forEach(t => {
+                const lY = y.filter((_, i) => X[i][f] <= t);
+                const rY = y.filter((_, i) => X[i][f] > t);
+                if (!lY.length || !rY.length) return;
+                const g = (lY.length * this._gini(lY) + rY.length * this._gini(rY)) / y.length;
+                if (g < bestG) { bestG = g; best = { f, t }; }
+            });
         });
-
-        return bestSplit;
+        return best;
     }
 
-    giniImpurity(y) {
+    _gini(y) {
+        const n = y.length, counts = {};
+        y.forEach(c => { counts[c] = (counts[c] || 0) + 1; });
+        return 1 - Object.values(counts).reduce((s, c) => s + (c / n) ** 2, 0);
+    }
+
+    _leaf(y) {
         const counts = {};
-        y.forEach(label => {
-            counts[label] = (counts[label] || 0) + 1;
-        });
-
-        let impurity = 1.0;
-        Object.values(counts).forEach(count => {
-            const p = count / y.length;
-            impurity -= p * p;
-        });
-
-        return impurity;
+        y.forEach(c => { counts[c] = (counts[c] || 0) + 1; });
+        const pred = +Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+        return { leaf: true, pred, counts };
     }
 
-    createLeaf(y) {
-        const counts = {};
-        y.forEach(label => {
-            counts[label] = (counts[label] || 0) + 1;
-        });
+    predict(X) { return X.map(s => this.predictOne(s)); }
 
-        let maxCount = 0;
-        let prediction = 0;
-
-        Object.entries(counts).forEach(([label, count]) => {
-            if (count > maxCount) {
-                maxCount = count;
-                prediction = parseInt(label);
-            }
-        });
-
-        return { prediction, isLeaf: true };
-    }
-
-    predict(X) {
-        return X.map(sample => this.predictSample(sample, this.tree));
-    }
-
-    predictSample(sample, node) {
-        if (node.isLeaf) {
-            return node.prediction;
-        }
-
-        if (sample[node.feature] <= node.threshold) {
-            return this.predictSample(sample, node.left);
-        } else {
-            return this.predictSample(sample, node.right);
-        }
-    }
-
-    randomSubset(array, size) {
-        const shuffled = array.slice().sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, size);
+    predictOne(sample, node = this.root) {
+        if (!node || node.leaf) return node ? node.pred : 0;
+        return sample[node.f] <= node.t
+            ? this.predictOne(sample, node.left)
+            : this.predictOne(sample, node.right);
     }
 }
 
-// Random Forest class
+// ── Random Forest ─────────────────────────────────────────────────────────────
 class RandomForest {
-    constructor(numTrees = 10, maxDepth = 4, featuresRatio = 0.7) {
-        this.numTrees = numTrees;
+    constructor(nTrees = 10, maxDepth = 4, featRatio = 0.7) {
+        this.nTrees = nTrees;
         this.maxDepth = maxDepth;
-        this.featuresRatio = featuresRatio;
+        this.featRatio = featRatio;
         this.trees = [];
-        this.oobIndices = [];
     }
 
     fit(X, y) {
         this.trees = [];
-        this.oobIndices = [];
-
-        for (let i = 0; i < this.numTrees; i++) {
-            writeToTerminal(rf_t('treeTraining', { current: i + 1, total: this.numTrees }));
-            
-            // Bootstrap sampling
-            const { bootstrapX, bootstrapY, oobIndices } = this.bootstrap(X, y);
-            this.oobIndices.push(oobIndices);
-
-            // Train tree
-            const tree = new SimpleDecisionTree(this.maxDepth, 5, this.featuresRatio);
-            tree.fit(bootstrapX, bootstrapY);
-            this.trees.push(tree);
+        for (let i = 0; i < this.nTrees; i++) {
+            const { bX, bY } = this._bootstrap(X, y);
+            const t = new DecisionTree(this.maxDepth, 3, this.featRatio);
+            t.fit(bX, bY);
+            this.trees.push(t);
         }
     }
 
-    bootstrap(X, y) {
-        const n = X.length;
-        const bootstrapX = [];
-        const bootstrapY = [];
-        const indices = new Set();
-        const oobIndices = [];
-
-        // Sample with replacement
+    _bootstrap(X, y) {
+        const n = X.length, bX = [], bY = [];
         for (let i = 0; i < n; i++) {
-            const idx = Math.floor(Math.random() * n);
-            bootstrapX.push(X[idx]);
-            bootstrapY.push(y[idx]);
-            indices.add(idx);
+            const idx = (Math.random() * n) | 0;
+            bX.push(X[idx]); bY.push(y[idx]);
         }
-
-        // Collect OOB indices
-        for (let i = 0; i < n; i++) {
-            if (!indices.has(i)) {
-                oobIndices.push(i);
-            }
-        }
-
-        return { bootstrapX, bootstrapY, oobIndices };
+        return { bX, bY };
     }
 
-    predict(X) {
-        // Get predictions from all trees
-        const allPredictions = this.trees.map(tree => tree.predict(X));
-
-        // Majority voting
-        const finalPredictions = [];
-        for (let i = 0; i < X.length; i++) {
-            const votes = {};
-            allPredictions.forEach(predictions => {
-                const pred = predictions[i];
-                votes[pred] = (votes[pred] || 0) + 1;
-            });
-
-            let maxVotes = 0;
-            let finalPred = 0;
-            Object.entries(votes).forEach(([pred, count]) => {
-                if (count > maxVotes) {
-                    maxVotes = count;
-                    finalPred = parseInt(pred);
-                }
-            });
-
-            finalPredictions.push(finalPred);
-        }
-
-        return finalPredictions;
-    }
-
-    predictWithVotes(sample) {
-        const votes = {};
-        this.trees.forEach(tree => {
-            const pred = tree.predictSample(sample, tree.tree);
-            votes[pred] = (votes[pred] || 0) + 1;
+    votes(sample) {
+        const v = {};
+        this.trees.forEach(t => {
+            const p = t.predictOne(sample);
+            v[p] = (v[p] || 0) + 1;
         });
-        return votes;
+        return v;
+    }
+
+    predictOne(sample) {
+        const v = this.votes(sample);
+        return +Object.entries(v).sort((a, b) => b[1] - a[1])[0][0];
+    }
+
+    predict(X) { return X.map(s => this.predictOne(s)); }
+}
+
+function rfAccuracy(yTrue, yPred) {
+    return (yTrue.filter((y, i) => y === yPred[i]).length / yTrue.length * 100).toFixed(1);
+}
+
+// ── Canvas rendering ──────────────────────────────────────────────────────────
+const RF_GRID = 50;
+
+/**
+ * Draw decision boundary (coloured background) + scatter plot on a canvas.
+ * @param {HTMLCanvasElement} canvas
+ * @param {function} predictFn  (sample:[x,y]) => classIndex
+ * @param {{ X: number[][], y: number[] }|null} data  data points to overlay
+ * @param {number} dotR  dot radius for data points
+ */
+function drawCanvas(canvas, predictFn, data, dotR = 4) {
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Decision boundary background
+    const step = 1 / RF_GRID;
+    const pW = W / RF_GRID, pH = H / RF_GRID;
+    for (let row = 0; row < RF_GRID; row++) {
+        for (let col = 0; col < RF_GRID; col++) {
+            const x = col * step + step / 2;
+            const z = 1 - (row * step + step / 2); // y-axis flipped
+            const pred = predictFn([x, z]);
+            ctx.fillStyle = RF_COLORS_BG[pred] || 'rgba(128,128,128,0.12)';
+            ctx.fillRect(col * pW, row * pH, pW + 1, pH + 1);
+        }
+    }
+
+    // Subtle grid lines
+    ctx.strokeStyle = 'rgba(0,0,0,0.07)';
+    ctx.lineWidth = 0.5;
+    for (let i = 1; i < 5; i++) {
+        ctx.beginPath(); ctx.moveTo(W * i / 5, 0); ctx.lineTo(W * i / 5, H); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, H * i / 5); ctx.lineTo(W, H * i / 5); ctx.stroke();
+    }
+
+    // Data points
+    if (data) {
+        data.X.forEach((s, i) => {
+            const px = s[0] * W, py = (1 - s[1]) * H;
+            ctx.beginPath();
+            ctx.arc(px, py, dotR, 0, 2 * Math.PI);
+            ctx.fillStyle = RF_COLORS[data.y[i]];
+            ctx.fill();
+            if (dotR >= 4) {
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        });
     }
 }
 
-// Data generation
-function generateData(samplesPerClass = 30) {
-    const data = { X: [], y: [] };
-    const numFeatures = 4;
-    
-    // Three classes with different patterns
-    const patterns = [
-        { mean: [1, 1, 0, 0], std: 0.5 },   // viral
-        { mean: [0, 0, 1, 1], std: 0.5 },   // bacterial
-        { mean: [1, 0, 1, 0], std: 0.5 }    // fungal
-    ];
-
-    patterns.forEach((pattern, classIdx) => {
-        for (let i = 0; i < samplesPerClass; i++) {
-            const sample = pattern.mean.map((mean, featIdx) => 
-                mean + (Math.random() - 0.5) * 2 * pattern.std
-            );
-            data.X.push(sample);
-            data.y.push(classIdx);
-        }
-    });
-
-    return data;
-}
-
-// Calculate accuracy
-function calculateAccuracy(yTrue, yPred) {
-    let correct = 0;
-    yTrue.forEach((label, idx) => {
-        if (label === yPred[idx]) correct++;
-    });
-    return (correct / yTrue.length * 100).toFixed(1);
-}
-
-// DOM initialization
+// ── DOM init ─────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    rfLang = window.randomForestLanguage || 'en';
-    writeToTerminal(rf_t('appInitialized'));
+    toTerminal(rfT('init'));
 
     const treesSlider = document.getElementById('rf-trees-slider');
-    const treesValue = document.getElementById('rf-trees-value');
+    const treesVal = document.getElementById('rf-trees-value');
     const depthSlider = document.getElementById('rf-depth-slider');
-    const depthValue = document.getElementById('rf-depth-value');
-    const featuresSlider = document.getElementById('rf-features-slider');
-    const featuresValue = document.getElementById('rf-features-value');
+    const depthVal = document.getElementById('rf-depth-value');
+    const featSlider = document.getElementById('rf-features-slider');
+    const featVal = document.getElementById('rf-features-value');
     const generateBtn = document.getElementById('rf-generate-btn');
-    const trainBtn = document.getElementById('rf-train-btn');
-    const visualizationContainer = document.getElementById('rf-visualization-container');
-    const trainingStatus = document.getElementById('rf-training-status');
-    const treesContainer = document.getElementById('rf-trees-container');
+    const mainCanvas = document.getElementById('rf-main-canvas');
+    const treesGrid = document.getElementById('rf-trees-container');
     const metricsDiv = document.getElementById('rf-metrics');
+    const votingDiv = document.getElementById('rf-voting-results');
+    const legendDiv = document.getElementById('rf-canvas-legend');
 
-    let currentData = null;
+    let data = null;
     let forest = null;
 
-    // Update slider values
-    treesSlider.addEventListener('input', (e) => {
-        treesValue.textContent = e.target.value;
-    });
+    // Slider labels
+    treesSlider.addEventListener('input', e => { treesVal.textContent = e.target.value; });
+    depthSlider.addEventListener('input', e => { depthVal.textContent = e.target.value; });
+    featSlider.addEventListener('input', e => { featVal.textContent = e.target.value + '%'; });
 
-    depthSlider.addEventListener('input', (e) => {
-        depthValue.textContent = e.target.value;
-    });
+    // Retrain when a slider is released
+    [treesSlider, depthSlider, featSlider].forEach(s =>
+        s.addEventListener('change', () => { if (data) train(); })
+    );
 
-    featuresSlider.addEventListener('input', (e) => {
-        featuresValue.textContent = e.target.value + '%';
-    });
-
-    // Generate data
+    // Regenerate button
     generateBtn.addEventListener('click', () => {
-        currentData = generateData(30);
-        writeToTerminal(rf_t('dataGenerated', { 
-            samples: currentData.X.length, 
-            features: currentData.X[0].length 
-        }));
-        
-        trainBtn.disabled = false;
-        visualizationContainer.classList.remove('hidden');
-        trainingStatus.innerHTML = '<p>' + (rfLang === 'es' ? 'Datos generados. Listo para entrenar.' : 'Data generated. Ready to train.') + '</p>';
+        data = generateData(30);
+        toTerminal(rfT('generated', { n: data.X.length }));
+        votingDiv.classList.add('rf-hidden');
+        train();
     });
 
-    // Train forest
-    trainBtn.addEventListener('click', async () => {
-        if (!currentData) return;
-        
-        const numTrees = parseInt(treesSlider.value);
-        const maxDepth = parseInt(depthSlider.value);
-        const featuresRatio = parseInt(featuresSlider.value) / 100;
-        
-        writeToTerminal(rf_t('trainingStarted', { trees: numTrees }));
-        trainingStatus.innerHTML = '<p>' + (rfLang === 'es' ? 'Entrenando...' : 'Training...') + '</p>';
-        
-        // Small delay for UI update
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        forest = new RandomForest(numTrees, maxDepth, featuresRatio);
-        forest.fit(currentData.X, currentData.y);
-        
-        const predictions = forest.predict(currentData.X);
-        const accuracy = calculateAccuracy(currentData.y, predictions);
-        
-        writeToTerminal(rf_t('trainingComplete', { accuracy: accuracy }));
-        
-        displayResults(forest, currentData, accuracy);
+    // Click on main canvas → show votes
+    mainCanvas.addEventListener('click', e => {
+        if (!forest) return;
+        const rect = mainCanvas.getBoundingClientRect();
+        const scaleX = mainCanvas.width / rect.width;
+        const scaleY = mainCanvas.height / rect.height;
+        const px = (e.clientX - rect.left) * scaleX;
+        const py = (e.clientY - rect.top) * scaleY;
+        const x = px / mainCanvas.width;
+        const z = 1 - py / mainCanvas.height;
+
+        const v = forest.votes([x, z]);
+        const total = Object.values(v).reduce((a, b) => a + b, 0);
+        const winner = +Object.entries(v).sort((a, b) => b[1] - a[1])[0][0];
+        const conf = ((v[winner] / total) * 100).toFixed(0);
+
+        toTerminal(rfT('predicted', { cls: rfT('c' + winner), c: conf }));
+
+        // Redraw + highlight clicked point
+        drawCanvas(mainCanvas, s => forest.predictOne(s), data, 4);
+        const ctx = mainCanvas.getContext('2d');
+        ctx.beginPath(); ctx.arc(px, py, 9, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'white'; ctx.lineWidth = 3; ctx.stroke();
+        ctx.beginPath(); ctx.arc(px, py, 9, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.beginPath(); ctx.arc(px, py, 4.5, 0, 2 * Math.PI);
+        ctx.fillStyle = RF_COLORS[winner]; ctx.fill();
+
+        // Voting bars
+        const names = [rfT('c0'), rfT('c1'), rfT('c2')];
+        votingDiv.classList.remove('rf-hidden');
+        votingDiv.innerHTML = Object.entries(v)
+            .sort((a, b) => b[1] - a[1])
+            .map(([cls, cnt]) => {
+                const pct = (cnt / total * 100).toFixed(0);
+                const name = names[+cls] || `Class ${cls}`;
+                return `<div class="rf-vote-row">
+                    <span class="rf-vote-label" style="color:${RF_COLORS[+cls]}">${name}</span>
+                    <div class="rf-bar-bg"><div class="rf-bar-fill" style="width:${pct}%;background:${RF_COLORS[+cls]}"></div></div>
+                    <span class="rf-vote-pct">${cnt}&nbsp;${rfT('votes')}&nbsp;(${pct}%)</span>
+                </div>`;
+            }).join('');
     });
 
-    function displayResults(forest, data, accuracy) {
-        trainingStatus.innerHTML = `
-            <p><strong>${rfLang === 'es' ? '✓ Entrenamiento completado' : '✓ Training completed'}</strong></p>
-            <p>${rfLang === 'es' ? 'Árboles en el bosque' : 'Trees in forest'}: ${forest.numTrees}</p>
-        `;
-
-        // Display individual trees info
-        treesContainer.innerHTML = `
-            <div class="demo-info-card">
-                <p>${rfLang === 'es' ? 'El bosque contiene ' + forest.numTrees + ' árboles de decisión.' : 'The forest contains ' + forest.numTrees + ' decision trees.'}</p>
-                <p>${rfLang === 'es' ? 'Cada árbol fue entrenado con una muestra bootstrap diferente.' : 'Each tree was trained on a different bootstrap sample.'}</p>
-            </div>
-        `;
-
-        // Display metrics
-        metricsDiv.innerHTML = `
-            <p><strong>${rf_t('accuracy')}:</strong> ${accuracy}%</p>
-            <p><strong>${rfLang === 'es' ? 'Número de árboles' : 'Number of trees'}:</strong> ${forest.numTrees}</p>
-            <p><strong>${rfLang === 'es' ? 'Profundidad máxima' : 'Maximum depth'}:</strong> ${forest.maxDepth}</p>
-        `;
+    // Legend
+    function renderLegend() {
+        legendDiv.innerHTML = [rfT('c0'), rfT('c1'), rfT('c2')].map((n, i) =>
+            `<span class="rf-legend-item">
+                <span class="rf-legend-dot" style="background:${RF_COLORS[i]}"></span>${n}
+             </span>`
+        ).join('');
     }
+
+    // Train
+    function train() {
+        if (!data) return;
+        const nTrees = +treesSlider.value;
+        const maxDepth = +depthSlider.value;
+        const featRatio = +featSlider.value / 100;
+
+        toTerminal(rfT('training', { t: nTrees }));
+        forest = new RandomForest(nTrees, maxDepth, featRatio);
+        forest.fit(data.X, data.y);
+
+        const preds = forest.predict(data.X);
+        const acc = rfAccuracy(data.y, preds);
+        toTerminal(rfT('done', { a: acc }));
+
+        // Main canvas: decision boundary + scatter
+        drawCanvas(mainCanvas, s => forest.predictOne(s), data, 4);
+        renderLegend();
+
+        // Metrics
+        metricsDiv.innerHTML = `
+            <p><strong>${rfT('accuracy')}:</strong>&nbsp;${acc}%</p>
+            <p><strong>${rfT('trees')}:</strong>&nbsp;${nTrees}&emsp;
+               <strong>${rfT('depth')}:</strong>&nbsp;${maxDepth}</p>`;
+
+        // Individual tree mini-canvases (max 9)
+        treesGrid.innerHTML = '';
+        const show = Math.min(nTrees, 9);
+        for (let i = 0; i < show; i++) {
+            const card = document.createElement('div');
+            card.className = 'rf-tree-card';
+            const lbl = document.createElement('p');
+            lbl.className = 'rf-tree-label';
+            lbl.textContent = `${rfT('treeLabel')} ${i + 1}`;
+            const cv = document.createElement('canvas');
+            cv.width = 110; cv.height = 110;
+            card.appendChild(lbl);
+            card.appendChild(cv);
+            treesGrid.appendChild(card);
+            const tree = forest.trees[i];
+            drawCanvas(cv, s => tree.predictOne(s), data, 2);
+        }
+    }
+
+    // Auto-init on load
+    data = generateData(30);
+    toTerminal(rfT('generated', { n: data.X.length }));
+    train();
+    renderLegend();
 });

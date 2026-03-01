@@ -13,8 +13,7 @@
 }
 
 /* Light mode specific colors */
-:root[data-r-theme-variant="zen-light"],
-:root[data-r-theme-variant="auto"] {
+:root[data-r-theme-variant="zen-light"] {
     --prof-primary: #0f172a;
     --prof-secondary: #334155;
     --prof-accent: #2563eb;
@@ -24,8 +23,37 @@
     --prof-text: #1e293b;
     --prof-text-muted: #64748b;
     --prof-border: #e2e8f0;
-    /* Fix sidebar transparency in light mode */
     --MENU-SECTIONS-BG-color: #f8fafc;
+}
+
+/* Auto mode — sigue la preferencia del sistema */
+@media (prefers-color-scheme: light) {
+    :root[data-r-theme-variant="auto"] {
+        --prof-primary: #0f172a;
+        --prof-secondary: #334155;
+        --prof-accent: #2563eb;
+        --prof-accent-hover: #1d4ed8;
+        --prof-bg: #ffffff;
+        --prof-bg-alt: #f8fafc;
+        --prof-text: #1e293b;
+        --prof-text-muted: #64748b;
+        --prof-border: #e2e8f0;
+        --MENU-SECTIONS-BG-color: #f8fafc;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-r-theme-variant="auto"] {
+        --prof-primary: #e2e8f0;
+        --prof-secondary: #94a3b8;
+        --prof-accent: #60a5fa;
+        --prof-accent-hover: #93c5fd;
+        --prof-bg: #1a1a1a;
+        --prof-bg-alt: #0a0a0a;
+        --prof-text: #e2e8f0;
+        --prof-text-muted: #94a3b8;
+        --prof-border: #2a2a2a;
+    }
 }
 
 /* Dark mode specific colors */

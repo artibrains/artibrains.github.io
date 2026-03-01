@@ -1,5 +1,5 @@
 ---
-title: "4.1 Estrategias Multiclase: Uno contra Resto (OvR) y Uno contra Uno (OvO)"
+title: "4.2 Estrategias Multiclase: Uno contra Resto (OvR) y Uno contra Uno (OvO)"
 description: "Visualización interactiva de las estrategias OvR y OvO para clasificación multiclase, aplicada al enrutamiento en varias categorías."
 weight: 1
 draft: false
@@ -12,8 +12,8 @@ Cuando un problema tiene **más de dos clases** (multiclase), muchos algoritmos 
 
 {{< demo-intro 
   title="Visualizador de Estrategias Multiclase: ¿Qué Categoría Es?"
-  medical_highlight="Las estrategias OvR y OvO permiten reutilizar clasificadores binarios para problemas multiclase. **OvR** entrena un clasificador por clase (esa clase vs. todas las demás), mientras que **OvO** entrena un clasificador para cada par de clases. Cada estrategia tiene ventajas según el tamaño de los datos, el balance de clases y la separabilidad entre categorías."
-    intro_text="Explorarás cómo funcionan las estrategias **Uno contra Resto (OvR)** y **Uno contra Uno (OvO)** para clasificación multiclase. Verás cómo cada estrategia descompone el problema y combina las decisiones de múltiples clasificadores binarios."
+  medical_highlight="Las estrategias OvR y OvO permiten reutilizar clasificadores binarios para problemas multiclase. OvR entrena un clasificador por clase (esa clase vs. todas las demás), mientras que OvO entrena un clasificador para cada par de clases. Cada estrategia tiene ventajas según el tamaño de los datos, el balance de clases y la separabilidad entre categorías."
+    intro_text="Explorarás cómo funcionan las estrategias Uno contra Resto (OvR) y Uno contra Uno (OvO) para clasificación multiclase. Verás cómo cada estrategia descompone el problema y combina las decisiones de múltiples clasificadores binarios."
   steps="Genera Datos de Ejemplo: Crea un conjunto de datos con tres categorías (Facturación, Soporte técnico, Cuenta) basadas en dos señales numéricas.|Compara las Estrategias: Observa cómo OvR entrena 3 clasificadores (uno por clase) y cómo OvO entrena 3 clasificadores (uno por cada par de clases).|Visualiza las Decisiones: Explora las regiones de decisión y ve cómo cada estrategia combina los votos de sus clasificadores binarios para la clasificación final."
 >}}
     

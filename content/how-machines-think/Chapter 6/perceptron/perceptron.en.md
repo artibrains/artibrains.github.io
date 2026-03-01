@@ -1,5 +1,5 @@
 ---
-title: "The Perceptron: The Artificial Neuron"
+title: "6.1 The Perceptron: The Artificial Neuron"
 description: "Interactive simulator of the Perceptron — the fundamental building block of neural networks."
 weight: 1
 date: 2025-04-17
@@ -11,28 +11,17 @@ slug: "perceptron-artificial-neuron"
 
 The **Perceptron** is the simplest model of an artificial neuron and the historical building block of neural networks. Conceived in the 1950s, it is a binary linear classifier: it takes several inputs, weights them, sums them, and if the result exceeds a certain threshold, it “fires” an output (typically 1); otherwise, it emits another (usually 0 or -1).
 
-{{< medical-context 
-    type="clinic" 
-    scenario="A pathologist needs to classify biopsy cells as 'benign' or 'malignant' based on two measurable features, such as nucleus size and cell uniformity."
-    highlight="A Perceptron can learn a linear 'decision rule' from these two markers. The goal is to draw a line that best separates the two cell types, creating a fast, automated diagnostic support system."
+{{< demo-intro
+    title="Perceptron Simulator"
+    intro_text="The **Perceptron** is the simplest artificial neuron: it takes input features, weights them, and decides which class a case belongs to. In this demo, the system learns to separate benign from malignant cells using two measurable markers."
+    medical_highlight="Watch how the decision line adjusts each epoch. Try different learning rates and check whether the data is linearly separable."
+    context_type="clinic"
+    difficulty="beginner"
 >}}
 
 ## Interactive Demonstration
 
-<div style="margin-bottom: 1.5rem;">
-<h3>How to use the simulation</h3>
-<ul>
-<li><strong>Move the controls</strong> to adjust the slope and decision threshold.</li>
-<li><strong>Click on the graph</strong> to inspect how the classification of points changes.</li>
-<li><strong>Train automatically</strong> if available and observe how the metrics vary.</li>
-</ul>
-</div>
-
-{{< demo-wrapper title="Perceptron Simulator" >}}
-
 {{< perceptron >}}
-
-{{< /demo-wrapper >}}
 
 ## Fundamental Concepts
 

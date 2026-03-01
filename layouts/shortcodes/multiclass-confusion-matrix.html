@@ -3,16 +3,16 @@
 <link rel="stylesheet" href="/css/unified-demos.css">
 <link rel="stylesheet" href="/css/multiclass-confusion-matrix.css">
 
-<div id="visualization-container" class="confusion-matrix-demo">
+<div id="visualization-container" class="demo-wrapper confusion-matrix-demo">
     
     <!-- DESCRIPTION -->
     <div class="steps demo-content-panel" style="margin-bottom: 1rem;">
         <h2 class="demo-section-title">{{ if eq $lang "es" }}Matriz de Confusión Multiclase{{ else }}Multiclass Confusion Matrix{{ end }}</h2>
         <p class="demo-description">
             {{ if eq $lang "es" }}
-            Explora cómo se evalúa un clasificador de múltiples clases. Genera datos simulados y observa cómo se calculan las métricas para cada clase.
+            Explora cómo se evalúa el clasificador de triaje de Minermont. Genera matrices simuladas para las categorías <em>Urgencias</em>, <em>Consulta médica</em> y <em>Seguimiento</em>, y observa cómo se calculan las métricas por clase.
             {{ else }}
-            Explore how a multi-class classifier is evaluated. Generate simulated data and observe how metrics are calculated for each class.
+            Explore how Minermont's triage classifier is evaluated. Generate simulated matrices for the categories <em>Emergency</em>, <em>Consultation</em>, and <em>Follow-up</em>, and observe how per-class metrics are calculated.
             {{ end }}
         </p>
     </div>

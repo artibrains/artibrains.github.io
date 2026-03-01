@@ -1,7 +1,7 @@
 ---
-title: "6.X Aprendiendo por Retropropagación de Errores"
+title: "6.2 Aprendiendo por Retropropagación de Errores"
 description: "El artículo de 1986 de Rumelhart, Hinton y Williams que popularizó el algoritmo de retropropagación para entrenar redes neuronales."
-weight: 15
+weight: 5
 date: 2025-01-23
 slug: "backpropagation-paper"
 ---

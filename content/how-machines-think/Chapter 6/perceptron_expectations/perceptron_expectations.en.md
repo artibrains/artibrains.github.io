@@ -1,7 +1,7 @@
 ---
-title: "The Perceptron: Expectations and Realities"
+title: "6.1 The Perceptron: Expectations and Realities"
 description: "Exploring the promises and limitations of the perceptron in the context of machine learning."
-weight: 1
+weight: 2
 date: 2025-04-17
 draft: false
 slug: "perceptron-expectations-realities"

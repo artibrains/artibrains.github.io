@@ -1,4 +1,5 @@
 {{- $lang := .Page.Language.Lang -}}
+{{- $bookLink := cond (eq $lang "es") "https://www.amazon.es/dp/B0GQD33N6T" "https://www.amazon.com/dp/B0GQD23YVM" -}}
 
 <style>
   .trilogy-landing {
@@ -378,6 +379,28 @@
       grid-template-columns: 1fr;
     }
   }
+
+  /* ── Dark-mode enhancements ─────────────────────────────────────────── */
+  :root[data-r-theme-variant="zen-dark"] .tl-button {
+    border-color: rgba(224, 224, 224, 0.22);
+    background: color-mix(in srgb, rgba(224,224,224) 8%, rgba(32,32,32));
+  }
+
+  :root[data-r-theme-variant="zen-dark"] .book-status {
+    border-color: rgba(224, 224, 224, 0.20);
+  }
+
+  :root[data-r-theme-variant="zen-dark"] .book-status.available {
+    background: color-mix(in srgb, #22c55e 14%, rgba(32,32,32));
+    border-color: rgba(34, 197, 94, 0.55);
+    color: #86efac;
+  }
+
+  :root[data-r-theme-variant="zen-dark"] .book-status.coming-soon {
+    background: color-mix(in srgb, #f59e0b 12%, rgba(32,32,32));
+    border-color: rgba(245, 158, 11, 0.55);
+    color: #fcd34d;
+  }
 </style>
 
 <div class="trilogy-landing">
@@ -501,6 +524,9 @@
       </div>
       <a href="{{ "how-machines-think/" | relLangURL }}" class="book-link">
         {{ if eq $lang "es" }}Explorar Libro 1 →{{ else }}Explore Book 1 →{{ end }}
+      </a>
+      <a href="{{ $bookLink }}" class="book-link" target="_blank" rel="noopener noreferrer">
+        {{ if eq $lang "es" }}🛒 Comprar en Amazon{{ else }}🛒 Buy on Amazon{{ end }}
       </a>
       <div class="book-status available">
         {{ if eq $lang "es" }}Disponible ahora{{ else }}Available now{{ end }}

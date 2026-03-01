@@ -7,8 +7,8 @@
 
     // Class names
     const classNames = {
-        es: ['Facturación', 'Soporte técnico', 'Cuenta'],
-        en: ['Billing', 'Technical', 'Account']
+        es: ['Urgencias', 'Consulta médica', 'Seguimiento'],
+        en: ['Emergency', 'Consultation', 'Follow-up']
     };
 
     // State

@@ -1,8 +1,8 @@
 ---
-title: "7.5 Juego Interactivo: Entrenando un Modelo de Lenguaje"
+title: "7.4 Juego Interactivo: Entrenando un Modelo de Lenguaje"
 description: "Experimenta cómo un modelo de lenguaje mejora progresivamente sus predicciones a medida que se ajustan sus parámetros internos."
 date: 2024-01-22
-weight: 50
+weight: 4
 slug: "entrenando-modelo-lenguaje"
 ---
 

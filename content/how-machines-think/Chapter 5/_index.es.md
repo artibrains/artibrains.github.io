@@ -17,7 +17,7 @@ La Directora Elena plantea un nuevo desafío: ¿Puede la IA ayudar a identificar
 
 En este capítulo, seguirás al equipo en su primer gran proyecto de aprendizaje no supervisado, donde utilizan el algoritmo **K-Means** para segmentar usuarios. A través de una simulación interactiva, experimentarás su proceso de descubrimiento:
 
-1.  **[El Descubridor de Grupos Ocultos]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.es.md" %}})**: Te pondrás en el lugar de Marta y Luis. Primero, utilizarás el **Método del Codo** para determinar el número óptimo de clusters (K), el mismo dilema metodológico que ellos enfrentaron. Luego, ejecutarás el algoritmo K-Means para visualizar cómo agrupa a los usuarios, replicando el "momento eureka" que les permitió identificar un segmento de comportamiento que antes era invisible.
+1.  **[5.2 El poder del clustering: Descubriendo grupos ocultos]({{% relref "how-machines-think/Chapter 5/kmeans/kmeans.es.md" %}})**: Te pondrás en el lugar de Marta y Luis. Primero, utilizarás el **Método del Codo** para determinar el número óptimo de clusters (K), el mismo dilema metodológico que ellos enfrentaron. Luego, ejecutarás el algoritmo K-Means para visualizar cómo agrupa a los usuarios, replicando el "momento eureka" que les permitió identificar un segmento de comportamiento que antes era invisible.
 
 Prepárate para una nueva forma de pensar, donde la IA no solo responde a nuestras preguntas, sino que nos ayuda a formular preguntas que no sabíamos que teníamos que hacer.
 
@@ -27,4 +27,4 @@ Prepárate para una nueva forma de pensar, donde la IA no solo responde a nuestr
 
 ### Bibliografía y Recursos Complementarios
 
-- **[K-Means y Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clustering, aprendizaje no supervisado y el método del codo.
+- **[📚 Bibliografía: K-Means y Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clustering, aprendizaje no supervisado y el método del codo.

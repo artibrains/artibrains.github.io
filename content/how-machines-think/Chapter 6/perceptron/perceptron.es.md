@@ -1,5 +1,5 @@
 ---
-title: "El Perceptrón: La Neurona Artificial"
+title: "6.1 El Perceptrón: La Neurona Artificial"
 description: "Simulador interactivo del Perceptrón, el bloque de construcción fundamental de las redes neuronales."
 weight: 1
 date: 2025-04-17
@@ -11,28 +11,17 @@ slug: "perceptron-neurona-artificial"
 
 El **Perceptrón** es el modelo más simple de una neurona artificial y el bloque de construcción histórico de las redes neuronales. Concebido en la década de 1950, es un clasificador lineal binario: toma varias entradas, las pondera, las suma y, si el resultado supera un cierto umbral, "dispara" una salida (normalmente 1); de lo contrario, emite otra (normalmente 0 o -1).
 
-{{< medical-context 
-    type="clinic"
-    scenario="Un patólogo necesita clasificar células de una biopsia como \"benignas\" o \"malignas\" basándose en dos características medibles, como el tamaño del núcleo y la uniformidad de la célula."
-    highlight="Un Perceptrón puede aprender una \"regla de decisión\" lineal a partir de estos dos marcadores. El objetivo es trazar una línea que separe de la mejor manera posible los dos tipos de células, creando un sistema de apoyo al diagnóstico rápido y automatizado."
+{{< demo-intro
+    title="Simulador del Perceptrón"
+    intro_text="El **Perceptrón** es la neurona artificial más simple: toma características de entrada, las pondera y decide a qué clase pertenece el caso. En este demo, el sistema aprende a separar células benignas de malignas a partir de dos marcadores medibles."
+    medical_highlight="Observa cómo la línea de decisión se ajusta en cada época. Prueba distintas tasas de aprendizaje y comprueba si los datos son linealmente separables."
+    context_type="clinic"
+    difficulty="beginner"
 >}}
 
 ## Demostración Interactiva
 
-<div style="margin-bottom: 1.5rem;">
-<h3>Cómo usar la simulación</h3>
-<ul>
-<li><strong>Mueve los controles</strong> para ajustar la pendiente y el umbral de decisión.</li>
-<li><strong>Haz clic en la gráfica</strong> para inspeccionar cómo cambia la clasificación de los puntos.</li>
-<li><strong>Entrena automáticamente</strong> si está disponible y observa cómo varían las métricas.</li>
-</ul>
-</div>
-
-{{< demo-wrapper title="Simulador del Perceptrón" >}}
-
 {{< perceptron >}}
-
-{{< /demo-wrapper >}}
 
 ## Conceptos Fundamentales
 

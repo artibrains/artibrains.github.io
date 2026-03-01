@@ -1,7 +1,7 @@
 ---
-title: "7.X El Nacimiento de las Neuronas Artificiales"
+title: "El Nacimiento de las Neuronas Artificiales"
 description: "El artículo de 1943 de McCulloch-Pitts que introdujo el primer modelo matemático de neuronas artificiales."
-weight: 10
+weight: 51
 date: 2025-01-22
 slug: "mcculloch-pitts-neuron"
 ---

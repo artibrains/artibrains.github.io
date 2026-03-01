@@ -15,17 +15,15 @@ Minermont’s emergency desk is overwhelmed, and Ethan partners with Claire to b
 
 This chapter focuses on **multiclass classification**: extending classifiers beyond yes/no decisions, evaluating performance per class, and using ensemble methods to improve robustness.
 
-1. **[K-Nearest Neighbors (K-NN)]({{% relref "how-machines-think/Chapter 4/knn/knn.en.md" %}})**: You'll explore an algorithm based on the *wisdom of the crowd*. You'll see how the simple idea of classifying a new case based on its closest neighbors can be surprisingly powerful—and understand Marta and Luis's concerns about the choice of distance metric and the "curse of dimensionality."
+1. **[4.2 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.en.md" %}})**: You'll discover how to extend binary classification algorithms to problems with multiple classes. You'll compare One-vs-Rest (OvR) and One-vs-One (OvO) strategies, understanding when to use each in more complex real-world settings.
 
-2. **[Decision Trees]({{% relref "how-machines-think/Chapter 4/decision-tree/decision-tree.en.md" %}})**: You'll build a model that mimics human reasoning. You'll discover why Teresa and Javier felt so aligned with this approach, which creates a set of explicit, easy-to-follow rules—much like a troubleshooting flowchart.
+2. **[4.2 K-Nearest Neighbors (K-NN)]({{% relref "how-machines-think/Chapter 4/knn/knn.en.md" %}})**: You'll explore an algorithm based on the *wisdom of the crowd*. You'll see how the simple idea of classifying a new case based on its closest neighbors can be surprisingly powerful—and understand Marta and Luis's concerns about the choice of distance metric and the "curse of dimensionality."
 
+3. **[4.2 Decision Trees]({{% relref "how-machines-think/Chapter 4/decision-tree/decision-tree.en.md" %}})**: You'll build a model that mimics human reasoning. You'll discover why Teresa and Javier felt so aligned with this approach, which creates a set of explicit, easy-to-follow rules—much like a troubleshooting flowchart.
 
-3. **[Multiclass Strategies (OvR and OvO)]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.en.md" %}})**: You'll discover how to extend binary classification algorithms to problems with multiple classes. You'll compare One-vs-Rest (OvR) and One-vs-One (OvO) strategies, understanding when to use each in more complex real-world settings.
+4. **[4.2 Random Forests]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.en.md" %}})**: You'll explore how multiple decision trees work together like a team of specialists. You'll see how combining independent predictions improves accuracy and reduces overfitting, making classifications more reliable.
 
-4. **[Multiclass Confusion Matrix]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.en.md" %}})**: You'll learn to evaluate multiclass classifiers using the confusion matrix. You'll interactively explore how to calculate True/False Positives/Negatives, Precision, Recall, and F1-Score for each class, and how to interpret these metrics when you’re routing requests into multiple queues.
-
-5. **[Random Forests]({{% relref "how-machines-think/Chapter 4/random-forest/random-forest.en.md" %}})**: You'll explore how multiple decision trees work together like a team of specialists. You'll see how combining independent predictions improves accuracy and reduces overfitting, making classifications more reliable.
-
+5. **[4.3 Multiclass Confusion Matrix]({{% relref "how-machines-think/Chapter 4/multiclass-confusion-matrix/multiclass-confusion-matrix.en.md" %}})**: You'll learn to evaluate multiclass classifiers using the confusion matrix. You'll interactively explore how to calculate True/False Positives/Negatives, Precision, Recall, and F1-Score for each class, and how to interpret these metrics when you're routing requests into multiple queues.
 
 
 ### Algorithm Pseudocode

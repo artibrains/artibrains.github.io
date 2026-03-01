@@ -31,4 +31,4 @@ Prepárate para dominar el arte del despliegue responsable de IA y comprender qu
 
 ### Bibliografía y Recursos Complementarios
 
-- **[Aplicaciones y Seguridad de LLMs]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.es.md" %}})**: Recursos sobre prompting, post-entrenamiento, evaluación y despliegue responsable.
+- **[📚 Bibliografía: Aplicaciones y Seguridad de LLMs]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.es.md" %}})**: Recursos sobre prompting, post-entrenamiento, evaluación y despliegue responsable.

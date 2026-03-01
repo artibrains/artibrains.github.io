@@ -1,85 +1,159 @@
-/* Random Forest Demo Styles */
+/* Random Forest Demo v2 – graphical layout */
+
+/* Two-column layout */
 .random-forest-demo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
     width: 100%;
 }
 
-.rf-trees-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
+.rf-controls-panel {
+    flex: 0 0 260px;
+    min-width: 220px;
 }
 
-.rf-tree-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    background: #f9f9f9;
+.rf-viz-panel {
+    flex: 1 1 360px;
+    min-width: 300px;
 }
 
-.rf-tree-card h5 {
-    margin: 0 0 0.5rem 0;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-#rf-voting-results {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #f0f8ff;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
-}
-
-#rf-voting-results.hidden {
-    display: none;
-}
-
-.vote-bar {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem 0;
-}
-
-.vote-label {
-    min-width: 100px;
-    font-weight: bold;
-}
-
-.vote-progress {
-    flex-grow: 1;
-    height: 24px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
+/* Canvas */
+.rf-canvas-wrapper {
     position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto 0.5rem;
 }
 
-.vote-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #007bff, #0056b3);
-    transition: width 0.3s ease;
+#rf-main-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    cursor: crosshair;
+    background: #f8f9fa;
+}
+
+/* Legend */
+.rf-canvas-legend {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 8px;
-    color: white;
-    font-weight: bold;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
     font-size: 0.85rem;
 }
 
-.slider-value {
+.rf-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.rf-legend-dot {
     display: inline-block;
-    min-width: 50px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Individual tree grid */
+.rf-trees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.rf-tree-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 0.4rem;
+    background: #fafafa;
     text-align: center;
+}
+
+.rf-tree-card canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.rf-tree-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #555;
+    margin: 0 0 0.3rem;
+}
+
+/* Subsection title */
+.rf-subsection-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 1rem 0 0.4rem;
+    color: #333;
+}
+
+/* Slider value inline badge */
+.rf-slider-val {
     font-weight: bold;
-    margin-left: 0.5rem;
+    margin-left: 0.3rem;
 }
 
-#rf-metrics p {
-    margin: 0.5rem 0;
+/* Click hint */
+.rf-click-hint {
+    font-size: 0.82rem;
+    color: #777;
+    margin: 0 0 0.5rem;
+    font-style: italic;
 }
 
-#rf-training-status p {
-    margin: 0.5rem 0;
+/* Voting results */
+.rf-voting-results {
+    margin-top: 0.5rem;
+}
+
+.rf-hidden {
+    display: none;
+}
+
+.rf-vote-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.35rem 0;
+    font-size: 0.82rem;
+}
+
+.rf-vote-label {
+    min-width: 80px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+
+.rf-bar-bg {
+    flex-grow: 1;
+    height: 14px;
+    background: #e8e8e8;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.rf-bar-fill {
+    height: 100%;
+    border-radius: 7px;
+    transition: width 0.25s ease;
+    min-width: 2px;
+}
+
+.rf-vote-pct {
+    min-width: 80px;
+    font-size: 0.75rem;
+    color: #555;
+    white-space: nowrap;
 }

@@ -1,7 +1,7 @@
 ---
 title: "6.3 Playground de Redes Neuronales: Experimentando con Deep Learning"
 description: "Explora redes neuronales interactivamente con TensorFlow Playground, una herramienta visual para entender cómo aprenden las redes."
-weight: 3
+weight: 6
 draft: false
 slug: "neural-network-playground"
 ---

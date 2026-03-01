@@ -1,7 +1,7 @@
 ---
-title: "Backpropagation: The Engine of Learning"
+title: "6.2 Backpropagation: The Engine of Learning"
 description: "Interactive visualization of the backpropagation algorithm to understand how neural networks learn from their mistakes."
-weight: 2
+weight: 3
 draft: false
 slug: "backpropagation-learning"
 ---
@@ -12,23 +12,17 @@ slug: "backpropagation-learning"
 
 Without backpropagation, a neural network would be just a static structure capable of processing data but incapable of improving. It is the process that transforms a random initialization into an intelligent system.
 
-{{< medical-context 
-    type="hospital" 
-    scenario="Imagine a diagnostic system analyzing chest X-rays. Initially, it might confuse a healthy lung with a pathological one. The system needs a way to 'know' not just that it was wrong, but *why* and *where* in its internal structure the error occurred."
-    highlight="Backpropagation acts as a feedback signal that travels backward from the diagnosis to the input pixels, adjusting the internal parameters so that the next time it sees a similar image, the diagnosis is more accurate."
+{{< demo-intro
+    title="Backpropagation Visualizer"
+    intro_text="**Backpropagation** is the learning engine of neural networks. When the network makes a mistake, this algorithm calculates how much each connection contributed to the error and adjusts the weights to reduce it in the next iteration."
+    medical_highlight="Watch how the error flows backward through the network. Try different learning rates and enable Turbo Mode to see full convergence."
+    context_type="hospital"
+    difficulty="intermediate"
 >}}
 
 ## Interactive Laboratory
 
-Explore how a neural network learns to classify data in real-time. This interactive demo visualizes the forward pass (prediction) and the backward pass (learning).
-
-{{< demo-wrapper title="Neural Network Training Simulation" >}}
-
-{{< backpropagation_intro lang="en" >}}
-
 {{< backpropagation lang="en" >}}
-
-{{< /demo-wrapper >}}
 
 ## Understanding the Process
 

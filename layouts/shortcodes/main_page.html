@@ -1,3 +1,5 @@
+{{- $lang := .Page.Language.Lang -}}
+{{- $bookLink := cond (eq $lang "es") "https://www.amazon.es/dp/B0GQD33N6T" "https://www.amazon.com/dp/B0GQD23YVM" -}}
 
 
 <style>
@@ -402,10 +404,7 @@
                     <span class="badge">{{ i18n "badge_guides" }}</span>
                 </div>
                 <div class="lpc-cta">
-                    <div class="status"
-                        style="font-size: 1.2rem; padding: 1rem; background: var(--lpc-card-bg); border-radius: 8px; text-align: center;">
-                        <strong>{{ i18n "coming_soon" }}</strong>
-                    </div>
+                    <a href="{{ $bookLink }}" class="lpc-btn lpc-btn-primary" target="_blank" rel="noopener noreferrer">{{ i18n "buy_on_amazon" }}</a>
                 </div>
             </div>
             <div class="mock">
@@ -541,8 +540,8 @@
                     <p class="lpc-section-subtitle">
                         {{ i18n "purchase_subtitle" }}
                     </p>
-                    <div class="status" style="font-size: 1.2rem; padding: 1rem; margin-top: 1rem;">
-                        <strong>{{ i18n "coming_soon" }}</strong>
+                    <div style="margin-top: 1rem;">
+                        <a href="{{ $bookLink }}" class="lpc-btn lpc-btn-primary" target="_blank" rel="noopener noreferrer">{{ i18n "buy_on_amazon" }}</a>
                     </div>
                 </div>
             </div>

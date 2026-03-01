@@ -12,12 +12,45 @@
             <li><strong>{{ if eq $lang "es" }}Selecciona el valor de K{{ else }}Select the value of K{{ end }}</strong>: {{ if eq $lang "es" }}Elige cuántos vecinos cercanos considerar para la clasificación. Un K pequeño es más sensible al ruido, mientras que un K grande suaviza las decisiones.{{ else }}Choose how many nearby neighbors to consider for classification. A small K is more sensitive to noise, while a large K smooths decisions.{{ end }}</li>
             <li><strong>{{ if eq $lang "es" }}Observa las distancias{{ else }}Observe the distances{{ end }}</strong>: {{ if eq $lang "es" }}Haz clic en cualquier punto para ver cómo se calculan las distancias a todos los puntos de entrenamiento y cuáles son los K vecinos más cercanos.{{ else }}Click any point to see how distances are computed to all training points and which are the K nearest neighbors.{{ end }}</li>
             <li><strong>{{ if eq $lang "es" }}Analiza la clasificación{{ else }}Analyze the classification{{ end }}</strong>: {{ if eq $lang "es" }}El punto se clasifica según la clase mayoritaria entre sus K vecinos más cercanos. Prueba diferentes valores de K para ver cómo cambia la clasificación.{{ else }}The point is classified according to the majority class among its K nearest neighbors. Try different K values to see how the classification changes.{{ end }}</li>
+            <li><strong>{{ if eq $lang "es" }}Usa los botones de Modo de Interacción{{ else }}Use the Interaction Mode buttons{{ end }}</strong>: {{ if eq $lang "es" }}Selecciona cómo interactuar con el gráfico. Con <strong>🐱 Añadir Gatos</strong> y <strong>🐶 Añadir Perros</strong> puedes hacer clic en el canvas para añadir nuevos puntos de entrenamiento de cada clase. Con <strong>🔍 Clasificar</strong>, al hacer clic en el canvas se añade un punto desconocido y el algoritmo determina automáticamente a qué clase pertenece según sus K vecinos más cercanos.{{ else }}Select how to interact with the graph. With <strong>🐱 Add Cats</strong> and <strong>🐶 Add Dogs</strong> you can click the canvas to add new training points for each class. With <strong>🔍 Classify</strong>, clicking the canvas adds an unknown point and the algorithm automatically determines which class it belongs to based on its K nearest neighbors.{{ end }}</li>
         </ol>
     </div>
 
     <!-- TOP CONTROLS -->
     <div class="controls-panel top-controls">
         <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Configuración del Modelo{{ else }}Model Configuration{{ end }}</h3>
+
+        <!-- Manage Your Dataset -->
+        <div class="control-section">
+            <div class="demo-control-group buttons-row">
+                <button id="generate-data-btn" class="demo-btn demo-btn-primary">
+                    🎲 {{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}
+                </button>
+                <button id="clear-data-btn" class="demo-btn demo-btn-secondary">
+                    🗑️ {{ if eq $lang "es" }}Limpiar Canvas{{ else }}Clear Canvas{{ end }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Visualization Options -->
+        <div class="control-section">
+            <div class="demo-control-group switches-row">
+                <label class="knn-switch-label">
+                    <span class="knn-switch-text">🗺️ {{ if eq $lang "es" }}Mostrar Fronteras{{ else }}Show Boundaries{{ end }}</span>
+                    <div class="knn-switch-wrapper">
+                        <input type="checkbox" id="show-boundaries-switch" class="knn-switch-input">
+                        <span class="knn-switch-slider"></span>
+                    </div>
+                </label>
+                <label class="knn-switch-label">
+                    <span class="knn-switch-text">📏 {{ if eq $lang "es" }}Mostrar Distancias{{ else }}Show Distances{{ end }}</span>
+                    <div class="knn-switch-wrapper">
+                        <input type="checkbox" id="show-distances-switch" class="knn-switch-input">
+                        <span class="knn-switch-slider"></span>
+                    </div>
+                </label>
+            </div>
+        </div>
 
         <!-- Tune Model Parameters -->
         <div class="control-section">
@@ -42,9 +75,9 @@
             <div class="demo-control-group">
                 <label class="control-label">{{ if eq $lang "es" }}Modo de Interacción{{ else }}Interaction Mode{{ end }}</label>
                 <div class="mode-buttons">
-                    <button id="add-cats-btn" class="demo-btn demo-btn-secondary demo-btn-full-width mode-btn" data-mode="cats">🐱 {{ if eq $lang "es" }}Añadir Gatos{{ else }}Add Cats{{ end }}</button>
-                    <button id="add-dogs-btn" class="demo-btn demo-btn-secondary demo-btn-full-width mode-btn" data-mode="dogs">🐶 {{ if eq $lang "es" }}Añadir Perros{{ else }}Add Dogs{{ end }}</button>
-                    <button id="classify-btn" class="demo-btn demo-btn-primary demo-btn-full-width mode-btn active" data-mode="classify">🔍 {{ if eq $lang "es" }}Clasificar{{ else }}Classify{{ end }}</button>
+                    <button id="add-cats-btn" class="demo-btn demo-btn-secondary mode-btn" data-mode="cats">🐱 {{ if eq $lang "es" }}Añadir Gatos{{ else }}Add Cats{{ end }}</button>
+                    <button id="add-dogs-btn" class="demo-btn demo-btn-secondary mode-btn" data-mode="dogs">🐶 {{ if eq $lang "es" }}Añadir Perros{{ else }}Add Dogs{{ end }}</button>
+                    <button id="classify-btn" class="demo-btn demo-btn-primary mode-btn active" data-mode="classify">🔍 {{ if eq $lang "es" }}Clasificar{{ else }}Classify{{ end }}</button>
                 </div>
             </div>
         </div>
@@ -105,39 +138,6 @@
 
     <!-- BOTTOM CONTROLS -->
     <div class="controls-panel bottom-controls">
-        <h3 class="demo-text-center demo-mb-md">{{ if eq $lang "es" }}Gestión de Datos y Visualización{{ else }}Data Management & Visualization{{ end }}</h3>
-
-        <!-- Manage Your Dataset -->
-        <div class="control-section">
-            <div class="demo-control-group buttons-row">
-                <button id="generate-data-btn" class="demo-btn demo-btn-primary">
-                    🎲 {{ if eq $lang "es" }}Generar Datos{{ else }}Generate Data{{ end }}
-                </button>
-                <button id="clear-data-btn" class="demo-btn demo-btn-secondary">
-                    🗑️ {{ if eq $lang "es" }}Limpiar Canvas{{ else }}Clear Canvas{{ end }}
-                </button>
-            </div>
-        </div>
-
-        <!-- Visualization Options -->
-        <div class="control-section">
-            <div class="demo-control-group switches-row">
-                <label class="knn-switch-label">
-                    <span class="knn-switch-text">🗺️ {{ if eq $lang "es" }}Mostrar Fronteras{{ else }}Show Boundaries{{ end }}</span>
-                    <div class="knn-switch-wrapper">
-                        <input type="checkbox" id="show-boundaries-switch" class="knn-switch-input">
-                        <span class="knn-switch-slider"></span>
-                    </div>
-                </label>
-                <label class="knn-switch-label">
-                    <span class="knn-switch-text">📏 {{ if eq $lang "es" }}Mostrar Distancias{{ else }}Show Distances{{ end }}</span>
-                    <div class="knn-switch-wrapper">
-                        <input type="checkbox" id="show-distances-switch" class="knn-switch-input">
-                        <span class="knn-switch-slider"></span>
-                    </div>
-                </label>
-            </div>
-        </div>
 
         <!-- Dataset Statistics -->
         <div class="demo-info-card">

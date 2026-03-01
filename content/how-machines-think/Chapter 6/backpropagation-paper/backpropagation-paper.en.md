@@ -1,7 +1,7 @@
 ---
-title: "6.X Learning by Backpropagating Errors"
+title: "6.2 Learning by Backpropagating Errors"
 description: "The 1986 Rumelhart, Hinton, and Williams paper that popularized the backpropagation algorithm for training neural networks."
-weight: 15
+weight: 5
 date: 2025-01-23
 slug: "backpropagation-paper"
 ---

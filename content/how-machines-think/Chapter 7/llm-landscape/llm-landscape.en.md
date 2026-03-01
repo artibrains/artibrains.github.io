@@ -1,7 +1,7 @@
 ---
-title: "LLM Landscape: The Most Relevant Models (and How to Compare Them)"
+title: "7.5 LLM Landscape: The Most Relevant Models (and How to Compare Them)"
 description: "A practical map of major LLM families, what they’re good for, and where to compare them via credible benchmarks."
-weight: 4
+weight: 5
 draft: false
 slug: "llm-landscape"
 ---

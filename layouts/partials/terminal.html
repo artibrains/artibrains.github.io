@@ -1,16 +1,15 @@
 {{/* Terminal partial - Uses Hugo's native i18n system */}}
 
 <div id="custom-terminal" class="terminal-container" data-terminal-lang="{{ .Page.Language.Lang }}"
-    data-terminal-started="{{ i18n " terminal_started" }}" data-terminal-cleared="{{ i18n " terminal_cleared" }}">
+    data-terminal-started="{{ i18n `terminal_started` }}" data-terminal-cleared="{{ i18n `terminal_cleared` }}">
     <div class="terminal-header">
         <div class="terminal-buttons">
             <span class="dot red"></span>
             <span class="dot yellow"></span>
             <span class="dot green"></span>
         </div>
-        <button id="terminal-clear-btn" class="terminal-clear-button" title="{{ i18n " terminal_clear" }}"
-            aria-label="{{ i18n " terminal_clear" }}">{{ i18n
-            "terminal_clear" }}</button>
+        <button id="terminal-clear-btn" class="terminal-clear-button" title="{{ i18n `terminal_clear` }}"
+            aria-label="{{ i18n `terminal_clear` }}">{{ i18n "terminal_clear" }}</button>
     </div>
     <div class="terminal-body" id="custom-terminal-body"></div>
 </div>

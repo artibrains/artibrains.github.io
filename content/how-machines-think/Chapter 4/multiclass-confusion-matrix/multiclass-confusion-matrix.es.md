@@ -1,5 +1,5 @@
 ---
-title: "4.3 - Matriz de Confusión Multiclase"
+title: "4.3 Matriz de Confusión Multiclase"
 description: "Visualiza y comprende cómo evaluar clasificadores de múltiples clases usando la matriz de confusión y métricas derivadas."
 weight: 14
 draft: false
@@ -8,12 +8,13 @@ math: true
 ---
 
 ## Introducción
-Un breve demo interactivo a continuación te ayuda a explorar los errores típicos que comete un modelo multiclase de enrutamiento y cómo esos errores afectan las métricas por clase. Genera matrices con distintas precisiones y observa qué categorías se confunden con mayor frecuencia.
+Un breve demo interactivo a continuación te ayuda a explorar los errores típicos que comete el clasificador de triaje de Minermont y cómo esos errores afectan las métricas por clase. El sistema debe asignar cada caso entrante a una de tres colas: **Urgencias**, **Consulta médica** o **Seguimiento**. Genera matrices con distintas precisiones y observa qué categorías se confunden con mayor frecuencia.
 
 {{< demo-intro 
-    title="Matriz de Confusión Multiclase"
-    medical_highlight="La matriz de confusión permite ver exactamente dónde el clasificador está cometiendo errores: qué categorías se están confundiendo entre sí y si ciertas clases son más difíciles de predecir correctamente. Esto es clave para la priorización y la asignación de trabajo."
-    intro_text="La **matriz de confusión** es una herramienta fundamental de evaluación para clasificación multiclase que muestra todas las combinaciones de clases predichas vs. reales. Permite calcular métricas por clase (Precisión, Recall, F1) y entender los tipos específicos de errores que comete tu modelo."
+    title="Clasificador de triaje: Urgencias · Consulta médica · Seguimiento"
+    medical_highlight="La matriz de confusión permite ver exactamente dónde el clasificador está cometiendo errores: qué categorías de triaje se confunden entre sí y si alguna cola es más difícil de predecir correctamente. Esto es clave para priorizar mejoras en el sistema de enrutamiento."
+    intro_text="La **matriz de confusión** es la herramienta central para evaluar el clasificador de triaje de Minermont. Muestra todas las combinaciones de colas predichas vs. reales, permitiendo calcular métricas por clase (Precisión, Recall, F1) y entender qué tipos de errores de enrutamiento comete el modelo."
+    context_type="hospital"
 >}}
 
 ## ¿Qué es una matriz de confusión?
@@ -42,7 +43,7 @@ Utiliza la herramienta siguiente para:
 
 ## Métricas globales: Macro promediado
 
-Para evaluar el rendimiento general del sistema, el equipo de Alma calcula promedios de las métricas por clase:
+Para evaluar el rendimiento general del sistema de triaje, el equipo de Minermont calcula promedios de las métricas por clase:
 
 ### Precisión Macro
 $$
@@ -74,7 +75,7 @@ Cuando observas la matriz de confusión, busca:
 2. **Patrones de confusión**: ¿Qué clases se confunden entre sí?
 3. **Asimetrías**: ¿La confusión es bidireccional o unidireccional?
 
-**Ejemplo**: Si muchas solicitudes de Soporte técnico se clasifican como Facturación pero no al revés, puede indicar solapamiento de palabras o señales y que falta una característica más discriminante para Soporte técnico.
+**Ejemplo**: Si muchos casos de Consulta médica se clasifican como Urgencias pero no al revés, puede indicar que la descripción del paciente usa lenguaje de urgencia sin serlo; el modelo necesita características más discriminantes para distinguir esas dos colas.
 
 ## Decisiones basadas en métricas
 
@@ -97,5 +98,5 @@ La matriz de confusión captura el rendimiento en un punto de decisión específ
 - **[Estrategias multiclase]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.es.md" %}})**: Cómo extender clasificadores binarios a problemas multiclase.
 
 {{% notice style="info" title="Práctica operativa" %}}
-En Minermont, Teresa y Javier revisan la matriz de confusión semanalmente. La usan para detectar confusiones sistemáticas (por ejemplo, problemas de Cuenta que se enrutan a Facturación) y mejorar las guías de etiquetado y la recolección de señales para que el modelo tenga entradas más claras.
+En Minermont, Teresa y Javier revisan la matriz de confusión semanalmente. La usan para detectar confusiones sistemáticas (por ejemplo, casos de Seguimiento enrutados a Urgencias) y mejorar las guías de etiquetado y la recolección de señales para que el modelo tenga entradas más claras.
 {{% /notice %}}

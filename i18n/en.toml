@@ -16,7 +16,7 @@ other = "Bilingual Edition (ES/EN)"
 other = "Practical Guides (Prompting, Metrics, K‑Means, Transformers)"
 
 [coming_soon]
-other = "📚 Coming Soon - Late 2025"
+other = "📚 Coming Soon - 2026"
 
 [cover_alt]
 other = "Book cover"
@@ -405,3 +405,9 @@ other = "Coming soon"
 
 [in_development]
 other = "In development"
+
+[buy_on_amazon]
+other = "🛒 Buy on Amazon"
+
+[book_link]
+other = "https://www.amazon.com/dp/B0GQD23YVM"

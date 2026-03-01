@@ -87,8 +87,10 @@
     const filtersGrid = document.getElementById("cnnFiltersGrid");
     const modelStatus = document.getElementById("cnnModelStatus");
     const trainingStateBtn = document.getElementById("cnnTrainingStateBtn");
-    const predictionNoticeEl = document.getElementById("cnnPredictionNotice");
     const hoverInfoEl = document.getElementById("cnnHoverInfo");
+    const predictModal = document.getElementById("cnnPredictModal");
+    const modalUntrainedWarning = document.getElementById("cnnModalUntrainedWarning");
+    const modalCloseBtn = document.getElementById("cnnModalCloseBtn");
 
     const INPUT = 20;
     const FILTERS = 12;
@@ -706,11 +708,15 @@
             trainingStateBtn.classList.toggle("is-trained", isModelTrained);
             trainingStateBtn.classList.toggle("is-untrained", !isModelTrained);
         }
+    }
 
-        if (predictionNoticeEl) {
-            predictionNoticeEl.textContent = isModelTrained ? t.predictionNoticeTrained : t.predictionNoticeRandom;
-            predictionNoticeEl.classList.toggle("is-trained", isModelTrained);
-        }
+    function showPredictionModal(isTrained) {
+        if (modalUntrainedWarning) modalUntrainedWarning.hidden = isTrained;
+        if (predictModal) predictModal.hidden = false;
+    }
+
+    function closePredictionModal() {
+        if (predictModal) predictModal.hidden = true;
     }
 
     function setTrainButtonsState(training) {
@@ -1072,6 +1078,7 @@
                 for (let i = 1; i < randomProbs.length; i++) if (randomProbs[i] > randomProbs[bestRandom]) bestRandom = i;
                 addLog(`${t.prediction} ${t.randomPredictionTag}: ${bestRandom}`);
                 addLog(t.randomPredictionWarning);
+                showPredictionModal(false);
             }
             return;
         }
@@ -1106,6 +1113,7 @@
             let best = 0;
             for (let i = 1; i < avg.length; i++) if (avg[i] > avg[best]) best = i;
             addLog(`${t.prediction}: ${best}`);
+            showPredictionModal(true);
         }
     }
 
@@ -1168,6 +1176,11 @@
         });
 
         predictBtn.addEventListener("click", () => runPrediction(true));
+
+        if (modalCloseBtn) modalCloseBtn.addEventListener("click", closePredictionModal);
+        if (predictModal) predictModal.addEventListener("click", (e) => {
+            if (e.target === predictModal) closePredictionModal();
+        });
 
         trainBtn.addEventListener("click", () => {
             trainFromScratch();

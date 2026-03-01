@@ -17,17 +17,17 @@ Un nuevo desafío surge en la clínica de dermatología. Los médicos luchan por
 
 En este capítulo te unirás a ellos para desmitificar el funcionamiento interno de las redes neuronales:
 
-1. **[El Perceptrón: La Neurona Artificial]({{% relref "how-machines-think/Chapter 6/perceptron/perceptron.es.md" %}})**: Empezarás con el bloque de construcción más básico. Con un sencillo simulador de diagnóstico entrenarás un Perceptrón para clasificar pacientes y descubrirás cómo esta "neurona" aprende a tomar decisiones binarias.
+1. **[6.1 El Perceptrón: La Neurona Artificial]({{% relref "how-machines-think/Chapter 6/perceptron/perceptron.es.md" %}})**: Empezarás con el bloque de construcción más básico. Con un sencillo simulador de diagnóstico entrenarás un Perceptrón para clasificar pacientes y descubrirás cómo esta "neurona" aprende a tomar decisiones binarias.
 
-2. **[Backpropagation: El Motor del Aprendizaje]({{% relref "how-machines-think/Chapter 6/backpropagation/backpropagation.es.md" %}})**: Visualizarás el algoritmo de **backpropagation**, el motor del aprendizaje en las redes neuronales. Entenderás cómo el error se propaga hacia atrás por la red para que cada neurona ajuste sus conexiones y mejore el rendimiento general.
+2. **[6.2 Backpropagation: El Motor del Aprendizaje]({{% relref "how-machines-think/Chapter 6/backpropagation/backpropagation.es.md" %}})**: Visualizarás el algoritmo de **backpropagation**, el motor del aprendizaje en las redes neuronales. Entenderás cómo el error se propaga hacia atrás por la red para que cada neurona ajuste sus conexiones y mejore el rendimiento general.
 
-2.1 **[Tutorial Interactivo: Backpropagation Paso a Paso]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.es.md" %}})**: Un entrenador guiado y práctico donde calculas la propagación hacia adelante, calculas el error de salida, propagas gradientes hacia atrás y actualizas pesos — paso a paso.
+3. **[6.2 Tutorial Interactivo: Backpropagation Paso a Paso]({{% relref "how-machines-think/Chapter 6/backpropagation-tutorial/backpropagation-tutorial.es.md" %}})**: Un entrenador guiado y práctico donde calculas la propagación hacia adelante, calculas el error de salida, propagas gradientes hacia atrás y actualizas pesos — paso a paso.
 
-2.2 **[Artículo Clásico: "Aprendiendo por Retropropagación de Errores"]({{% relref "how-machines-think/Chapter 6/backpropagation-paper/backpropagation-paper.es.md" %}})**: Una nota concisa sobre Rumelhart, Hinton y Williams (1986), el artículo que popularizó la retropropagación y demostró su poder práctico.
+4. **[6.2 Artículo Clásico: "Aprendiendo por Retropropagación de Errores"]({{% relref "how-machines-think/Chapter 6/backpropagation-paper/backpropagation-paper.es.md" %}})**: Una nota concisa sobre Rumelhart, Hinton y Williams (1986), el artículo que popularizó la retropropagación y demostró su poder práctico.
 
-3. **[Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
+5. **[6.3 Playground de Redes Neuronales: Experimentando con Deep Learning]({{% relref "how-machines-think/Chapter 6/neural-network-playground/neural-network-playground.es.md" %}})**: Experimenta de forma práctica con TensorFlow Playground. Construye, entrena y visualiza redes neuronales en tu navegador, explorando cómo la arquitectura, los hiperparámetros y los datos afectan el aprendizaje en tiempo real.
 
-4. **[Laboratorio CNN: Dibuja, Entrena y Predice]({{% relref "how-machines-think/Chapter 6/cnn-digit-lab/cnn-digit-lab.es.md" %}})**: Construye intuición sobre redes convolucionales reconociendo dígitos escritos a mano. Dibuja en el lienzo, compara predicciones, entrena una CNN compacta desde cero o carga un snapshot preentrenado para empezar al instante.
+6. **[6.4 Laboratorio CNN: Dibuja, Entrena y Predice]({{% relref "how-machines-think/Chapter 6/cnn-digit-lab/cnn-digit-lab.es.md" %}})**: Construye intuición sobre redes convolucionales reconociendo dígitos escritos a mano. Dibuja en el lienzo, compara predicciones, entrena una CNN compacta desde cero o carga un snapshot preentrenado para empezar al instante.
 
 ### Pseudocódigo de Algoritmos
 

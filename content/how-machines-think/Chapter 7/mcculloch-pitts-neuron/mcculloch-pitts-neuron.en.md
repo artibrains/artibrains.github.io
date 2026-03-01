@@ -1,7 +1,7 @@
 ---
-title: "7.X The Birth of Artificial Neurons"
+title: "The Birth of Artificial Neurons"
 description: "The 1943 McCulloch-Pitts paper that introduced the first mathematical model of artificial neurons."
-weight: 10
+weight: 51
 date: 2025-01-22
 slug: "mcculloch-pitts-neuron"
 ---

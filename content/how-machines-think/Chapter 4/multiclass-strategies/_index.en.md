@@ -1,5 +1,5 @@
 ---
-title: "4.1 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)"
+title: "4.2 Multiclass Strategies: One-vs-Rest (OvR) and One-vs-One (OvO)"
 description: "Interactive visualization of OvR and OvO strategies for multiclass classification, applied to routing items into multiple categories."
 weight: 1
 draft: false
@@ -12,8 +12,8 @@ When a problem has **more than two classes** (multiclass), many binary classific
 
 {{< demo-intro 
   title="Multiclass Strategies Visualizer: Which Category Is It?"
-  medical_highlight="OvR and OvO strategies allow reusing binary classifiers for multiclass problems. **OvR** trains one classifier per class (that class vs. all others), while **OvO** trains one classifier for each pair of classes. Each strategy has advantages depending on data size, class balance, and how separable the categories are."
-    intro_text="You'll explore how **One-vs-Rest (OvR)** and **One-vs-One (OvO)** strategies work for multiclass classification. You'll see how each strategy decomposes the problem and combines decisions from multiple binary classifiers."
+  medical_highlight="OvR and OvO strategies allow reusing binary classifiers for multiclass problems. OvR trains one classifier per class (that class vs. all others), while OvO trains one classifier for each pair of classes. Each strategy has advantages depending on data size, class balance, and how separable the categories are."
+    intro_text="You'll explore how One-vs-Rest (OvR) and One-vs-One (OvO) strategies work for multiclass classification. You'll see how each strategy decomposes the problem and combines decisions from multiple binary classifiers."
   steps="Generate Sample Data: Create a dataset with three categories (Billing, Technical, Account) based on two numeric signals.|Compare Strategies: Observe how OvR trains 3 classifiers (one per class) and how OvO trains 3 classifiers (one for each pair of classes).|Visualize Decisions: Explore decision regions and see how each strategy combines votes from its binary classifiers for the final classification."
 >}}
     

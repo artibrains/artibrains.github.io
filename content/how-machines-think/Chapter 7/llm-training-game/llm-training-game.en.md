@@ -1,8 +1,8 @@
 ---
-title: "7.5 Interactive Game: Training a Language Model"
+title: "7.4 Interactive Game: Training a Language Model"
 description: "Experience how a language model progressively improves its predictions as its internal parameters are adjusted."
 date: 2024-01-22
-weight: 50
+weight: 4
 slug: "training-language-model"
 ---
 

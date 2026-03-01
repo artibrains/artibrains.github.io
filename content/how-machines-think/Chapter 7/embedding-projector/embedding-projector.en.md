@@ -1,5 +1,5 @@
 ---
-title: "7.2 Embedding Projector: Visualizing Word Vectors"
+title: "7.1 Embedding Projector: Visualizing Word Vectors"
 description: "Explore how words are represented as vectors in high-dimensional space using TensorFlow's Embedding Projector."
 weight: 2
 draft: false

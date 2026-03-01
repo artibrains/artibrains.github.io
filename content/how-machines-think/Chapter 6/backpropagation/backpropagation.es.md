@@ -1,7 +1,7 @@
 ---
-title: "Backpropagation: La Conversación del Aprendizaje"
+title: "6.2 Backpropagation: La Conversación del Aprendizaje"
 description: "Visualización interactiva del algoritmo de backpropagation para entender cómo aprenden las redes neuronales."
-weight: 2
+weight: 3
 draft: false
 slug: "backpropagation-aprendizaje"
 ---
@@ -10,21 +10,17 @@ slug: "backpropagation-aprendizaje"
 
 El algoritmo de **Backpropagation** (retropropagación del error) es el corazón del aprendizaje en la mayoría de las redes neuronales. Es el mecanismo que permite a la red determinar cómo cada peso y sesgo individual contribuye al error total y, a continuación, ajustarlos en la dirección correcta para minimizar ese error.
 
-{{< medical-context 
-    type="hospital" 
-    scenario="Un sistema de diagnóstico médico utiliza una red neuronal para clasificar radiografías como normales o patológicas. Para mejorar su precisión, la red debe aprender de sus errores y ajustar internamente sus parámetros."
-    highlight="Backpropagation permite que la red neuronal aprenda automáticamente qué características de las radiografías son más importantes para el diagnóstico, propagando los errores desde la salida hacia atrás para ajustar cada conexión neuronal."
+{{< demo-intro
+    title="Visualización de Backpropagation"
+    intro_text="**Backpropagation** es el motor de aprendizaje de las redes neuronales. Cuando la red comete un error, este algoritmo calcula cuánto contribuyó cada conexión al fallo y ajusta los pesos para reducir el error en la siguiente iteración."
+    medical_highlight="Observa cómo fluye el error hacia atrás por la red. Prueba distintas tasas de aprendizaje y activa el Modo Turbo para ver la convergencia completa."
+    context_type="hospital"
+    difficulty="intermediate"
 >}}
 
 ## Demostración Interactiva
 
-{{< demo-wrapper title="Visualización de Backpropagation" >}}
-
-{{< backpropagation_intro lang="es" >}}
-
 {{< backpropagation lang="es" >}}
-
-{{< /demo-wrapper >}}
 
 ## Conceptos Fundamentales
 

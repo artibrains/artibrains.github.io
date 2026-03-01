@@ -1,5 +1,5 @@
 ---
-title: "The Word Craftsman: The BPE Tokenizer"
+title: "7.1 The Word Craftsman: The BPE Tokenizer"
 description: "Interactive visualizer of the Byte-Pair Encoding (BPE) tokenization algorithm, the foundation of modern LLMs."
 weight: 1
 draft: false

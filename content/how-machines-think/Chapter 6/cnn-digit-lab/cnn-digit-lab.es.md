@@ -1,7 +1,7 @@
 ---
 title: "6.4 Laboratorio CNN: Dibuja, Entrena y Predice"
 description: "Laboratorio interactivo de CNN para reconocer dígitos escritos a mano: entrena desde cero o carga un modelo preentrenado."
-weight: 4
+weight: 7
 draft: false
 slug: "laboratorio-cnn-digitos"
 ---

@@ -1,7 +1,7 @@
 ---
-title: "Panorama de LLMs: los modelos más relevantes (y cómo compararlos)"
+title: "7.5 Panorama de LLMs: Los modelos más relevantes (y cómo compararlos)"
 description: "Un mapa práctico de las familias de LLM más importantes, cuándo usarlas y dónde compararlas con benchmarks fiables."
-weight: 4
+weight: 5
 draft: false
 slug: "panorama-llms"
 ---

@@ -13,7 +13,7 @@ A **Random Forest** is an ensemble of multiple decision trees working together t
 
 {{< demo-intro 
     title="Random Forest Visualizer: Many Trees, One Decision"
-    medical_highlight="You'll explore how **multiple decision trees** work together in a Random Forest. You'll see how randomness in training leads to diversity, and how majority voting improves final accuracy."
+    medical_highlight="You'll explore how multiple decision trees work together in a Random Forest. You'll see how randomness in training leads to diversity, and how majority voting improves final accuracy."
     steps="Define the Forest: Choose how many trees to train (typically 10-100). More trees generally mean higher accuracy but more computation.|Train the Forest: Each tree trains on a bootstrap sample and a random subset of features. Observe the diversity between trees.|Visualize Predictions: For a new point, see how each tree votes. The class with most votes is the forest's final prediction."
 >}}
     
