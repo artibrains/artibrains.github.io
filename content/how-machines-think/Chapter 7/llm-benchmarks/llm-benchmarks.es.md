@@ -1,5 +1,5 @@
 ---
-title: "7.5 Benchmarks de LLM: Cuáles están vigentes, cuáles están saturados y cómo leer los resultados"
+title: "7.6 Benchmarks de LLM: Cuáles están vigentes, cuáles están saturados y cómo leer los resultados"
 description: "Guía práctica de benchmarks modernos para LLM, qué pruebas siguen diferenciando modelos y dónde verificar resultados."
 weight: 6
 draft: false

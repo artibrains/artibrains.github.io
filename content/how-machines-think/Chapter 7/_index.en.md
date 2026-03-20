@@ -21,7 +21,9 @@ Large Language Models (LLMs) generate text by learning patterns over sequences. 
 4.  **[7.4 Interactive Game: Training a Language Model]({{% relref "how-machines-think/Chapter 7/llm-training-game/llm-training-game.en.md" %}})**: Experience how a language model progressively improves its predictions as it adjusts its internal parameters. In this educational game, you'll train a small neural network on a thematic corpus, visually observing how values change with each processed example.
 5.  **[7.5 LLM Landscape: The Most Relevant Models]({{% relref "how-machines-think/Chapter 7/llm-landscape/llm-landscape.en.md" %}})**: A practical map of today’s main model families (frontier APIs, open-weight models, on-device options) and the trade-offs that matter in real deployments.
 
-6.  **[7.5 LLM Benchmarks: Current vs. Saturated]({{% relref "how-machines-think/Chapter 7/llm-benchmarks/llm-benchmarks.en.md" %}})**: A curated guide to the most used LLM benchmarks, which ones still discriminate models, and where to verify leaderboard claims.
+6.  **[7.6 LLM Benchmarks: Current vs. Saturated]({{% relref "how-machines-think/Chapter 7/llm-benchmarks/llm-benchmarks.en.md" %}})**: A curated guide to the most used LLM benchmarks, which ones still discriminate models, and where to verify leaderboard claims.
+7.  **[7.7 Artificial Analysis: comparing models by capability, cost, speed, and openness]({{% relref "how-machines-think/Chapter 7/artificial-analysis/artificial-analysis.en.md" %}})**: You will explore a comparison platform that brings together rankings, benchmarks, cost, speed, and openness in one place, helping you understand how LLMs are compared in practice.
+8.  **[7.8 Arena Leaderboard: comparing models by human preference]({{% relref "how-machines-think/Chapter 7/arena-leaderboard/arena-leaderboard.en.md" %}})**: You will discover how a ranking based on blind answer comparisons works, and why human preference adds a different dimension to LLM evaluation.
 
 
 ### Algorithm Pseudocode
