@@ -3,7 +3,6 @@ title: "Aprendizaje sin maestro"
 description: "IA cotidiana: recomendaciones, segmentación y aprendizaje con feedback"
 draft: false
 weight: 2
-hidden: true
 ---
 
 {{< book_coming_soon badge="Libro 2" title="Aprendizaje sin maestro" subtitle="IA cotidiana: recomendaciones, segmentación y aprendizaje con feedback" >}}

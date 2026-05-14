@@ -3,7 +3,6 @@ title: "Ojos y oídos"
 description: "Cuando las máquinas aprenden a ver y escuchar"
 draft: false
 weight: 3
-hidden: true
 ---
 
 {{< book_coming_soon badge="Libro 3" title="Ojos y oídos" subtitle="Cuando las máquinas aprenden a ver y escuchar" >}}

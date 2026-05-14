@@ -3,7 +3,6 @@ title: "Learning Without a Teacher"
 description: "Everyday AI: recommendations, segmentation, and learning from feedback"
 draft: false
 weight: 2
-hidden: true
 ---
 
 {{< book_coming_soon badge="Book 2" title="Learning Without a Teacher" subtitle="Everyday AI: recommendations, segmentation, and learning from feedback" >}}
