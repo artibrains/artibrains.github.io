@@ -19,14 +19,14 @@ const translations = {
         errorCalculationDetail: "Detalle cálculo error: Tipo={type}, Pendiente={slope}, Intercepto={intercept}",
         errorL1Result: "Error L1 (MAE) resultante: {error}",
         errorL2Result: "Error L2 (MSE) resultante: {error}",
-        startingGradientDescent: "Iniciando descenso de gradiente. Tipo Error: {type}, Tasa Aprendizaje: {rate}, Iteraciones: {iterations}",
-        startingAnimation: "Iniciando animación del descenso de gradiente...",
+        startingOptimization: "Calculando el mínimo global. Tipo de error: {type}",
+        startingAnimation: "Iniciando animación hacia la solución óptima...",
         iteration: "Iteración {iter}: Pendiente={slope}, Intercepto={intercept}, Error={error}",
         lineAfterReset: "Línea de predicción tras reseteo: Pendiente={slope}, Intercepto={intercept}",
         gameReset: "Juego reiniciado.",
         userChangedErrorType: "Usuario cambió tipo de error a: {type}",
         userCheckedResult: "Usuario verificó resultado. Pendiente: {slope}, Intercepto: {intercept}, Tipo Error: {type}",
-        animationFinished: "Animación del descenso de gradiente finalizada. Solución óptima alcanzada: Pendiente={slope}, Intercepto={intercept}, Error={error}",
+        animationFinished: "Optimización finalizada. Solución óptima alcanzada: Pendiente={slope}, Intercepto={intercept}, Error={error}",
         resultsForModal: "Resultados para modal: Usuario (Error: {userError}), Óptimo (Error: {optimalError})",
         congratulations: "¡Felicidades! 🎉 Tu predicción es muy cercana a la óptima. Error de tu predicción: {error}.",
         goodAttempt: "¡Buen intento! 👍 Tu predicción está cerca. Error óptimo: {optimal}, Tu error: {user}.",
@@ -49,14 +49,14 @@ const translations = {
         errorCalculationDetail: "Error calculation detail: Type={type}, Slope={slope}, Intercept={intercept}",
         errorL1Result: "Resulting L1 error (MAE): {error}",
         errorL2Result: "Resulting L2 error (MSE): {error}",
-        startingGradientDescent: "Starting gradient descent. Error Type: {type}, Learning Rate: {rate}, Iterations: {iterations}",
-        startingAnimation: "Starting gradient descent animation...",
+        startingOptimization: "Calculating the global minimum. Error type: {type}",
+        startingAnimation: "Starting animation towards the optimal solution...",
         iteration: "Iteration {iter}: Slope={slope}, Intercept={intercept}, Error={error}",
         lineAfterReset: "Prediction line after reset: Slope={slope}, Intercept={intercept}",
         gameReset: "Game reset.",
         userChangedErrorType: "User changed error type to: {type}",
         userCheckedResult: "User checked result. Slope: {slope}, Intercept: {intercept}, Error Type: {type}",
-        animationFinished: "Gradient descent animation finished. Optimal solution reached: Slope={slope}, Intercept={intercept}, Error={error}",
+        animationFinished: "Optimization finished. Optimal solution reached: Slope={slope}, Intercept={intercept}, Error={error}",
         resultsForModal: "Results for modal: User (Error: {userError}), Optimal (Error: {optimalError})",
         congratulations: "Congratulations! 🎉 Your prediction is very close to optimal. Your prediction error: {error}.",
         goodAttempt: "Good attempt! 👍 Your prediction is close. Optimal error: {optimal}, Your error: {user}.",
@@ -196,11 +196,7 @@ function updateLine() {
 }
 
 function calculateError(slope, intercept, errorType, logCalculationDetails = true) {
-    const errors = data.map(point => {
-        const predicted = slope * point.x + intercept;
-        const error = point.y - predicted;
-        return errorType === 'L1' ? Math.abs(error) : error * error;
-    });
+    const averageError = window.LinearRegressionOptimizer.calculateError(data, slope, intercept, errorType);
 
     if (logCalculationDetails && window.CustomTerminal) {
         window.CustomTerminal.write(t('errorCalculationDetail', {
@@ -208,7 +204,6 @@ function calculateError(slope, intercept, errorType, logCalculationDetails = tru
             slope: slope.toFixed(2),
             intercept: intercept.toFixed(2)
         }) + "\n");
-        const averageError = errors.reduce((sum, err) => sum + err, 0) / data.length;
         if (errorType === 'L1') {
             window.CustomTerminal.write(t('errorL1Result', { error: averageError.toFixed(3) }) + "\n");
         } else {
@@ -216,64 +211,39 @@ function calculateError(slope, intercept, errorType, logCalculationDetails = tru
         }
     }
 
-    return errors.reduce((sum, error) => sum + error, 0) / data.length;
+    return averageError;
 }
 
-function gradientDescent(errorType) {
-    let slope = 1.5;
-    let intercept = 15;
-    const learningRate = errorType === 'L1' ? 0.0001 : 0.000001;
-    const iterations = 100;
+function optimizeRegression(errorType, initialSlope, initialIntercept) {
+    const bounds = {
+        slopeMin: parseFloat(slopeSlider.min),
+        slopeMax: parseFloat(slopeSlider.max),
+        interceptMin: parseFloat(interceptSlider.min),
+        interceptMax: parseFloat(interceptSlider.max)
+    };
+    const final = window.LinearRegressionOptimizer.optimize(data, bounds, errorType);
+    const iterations = 30;
     const steps = [];
 
     if (window.CustomTerminal) {
-        window.CustomTerminal.write(t('startingGradientDescent', {
-            type: errorType,
-            rate: learningRate,
-            iterations: iterations
-        }) + "\n");
+        window.CustomTerminal.write(t('startingOptimization', { type: errorType }) + "\n");
     }
 
-    for (let i = 0; i < iterations; i++) {
-        let slopeGrad = 0;
-        let interceptGrad = 0;
-
-
-
-        for (const point of data) {
-            const predicted = slope * point.x + intercept;
-            const error = predicted - point.y;
-
-            if (errorType === 'L1') {
-                slopeGrad += Math.sign(error) * point.x;
-                interceptGrad += Math.sign(error);
-            } else { // L2
-                slopeGrad += error * point.x;
-                interceptGrad += error;
-            }
-        }
-
-        slope -= learningRate * slopeGrad;
-        intercept -= learningRate * interceptGrad;
-
-        slope = Math.max(MIN_SLOPE, Math.min(MAX_SLOPE, slope));
-        intercept = Math.max(MIN_INTERCEPT, Math.min(MAX_INTERCEPT, intercept));
-
+    for (let i = 1; i <= iterations; i++) {
+        const progress = i / iterations;
+        const slope = initialSlope + (final.slope - initialSlope) * progress;
+        const intercept = initialIntercept + (final.intercept - initialIntercept) * progress;
         const currentStepError = calculateError(slope, intercept, errorType, false); // Calculate error without logging details
         steps.push({ slope, intercept, error: currentStepError });
-
-
-
     }
 
-
     return {
-        final: { slope, intercept },
-        steps: steps
+        final,
+        steps
     };
 }
 
-function animateGradientDescent(steps, finalCallback) {
+function animateOptimization(steps, finalCallback) {
     let stepIndex = 0;
     const animationSpeed = 50;
 
@@ -380,7 +350,7 @@ function resetGame() {
         }) + "\n");
     }
     previousSlope = slopeSlider.value; // Update previous values
-    previousIntercept = slopeSlider.value; // Corrected: should be interceptSlider.value
+    previousIntercept = interceptSlider.value;
 
 
     checkButton.disabled = false;
@@ -441,11 +411,11 @@ checkButton.addEventListener('click', () => {
     interceptSlider.disabled = true;
     document.getElementById('optimizationStatus').classList.remove('hidden');
 
-    const optimization = gradientDescent(errorType);
+    const optimization = optimizeRegression(errorType, userSlope, userIntercept);
     const userError = calculateError(userSlope, userIntercept, errorType);
     const optimalError = calculateError(optimization.final.slope, optimization.final.intercept, errorType);
 
-    animateGradientDescent(optimization.steps, () => {
+    animateOptimization(optimization.steps, () => {
         document.getElementById('optimizationStatus').classList.add('hidden');
         if (window.CustomTerminal) {
             window.CustomTerminal.write(t('animationFinished', {
@@ -540,4 +510,4 @@ if (window.CustomTerminal) {
 }
 // Ensure previous values are set after initial updateLine call
 previousSlope = slopeSlider.value;
-previousIntercept = slopeSlider.value; // Corrected
+previousIntercept = interceptSlider.value;
