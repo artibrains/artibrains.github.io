@@ -9,7 +9,7 @@ math: true
 
 ## Context
 
-Alma's "conversation of learning" becomes rigorous when gradients flow backward through Jacobian products. This note derives the canonical backpropagation equations with clean matrix calculus.
+Hazel's "conversation of learning" becomes rigorous when gradients flow backward through Jacobian products. This note derives the canonical backpropagation equations with clean matrix calculus.
 
 {{% notice style="info" title="Watch & read" %}}
 The visual primer [3Blue1Brown – "Backpropagation calculus"](https://www.3blue1brown.com/lessons/backpropagation-calculus) complements the algebra that follows.{{% /notice %}}

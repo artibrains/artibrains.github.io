@@ -11,7 +11,7 @@ slug: "real-world-cases-minermont"
 
 {{< chapter-index-image chapter="9" >}}
 
-Years later, Minermont becomes a case study, and Ethan, Sophia, and Noah share the method: clear problems, quality data, and safety-first practice.
+Years later, Minermont becomes a case study, and Ethan, Martha, and Noah share the method: clear problems, quality data, and safety-first practice.
 
 ## What Will You Learn?
 

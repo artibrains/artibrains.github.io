@@ -24,8 +24,8 @@ Use the sections below to explore the timeline, key historical moments, and a co
 - **[1.4 AI Awards and Recognition]({{% relref "how-machines-think/Chapter 1/ai-prizes/ai-prizes.en.md" %}})**  
    Discover the major awards and recognitions that have marked AI history, from the most recent Nobel Prizes to specific computing awards. A unique perspective on how society recognizes excellence in artificial intelligence.
 
-- **[1.4 Alma's Notes: Deep Blue vs. AlphaGo]({{% relref "how-machines-think/Chapter 1/deep-blue-vs-alphago/deep-blue-vs-alphago.en.md" %}})**  
-   Analyze the fundamental difference between classical AI (brute force) and modern learning—a key distinction that Alma García, the director of AIA, used to illustrate the potential of new technologies.
+- **[1.4 Hazel's Notes: Deep Blue vs. AlphaGo]({{% relref "how-machines-think/Chapter 1/deep-blue-vs-alphago/deep-blue-vs-alphago.en.md" %}})**  
+   Analyze the fundamental difference between classical AI (brute force) and modern learning—a key distinction that Hazel Goodwin, the director of AIA, used to illustrate the potential of new technologies.
 
 - **[1.4 The Lighthill Report]({{% relref "how-machines-think/Chapter 1/lighthill/lighthill.en.md" %}})**  
    Reflect on historical criticisms of AI and how these have shaped its development. Learn that although AI has faced challenges, its evolution has been constant and resilient.

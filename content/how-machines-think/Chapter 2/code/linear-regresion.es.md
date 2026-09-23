@@ -7,7 +7,7 @@ draft: false
 slug: "regresion-lineal-desde-cero"
 ---
 
-Estas son las notas de Luis sobre como implementar un modelo de regresión lineal desde cero, utilizando descenso por gradiente y parada temprana. Esta demostración te permitirá entender los fundamentos de la regresión lineal y cómo se aplica en problemas reales.
+Estas son las notas de Luis sobre cómo implementar un modelo de regresión lineal desde cero, utilizando descenso por gradiente y parada temprana. Esta demostración te permitirá entender los fundamentos de la regresión lineal y cómo se aplica en problemas reales.
 
 El notebook interactivo incluye:
 

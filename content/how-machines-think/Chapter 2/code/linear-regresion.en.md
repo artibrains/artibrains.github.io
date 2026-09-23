@@ -7,7 +7,7 @@ draft: false
 slug: "linear-regression-from-scratch"
 ---
 
-These are Luis's notes on how to implement a linear regression model from scratch, using gradient descent and early stopping. This demonstration will help you understand the fundamentals of linear regression and how it is applied to real-world problems.
+These are Noah's notes on how to implement a linear regression model from scratch, using gradient descent and early stopping. This demonstration will help you understand the fundamentals of linear regression and how it is applied to real-world problems.
 
 The interactive notebook includes:
 

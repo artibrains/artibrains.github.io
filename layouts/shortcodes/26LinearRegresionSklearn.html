@@ -7332,7 +7332,12 @@ a.anchor-link {
     if (!diagrams.length) {
       return;
     }
-    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs")).default;
+    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.0/mermaid.esm.min.mjs")).default;
+    const elkUrl = "https://cdnjs.cloudflare.com/ajax/libs/mermaid-layout-elk/0.1.9/mermaid-layout-elk.esm.min.mjs";
+    if(elkUrl) {
+      const elkLayouts = (await import(elkUrl)).default;
+      mermaid.registerLayoutLoaders(elkLayouts);
+    }
     const parser = new DOMParser();
 
     mermaid.initialize({
@@ -7429,7 +7434,8 @@ a.anchor-link {
      * Post-process to ensure mermaid diagrams contain only valid SVG and XHTML.
      */
     function cleanMermaidSvg(svg) {
-      return svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      svg = svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      return `${SVG_XML_HEADER}${svg}`;
     }
 
 
@@ -7455,6 +7461,285 @@ a.anchor-link {
       }
       return `<${tag} ${rest}>`;
     }
+
+
+  /**
+   * Named HTML entities with their decimal equivalent codes.
+   *
+   * @see https://www.w3.org/TR/WD-html40-970708/sgml/entities.html
+   * */
+  const HTML_ENTITIES = `<!ENTITY Aacute "&#193;">
+<!ENTITY aacute "&#225;">
+<!ENTITY Acirc "&#194;">
+<!ENTITY acirc "&#226;">
+<!ENTITY acute "&#180;">
+<!ENTITY AElig "&#198;">
+<!ENTITY aelig "&#230;">
+<!ENTITY Agrave "&#192;">
+<!ENTITY agrave "&#224;">
+<!ENTITY alefsym "&#8501;">
+<!ENTITY Alpha "&#913;">
+<!ENTITY alpha "&#945;">
+<!ENTITY amp "&#38;">
+<!ENTITY and "&#8869;">
+<!ENTITY ang "&#8736;">
+<!ENTITY Aring "&#197;">
+<!ENTITY aring "&#229;">
+<!ENTITY asymp "&#8776;">
+<!ENTITY Atilde "&#195;">
+<!ENTITY atilde "&#227;">
+<!ENTITY Auml "&#196;">
+<!ENTITY auml "&#228;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY Beta "&#914;">
+<!ENTITY beta "&#946;">
+<!ENTITY brvbar "&#166;">
+<!ENTITY bull "&#8226;">
+<!ENTITY cap "&#8745;">
+<!ENTITY Ccedil "&#199;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY cedil "&#184;">
+<!ENTITY cent "&#162;">
+<!ENTITY Chi "&#935;">
+<!ENTITY chi "&#967;">
+<!ENTITY circ "&#710;">
+<!ENTITY clubs "&#9827;">
+<!ENTITY cong "&#8773;">
+<!ENTITY copy "&#169;">
+<!ENTITY crarr "&#8629;">
+<!ENTITY cup "&#8746;">
+<!ENTITY curren "&#164;">
+<!ENTITY dagger "&#8224;">
+<!ENTITY Dagger "&#8225;">
+<!ENTITY darr "&#8595;">
+<!ENTITY dArr "&#8659;">
+<!ENTITY deg "&#176;">
+<!ENTITY Delta "&#916;">
+<!ENTITY delta "&#948;">
+<!ENTITY diams "&#9830;">
+<!ENTITY divide "&#247;">
+<!ENTITY Eacute "&#201;">
+<!ENTITY eacute "&#233;">
+<!ENTITY Ecirc "&#202;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY Egrave "&#200;">
+<!ENTITY egrave "&#232;">
+<!ENTITY empty "&#8709;">
+<!ENTITY emsp "&#8195;">
+<!ENTITY ensp "&#8194;">
+<!ENTITY epsilon "&#949;">
+<!ENTITY Epsilon "&#917;">
+<!ENTITY equiv "&#8801;">
+<!ENTITY Eta "&#919;">
+<!ENTITY eta "&#951;">
+<!ENTITY ETH "&#208;">
+<!ENTITY eth "&#240;">
+<!ENTITY Euml "&#203;">
+<!ENTITY euml "&#235;">
+<!ENTITY exist "&#8707;">
+<!ENTITY fnof "&#402;">
+<!ENTITY forall "&#8704;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY frasl "&#8260;">
+<!ENTITY Gamma "&#915;">
+<!ENTITY gamma "&#947;">
+<!ENTITY ge "&#8805;">
+<!ENTITY gt "&#62;">
+<!ENTITY harr "&#8596;">
+<!ENTITY hArr "&#8660;">
+<!ENTITY hearts "&#9829;">
+<!ENTITY hellip "&#8230;">
+<!ENTITY Iacute "&#205;">
+<!ENTITY iacute "&#237;">
+<!ENTITY Icirc "&#206;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY Igrave "&#204;">
+<!ENTITY igrave "&#236;">
+<!ENTITY image "&#8465;">
+<!ENTITY infin "&#8734;">
+<!ENTITY int "&#8747;">
+<!ENTITY Iota "&#921;">
+<!ENTITY iota "&#953;">
+<!ENTITY iquest "&#191;">
+<!ENTITY isin "&#8712;">
+<!ENTITY Iuml "&#207;">
+<!ENTITY iuml "&#239;">
+<!ENTITY Kappa "&#922;">
+<!ENTITY kappa "&#954;">
+<!ENTITY Lambda "&#923;">
+<!ENTITY lambda "&#955;">
+<!ENTITY lang "&#9001;">
+<!ENTITY laquo "&#171;">
+<!ENTITY larr "&#8592;">
+<!ENTITY lArr "&#8656;">
+<!ENTITY lceil "&#8968;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY le "&#8804;">
+<!ENTITY lfloor "&#8970;">
+<!ENTITY lowast "&#8727;">
+<!ENTITY loz "&#9674;">
+<!ENTITY lrm "&#8206;">
+<!ENTITY lsaquo "&#8249;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY lt "&#60;">
+<!ENTITY macr "&#175;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY micro "&#181;">
+<!ENTITY middot "&#183;">
+<!ENTITY minus "&#8722;">
+<!ENTITY Mu "&#924;">
+<!ENTITY mu "&#956;">
+<!ENTITY nabla "&#8711;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY ndash "&#8211;">
+<!ENTITY ne "&#8800;">
+<!ENTITY ni "&#8715;">
+<!ENTITY not "&#172;">
+<!ENTITY notin "&#8713;">
+<!ENTITY nsub "&#8836;">
+<!ENTITY Ntilde "&#209;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY Nu "&#925;">
+<!ENTITY nu "&#957;">
+<!ENTITY Oacute "&#211;">
+<!ENTITY oacute "&#243;">
+<!ENTITY Ocirc "&#212;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY OElig "&#338;">
+<!ENTITY oelig "&#339;">
+<!ENTITY Ograve "&#210;">
+<!ENTITY ograve "&#242;">
+<!ENTITY oline "&#8254;">
+<!ENTITY Omega "&#937;">
+<!ENTITY omega "&#969;">
+<!ENTITY Omicron "&#927;">
+<!ENTITY omicron "&#959;">
+<!ENTITY oplus "&#8853;">
+<!ENTITY or "&#8870;">
+<!ENTITY ordf "&#170;">
+<!ENTITY ordm "&#186;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Otilde "&#213;">
+<!ENTITY otilde "&#245;">
+<!ENTITY otimes "&#8855;">
+<!ENTITY Ouml "&#214;">
+<!ENTITY ouml "&#246;">
+<!ENTITY para "&#182;">
+<!ENTITY part "&#8706;">
+<!ENTITY permil "&#8240;">
+<!ENTITY perp "&#8869;">
+<!ENTITY Phi "&#934;">
+<!ENTITY phi "&#966;">
+<!ENTITY Pi "&#928;">
+<!ENTITY pi "&#960;">
+<!ENTITY piv "&#982;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY pound "&#163;">
+<!ENTITY prime "&#8242;">
+<!ENTITY Prime "&#8243;">
+<!ENTITY prod "&#8719;">
+<!ENTITY prop "&#8733;">
+<!ENTITY Psi "&#936;">
+<!ENTITY psi "&#968;">
+<!ENTITY quot "&#34;">
+<!ENTITY radic "&#8730;">
+<!ENTITY rang "&#9002;">
+<!ENTITY raquo "&#187;">
+<!ENTITY rarr "&#8594;">
+<!ENTITY rArr "&#8658;">
+<!ENTITY rceil "&#8969;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY real "&#8476;">
+<!ENTITY reg "&#174;">
+<!ENTITY rfloor "&#8971;">
+<!ENTITY Rho "&#929;">
+<!ENTITY rho "&#961;">
+<!ENTITY rlm "&#8207;">
+<!ENTITY rsaquo "&#8250;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY Scaron "&#352;">
+<!ENTITY scaron "&#353;">
+<!ENTITY sdot "&#8901;">
+<!ENTITY sect "&#167;">
+<!ENTITY shy "&#173;">
+<!ENTITY Sigma "&#931;">
+<!ENTITY sigma "&#963;">
+<!ENTITY sigmaf "&#962;">
+<!ENTITY sim "&#8764;">
+<!ENTITY spades "&#9824;">
+<!ENTITY sub "&#8834;">
+<!ENTITY sube "&#8838;">
+<!ENTITY sum "&#8721;">
+<!ENTITY sup "&#8835;">
+<!ENTITY sup1 "&#185;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY sup3 "&#179;">
+<!ENTITY supe "&#8839;">
+<!ENTITY szlig "&#223;">
+<!ENTITY Tau "&#932;">
+<!ENTITY tau "&#964;">
+<!ENTITY there4 "&#8756;">
+<!ENTITY Theta "&#920;">
+<!ENTITY theta "&#952;">
+<!ENTITY thetasym "&#977;">
+<!ENTITY thinsp "&#8201;">
+<!ENTITY THORN "&#222;">
+<!ENTITY thorn "&#254;">
+<!ENTITY tilde "&#732;">
+<!ENTITY times "&#215;">
+<!ENTITY trade "&#8482;">
+<!ENTITY Uacute "&#218;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uarr "&#8593;">
+<!ENTITY uArr "&#8657;">
+<!ENTITY Ucirc "&#219;">
+<!ENTITY ucirc "&#251;">
+<!ENTITY Ugrave "&#217;">
+<!ENTITY ugrave "&#249;">
+<!ENTITY uml "&#168;">
+<!ENTITY upsih "&#978;">
+<!ENTITY Upsilon "&#933;">
+<!ENTITY upsilon "&#965;">
+<!ENTITY Uuml "&#220;">
+<!ENTITY uuml "&#252;">
+<!ENTITY weierp "&#8472;">
+<!ENTITY Xi "&#926;">
+<!ENTITY xi "&#958;">
+<!ENTITY Yacute "&#221;">
+<!ENTITY yacute "&#253;">
+<!ENTITY yen "&#165;">
+<!ENTITY Yuml "&#376;">
+<!ENTITY yuml "&#255;">
+<!ENTITY Zeta "&#918;">
+<!ENTITY zeta "&#950;">
+<!ENTITY zwj "&#8205;">
+<!ENTITY zwnj "&#8204;">`.replace(/\n/g, ' ');
+
+  /**
+   * A reasonably strict xml declaration.
+   */
+  const XML_DECL = '<?xml version="1.0" standalone="no"?>';
+
+  /**
+   * The beginning of the XML doctype declaration.
+   */
+  const DOCTYPE_START = `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [`;
+
+  /**
+   * The end of the XML docype declaration.
+   */
+  const DOCTYPE_END = ']>';
+
+  /**
+   * A full header for an SVG XML document.
+   */
+  const SVG_XML_HEADER = `${XML_DECL}
+    ${DOCTYPE_START}${HTML_ENTITIES}${DOCTYPE_END}`;
 
     void Promise.all([...diagrams].map(renderOneMarmaid));
   });
@@ -7517,7 +7802,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="2.6---Luis's-Notes---First-predictive-model-with-scikit-learn">2.6 - Luis's Notes - First predictive model with scikit-learn<a class="anchor-link" href="#2.6---Luis's-Notes---First-predictive-model-with-scikit-learn">¶</a></h1>
+<h1 id="2.6---Noah's-Notes---First-predictive-model-with-scikit-learn">2.6 - Noah's Notes - First predictive model with scikit-learn<a class="anchor-link" href="#2.6---Noah's-Notes---First-predictive-model-with-scikit-learn">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7529,6 +7814,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>In this notebook, we will build our first predictive model using Python's powerful scikit-learn library. We will focus on Linear Regression, a fundamental algorithm in machine learning, and explore how scikit-learn simplifies the process of training, evaluating, and using models.</p>
+<p>It is the companion of the notebook <em>Linear Regression from Scratch</em>: there we wrote the prediction rule, the cost and the gradient descent loop ourselves; here the library does that work for us. To be able to check the result, we will use data generated from a line we choose ourselves, $y = 4 + 3x$, plus some random noise. The model will only see the noisy points, so if it works it should recover a slope close to 3 and an intercept close to 4.</p>
 <p>Throughout this notebook, we will cover the following steps:</p>
 <ol>
 <li><strong>Import the required libraries</strong>: We will load the scikit-learn tools we need.</li>
@@ -7559,7 +7845,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Import LinearRegression to build the model</span>
@@ -7584,6 +7870,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Step-2:-Data-loading-and-preparation">Step 2: Data loading and preparation<a class="anchor-link" href="#Step-2:-Data-loading-and-preparation">¶</a></h3><hr/>
 <p>For this example, we will generate a synthetic dataset that simulates a linear relationship between an independent variable (X) and a dependent variable (y), adding a bit of noise to make the example more realistic. This allows us to control the characteristics of the data and better understand how the model works.</p>
+<p>The line we plant is $y = 4 + 3x$ (slope 3, intercept 4), and the noise is drawn from a standard normal distribution (mean 0, standard deviation 1). Note the shape <code>(m, 1)</code>: scikit-learn expects <code>X</code> as a table with <strong>one row per example and one column per feature</strong>.</p>
 </div>
 </div>
 </div>
@@ -7592,16 +7879,16 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Generate synthetic data</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Number of samples</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># For reproducibility</span>
-<span class="n">X</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># m data points between 0 and 10</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Generate data based on the line y = 4 + 3x adding noise, y = 4 + 3x + noise</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Number of samples</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># For reproducibility: the same "random" numbers on every run</span>
+<span class="n">X</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># m data points between 0 and 10, shape (50, 1)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># The planted line y = 4 + 3x, plus noise</span>
 </pre></div>
 </div>
 </div>
@@ -7630,10 +7917,12 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Split the data into training and test sets</span>
+<span class="c1"># test_size=0.2 -&gt; 20% of the rows (10 of 50) go to the test set</span>
+<span class="c1"># random_state=0 -&gt; the same shuffle, and therefore the same split, on every run</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training set size: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -7650,8 +7939,8 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Tamaño del conjunto de entrenamiento: 40
-Tamaño del conjunto de prueba: 10
+<pre>Training set size: 40
+Test set size: 10
 </pre>
 </div>
 </div>
@@ -7666,6 +7955,7 @@ Tamaño del conjunto de prueba: 10
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Step-4:-Model-training">Step 4: Model training<a class="anchor-link" href="#Step-4:-Model-training">¶</a></h3><hr/>
 <p>Here is where we use scikit-learn's <code>LinearRegression</code> class. We will create an instance of this model and "train" it using the training set (<code>X_train</code> and <code>y_train</code>). The <code>fit()</code> method will find the best coefficients for the regression line that best fits these data.</p>
+<p>Unlike the from-scratch version, there is no learning rate and no number of iterations to choose: for linear regression, scikit-learn computes the least-squares solution directly. What the model has learned is stored in attributes whose names end with an underscore: <code>coef_</code> (the weight $w$, i.e. the slope) and <code>intercept_</code> (the bias $b$).</p>
 </div>
 </div>
 </div>
@@ -7674,7 +7964,7 @@ Tamaño del conjunto de prueba: 10
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Create a Linear Regression model instance</span>
@@ -7684,8 +7974,8 @@ Tamaño del conjunto de prueba: 10
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Model trained successfully."</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient (weight): </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept (bias): </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient (weight): </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept (bias): </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7698,9 +7988,9 @@ Tamaño del conjunto de prueba: 10
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Modelo entrenado exitosamente.
-Coeficiente (peso): 2.9820321495223094
-Intercepto (sesgo): 4.037097174962346
+<pre>Model trained successfully.
+Coefficient (weight): 2.9820
+Intercept (bias): 4.0371
 </pre>
 </div>
 </div>
@@ -7713,8 +8003,23 @@ Intercepto (sesgo): 4.037097174962346
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>From 40 noisy points, the model has recovered the planted line almost exactly: a slope of about <strong>2.98</strong> (the true value is 3) and an intercept of about <strong>4.04</strong> (the true value is 4). The small differences are caused by the noise.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Step-5:-Model-evaluation">Step 5: Model evaluation<a class="anchor-link" href="#Step-5:-Model-evaluation">¶</a></h3><hr/>
-<p>Once the model has been trained, we need to evaluate how well it performs. For regression, common metrics such as Mean Squared Error (MSE) and the Coefficient of Determination (R²) give us a quantitative measure of the accuracy of the model's predictions on the test set. A lower MSE and an R² closer to 1 indicate a better fit.</p>
+<p>Once the model has been trained, we need to evaluate how well it performs on data it has <strong>not</strong> seen during training: the test set. For regression, two common metrics are:</p>
+<ul>
+<li><strong>Mean Squared Error (MSE)</strong>: the average of the squared differences between the predictions and the true values. The lower, the better. Squaring makes large errors count more.</li>
+<li><strong>Coefficient of Determination (R²)</strong>: $R^2 = 1 - \frac{\sum (y - \hat{y})^2}{\sum (y - \bar{y})^2}$. It compares the errors of the model with the spread of the values around their mean. $R^2 = 1$ is a perfect fit and $R^2 = 0$ means the model is no better than always predicting the mean.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7723,7 +8028,7 @@ Intercepto (sesgo): 4.037097174962346
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Make predictions on the test set</span>
@@ -7735,8 +8040,8 @@ Intercepto (sesgo): 4.037097174962346
 <span class="c1"># Compute Coefficient of Determination (R²)</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Squared Error (MSE): </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient of Determination (R²): </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Squared Error (MSE): </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient of Determination (R²): </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7749,10 +8054,53 @@ Intercepto (sesgo): 4.037097174962346
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Error Cuadrático Medio (ECM): 0.8375952851062938
-Coeficiente de Determinación (R²): 0.9756924413920042
+<pre>Mean Squared Error (MSE): 0.8376
+Coefficient of Determination (R²): 0.9757
 </pre>
 </div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Compare with the error on the training data: similar values mean the model generalizes</span>
+<span class="n">train_mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training MSE: </span><span class="si">{</span><span class="n">train_mse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test MSE:     </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Training MSE: 0.8775
+Test MSE:     0.8376
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The test MSE (about 0.84) is close to the variance of the noise we added (1, because its standard deviation is 1): the errors of the model are mostly just that noise, which no straight line can remove. The R² of about 0.98 on unseen data, and a training error of the same size as the test error, tell us that the model has captured the relationship without overfitting.</p>
 </div>
 </div>
 </div>
@@ -7768,12 +8116,12 @@ Coeficiente de Determinación (R²): 0.9756924413920042
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -7792,6 +8140,18 @@ Coeficiente de Determinación (R²): 0.9756924413920042
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjMAAAHFCAYAAAAHcXhbAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjExLjIsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvgI3uAAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAWShJREFUeJzt3QecU1X2wPEztKEOCFJGBqQouGJZxIIFZURZK90CKnYUG7DoHxWUwYaKBXRVxLZYQKXpuisiCrgo6qIgKMiiLr1IH9oAMvP+n3PHF1NeZtKTl/y+n08+IS8vyc2bkHdy7rn3ZlmWZQkAAIBLVUh2AwAAAKJBMAMAAFyNYAYAALgawQwAAHA1ghkAAOBqBDMAAMDVCGYAAICrEcwAAABXI5iBKwwfPlwqVaqU7GYgBq6//npp1qxZWre5Z8+ecswxx0gqtjvUtsXq7+TGvzfch2AGSffUU0+ZQOXrr78Ouk9xcbG5uP092peqVatK06ZNpW/fvrJixQrJJPp3PHjwoLi9zVdccYUcccQRIe+fDE7tCLVt4b7ncJ4HiDWCGSRdSUmJ+cIra2WNBx54QH777Tdx+3v87LPPZN++fbJlyxZ5+eWX5dNPP5XTTjtNtm/fLpni1VdflVWrVonb2+yGk3Q0x9qt7xmZiWAGrlChQoW06GaqWLGieR81a9aUzp07y/333y8bN26Ud955RzLpb6nHwU3c2OZo2+3W94zMRDAD19bMDBgwQOrUqSN79+6Vm2++WerXry/16tWTq6++Wnbu3BnwHP/973+lT58+kpubK9WrVzd1A88++6zPPs8//7ynK6hy5cpSt25dOfvss+Wjjz5yfO1du3ZJv379pGHDhnLUUUeF/b5atWplrtesWeOzvbCwUO666y6T0te2apfUwIEDzet5W7JkiZx//vmSk5MjjRs3NsHRjz/+aNr/+uuve/abOnWq2fbNN9/IqFGjpGXLllKlShVZt26duV+3d+vWTRo0aGACrRNOOEHeeuutgNfq1auX5OXlSe3ateXEE0+U5557zueXeij7BKuh+Oc//ykdOnQw70WPbadOnWT27NmO9R5bt26V3r17yyGHHCKNGjWSO+64Qw4cOFDmsf773/9ujoF3t957771ntunf2NvFF19sjkGwNp9xxhny7rvvmsyFd/fh/v37fZ4nknaGehztv5seE31u3U/b9Y9//CNou4OZO3eu+QxfcMEFnv87kb7nUIXymRs6dKjndfTzqv/HtY1fffWV4+fi119/lcsvv1wOPfRQ8/lR2qU7ZMgQ8xjNguprtW7dWsaPHx9Ru5GaCGbgCk41M3bKW08Q5513nglW3nzzTZk2bZrceeedPvsuXLhQTjrpJNmxY4cJTPQkrif+YcOGmS86W//+/U03kF727NljvnCPPfZY6dKli3z77bcBr61BlL72Dz/8IIMHDw77ff3000/mukmTJp5tejLRL109Kb3wwguyfv16cxL5+OOPzWvZJ7TVq1ebk78GOF988YV899135sSgXXLaPu3a8u/m0kBGrz///HN5++23za9vfd7TTz/dfMnrSU1PVvq+rrvuOk+wV1RUJOecc47p6tMAQ4+fdpPpMZ81a1bI+3gfO296YrEDCD2WCxYsMAHcueee63Ny1sfq3+aWW26RG264Qf73v//J008/LWPHjpVHH320zGOtAYs+fsaMGZ5t+t41aNXjsXv3brNNgw1tf35+ftA2a3fhJZdcIocffrjn86KX7Oxszz66fyTtDPU4Tp8+3XxOlL4n/bs9/vjj8sorr5hgONix9qdBr76eBhZ6rDWYjPQ9hyqUz5x68MEHPa+jn3PdVwNDzWquXLky4HNx4403miBs6dKlctVVV5n79D3osdPjr8dG/xb6ubrmmmt8/k/D5SwgyUaNGqXFMtaXX34ZdJ+hQ4eafbzdeuutZtubb77ps33AgAFW5cqVrf3793u2nXbaaVbz5s2toqIin32feuopq1KlSta6devKbGPLli2t/v37B7z2Sy+9FNF7PHDggDVnzhyrcePGVl5enrV9+3bPvvfee69VsWJFa8mSJT7PsWDBAvMc77zzjrmt7cnOzrY2bNjgeFxee+01z7ZJkyaZbVdccYXPvsXFxea4nHzyyebf3v76179atWvXtvbu3Wt988035vEffvhh0PcYyj7q6quvNu/bpseifv361hlnnOGzX0lJidWmTRurRYsWnm1du3Y1r6HHzlvPnj2tww47zCpPq1atrO7du3tuH3HEEdbgwYPN8f7ggw/MNn1ufY3p06cHbbO67LLLrMMPP9zxdaJpZyjH8eDBg1aTJk2stm3bmuMUjFO7tW2tW7c2jxs2bJhVoUIF8/kM5bFlvedQ2xDqZy6Y3377zapRo4b1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M1Og9yXd2CdZ+6JD2nVkmM4kmw60m/DFF180w/LjTY/fl19+mfR2AEhPz89/Pngg40UDGnsyPLgomHn55Zdl4sSJnpqWpUuXyv/93//JCSecIEcddZTZduGFF5q5ZQYMGGD20yxLQUGBXHLJJWal5Uxln2Q1qNPFF3VdJu1e02OnC0C6na4l9cILL8jhhx8e99fS46grfie7HQDSjwYxt354q+/GFxYFnTtGMRmeywqANVAZPny43H777bJ7925T39KjRw8ZMWKEZ58qVarIv/71L7n++uvN6s568tYVlvUEBDEF01pArXr37m1WnJ40aZJcffXVnsOjq01r0KgLNuqosKuuuiogWzVnzhz54IMPzFB3/bvMmzfPFF7rsVZ2oKTde59++ql5Hs1o2CPOdPJDve/kk082f0NvGihom3QRybZt25p5gnRxyrLuKy4ulu+++85nZJvWSOlq2vp6mn3TdurK3zZ9jrvvvttMqqht1OBYJ1rUYfy6SGUk/NsRzmuUd1wApK89B/ZIzZEO3ztlBDE2JsNzWWZG55UZN26cqYHRrIuebPVXsH8tTKtWrcyJYc+ePaZ7RU/M6dh1FC3NHmgmQYMXmxZVa5CwcuVKUwit8/a0adPGHGubdk/pcHft2tOAQQMYDSi9u16mTJli5gDSoEYzYrowp12fpAXb2j2o2aH77rtPLr30Us/jvvnmG5M50m5CPel//PHH0kur3Mq5z6l755prrjEBlAa9Bw4ckHPOOUdG62QLv9OAWB/TsWNHM2xfg7Hx48dLp06dghaLl8e/HaG+RnnHBUD6aj6meUAg06l5Jzk4zDJDq+25Yvzpdh2vwmR4EbLSXGFhoZ5lzLW/oqIia+nSpebaVlJSYu3evzvhF33dUG3fvt28p2nTpnm2ff3112bblClTzO2DBw9aTZs2tV5++WWfx1544YXWHXfcYf69b98+q1GjRtbjjz/uuX/ZsmVWhQoVrMGDB3u2tWvXzjruuOOs4uJin9erVq2atWbNGs+2rVu3WrVq1bJmzZplbt93333Weeed5/P6K1euLPc++/3Nnz/f3P7888+trKwsa+HChZ59X3nlFatGjRrWr7/+am5rO/Qxjz76qGefFStWmG3ej/On97/22mtlHme7HaG8RijHJZTPIQD3kQIJuBw4eMBzv349Z2WVXkqrZEov9rbfv74R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xCCYCZMuVzB5skjjxr7bNWOj21nOAACAxGJtpghowNK1KwtNAgCQCghmIqRdSR07xvaPAQAAwkc3EwAAcDWCGQAA4GoEMwAAwNUIZgAAgKsRzAAAAFcjmAEAAK5GMAMAAFyNYAYAALgawQwAAHC1tJ8B2LIsc71z585kNwUAAITIPm/b5/GMDmZ27dplrps0aZLspgAAgAjO47Vr1y5znywrlJDHxUpKSmT9+vVSq1YtycrKCisi1ABozZo1kpOTE9c2guOebHzeOe6ZhM+7O467hicayBx22GFSoUKFzM7M6AHIy8uL+PF6wAlmEo/jnhwcd457JuHznvrHvbyMjI0CYAAA4GoEMwAAwNUIZoLIzs6W4cOHm2skDsc9OTjuHPdMwuc9/Y572hcAAwCA9EZmBgAAuBrBDAAAcDWCGQAA4GoEM3727NkjI0aMkLPPPlsuvvhiefvtt5Pzl8kw//rXv+Saa66RTp06yY033ijfffddspuUUbZs2WI+82eddVaym5Ix/vnPf8rll18u55xzjowcOVIOHDiQ7Calvc8//9x8z+Tn50uPHj3kpZdekuLi4mQ3K60UFxfL+++/L126dJH27dsH/Vy/+eabctFFF5nv/IceekiKioqiel2CGT9du3aVKVOmyO233y7nn3++XHvttfK3v/0tqoOMst1///0yduxY6dixo9x7771mtuaTTjpJ5syZw6FLEP2cb968Wb7++muOeYI+81deeaWcdtppct9998lvv/0mQ4cO5djH0ezZs813TG5urjn+eiK9++675a677uK4x9AFF1wgr7zyijRv3tx8n+gs/P5GjRolN998s0kY3HLLLSawueSSS6J7YR3NhFIff/yxjuyyfvzxR88hefDBB626detaBw4c4DDFya5duwK2nXvuuVb37t055gnw1FNPWZ06dbKef/55Kzs7m2MeZ99++62VlZVlvffeez7bi4qKOPZxNGjQIOuYY47x2TZ06FCrefPmHPcY2rFjh7meNGmSOZ/6f6737t1r1axZ03r66ac92+bPn2/2/fzzzyN+XTIzXj799FM54ogj5KijjvLJ1Gzbtk0WLFgQXdSIoGrWrOm4jbR7/OnnWn8ljR8/Pqy1yxC5t956y6w1o2l4b1WrVuWwxtGJJ55o1gTSi9Js2H/+8x85+eSTOe4xVN7yA5qt2b17t8nKeP9t9P/EJ598EvHrEsx4WbVqlTmg3uzbeh8SY9GiRaaeoFu3bhzyONIvFK3ZePbZZ6Vx48Yc6wRZunSptGvXTiZOnCh/+ctfzJe6BpT79u3jbxBHffr0MbVJxx57rPz5z382n/lDDz1UXn31VY57AtnnUqdzbTTn2bRfaDIcGqn7z0xYrVo1z32IP13hXIMY7Xe9/vrrOeRx1L9/f+nQoYP07NmT45xAGrR89dVXsn//fhk0aJAUFhbKsGHDZNasWTJ9+nT+FnGiWRitS9Jajc6dO8svv/xijvsLL7wggwcP5rgniH0urVKlSsC5NprzLMGMl7p168rKlSt9DtDWrVvNdb169SI+yAjNxo0bzYga7eZ755136PaI84gDLbrTX6k64kBt2rTJdO3p7TvvvFN69erFRzdO3zMa0OhAgxo1aphtmiHQUU3Lly+XVq1acdzjQKfR14LrRx991NzW7xrtWr311lvlpptucuzuRnw+/2r79u3mc+99rj3hhBMifl66mbzogdQU8N69e3369/QDf/zxx0d8kBFaIKPDJQ8//HCZNm0aa2LFWcWKFeXLL7+UcePGyejRo81FRxNUrlzZ/FszNogPrQ/IycnxBDJKR9jYX/CID6199O9O1a4NDeC1yxWJYQcs8+fP92zTz/1PP/0kbdu2jfh5CWa86C9R/TJ//PHHzW0d96592drlYX/ZIPY0I6C/kjSQ0fkJKIRMDM3AeF90KKUG7vrvhg0bJqgVmeeqq66SXbt2yaRJk8xtHbqqXR0NGjQwmTLEx5lnnmm+X+y6DO3me/HFF82gj0aNGnHYE6RZs2bm+14zZPo3UI888oiZkiOaOkm6mbxoyku/YHT+h9dee830ZWuXx8svvxz9XxBBab/1jz/+aLIxOg+E94eeSQuRbvLy8kw36nXXXWfmmNGsgNYLTJ06VapXr57s5qWtgoICU0ag3+lHHnmkrFu3zmRm3n333WQ3La08/vjj5rOsmTClE3HqjyTN+Npd2jp6UkcKaxCpQYxmxyZPnlzuSKiysGq2Az2wy5YtM18sGrUjvrQQTyds86df8HTvJTZDpl/2DFVN7PeMfplrVrJCBRLliaBdGqtXrzZ1kNrtxJQEsbVixQr59ddfA7b/6U9/CghWtGtJe0D0Pu0ViQbBDAAAcDV+CgAAAFcjmAEAAK5GMAMAAFyNYAYAALgawQwAAHA1ghkAAOBqBDMAAMDVCGYAuIquLK2rTvtbsmSJmUVUlwcAkFkIZgC4blHSTp06yc8//+zZplOnd+7cWRYtWsRMukAGYgZgAK7TpUsX2bp1q8ydO9cEL7rity4gOG/ePKlUiSXngExDMAPAldmZY445RoYMGWIWiL3ttttk4cKF0qpVq2Q3DUAS8BMGgOvoarvPP/+89O3bV6pUqSJPPfUUgQyQwcjMAHCl4uJiad68uVl1d/369VGvugvAvSgABuBKjzzyiOzbt8/UyDz00EPJbg6AJCIzA8B15s+fL6effrpMmTJFsrKypHv37ma4drt27ZLdNABJQDADwFX27t0rbdu2lfz8fBk7dqzZdt1118nXX38tCxYskOzs7GQ3EUCC0c0EwFUGDRpkrrXo1zZ69GjZtWuX3HfffUlsGYBkIZgB4BqrV6+WnTt3yoQJE6R69eqe7Tk5OfLGG2/IunXrZMuWLUltI4DEo5sJAAC4GpkZAADgagQzAADA1QhmAACAqxHMAAAAVyOYAQAArkYwAwAAXI1gBgAAuBrBDAAAcDWCGQAA4GoEMwAAwNUIZgAAgKsRzAAAAHGz/wcKKJ8fr0tP6AAAAABJRU5ErkJggg=="/>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7801,25 +8161,45 @@ Coeficiente de Determinación (R²): 0.9756924413920042
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Step-7:-Use-the-model-to-make-predictions">Step 7: Use the model to make predictions<a class="anchor-link" href="#Step-7:-Use-the-model-to-make-predictions">¶</a></h3><hr/>
 <p>Finally, we use the trained model to make predictions on new values of the independent variable (X) that the model has not seen before. This simulates how the model would be used in a real-world scenario to predict future outcomes.</p>
+<p><code>predict()</code> expects the same shape as <code>X</code>: one row per example. Pay attention to the range: the training data only covered $x$ between 0 and 10.</p>
+<ul>
+<li>For $x = 2.5$, inside that range, the model is <strong>interpolating</strong>.</li>
+<li>For $x = 15$, outside it, the model is <strong>extrapolating</strong>: it simply extends the line. Here the answer is close to the true value ($4 + 3 \cdot 15 = 49$) only because we planted a perfectly straight line; with real data nothing guarantees that the pattern continues beyond the range we trained on.</li>
+</ul>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Use the model to predict on new data</span>
-<span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.5</span><span class="p">],[</span><span class="mi">15</span><span class="p">]])</span> <span class="c1"># New X values</span>
+<span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span><span class="p">]])</span>  <span class="c1"># Two new X values, one row each</span>
 <span class="n">y_new_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Prediction for X = </span><span class="si">{</span><span class="n">X_new</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">y_new_pred</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Prediction for X = </span><span class="si">{</span><span class="n">X_new</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">y_new_pred</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"(the value 15 cannot be within the training data since the maximum range was 10)"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y_hat</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new_pred</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Prediction for X = </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">y_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"(15 is outside the 0-10 range we trained on: extrapolation)"</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Prediction for X = 2.5 is 11.49
+Prediction for X = 15.0 is 48.77
+(15 is outside the 0-10 range we trained on: extrapolation)
+</pre>
 </div>
 </div>
 </div>
@@ -7834,11 +8214,11 @@ Coeficiente de Determinación (R²): 0.9756924413920042
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h3><p>In this notebook, we have implemented a linear regression model using the scikit-learn library. Unlike a manual implementation, scikit-learn greatly simplifies the process, providing efficient and optimized tools for:</p>
 <ul>
 <li><strong>Data splitting</strong>: <code>train_test_split</code> makes it easy to separate the data into training and test sets, which is essential for good training and realistic evaluation.</li>
-<li><strong>Model training</strong>: <code>LinearRegression</code> abstracts the mathematical and computational details of training, allowing us to fit the model with a simple call to <code>fit()</code>.</li>
+<li><strong>Model training</strong>: <code>LinearRegression</code> abstracts the mathematical and computational details of training, allowing us to fit the model with a simple call to <code>fit()</code> — no learning rate, no loop, no gradients to write.</li>
 <li><strong>Model evaluation</strong>: Metrics such as <code>mean_squared_error</code> and <code>r2_score</code> give us a quantitative measure of the model's performance on unseen data.</li>
 </ul>
-<p>Visualizing the results allows us to verify that the regression line fits the data reasonably well, and both the MSE and R² confirm the good fit.</p>
-<p>In summary, scikit-learn is a powerful and easy-to-use tool for building and evaluating machine learning models, which speeds up development and allows us to focus on interpreting results and improving the model.</p>
+<p>The model recovered the line we planted (slope ≈ 3, intercept ≈ 4), its errors on the test set are of the size of the noise, and its training and test errors are similar. Visualizing the results confirms that the regression line runs through both the training and the test points.</p>
+<p>In summary, scikit-learn is a powerful and easy-to-use tool for building and evaluating machine learning models, which speeds up development and allows us to focus on interpreting results and improving the model. A good next step is to try the same few calls on your own data, with more than one feature.</p>
 </div>
 </div>
 </div>

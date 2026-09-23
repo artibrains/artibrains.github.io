@@ -9,7 +9,7 @@ math: true
 
 ## Context
 
-Alma's push for transparency leads the Minermont team to revisit Naive Bayes. Its simplicity comes from conditional independence assumptions paired with pragmatic smoothing, which keep probabilities stable even when data are sparse.
+Hazel's push for transparency leads the Minermont team to revisit Naive Bayes. Its simplicity comes from conditional independence assumptions paired with pragmatic smoothing, which keep probabilities stable even when data are sparse.
 Continuous variants adopt Gaussian assumptions or kernel densities, but the examples here use discretised signals, so the categorical case suffices.
 
 ## From Bayes' Rule to a Classifier
@@ -94,7 +94,7 @@ Thus `HasInvoiceKeyword=Yes` strongly boosts the billing posterior while smoothi
 
 ## Narrative Link
 
-Teams can inspect per-feature likelihoods to justify predictions, aligning with Alma's emphasis on transparency. The smoothing term echoes the caution of not dismissing rare signals due to scarce data.
+Teams can inspect per-feature likelihoods to justify predictions, aligning with Hazel's emphasis on transparency. The smoothing term echoes the caution of not dismissing rare signals due to scarce data.
 
 ## References
 

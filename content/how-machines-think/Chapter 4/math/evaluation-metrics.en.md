@@ -9,7 +9,7 @@ math: true
 
 ## Why Metrics Matter
 
-Minermont's routing assistant is only as trustworthy as the evidence behind each prediction. The mathematics in this note grounds the precision/recall dashboards that Alma's team presents to stakeholders.
+Minermont's routing assistant is only as trustworthy as the evidence behind each prediction. The mathematics in this note grounds the precision/recall dashboards that Hazel's team presents to stakeholders.
 
 ## Confusion Matrix Fundamentals
 

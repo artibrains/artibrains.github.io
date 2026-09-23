@@ -1,5 +1,5 @@
 ---
-title: "3.5 Notes from Luis: Efficient K-Fold Cross-Validation"
+title: "3.5 Notes from Noah: Efficient K-Fold Cross-Validation"
 weight: 9
 description: "Understand why robust evaluation matters and how cross-validation delivers more reliable estimates than simple train/test splits."
 date: 2025-04-17

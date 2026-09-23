@@ -98,5 +98,5 @@ The confusion matrix captures performance at a specific decision point. To explo
 - **[Multiclass strategies]({{% relref "how-machines-think/Chapter 4/multiclass-strategies/_index.en.md" %}})**: How to extend binary classifiers to multiclass problems.
 
 {{% notice style="info" title="Operational practice" %}}
-At Minermont, Teresa and Javier review the confusion matrix weekly. They use it to spot systematic confusions (for example, Follow-up cases being misrouted to Emergency) and then improve data collection and labeling guidelines so the model has clearer signals.
+At Minermont, Claire and Owen review the confusion matrix weekly. They use it to spot systematic confusions (for example, Follow-up cases being misrouted to Emergency) and then improve data collection and labeling guidelines so the model has clearer signals.
 {{% /notice %}}

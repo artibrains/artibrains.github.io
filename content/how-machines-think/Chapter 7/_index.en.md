@@ -11,7 +11,7 @@ slug: "language-revolution-llms"
 
 {{< chapter-index-image chapter="7" >}}
 
-As LLMs spread, Ethan, Sophia, and Noah ask how they fit at Minermont; Hazel leads them through tokenization, embeddings, and attention.
+As LLMs spread, Ethan, Martha, and Noah ask how they fit at Minermont; Hazel leads them through tokenization, embeddings, and attention.
 
 Large Language Models (LLMs) generate text by learning patterns over sequences. This chapter focuses on the foundations: **tokenization**, **embeddings**, and how text becomes learnable signals.
 
