@@ -7819,6 +7819,7 @@ a.anchor-link {
 <li>A tiny language model: the probability of the next word.</li>
 <li>The context.</li>
 <li>Decision rules: greedy, temperature, top-k and top-p.</li>
+<li>Beam search: looking for the most probable sentence.</li>
 <li>RLHF in miniature: preferences and a reward model.</li>
 <li>Optimizing against the reward model, and the penalty that keeps the model close to the original.</li>
 <li>When the reward model is wrong: reward hacking.</li>
@@ -8181,7 +8182,83 @@ T = 2: &lt;/s&gt; 0.25, twice 0.21, if 0.18, every 0.13, once 0.12, the other 51
 <li><strong>Top-k = 3</strong> removes that tail and brings T = 2 back to 60% of correct instructions. <strong>Top-p = 0.9</strong> barely helps (7%): it is applied after the temperature, and once the distribution is flat, reaching 90% of the probability takes many words of the tail. Combined with T = 1, top-p gives the best result of the table, 79%.</li>
 </ul>
 <p>As Grace concludes in the book, if we want reliability we mostly control the context and the decision rule.</p>
-<h3 id="Step-5:-RLHF-in-miniature">Step 5: RLHF in miniature<a class="anchor-link" href="#Step-5:-RLHF-in-miniature">¶</a></h3><hr/>
+<h3 id="Step-5:-Beam-search:-looking-for-the-most-probable-sentence">Step 5: Beam search: looking for the most probable sentence<a class="anchor-link" href="#Step-5:-Beam-search:-looking-for-the-most-probable-sentence">¶</a></h3><hr/>
+<p>The book names a third way of decoding besides the greedy and the stochastic ones: <strong>beam search</strong>. Greedy decoding takes the best word at each step, but the sentence it builds is not necessarily the most probable one: a word that looks good now can lead to a poor continuation. Beam search keeps the $k$ most probable partial sentences (the <em>beam</em>) at every step. It extends each one with its $k$ most probable next words, scores every candidate by the log-probability of the whole sentence, $\log P(x_1) + \log P(x_2 \mid x_1) + \dots$, and keeps the $k$ best. With $k = 1$ it is greedy decoding. A sentence that reaches <code>&lt;/s&gt;</code> is set aside as finished, and at the end we choose the best finished one. Like greedy decoding, it is deterministic: it gives the same sentence every time.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">beams</span><span class="p">,</span> <span class="n">finished</span> <span class="o">=</span> <span class="p">[([</span><span class="s1">'&lt;s&gt;'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)],</span> <span class="p">[]</span>                  <span class="c1"># (words so far, log-probability of the sentence)</span>
+    <span class="k">while</span> <span class="n">beams</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">beams</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)[:</span><span class="n">width</span><span class="p">]:</span>                      <span class="c1"># the width most probable next words</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tokens</span> <span class="o">+</span> <span class="p">[</span><span class="n">vocabulary</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">log_p</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">beams</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">[:</span><span class="n">width</span><span class="p">]:</span>                  <span class="c1"># keep the width best candidates</span>
+            <span class="n">done</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'&lt;/s&gt;'</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_words</span> <span class="o">+</span> <span class="mi">3</span>
+            <span class="p">(</span><span class="n">finished</span> <span class="k">if</span> <span class="n">done</span> <span class="k">else</span> <span class="n">beams</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">finished</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="o">-</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'&lt;s&gt;'</span><span class="p">,</span> <span class="s1">'&lt;/s&gt;'</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+    <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="o">=</span> <span class="n">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"width </span><span class="si">{</span><span class="n">width</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">: '</span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">'  probability </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_p</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  correct: </span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">valid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">The best finished sentences with width 5, with their probability and their log-probability per word:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="mi">5</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="n">n_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span>                                     <span class="c1"># the words and &lt;/s&gt;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_p</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">log_p</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_words</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2">  '</span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>width  1: 'take paracetamol'  probability 0.0630  correct: False
+width  2: 'call your doctor if the fever gets worse'  probability 0.0708  correct: True
+width  3: 'call your doctor if the fever gets worse'  probability 0.0708  correct: True
+width  5: 'drink plenty of water and rest at home'  probability 0.0937  correct: True
+width 10: 'drink plenty of water and rest at home'  probability 0.0937  correct: True
+
+The best finished sentences with width 5, with their probability and their log-probability per word:
+  0.0937  -0.263  'drink plenty of water and rest at home'
+  0.0708  -0.294  'call your doctor if the fever gets worse'
+  0.0630  -0.922  'take paracetamol'
+  0.0485  -0.303  'come back to the hospital if you have fever'
+  0.0395  -0.359  'call your doctor if the pain gets worse'
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>With width 1, beam search is greedy decoding and writes "take paracetamol", with a probability of 0.0630, which is not a correct instruction: after "take paracetamol" the most probable word is the end of the sentence, because two templates end that way ("do not drive while you take paracetamol"). With width 2 it already finds a better sentence, "call your doctor if the fever gets worse" (0.0708), and from width 5 on the most probable sentence of the model, "drink plenty of water and rest at home" (0.0937): its first word is less probable than "take", but after it every word is almost certain. That is the early mistake Emma warns about, and what a wider beam avoids. The last column, the log-probability per word, is used for <strong>length normalization</strong>: without it, beam search favours short sentences, because every extra word multiplies the probability by a number smaller than 1. "take paracetamol" is third by probability and last by probability per word, −0.922. Like greedy decoding, beam search always writes the same sentence: it looks for the most probable text, not for variety.</p>
+<h3 id="Step-6:-RLHF-in-miniature">Step 6: RLHF in miniature<a class="anchor-link" href="#Step-6:-RLHF-in-miniature">¶</a></h3><hr/>
 <p>Now the second idea. The book describes RLHF in three phases: <strong>collect human preferences</strong> between answers, <strong>train a reward model</strong> that predicts them, and <strong>optimize the language model</strong> to get a high reward. We work with a single question from a patient and 8 possible answers of the base model:</p>
 </div>
 </div>
@@ -8191,7 +8268,7 @@ T = 2: &lt;/s&gt; 0.25, twice 0.21, if 0.18, every 0.13, once 0.12, the other 51
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s2">"I have high blood pressure. Can I take ibuprofen for my back pain?"</span>
@@ -8246,7 +8323,7 @@ T = 2: &lt;/s&gt; 0.25, twice 0.21, if 0.18, every 0.13, once 0.12, the other 51
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">quality</span> <span class="o">=</span> <span class="n">features</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
@@ -8317,7 +8394,7 @@ H                 1.0     2.65
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The reward model agrees with the clinicians on 90.5% of their comparisons, and it puts the six answers they saw in the right order: C first (6.49), A last (0.24). But it has learned something nobody intended, a weight of 1.61 for length. It cannot see the invented dose, and among the answers the clinicians saw, the two that invent one, A and E, happen to be the shortest (6 and 10 words): length became a proxy for what it cannot see. The consequence is answer G, which the clinicians never saw: long (160 words), warm, and recommending a dose that is dangerous for this patient. Its true quality is −2.0, yet it gets the highest reward of all, 7.88. As the book says, the reward model is only a learned approximation of human judgement, and it is only reliable on answers like the ones it was trained on.</p>
-<h3 id="Step-6:-Optimizing-against-the-reward-model">Step 6: Optimizing against the reward model<a class="anchor-link" href="#Step-6:-Optimizing-against-the-reward-model">¶</a></h3><hr/>
+<h3 id="Step-7:-Optimizing-against-the-reward-model">Step 7: Optimizing against the reward model<a class="anchor-link" href="#Step-7:-Optimizing-against-the-reward-model">¶</a></h3><hr/>
 <p><strong>Phase 3.</strong> The language model, the <strong>policy</strong> $\pi$, is adjusted to obtain a high reward. The book explains that a regularization term is added that penalizes moving too far from the original model $\pi_0$. With that penalty, measured with the Kullback–Leibler divergence and a strength $\beta$, the best possible policy has a simple form:</p>
 <p>$$\pi(y) \propto \pi_0(y)\, e^{\,r(y)/\beta}$$</p>
 <p>A large $\beta$ keeps the model almost as it was; a small $\beta$ lets the reward decide everything. The base model gives these probabilities to the 8 answers, and we see what happens as $\beta$ decreases:</p>
@@ -8329,7 +8406,7 @@ H                 1.0     2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">base_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">])</span>
@@ -8391,7 +8468,7 @@ H                 1.0     2.65
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>With β = 20 the policy hardly moves (distance 0.01), and the true quality rises only a little, from 0.11 to 0.24. Lowering β pushes the reward up without stopping: 5.33 at β = 5, 7.47 at β = 1 and 7.88 at β = 0.1. The true quality, instead, peaks at 0.41 at β = 5 and then falls: at β = 1 it is already −0.95, and at β = 0.1 it is −2.00, because the model writes answer G with probability 1.00. The best answer, C, which reaches 0.13 at most, disappears. The optimization has done exactly what it was asked, maximize the reward model; the problem is that the reward model is wrong about G.</p>
-<h3 id="Step-7:-Reward-hacking,-and-how-to-fix-it">Step 7: Reward hacking, and how to fix it<a class="anchor-link" href="#Step-7:-Reward-hacking,-and-how-to-fix-it">¶</a></h3><hr/>
+<h3 id="Step-8:-Reward-hacking,-and-how-to-fix-it">Step 8: Reward hacking, and how to fix it<a class="anchor-link" href="#Step-8:-Reward-hacking,-and-how-to-fix-it">¶</a></h3><hr/>
 <p>The plot shows the trap: the more we optimize (smaller $\beta$, to the right), the higher the reward, while the true quality peaks and then collapses.</p>
 </div>
 </div>
@@ -8401,7 +8478,7 @@ H                 1.0     2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -8445,7 +8522,7 @@ H                 1.0     2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">all_answers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)))</span>

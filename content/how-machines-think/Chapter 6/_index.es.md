@@ -40,6 +40,13 @@ En este capítulo te unirás a ellos para desmitificar el funcionamiento interno
 - **[Teorema de convergencia del perceptrón]({{% relref "how-machines-think/Chapter 6/math/perceptron-convergence.es.md" %}})**: Cota de errores de Rosenblatt–Novikoff que garantiza la convergencia en datos linealmente separables.
 - **[Backpropagation mediante la regla de la cadena]({{% relref "how-machines-think/Chapter 6/math/backpropagation.es.md" %}})**: Derivación jacobiana de las recurrencias de gradiente.
 
+### Implementación práctica
+
+- **[⚡ Perceptrón y redes multicapa desde cero]({{% relref "/how-machines-think/Chapter 6/code/perceptron.es.md" %}})**: El perceptrón y su regla de aprendizaje, el problema XOR, la retropropagación y las funciones de activación, solo con NumPy.
+- **[⚡ Redes neuronales con TensorFlow y Keras]({{% relref "/how-machines-think/Chapter 6/code/keras-cnn.es.md" %}})**: Diferenciación automática, XOR con Keras, la red convolucional del libro para imágenes de dermatología y una red de scikit-learn para comparar.
+- **[⚡ Una red neuronal convolucional desde cero]({{% relref "/how-machines-think/Chapter 6/code/cnn-from-scratch.es.md" %}})**: La CNN del libro escrita solo con NumPy, con la convolución, el max-pooling y la retropropagación a mano, entrenada con lesiones cutáneas sintéticas.
+- **[⚡ Transferencia, aumento de datos y clases desequilibradas]({{% relref "/how-machines-think/Chapter 6/code/transfer-learning.es.md" %}})**: La CNN del libro con solo 280 imágenes, y el efecto de los pesos de clase, el sobremuestreo, el aumento de datos, el aprendizaje por transferencia y más datos.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[📚 Redes Neuronales y Perceptrón]({{% relref "how-machines-think/Chapter 6/bibliography/bibliography-neural-networks.es.md" %}})**: Recursos y referencias verificadas sobre redes neuronales, el perceptrón de Rosenblatt y el algoritmo de backpropagation.

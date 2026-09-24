@@ -29,6 +29,10 @@ Prepárate para dominar el arte del despliegue responsable de IA y comprender qu
 
 - **[8.1 📐 REINFORCE y RLHF]({{% relref "how-machines-think/Chapter 8/math/reinforce.es.md" %}})**: Intuición de gradiente de política y flujo RLHF.
 
+### Implementación práctica
+
+- **[⚡ Generación de texto y RLHF desde cero]({{% relref "/how-machines-think/Chapter 8/code/text-generation-rlhf.es.md" %}})**: La distribución del siguiente token, el contexto, la decodificación voraz, la temperatura, top-k y top-p, un modelo de recompensa y el reward hacking.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[📚 Bibliografía: Aplicaciones y Seguridad de LLMs]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.es.md" %}})**: Recursos sobre prompting, post-entrenamiento, evaluación y despliegue responsable.

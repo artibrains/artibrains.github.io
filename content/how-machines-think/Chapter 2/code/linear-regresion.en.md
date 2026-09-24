@@ -13,7 +13,7 @@ The interactive notebook includes:
 
 - Preparation and visualization of synthetic data.  
 - Manual implementation of the linear regression model.  
-- Training using gradient descent with early stopping.  
+- Feature scaling, and training using gradient descent with early stopping.  
 - Visualization of the learning process and results.  
 - Example of prediction for new data.
 

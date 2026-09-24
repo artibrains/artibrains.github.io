@@ -44,6 +44,14 @@ Prepárate para desmontar la "caja negra" y comprender la lógica que impulsa a 
 - **[📐 Álgebra de métricas de evaluación]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.es.md" %}})**: Derivaciones formales de la matriz de confusión, las variantes de precisión/recall y la AUC multiclase que respaldan los tableros del capítulo.
 - **[📐 Fundamentos de Naive Bayes]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.es.md" %}})**: De la regla de Bayes al suavizado y la interpretabilidad que sostienen la confianza de Alma en el modelo probabilístico.
 
+### Implementación práctica
+
+- **[⚡ KNN para el triaje de urgencias]({{% relref "/how-machines-think/Chapter 4/code/knn.es.md" %}})**: K vecinos más cercanos, métricas de distancia y escalado de características para el triaje multiclase.
+- **[⚡ Naive Bayes para el triaje de urgencias]({{% relref "/how-machines-think/Chapter 4/code/naive-bayes.es.md" %}})**: El clasificador Naive Bayes a mano y con scikit-learn, siguiendo las notas de Marta.
+- **[⚡ Árbol de decisión para el triaje de urgencias]({{% relref "/how-machines-think/Chapter 4/code/decision-tree.es.md" %}})**: Cómo elige sus preguntas un árbol de decisión, sobreajuste, profundidad, interpretabilidad e inestabilidad.
+- **[⚡ Bosque aleatorio para el triaje de urgencias]({{% relref "/how-machines-think/Chapter 4/code/random-forest.es.md" %}})**: Bagging, error out-of-bag, importancia de las características y los niveles críticos, con el modelo que elige el equipo.
+- **[⚡ One-vs-Rest, One-vs-One y softmax desde cero]({{% relref "/how-machines-think/Chapter 4/code/multiclass-ovr-ovo-softmax.es.md" %}})**: El triaje de urgencias en cinco niveles con One-vs-Rest, One-vs-One y regresión softmax, todo escrito con NumPy.
+
 ### Bibliografía y Recursos Adicionales
 - **[📚 K-NN y Árboles de Decisión]({{% relref "how-machines-think/Chapter 4/bibliography/bibliography-knn-decision-trees.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clasificación, métricas de distancia e interpretabilidad.
 

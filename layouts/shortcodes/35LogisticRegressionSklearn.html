@@ -7826,6 +7826,7 @@ a.anchor-link {
 <li>Overfitting: what happens with few patients and many variables.</li>
 <li>L2 and L1 regularization.</li>
 <li>Choosing $\lambda$ with k-fold cross-validation.</li>
+<li>Elastic Net and correlated variables.</li>
 <li>Imbalanced classes.</li>
 </ol>
 </div>
@@ -8247,7 +8248,7 @@ Always predicting 'attends':  0.722
 
 <span class="k">def</span><span class="w"> </span><span class="nf">l1_model</span><span class="p">(</span><span class="n">lam</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span>
-                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">'l1'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'liblinear'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">))</span>
+                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">'l1'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'liblinear'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]:</span>
     <span class="n">mdl</span> <span class="o">=</span> <span class="n">l2_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs_train</span><span class="p">,</span> <span class="n">ys_train</span><span class="p">)</span>
@@ -8480,8 +8481,11 @@ extra_43                -0.028
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>L1 has removed most of the variables. The largest weights belong to real ones (days since the last visit, age, previous no-shows, distance), and the few noise columns that survive have small weights: with 50 random columns and only 210 appointments, some of them correlate with attendance by pure chance. The hour has been removed too, since its effect only appears in the last slots of the afternoon, and 210 appointments are too few to detect it. Regularization helps a great deal, but it does not replace good judgement about which variables make sense.</p>
-<h3 id="Step-7:-Imbalanced-classes">Step 7: Imbalanced classes<a class="anchor-link" href="#Step-7:-Imbalanced-classes">¶</a></h3><hr/>
-<p>Only about a quarter of the appointments are no-shows, so the model sees many more examples of attendance and leans towards predicting it. Besides moving the threshold, scikit-learn can <strong>weight the classes</strong> so that each error on the minority class counts more (<code>class_weight='balanced'</code>). Back to the full dataset:</p>
+<h3 id="Step-7:-Elastic-Net-and-correlated-variables">Step 7: Elastic Net and correlated variables<a class="anchor-link" href="#Step-7:-Elastic-Net-and-correlated-variables">¶</a></h3><hr/>
+<p>A hospital record often holds the same information more than once. Suppose that, besides the distance from home to the hospital, the record has the distance by road and the travel time by car. The three columns say almost the same thing. The book recommends <strong>Elastic Net</strong> for this situation, when there are correlated variables. It adds both penalties to the cost:</p>
+<p>$$J_{\text{Elastic Net}}(w, b) = \text{log loss} + \lambda_1 \sum_j |w_j| + \lambda_2 \sum_j w_j^2$$</p>
+<p>The L1 part can still remove variables, and the L2 part shares the weight among the variables that carry the same information. In scikit-learn it is <code>penalty='elasticnet'</code> with the <code>saga</code> solver, and the two lambdas become <code>C</code> and <code>l1_ratio</code>: $C = \frac{1}{m(\lambda_1 + 2\lambda_2)}$ and $\text{l1\_ratio} = \frac{\lambda_1}{\lambda_1 + 2\lambda_2}$.</p>
+<p>We go back to the 900 training appointments of step 1 and add the two new columns and 20 irrelevant ones:</p>
 </div>
 </div>
 </div>
@@ -8491,6 +8495,187 @@ extra_43                -0.028
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_columns</span><span class="p">(</span><span class="n">X_part</span><span class="p">):</span>
+    <span class="n">X_part</span> <span class="o">=</span> <span class="n">X_part</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">X_part</span><span class="p">[</span><span class="s1">'road_km'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mf">1.25</span> <span class="o">*</span> <span class="n">X_part</span><span class="p">[</span><span class="s1">'distance_km'</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># distance by road</span>
+    <span class="n">X_part</span><span class="p">[</span><span class="s1">'travel_minutes'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">X_part</span><span class="p">[</span><span class="s1">'distance_km'</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">)))</span>      <span class="c1"># minutes by car</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">X_part</span><span class="p">[</span><span class="sa">f</span><span class="s1">'extra_</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">))</span>                                          <span class="c1"># irrelevant variables</span>
+    <span class="k">return</span> <span class="n">X_part</span>
+
+<span class="n">Xg_train</span><span class="p">,</span> <span class="n">Xg_test</span> <span class="o">=</span> <span class="n">add_columns</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">add_columns</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">distance_group</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'distance_km'</span><span class="p">,</span> <span class="s1">'road_km'</span><span class="p">,</span> <span class="s1">'travel_minutes'</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variables: </span><span class="si">{</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, training appointments: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Correlations between the three distance columns:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Xg_train</span><span class="p">[</span><span class="n">distance_group</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Variables: 28, training appointments: 900
+Correlations between the three distance columns:
+                distance_km  road_km  travel_minutes
+distance_km           1.000    0.991           0.983
+road_km               0.991    1.000           0.975
+travel_minutes        0.983    0.975           1.000
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We choose the lambdas of L1, L2 and Elastic Net with the same 5-fold cross-validation as in step 6. Elastic Net has two, so its grid has 12 combinations instead of 5 values: this is the extra tuning the book warns about. Then we train each model on the 900 appointments and look at the weights of the three distance columns, at how many irrelevant columns keep a weight, and at the accuracy on the test set.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>   <span class="c1"># 900 appointments now: l1_model, l2_model and the new function use it to convert lambda into C</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">elastic_net_model</span><span class="p">(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span>
+                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">lam1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lam2</span><span class="p">)),</span> <span class="n">l1_ratio</span><span class="o">=</span><span class="n">lam1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lam2</span><span class="p">),</span>
+                                            <span class="n">penalty</span><span class="o">=</span><span class="s1">'elasticnet'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'saga'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mean_validation</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xg_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)[</span><span class="s1">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="n">lam_l1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lam</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">l1_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)))</span>
+<span class="n">lam_l2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lam</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">l2_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)))</span>
+<span class="n">en_grid</span> <span class="o">=</span> <span class="p">[(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">)</span> <span class="k">for</span> <span class="n">lam1</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span> <span class="k">for</span> <span class="n">lam2</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]</span>
+<span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">en_grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lams</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">elastic_net_model</span><span class="p">(</span><span class="o">*</span><span class="n">lams</span><span class="p">)))</span>
+
+<span class="n">l1_name</span><span class="p">,</span> <span class="n">en_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'L1, lambda = </span><span class="si">{</span><span class="n">lam_l1</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Elastic Net, lambdas = </span><span class="si">{</span><span class="n">lam1</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lam2</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Without regularization'</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">)),</span>
+          <span class="n">l1_name</span><span class="p">:</span> <span class="n">l1_model</span><span class="p">(</span><span class="n">lam_l1</span><span class="p">),</span>
+          <span class="sa">f</span><span class="s1">'L2, lambda = </span><span class="si">{</span><span class="n">lam_l2</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span><span class="p">:</span> <span class="n">l2_model</span><span class="p">(</span><span class="n">lam_l2</span><span class="p">),</span>
+          <span class="n">en_name</span><span class="p">:</span> <span class="n">elastic_net_model</span><span class="p">(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">)}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'model'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">weights</span><span class="p">[</span><span class="n">distance_group</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+                 <span class="s1">'irrelevant kept'</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">weights</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">'extra_'</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+                 <span class="s1">'test accuracy'</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xg_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">)})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>                             model  distance_km  road_km  travel_minutes  irrelevant kept  test accuracy
+            Without regularization        0.997    0.520          -0.415               20          0.830
+                 L1, lambda = 0.01        0.463    0.334           0.000                9          0.840
+                L2, lambda = 0.001        0.527    0.553          -0.025               20          0.823
+Elastic Net, lambdas = 0.01, 0.003        0.338    0.335           0.103                9          0.840
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The three distance columns are correlated between 0.975 and 0.991. Without regularization, the model shares the distance among them in a way that makes no sense: 0.997 for the distance, 0.520 for the road and −0.415 for the travel time, a negative weight that on its own would mean that longer trips make patients more likely to attend. It also gives a weight to all 20 irrelevant columns. L2, with the lambda chosen by cross-validation, 0.001, is very light and barely changes that picture: the travel time still has a small negative weight, −0.025, and the 20 irrelevant columns keep theirs. L1 removes 11 of the 20 irrelevant columns, and it also removes the travel time, keeping 0.463 for the distance and 0.334 for the road. Elastic Net removes as many irrelevant columns, 9 remain, and keeps the three distance columns with positive weights: 0.338, 0.335 and 0.103. On the test set, the four models are between 0.823 and 0.840, a difference of 5 appointments out of 300: with 900 training appointments, the difference is in the weights, not in the accuracy.</p>
+<p>How stable is the choice of L1? We train L1 and Elastic Net again on 30 <strong>bootstrap</strong> samples, each made of 900 appointments drawn at random, with replacement, from the training set, and count how many times each distance column keeps a weight:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">boot_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">boot_rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">l1_name</span><span class="p">,</span> <span class="n">en_name</span><span class="p">]:</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">distance_group</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">:</span>
+        <span class="n">mdl</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+        <span class="n">kept</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mdl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)[</span><span class="n">distance_group</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> of 30"</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">kept</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>L1, lambda = 0.01                distance_km 23 of 30, road_km 22 of 30, travel_minutes 8 of 30
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Elastic Net, lambdas = 0.01, 0.003 distance_km 30 of 30, road_km 30 of 30, travel_minutes 26 of 30
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Which distance column L1 keeps depends on the sample: the distance in 23 of the 30 samples, the road in 22 and the travel time in only 8. Two models trained on almost the same appointments tell different stories about which variables matter. Elastic Net keeps the distance and the road in all 30 samples and the travel time in 26: its L2 part makes correlated columns share the weight, so they tend to stay in the model together. That is what the book means: Elastic Net can select variables, like L1, and reduce the weights of the others proportionally, like L2, and that is why it is especially useful when there are correlated variables.</p>
+<h3 id="Step-8:-Imbalanced-classes">Step 8: Imbalanced classes<a class="anchor-link" href="#Step-8:-Imbalanced-classes">¶</a></h3><hr/>
+<p>Only about a quarter of the appointments are no-shows, so the model sees many more examples of attendance and leans towards predicting it. Besides moving the threshold, scikit-learn can <strong>weight the classes</strong> so that each error on the minority class counts more (<code>class_weight='balanced'</code>). Back to the full dataset:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sensitivity_specificity</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
@@ -8538,6 +8723,7 @@ class_weight='balanced', threshold 0.5   accuracy 0.777 | sensitivity 0.797 | sp
 <li>With scikit-learn, a <strong>pipeline</strong> of <code>StandardScaler</code> and <code>LogisticRegression</code> reproduces in a few lines the model we wrote from scratch.</li>
 <li>A classifier is judged on the confusion matrix, the classification report and the <strong>ROC curve</strong>, not only on accuracy.</li>
 <li>With few examples and many variables the model <strong>overfits</strong>. <strong>Regularization</strong> penalizes large weights: L2 shrinks them and L1 can remove variables altogether.</li>
+<li><strong>Elastic Net</strong> combines both penalties: it removes irrelevant variables like L1 and shares the weight among correlated variables like L2, at the price of a second $\lambda$ to tune.</li>
 <li>The regularization strength is chosen with <strong>k-fold cross-validation</strong> on the training data. The test set is used only once, at the end.</li>
 <li>With imbalanced classes, the threshold and the class weights let us put the balance between sensitivity and specificity where the hospital needs it.</li>
 </ul>

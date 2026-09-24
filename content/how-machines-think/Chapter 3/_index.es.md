@@ -40,6 +40,13 @@ Prepárate para profundizar en el arte de la clasificación y la evaluación, do
 
 - **[📝 Pseudocódigo de Regresión Logística]({{% relref "/how-machines-think/Chapter 3/code/pseudocode-logistic-regression.es.md" %}})**: Pseudocódigo completo para regresión logística binaria y multiclase con entrenamiento por descenso del gradiente.
 
+### Implementación práctica
+
+- **[⚡ Regresión logística desde cero]({{% relref "/how-machines-think/Chapter 3/code/logistic-regression.es.md" %}})**: Cómo crear un modelo de regresión logística desde cero para predecir las ausencias a las citas.
+- **[⚡ Regresión logística con sklearn]({{% relref "/how-machines-think/Chapter 3/code/logistic-regression-sklearn.es.md" %}})**: Regresión logística con scikit-learn, regularización y validación cruzada de k grupos.
+- **[⚡ SVM desde cero]({{% relref "/how-machines-think/Chapter 3/code/svm.es.md" %}})**: Cómo crear una máquina de vectores de soporte lineal desde cero con la pérdida bisagra.
+- **[⚡ SVM con sklearn]({{% relref "/how-machines-think/Chapter 3/code/svm-sklearn.es.md" %}})**: Máquinas de vectores de soporte con scikit-learn, el truco del kernel y la búsqueda de hiperparámetros.
+
 ### Bibliografía y recursos complementarios
 
 - **[📚 Regresión logística y traductores de probabilidad]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.es.md" %}})**: Fundamentos, guías prácticas e interpretabilidad para El Traductor de Probabilidades.

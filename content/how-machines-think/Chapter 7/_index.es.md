@@ -37,6 +37,15 @@ Prepárate para dar los primeros pasos en el viaje hacia la comprensión del len
 - **[Tokenización y geometría de embeddings]({{% relref "how-machines-think/Chapter 7/math/tokenisation-embeddings.es.md" %}})**: Matemáticas de BPE y la geometría del espacio de embeddings que sustentan el simulador de tokenizador y el proyector.
 - **[Teorema de aproximación universal]({{% relref "how-machines-think/Chapter 7/math/universal-approximation-theorem.es.md" %}})**: Por qué una sola capa oculta puede aproximar cualquier función continua en un compacto (con referencias clave).
 
+### Implementación práctica
+
+- **[⚡ Tokens y embeddings desde cero]({{% relref "/how-machines-think/Chapter 7/code/tokens-embeddings.es.md" %}})**: Tokenización, BPE desde cero, embeddings, word2vec y similitud del coseno.
+- **[⚡ La atención y el Transformer desde cero]({{% relref "/how-machines-think/Chapter 7/code/attention-transformer.es.md" %}})**: Los límites de las redes recurrentes, la atención de producto escalar, las máscaras, la atención multicabeza, la codificación posicional y un bloque Transformer.
+- **[⚡ Las redes neuronales como aproximadores de funciones]({{% relref "/how-machines-think/Chapter 7/code/function-approximators.es.md" %}})**: Las neuronas ReLU como funciones base, la aproximación lineal a trozos, el teorema de aproximación universal y por qué ayuda la profundidad.
+- **[⚡ Redes recurrentes: RNN y LSTM desde cero]({{% relref "/how-machines-think/Chapter 7/code/rnn-lstm.es.md" %}})**: Una RNN con retropropagación a través del tiempo en NumPy, la medida del gradiente que se desvanece y la LSTM con sus puertas.
+- **[⚡ Un modelo de lenguaje tipo GPT desde cero]({{% relref "/how-machines-think/Chapter 7/code/gpt-language-model.es.md" %}})**: Un Transformer decoder-only diminuto escrito en PyTorch y entrenado prediciendo el siguiente token, comparado con un modelo de trigramas.
+- **[⚡ Preentrenamiento y fine-tuning en miniatura]({{% relref "/how-machines-think/Chapter 7/code/pretraining-fine-tuning.es.md" %}})**: Un GPT diminuto preentrenado con texto hospitalario y ajustado para responder preguntas, con y sin replay, comparado con entrenar desde cero.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[📚 Bibliografía: LLMs y Tokenización]({{% relref "how-machines-think/Chapter 7/bibliography/bibliography-llms-tokenization.es.md" %}})**: Recursos y referencias verificadas sobre Large Language Models, transformers, tokenización y el algoritmo BPE.

@@ -25,6 +25,10 @@ Prepárate para una nueva forma de pensar, donde la IA no solo responde a nuestr
 
 - **[📝 Pseudocódigo de Clustering K-Means]({{% relref "/how-machines-think/Chapter 5/code/pseudocode-kmeans.es.md" %}})**: Algoritmo de Lloyd, inicialización K-means++, método del codo y análisis de coeficiente de silueta.
 
+### Implementación práctica
+
+- **[⚡ Agrupación de pacientes con K-Means]({{% relref "/how-machines-think/Chapter 5/code/kmeans.es.md" %}})**: K-means a mano, K-means++, escalado de características, el método del codo y la lectura clínica de los grupos de pacientes.
+
 ### Bibliografía y Recursos Complementarios
 
 - **[📚 Bibliografía: K-Means y Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.es.md" %}})**: Recursos y referencias verificadas sobre algoritmos de clustering, aprendizaje no supervisado y el método del codo.

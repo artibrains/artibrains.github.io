@@ -25,6 +25,10 @@ Get ready for a new way of thinking—where AI doesn't just answer our questions
 
 - **[📝 K-Means Clustering Pseudocode]({{% relref "/how-machines-think/Chapter 5/code/pseudocode-kmeans.en.md" %}})**: Lloyd's algorithm, K-means++ initialization, elbow method, and silhouette score analysis.
 
+### Practical Implementation
+
+- **[⚡ K-Means Clustering of Patients]({{% relref "/how-machines-think/Chapter 5/code/kmeans.en.md" %}})**: K-means by hand, K-means++, feature scaling, the elbow method and the clinical reading of patient groups.
+
 ### Bibliography and Additional Resources
 
 - **[📚 Bibliography: K-Means and Clustering]({{% relref "how-machines-think/Chapter 5/bibliography/bibliography-kmeans-clustering.en.md" %}})**: Verified resources and references on clustering algorithms, unsupervised learning and the elbow method.

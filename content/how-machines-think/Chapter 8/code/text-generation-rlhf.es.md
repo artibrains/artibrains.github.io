@@ -14,6 +14,7 @@ El notebook interactivo incluye:
 - Un modelo de lenguaje de n-gramas diminuto entrenado con instrucciones de alta: la distribución de la siguiente palabra.
 - El contexto: cuántas palabras anteriores ve el modelo, y cómo eso limita lo que acierta.
 - Las reglas de decisión comparadas: la decodificación voraz, la temperatura, top-k y top-p, y cómo se combinan.
+- La búsqueda en haz: buscar la frase más probable en lugar de la mejor palabra siguiente, y la normalización por la longitud.
 - RLHF en miniatura: unos clínicos simulados comparan respuestas y un modelo de recompensa de Bradley–Terry aprende de sus preferencias.
 - La optimización del modelo contra el modelo de recompensa, con la penalización que lo mantiene cerca del original.
 - El *reward hacking*: cómo un modelo de recompensa imperfecto convierte una respuesta peligrosa en la más probable, y cómo lo corrige una nueva ronda de evaluación.
@@ -26,6 +27,7 @@ El notebook interactivo incluye:
 ### Bibliografía
 
 - **Holtzman, A., Buys, J., Du, L., Forbes, M. y Choi, Y. (2020). The curious case of neural text degeneration.** *ICLR 2020*. El muestreo de núcleo (top-p). [https://arxiv.org/abs/1904.09751](https://arxiv.org/abs/1904.09751) 🇬🇧 (en inglés)
+- **Wu, Y. et al. (2016). Google's neural machine translation system: bridging the gap between human and machine translation.** arXiv:1609.08144. La búsqueda en haz con normalización por la longitud. [https://arxiv.org/abs/1609.08144](https://arxiv.org/abs/1609.08144) 🇬🇧 (en inglés)
 - **Christiano, P., Leike, J., Brown, T. B., Martic, M., Legg, S. y Amodei, D. (2017). Deep reinforcement learning from human preferences.** *Advances in Neural Information Processing Systems 30*. [https://arxiv.org/abs/1706.03741](https://arxiv.org/abs/1706.03741) 🇬🇧 (en inglés)
 - **Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback.** *Advances in Neural Information Processing Systems 35*. RLHF aplicado a los modelos de lenguaje. [https://arxiv.org/abs/2203.02155](https://arxiv.org/abs/2203.02155) 🇬🇧 (en inglés)
 - **Gao, L., Schulman, J. y Hilton, J. (2023). Scaling laws for reward model overoptimization.** *Proceedings of ICML 2023*. [https://arxiv.org/abs/2210.10760](https://arxiv.org/abs/2210.10760) 🇬🇧 (en inglés)

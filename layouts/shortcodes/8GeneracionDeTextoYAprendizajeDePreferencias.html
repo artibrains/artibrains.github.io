@@ -7819,6 +7819,7 @@ a.anchor-link {
 <li>Un modelo de lenguaje diminuto: la probabilidad de la siguiente palabra.</li>
 <li>El contexto.</li>
 <li>Reglas de decisión: voraz, temperatura, top-k y top-p.</li>
+<li>Búsqueda en haz: buscar la frase más probable.</li>
 <li>RLHF en miniatura: preferencias y un modelo de recompensa.</li>
 <li>Optimizar contra el modelo de recompensa, y la penalización que mantiene el modelo cerca del original.</li>
 <li>Cuando el modelo de recompensa se equivoca: el <em>reward hacking</em>.</li>
@@ -8077,14 +8078,14 @@ T = 0,5              instrucciones distintas:  43 de 300 | correctas:  64%
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>T = 1                instrucciones distintas:  65 de 300 | correctas:  74%
-</pre>
+<pre>T = 1                instrucciones distintas:  65 de 300 | correctas:  74%</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>T = 1,5              instrucciones distintas: 213 de 300 | correctas:  32%
+<pre>
+T = 1,5              instrucciones distintas: 213 de 300 | correctas:  32%
 </pre>
 </div>
 </div>
@@ -8099,13 +8100,7 @@ T = 0,5              instrucciones distintas:  43 de 300 | correctas:  64%
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>T = 2, top-k = 3     instrucciones distintas:  54 de 300 | correctas:  56%
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>T = 2, top-p = 0,9   instrucciones distintas: 276 de 300 | correctas:   9%
+T = 2, top-p = 0,9   instrucciones distintas: 276 de 300 | correctas:   9%
 </pre>
 </div>
 </div>
@@ -8187,7 +8182,83 @@ T = 2: &lt;/s&gt; 0.25, dos 0.21, si 0.18, cada 0.13, una 0.12, las otras 51 0.1
 <li><strong>Top-k = 3</strong> elimina esa cola y devuelve T = 2 al 56% de instrucciones correctas. <strong>Top-p = 0,9</strong> apenas ayuda (9%): se aplica después de la temperatura y, una vez aplanada la distribución, llegar al 90% de la probabilidad exige muchas palabras de la cola. Combinado con T = 1, top-p da el mejor resultado de la tabla, un 77%.</li>
 </ul>
 <p>Como concluye Carmen en el libro, si queremos fiabilidad controlamos sobre todo el contexto y la regla de decisión.</p>
-<h3 id="Paso-5:-RLHF-en-miniatura">Paso 5: RLHF en miniatura<a class="anchor-link" href="#Paso-5:-RLHF-en-miniatura">¶</a></h3><hr/>
+<h3 id="Paso-5:-B%C3%BAsqueda-en-haz:-buscar-la-frase-m%C3%A1s-probable">Paso 5: Búsqueda en haz: buscar la frase más probable<a class="anchor-link" href="#Paso-5:-B%C3%BAsqueda-en-haz:-buscar-la-frase-m%C3%A1s-probable">¶</a></h3><hr/>
+<p>El libro nombra una tercera forma de decodificar además de la voraz y la estocástica: la <strong>búsqueda en haz</strong> (<em>beam search</em>). La decodificación voraz toma la mejor palabra en cada paso, pero la frase que construye no es necesariamente la más probable: una palabra que parece buena ahora puede llevar a una continuación pobre. La búsqueda en haz conserva en cada paso las $k$ frases parciales más probables (el <em>haz</em>). Amplía cada una con sus $k$ siguientes palabras más probables, puntúa cada candidata con el logaritmo de la probabilidad de la frase completa, $\log P(x_1) + \log P(x_2 \mid x_1) + \dots$, y se queda con las $k$ mejores. Con $k = 1$ es la decodificación voraz. Una frase que llega a <code>&lt;/s&gt;</code> se aparta como terminada y, al final, elegimos la mejor terminada. Como la decodificación voraz, es determinista: da la misma frase cada vez.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">beams</span><span class="p">,</span> <span class="n">finished</span> <span class="o">=</span> <span class="p">[([</span><span class="s1">'&lt;s&gt;'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)],</span> <span class="p">[]</span>                  <span class="c1"># (palabras hasta ahora, log-probabilidad de la frase)</span>
+    <span class="k">while</span> <span class="n">beams</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">beams</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)[:</span><span class="n">width</span><span class="p">]:</span>                      <span class="c1"># las width siguientes palabras más probables</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tokens</span> <span class="o">+</span> <span class="p">[</span><span class="n">vocabulary</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">log_p</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">beams</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">[:</span><span class="n">width</span><span class="p">]:</span>                  <span class="c1"># se conservan las width mejores candidatas</span>
+            <span class="n">done</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'&lt;/s&gt;'</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_words</span> <span class="o">+</span> <span class="mi">3</span>
+            <span class="p">(</span><span class="n">finished</span> <span class="k">if</span> <span class="n">done</span> <span class="k">else</span> <span class="n">beams</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">finished</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="o">-</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'&lt;s&gt;'</span><span class="p">,</span> <span class="s1">'&lt;/s&gt;'</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+    <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="o">=</span> <span class="n">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"anchura </span><span class="si">{</span><span class="n">width</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">: '</span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">'  probabilidad </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_p</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  correcta: </span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">valid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Las mejores frases terminadas con anchura 5, con su probabilidad y su log-probabilidad por palabra:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">log_p</span> <span class="ow">in</span> <span class="n">beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="mi">5</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="n">n_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span>                                     <span class="c1"># las palabras y &lt;/s&gt;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_p</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">log_p</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_words</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2">  '</span><span class="si">{</span><span class="n">words_of</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>anchura  1: 'tome paracetamol'  probabilidad 0.0630  correcta: False
+anchura  2: 'llame a su médico si nota más fiebre'  probabilidad 0.0711  correcta: True
+anchura  3: 'llame a su médico si nota más fiebre'  probabilidad 0.0711  correcta: True
+anchura  5: 'beba mucha agua y descanse en casa'  probabilidad 0.0942  correcta: True
+anchura 10: 'beba mucha agua y descanse en casa'  probabilidad 0.0942  correcta: True
+
+Las mejores frases terminadas con anchura 5, con su probabilidad y su log-probabilidad por palabra:
+  0.0942  -0.295  'beba mucha agua y descanse en casa'
+  0.0711  -0.294  'llame a su médico si nota más fiebre'
+  0.0630  -0.922  'tome paracetamol'
+  0.0491  -0.431  'vuelva al hospital si tiene fiebre'
+  0.0399  -0.358  'llame a su médico si nota más dolor'
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Con anchura 1, la búsqueda en haz es la decodificación voraz y escribe "tome paracetamol", con una probabilidad de 0,0630, que no es una instrucción correcta: tras "tome paracetamol" la palabra más probable es el final de la frase, porque dos plantillas terminan así ("no conduzca mientras tome paracetamol"). Con anchura 2 ya encuentra una frase mejor, "llame a su médico si nota más fiebre" (0,0711), y a partir de la anchura 5 la frase más probable del modelo, "beba mucha agua y descanse en casa" (0,0942): su primera palabra es menos probable que "tome", pero después cada palabra es casi segura. Es el error temprano del que advierte Ana, y lo que evita un haz más ancho. La última columna, la log-probabilidad por palabra, se usa para <strong>normalizar por la longitud</strong>: sin normalizar, la búsqueda en haz favorece las frases cortas, porque cada palabra de más multiplica la probabilidad por un número menor que 1. Con la normalización, "llame a su médico si nota más fiebre" (−0,294) supera por muy poco a "beba mucha agua y descanse en casa" (−0,295), porque tiene más palabras: la forma de puntuar cambia la frase elegida. "tome paracetamol" es tercera por probabilidad y última por probabilidad por palabra, −0,922. Como la decodificación voraz, la búsqueda en haz escribe siempre la misma frase: busca el texto más probable, no la variedad.</p>
+<h3 id="Paso-6:-RLHF-en-miniatura">Paso 6: RLHF en miniatura<a class="anchor-link" href="#Paso-6:-RLHF-en-miniatura">¶</a></h3><hr/>
 <p>Ahora la segunda idea. El libro describe RLHF en tres fases: <strong>recoger preferencias humanas</strong> entre respuestas, <strong>entrenar un modelo de recompensa</strong> que las prediga y <strong>optimizar el modelo de lenguaje</strong> para que obtenga una recompensa alta. Trabajamos con una sola pregunta de un paciente y 8 posibles respuestas del modelo base:</p>
 </div>
 </div>
@@ -8197,7 +8268,7 @@ T = 2: &lt;/s&gt; 0.25, dos 0.21, si 0.18, cada 0.13, una 0.12, las otras 51 0.1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s2">"Tengo la tensión alta. ¿Puedo tomar ibuprofeno para el dolor de espalda?"</span>
@@ -8252,7 +8323,7 @@ T = 2: &lt;/s&gt; 0.25, dos 0.21, si 0.18, cada 0.13, una 0.12, las otras 51 0.1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">quality</span> <span class="o">=</span> <span class="n">features</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
@@ -8323,7 +8394,7 @@ H                   1.0        2.65
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>El modelo de recompensa coincide con los clínicos en el 90,5% de sus comparaciones y ordena bien las seis respuestas que vieron: C la primera (6,49) y A la última (0,24). Pero ha aprendido algo que nadie pretendía, un peso de 1,61 para la longitud. No puede ver la dosis inventada y, entre las respuestas que vieron los clínicos, las dos que se la inventan, A y E, resultan ser las más cortas (6 y 10 palabras): la longitud se convirtió en un sustituto de lo que no puede ver. La consecuencia es la respuesta G, que los clínicos nunca vieron: larga (160 palabras), cálida y con una dosis peligrosa para este paciente. Su calidad real es −2,0 y, sin embargo, obtiene la recompensa más alta de todas, 7,88. Como dice el libro, el modelo de recompensa es solo una aproximación aprendida del juicio humano, y solo es fiable con respuestas parecidas a aquellas con las que se entrenó.</p>
-<h3 id="Paso-6:-Optimizar-contra-el-modelo-de-recompensa">Paso 6: Optimizar contra el modelo de recompensa<a class="anchor-link" href="#Paso-6:-Optimizar-contra-el-modelo-de-recompensa">¶</a></h3><hr/>
+<h3 id="Paso-7:-Optimizar-contra-el-modelo-de-recompensa">Paso 7: Optimizar contra el modelo de recompensa<a class="anchor-link" href="#Paso-7:-Optimizar-contra-el-modelo-de-recompensa">¶</a></h3><hr/>
 <p><strong>Fase 3.</strong> El modelo de lenguaje, la <strong>política</strong> $\pi$, se ajusta para obtener una recompensa alta. El libro explica que se añade un término de regularización que penaliza alejarse demasiado del modelo original $\pi_0$. Con esa penalización, medida con la divergencia de Kullback–Leibler y una intensidad $\beta$, la mejor política posible tiene una forma sencilla:</p>
 <p>$$\pi(y) \propto \pi_0(y)\, e^{\,r(y)/\beta}$$</p>
 <p>Una $\beta$ grande deja el modelo casi como estaba; una $\beta$ pequeña deja que la recompensa lo decida todo. El modelo base da estas probabilidades a las 8 respuestas, y vemos qué pasa a medida que baja $\beta$:</p>
@@ -8335,7 +8406,7 @@ H                   1.0        2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">base_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">])</span>
@@ -8397,7 +8468,7 @@ H                   1.0        2.65
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Con β = 20 la política apenas se mueve (distancia 0,01) y la calidad real solo sube un poco, de 0,11 a 0,24. Al bajar β, la recompensa sube sin parar: 5,33 con β = 5, 7,47 con β = 1 y 7,88 con β = 0,1. La calidad real, en cambio, alcanza un máximo de 0,41 con β = 5 y después cae: con β = 1 ya es −0,95 y con β = 0,1 es −2,00, porque el modelo escribe la respuesta G con probabilidad 1,00. La mejor respuesta, C, que llega como mucho a 0,13, desaparece. La optimización ha hecho exactamente lo que se le pedía, maximizar el modelo de recompensa; el problema es que el modelo de recompensa se equivoca con G.</p>
-<h3 id="Paso-7:-El-reward-hacking,-y-c%C3%B3mo-corregirlo">Paso 7: El <em>reward hacking</em>, y cómo corregirlo<a class="anchor-link" href="#Paso-7:-El-reward-hacking,-y-c%C3%B3mo-corregirlo">¶</a></h3><hr/>
+<h3 id="Paso-8:-El-reward-hacking,-y-c%C3%B3mo-corregirlo">Paso 8: El <em>reward hacking</em>, y cómo corregirlo<a class="anchor-link" href="#Paso-8:-El-reward-hacking,-y-c%C3%B3mo-corregirlo">¶</a></h3><hr/>
 <p>El gráfico muestra la trampa: cuanto más optimizamos ($\beta$ más pequeña, hacia la derecha), más sube la recompensa, mientras la calidad real alcanza un máximo y después se hunde.</p>
 </div>
 </div>
@@ -8407,7 +8478,7 @@ H                   1.0        2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -8451,7 +8522,7 @@ H                   1.0        2.65
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">all_answers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)))</span>

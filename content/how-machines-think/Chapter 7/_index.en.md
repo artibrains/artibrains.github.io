@@ -35,6 +35,15 @@ Large Language Models (LLMs) generate text by learning patterns over sequences. 
 - **[Tokenisation & Embedding Geometry]({{% relref "how-machines-think/Chapter 7/math/tokenisation-embeddings.en.md" %}})**: Byte-Pair Encoding math and embedding-space intuition that grounds the tokenizer simulator and projector demo.
 - **[Universal Approximation Theorem]({{% relref "how-machines-think/Chapter 7/math/universal-approximation-theorem.en.md" %}})**: Why a single hidden layer can approximate any continuous function on a compact set (with key references).
 
+### Practical Implementation
+
+- **[⚡ Tokens and Embeddings from Scratch]({{% relref "/how-machines-think/Chapter 7/code/tokens-embeddings.en.md" %}})**: Tokenization, BPE from scratch, embeddings, word2vec and cosine similarity.
+- **[⚡ Attention and the Transformer from Scratch]({{% relref "/how-machines-think/Chapter 7/code/attention-transformer.en.md" %}})**: The limits of recurrent networks, scaled dot-product attention, masks, multi-head attention, positional encoding and a Transformer block.
+- **[⚡ Neural Networks as Function Approximators]({{% relref "/how-machines-think/Chapter 7/code/function-approximators.en.md" %}})**: ReLU neurons as basis functions, piecewise-linear approximation, the universal approximation theorem and why depth helps.
+- **[⚡ Recurrent Networks: RNN and LSTM from Scratch]({{% relref "/how-machines-think/Chapter 7/code/rnn-lstm.en.md" %}})**: An RNN with backpropagation through time in NumPy, the vanishing gradient measured, and the LSTM with its gates.
+- **[⚡ A GPT-style Language Model from Scratch]({{% relref "/how-machines-think/Chapter 7/code/gpt-language-model.en.md" %}})**: A tiny decoder-only Transformer written in PyTorch and trained on next-token prediction, compared with a trigram model.
+- **[⚡ Pretraining and Fine-tuning in Miniature]({{% relref "/how-machines-think/Chapter 7/code/pretraining-fine-tuning.en.md" %}})**: A tiny GPT pretrained on hospital text and fine-tuned to answer questions, with and without replay, compared with training from scratch.
+
 ### Bibliography and Additional Resources
 
 - **[📚 Bibliography: LLMs and Tokenization]({{% relref "how-machines-think/Chapter 7/bibliography/bibliography-llms-tokenization.en.md" %}})**: Verified resources and references on Large Language Models, transformers, tokenization and the BPE algorithm.

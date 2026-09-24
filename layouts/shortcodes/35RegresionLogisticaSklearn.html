@@ -7826,6 +7826,7 @@ a.anchor-link {
 <li>El sobreajuste: qué ocurre con pocos pacientes y muchas variables.</li>
 <li>Regularización L2 y L1.</li>
 <li>Elegir $\lambda$ con validación cruzada de k grupos.</li>
+<li>Elastic Net y variables correlacionadas.</li>
 <li>Clases desbalanceadas.</li>
 </ol>
 </div>
@@ -8248,7 +8249,7 @@ Predecir siempre 'acude':   0.722
 
 <span class="k">def</span><span class="w"> </span><span class="nf">l1_model</span><span class="p">(</span><span class="n">lam</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span>
-                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">'l1'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'liblinear'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">))</span>
+                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">'l1'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'liblinear'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]:</span>
     <span class="n">mdl</span> <span class="o">=</span> <span class="n">l2_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs_train</span><span class="p">,</span> <span class="n">ys_train</span><span class="p">)</span>
@@ -8481,8 +8482,11 @@ extra_43                 -0.028
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>L1 ha eliminado la mayoría de las variables. Los pesos más grandes corresponden a variables reales (días desde la última cita, edad, ausencias previas, distancia) y las pocas columnas de ruido que sobreviven tienen pesos pequeños: con 50 columnas aleatorias y solo 210 citas, algunas se correlacionan con la asistencia por pura casualidad. También ha desaparecido la hora, porque su efecto solo aparece en las últimas citas de la tarde y 210 citas son pocas para detectarlo. La regularización ayuda mucho, pero no sustituye al buen criterio sobre qué variables tienen sentido.</p>
-<h3 id="Paso-7:-Clases-desbalanceadas">Paso 7: Clases desbalanceadas<a class="anchor-link" href="#Paso-7:-Clases-desbalanceadas">¶</a></h3><hr/>
-<p>Solo alrededor de una cuarta parte de las citas son ausencias, así que el modelo ve muchos más ejemplos de asistencia y tiende a predecirla. Además de mover el umbral, scikit-learn puede <strong>ponderar las clases</strong> para que cada error en la clase minoritaria cuente más (<code>class_weight='balanced'</code>). Volvemos al conjunto de datos completo:</p>
+<h3 id="Paso-7:-Elastic-Net-y-variables-correlacionadas">Paso 7: Elastic Net y variables correlacionadas<a class="anchor-link" href="#Paso-7:-Elastic-Net-y-variables-correlacionadas">¶</a></h3><hr/>
+<p>Una historia clínica suele guardar la misma información más de una vez. Supongamos que, además de la distancia de casa al hospital, el registro tiene la distancia por carretera y el tiempo de trayecto en coche. Las tres columnas dicen casi lo mismo. El libro recomienda <strong>Elastic Net</strong> para esta situación, cuando hay variables correlacionadas. Añade al coste las dos penalizaciones:</p>
+<p>$$J_{\text{Elastic Net}}(w, b) = \text{log loss} + \lambda_1 \sum_j |w_j| + \lambda_2 \sum_j w_j^2$$</p>
+<p>La parte L1 puede seguir eliminando variables, y la parte L2 reparte el peso entre las variables que llevan la misma información. En scikit-learn es <code>penalty='elasticnet'</code> con el optimizador <code>saga</code>, y las dos lambdas se convierten en <code>C</code> y <code>l1_ratio</code>: $C = \frac{1}{m(\lambda_1 + 2\lambda_2)}$ y $\text{l1\_ratio} = \frac{\lambda_1}{\lambda_1 + 2\lambda_2}$.</p>
+<p>Volvemos a las 900 citas de entrenamiento del paso 1 y les añadimos las dos columnas nuevas y 20 irrelevantes:</p>
 </div>
 </div>
 </div>
@@ -8492,6 +8496,187 @@ extra_43                 -0.028
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_columns</span><span class="p">(</span><span class="n">X_part</span><span class="p">):</span>
+    <span class="n">X_part</span> <span class="o">=</span> <span class="n">X_part</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">X_part</span><span class="p">[</span><span class="s1">'km_carretera'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mf">1.25</span> <span class="o">*</span> <span class="n">X_part</span><span class="p">[</span><span class="s1">'distancia_km'</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># distancia por carretera</span>
+    <span class="n">X_part</span><span class="p">[</span><span class="s1">'minutos_trayecto'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">X_part</span><span class="p">[</span><span class="s1">'distancia_km'</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">)))</span>      <span class="c1"># minutos en coche</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">X_part</span><span class="p">[</span><span class="sa">f</span><span class="s1">'extra_</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_part</span><span class="p">))</span>                                          <span class="c1"># variables irrelevantes</span>
+    <span class="k">return</span> <span class="n">X_part</span>
+
+<span class="n">Xg_train</span><span class="p">,</span> <span class="n">Xg_test</span> <span class="o">=</span> <span class="n">add_columns</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">add_columns</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">distance_group</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'distancia_km'</span><span class="p">,</span> <span class="s1">'km_carretera'</span><span class="p">,</span> <span class="s1">'minutos_trayecto'</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variables: </span><span class="si">{</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, citas de entrenamiento: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Correlaciones entre las tres columnas de distancia:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Xg_train</span><span class="p">[</span><span class="n">distance_group</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Variables: 28, citas de entrenamiento: 900
+Correlaciones entre las tres columnas de distancia:
+                  distancia_km  km_carretera  minutos_trayecto
+distancia_km             1.000         0.991             0.983
+km_carretera             0.991         1.000             0.975
+minutos_trayecto         0.983         0.975             1.000
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Elegimos las lambdas de L1, L2 y Elastic Net con la misma validación cruzada de 5 grupos del paso 6. Elastic Net tiene dos, así que su rejilla tiene 12 combinaciones en lugar de 5 valores: es el ajuste adicional del que advierte el libro. Después entrenamos cada modelo con las 900 citas y miramos los pesos de las tres columnas de distancia, cuántas columnas irrelevantes conservan un peso y la exactitud en el conjunto de prueba.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>   <span class="c1"># ahora son 900 citas: l1_model, l2_model y la nueva función lo usan para convertir lambda en C</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">elastic_net_model</span><span class="p">(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span>
+                         <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">lam1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lam2</span><span class="p">)),</span> <span class="n">l1_ratio</span><span class="o">=</span><span class="n">lam1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lam1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lam2</span><span class="p">),</span>
+                                            <span class="n">penalty</span><span class="o">=</span><span class="s1">'elasticnet'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'saga'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mean_validation</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xg_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)[</span><span class="s1">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="n">lam_l1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lam</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">l1_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)))</span>
+<span class="n">lam_l2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lam</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">l2_model</span><span class="p">(</span><span class="n">lam</span><span class="p">)))</span>
+<span class="n">en_grid</span> <span class="o">=</span> <span class="p">[(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">)</span> <span class="k">for</span> <span class="n">lam1</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span> <span class="k">for</span> <span class="n">lam2</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]</span>
+<span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">en_grid</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lams</span><span class="p">:</span> <span class="n">mean_validation</span><span class="p">(</span><span class="n">elastic_net_model</span><span class="p">(</span><span class="o">*</span><span class="n">lams</span><span class="p">)))</span>
+
+<span class="n">l1_name</span><span class="p">,</span> <span class="n">en_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'L1, lambda = </span><span class="si">{</span><span class="n">lam_l1</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Elastic Net, lambdas = </span><span class="si">{</span><span class="n">lam1</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lam2</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Sin regularización'</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">)),</span>
+          <span class="n">l1_name</span><span class="p">:</span> <span class="n">l1_model</span><span class="p">(</span><span class="n">lam_l1</span><span class="p">),</span>
+          <span class="sa">f</span><span class="s1">'L2, lambda = </span><span class="si">{</span><span class="n">lam_l2</span><span class="si">:</span><span class="s1">g</span><span class="si">}</span><span class="s1">'</span><span class="p">:</span> <span class="n">l2_model</span><span class="p">(</span><span class="n">lam_l2</span><span class="p">),</span>
+          <span class="n">en_name</span><span class="p">:</span> <span class="n">elastic_net_model</span><span class="p">(</span><span class="n">lam1</span><span class="p">,</span> <span class="n">lam2</span><span class="p">)}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'modelo'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">weights</span><span class="p">[</span><span class="n">distance_group</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+                 <span class="s1">'irrelevantes'</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">weights</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">'extra_'</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+                 <span class="s1">'exactitud prueba'</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xg_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">)})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>                            modelo  distancia_km  km_carretera  minutos_trayecto  irrelevantes  exactitud prueba
+                Sin regularización         0.997         0.520            -0.415            20             0.830
+                 L1, lambda = 0.01         0.463         0.334             0.000             9             0.840
+                L2, lambda = 0.001         0.527         0.553            -0.025            20             0.823
+Elastic Net, lambdas = 0.01, 0.003         0.338         0.335             0.103             9             0.840
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Las tres columnas de distancia tienen correlaciones de entre 0,975 y 0,991. Sin regularización, el modelo reparte la distancia entre ellas de una forma que no tiene sentido: 0,997 para la distancia, 0,520 para la carretera y −0,415 para el tiempo de trayecto, un peso negativo que, por sí solo, significaría que los trayectos largos hacen que los pacientes acudan más. Además, da un peso a las 20 columnas irrelevantes. L2, con la lambda elegida por validación cruzada, 0,001, es muy ligera y apenas cambia ese panorama: el tiempo de trayecto sigue teniendo un pequeño peso negativo, −0,025, y las 20 columnas irrelevantes conservan el suyo. L1 elimina 11 de las 20 columnas irrelevantes y también el tiempo de trayecto, y se queda con 0,463 para la distancia y 0,334 para la carretera. Elastic Net elimina las mismas columnas irrelevantes, quedan 9, y conserva las tres columnas de distancia con pesos positivos: 0,338, 0,335 y 0,103. En el conjunto de prueba, los cuatro modelos están entre 0,823 y 0,840, una diferencia de 5 citas de 300: con 900 citas de entrenamiento, la diferencia está en los pesos, no en la exactitud.</p>
+<p>¿Hasta qué punto es estable la elección de L1? Volvemos a entrenar L1 y Elastic Net con 30 muestras <strong>bootstrap</strong>, cada una formada por 900 citas extraídas al azar, con reemplazo, del conjunto de entrenamiento, y contamos cuántas veces conserva un peso cada columna de distancia:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">boot_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">boot_rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">l1_name</span><span class="p">,</span> <span class="n">en_name</span><span class="p">]:</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">distance_group</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">:</span>
+        <span class="n">mdl</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+        <span class="n">kept</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mdl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">Xg_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)[</span><span class="n">distance_group</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> de 30"</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">kept</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>L1, lambda = 0.01                distancia_km 23 de 30, km_carretera 22 de 30, minutos_trayecto 8 de 30
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Elastic Net, lambdas = 0.01, 0.003 distancia_km 30 de 30, km_carretera 30 de 30, minutos_trayecto 26 de 30
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Qué columna de distancia conserva L1 depende de la muestra: la distancia en 23 de las 30 muestras, la carretera en 22 y el tiempo de trayecto solo en 8. Dos modelos entrenados con casi las mismas citas cuentan historias distintas sobre qué variables importan. Elastic Net conserva la distancia y la carretera en las 30 muestras y el tiempo de trayecto en 26: su parte L2 hace que las columnas correlacionadas se repartan el peso, así que tienden a quedarse juntas en el modelo. Eso es lo que dice el libro: Elastic Net puede seleccionar variables, como L1, y reducir proporcionalmente los pesos de las demás, como L2, y por eso es especialmente útil cuando hay variables correlacionadas.</p>
+<h3 id="Paso-8:-Clases-desbalanceadas">Paso 8: Clases desbalanceadas<a class="anchor-link" href="#Paso-8:-Clases-desbalanceadas">¶</a></h3><hr/>
+<p>Solo alrededor de una cuarta parte de las citas son ausencias, así que el modelo ve muchos más ejemplos de asistencia y tiende a predecirla. Además de mover el umbral, scikit-learn puede <strong>ponderar las clases</strong> para que cada error en la clase minoritaria cuente más (<code>class_weight='balanced'</code>). Volvemos al conjunto de datos completo:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sensitivity_specificity</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
@@ -8539,6 +8724,7 @@ class_weight='balanced', umbral 0,5    exactitud 0.777 | sensibilidad 0.797 | es
 <li>Con scikit-learn, un <strong>pipeline</strong> de <code>StandardScaler</code> y <code>LogisticRegression</code> reproduce en pocas líneas el modelo que escribimos desde cero.</li>
 <li>Un clasificador se juzga con la matriz de confusión, el informe de clasificación y la <strong>curva ROC</strong>, no solo con la exactitud.</li>
 <li>Con pocos ejemplos y muchas variables el modelo <strong>se sobreajusta</strong>. La <strong>regularización</strong> penaliza los pesos grandes: L2 los encoge y L1 puede eliminar variables por completo.</li>
+<li><strong>Elastic Net</strong> combina las dos penalizaciones: elimina variables irrelevantes como L1 y reparte el peso entre variables correlacionadas como L2, a cambio de una segunda $\lambda$ que ajustar.</li>
 <li>La intensidad de la regularización se elige con <strong>validación cruzada de k grupos</strong> sobre los datos de entrenamiento. El conjunto de prueba se usa una sola vez, al final.</li>
 <li>Con clases desbalanceadas, el umbral y los pesos de las clases permiten situar el equilibrio entre sensibilidad y especificidad donde lo necesita el hospital.</li>
 </ul>

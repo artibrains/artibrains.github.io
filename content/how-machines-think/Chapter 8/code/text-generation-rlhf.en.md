@@ -14,6 +14,7 @@ The interactive notebook includes:
 - A tiny n-gram language model trained on discharge instructions: the distribution of the next word.
 - The context: how many previous words the model sees, and how that limits what it gets right.
 - Decision rules compared: greedy decoding, temperature, top-k and top-p, and how they combine.
+- Beam search: looking for the most probable sentence instead of the best next word, and length normalization.
 - RLHF in miniature: simulated clinicians compare answers, and a Bradley–Terry reward model learns from their preferences.
 - Optimizing the model against the reward model, with the penalty that keeps it close to the original.
 - Reward hacking: how an imperfect reward model makes a dangerous answer the most likely one, and how a new round of evaluation fixes it.
@@ -26,6 +27,7 @@ Want to modify the code and experiment on your own?
 ### Bibliography
 
 - **Holtzman, A., Buys, J., Du, L., Forbes, M. and Choi, Y. (2020). The curious case of neural text degeneration.** *ICLR 2020*. Nucleus (top-p) sampling. [https://arxiv.org/abs/1904.09751](https://arxiv.org/abs/1904.09751)
+- **Wu, Y. et al. (2016). Google's neural machine translation system: bridging the gap between human and machine translation.** arXiv:1609.08144. Beam search with length normalization. [https://arxiv.org/abs/1609.08144](https://arxiv.org/abs/1609.08144)
 - **Christiano, P., Leike, J., Brown, T. B., Martic, M., Legg, S. and Amodei, D. (2017). Deep reinforcement learning from human preferences.** *Advances in Neural Information Processing Systems 30*. [https://arxiv.org/abs/1706.03741](https://arxiv.org/abs/1706.03741)
 - **Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback.** *Advances in Neural Information Processing Systems 35*. RLHF applied to language models. [https://arxiv.org/abs/2203.02155](https://arxiv.org/abs/2203.02155)
 - **Gao, L., Schulman, J. and Hilton, J. (2023). Scaling laws for reward model overoptimization.** *Proceedings of ICML 2023*. [https://arxiv.org/abs/2210.10760](https://arxiv.org/abs/2210.10760)

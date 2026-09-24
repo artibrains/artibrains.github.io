@@ -38,6 +38,13 @@ This chapter demystifies neural networks: the perceptron as a building block, ho
 - **[Perceptron Convergence Theorem]({{% relref "how-machines-think/Chapter 6/math/perceptron-convergence.en.md" %}})**: Rosenblatt–Novikoff mistake bounds proving the perceptron converges on linearly separable datasets.
 - **[Backpropagation via the Chain Rule]({{% relref "how-machines-think/Chapter 6/math/backpropagation.en.md" %}})**: Jacobian-based derivation of the gradient recursions.
 
+### Practical Implementation
+
+- **[⚡ Perceptron and Multilayer Networks from Scratch]({{% relref "/how-machines-think/Chapter 6/code/perceptron.en.md" %}})**: The perceptron and its learning rule, the XOR problem, backpropagation and activation functions, with NumPy only.
+- **[⚡ Neural Networks with TensorFlow and Keras]({{% relref "/how-machines-think/Chapter 6/code/keras-cnn.en.md" %}})**: Automatic differentiation, XOR with Keras, the book's convolutional network for dermatology images, and a scikit-learn network for comparison.
+- **[⚡ A Convolutional Neural Network from Scratch]({{% relref "/how-machines-think/Chapter 6/code/cnn-from-scratch.en.md" %}})**: The book's CNN written with NumPy only, with convolution, max-pooling and backpropagation by hand, trained on synthetic skin lesions.
+- **[⚡ Transfer Learning, Data Augmentation and Class Imbalance]({{% relref "/how-machines-think/Chapter 6/code/transfer-learning.en.md" %}})**: The book's CNN with only 280 images, and the effect of class weights, oversampling, data augmentation, transfer learning and more data.
+
 ### Bibliography and Additional Resources
 
 - **[📚 Neural Networks and Perceptron]({{% relref "how-machines-think/Chapter 6/bibliography/bibliography-neural-networks.en.md" %}})**: Verified resources and references on neural networks, Rosenblatt's perceptron and the backpropagation algorithm.

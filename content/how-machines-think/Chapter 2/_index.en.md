@@ -42,7 +42,8 @@ Use the interactive activities below to build intuition by manipulating paramete
 
 - **[⚡ Linear Regression from Scratch]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion.en.md" %}})**: Build a linear regression model from scratch, applying the concepts learned to a real problem.
 - **[⚡ Linear Regression with Scikit-Learn]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion-sklearn.en.md" %}})**: Use the industry-standard library to implement a linear regression model efficiently.
-
+- **[⚡ Multiple Linear Regression from Scratch]({{% relref "/how-machines-think/Chapter 2/code/multiple-linear-regression.en.md" %}})**: A model with five variables for the masks of Minermont, gradient descent with and without scaling, the exact solution, the test and the difference between MSE and MAE.
+- **[⚡ Gradient Descent: Batch, Mini-batch and Stochastic]({{% relref "/how-machines-think/Chapter 2/code/gradient-descent-variants.en.md" %}})**: Batch, mini-batch and stochastic gradient descent, epochs, shuffling, the learning rate, stopping criteria, initialization and learning-rate reduction.
 
 ### Bibliography and Additional Resources
 

@@ -27,6 +27,10 @@ This chapter focuses on post-training and deployment mindset: learning from pref
 
 - **[8.1 📐 REINFORCE & RLHF]({{% relref "how-machines-think/Chapter 8/math/reinforce.en.md" %}})**: Policy-gradient intuition and the RLHF pipeline.
 
+### Practical Implementation
+
+- **[⚡ Text Generation and RLHF from Scratch]({{% relref "/how-machines-think/Chapter 8/code/text-generation-rlhf.en.md" %}})**: Next-token distributions, context, greedy decoding, temperature, top-k and top-p, a reward model and reward hacking.
+
 ### Bibliography and Additional Resources
 
 - **[📚 Bibliography: LLM Applications and Safety]({{% relref "how-machines-think/Chapter 8/bibliography/bibliography-llms-applications.en.md" %}})**: Resources on prompting, post-training, evaluation, and responsible LLM deployment.

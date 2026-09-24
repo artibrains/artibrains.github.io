@@ -13,7 +13,7 @@ El notebook interactivo incluye:
 
 - Preparación y visualización de datos sintéticos.
 - Implementación manual del modelo de regresión lineal.
-- Entrenamiento usando descenso por gradiente con parada temprana.
+- Escalado de la característica y entrenamiento usando descenso por gradiente con parada temprana.
 - Visualización del proceso de aprendizaje y los resultados.
 - Ejemplo de predicción para nuevos datos.
 

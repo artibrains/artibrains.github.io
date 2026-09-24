@@ -43,6 +43,8 @@ Usa las actividades interactivas para construir intuición ajustando parámetros
 
 - **[⚡ Regresión lineal desde cero]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion.es.md" %}})**: Construye un modelo de regresión lineal desde cero, aplicando los conceptos aprendidos a un problema real.
 - **[⚡ Regresión lineal con Scikit-Learn]({{% relref "/how-machines-think/Chapter 2/code/linear-regresion-sklearn.es.md" %}})**: Usa la biblioteca estándar de la industria para implementar un modelo de regresión lineal de forma eficiente.
+- **[⚡ Regresión lineal múltiple desde cero]({{% relref "/how-machines-think/Chapter 2/code/multiple-linear-regression.es.md" %}})**: Un modelo con cinco variables para las mascarillas de Minermont, el descenso del gradiente con y sin escalado, la solución exacta, la prueba y la diferencia entre ECM y EAM.
+- **[⚡ Descenso del gradiente: por lotes, por mini-lotes y estocástico]({{% relref "/how-machines-think/Chapter 2/code/gradient-descent-variants.es.md" %}})**: El descenso del gradiente por lotes, por mini-lotes y estocástico, las épocas, el barajado, la tasa de aprendizaje, los criterios de parada, la inicialización y la reducción de la tasa de aprendizaje.
 
 ### Bibliografía y recursos adicionales
 

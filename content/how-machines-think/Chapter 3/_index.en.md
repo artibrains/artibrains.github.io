@@ -36,6 +36,13 @@ Use the interactive sections below to experiment with decision boundaries, thres
 
 - **[📝 Logistic Regression Pseudocode]({{% relref "/how-machines-think/Chapter 3/code/pseudocode-logistic-regression.en.md" %}})**: Complete pseudocode for binary and multiclass logistic regression with gradient descent training.
 
+### Practical Implementation
+
+- **[⚡ Logistic Regression from Scratch]({{% relref "/how-machines-think/Chapter 3/code/logistic-regression.en.md" %}})**: How to build a logistic regression model from scratch to predict missed appointments.
+- **[⚡ Logistic Regression with sklearn]({{% relref "/how-machines-think/Chapter 3/code/logistic-regression-sklearn.en.md" %}})**: Logistic regression with scikit-learn, regularization and k-fold cross-validation.
+- **[⚡ SVM from Scratch]({{% relref "/how-machines-think/Chapter 3/code/svm.en.md" %}})**: How to build a linear support vector machine from scratch with the hinge loss.
+- **[⚡ SVM with sklearn]({{% relref "/how-machines-think/Chapter 3/code/svm-sklearn.en.md" %}})**: Support vector machines with scikit-learn, the kernel trick and hyperparameter search.
+
 ### Bibliography and Additional Resources
 
 - **[📚 Logistic Regression & Probability Translators]({{% relref "/how-machines-think/Chapter 3/bibliography/bibliography-logistic-regression.en.md" %}})**: Theoretical foundations, tooling, and interpretability for The Probability Translator.

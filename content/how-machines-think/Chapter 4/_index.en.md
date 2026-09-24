@@ -39,5 +39,13 @@ This chapter focuses on **multiclass classification**: extending classifiers bey
 - **[📐 Evaluation Metrics Algebra]({{% relref "how-machines-think/Chapter 4/math/evaluation-metrics.en.md" %}})**: Formal derivations of confusion matrices, precision/recall variants, and multiclass ROC/AUC underpinning the evaluation dashboards discussed in the chapter.
 - **[📐 Naive Bayes Foundations]({{% relref "how-machines-think/Chapter 4/math/naive-bayes.en.md" %}})**: Bayes’ rule, smoothing strategies, and interpretability hooks that justify Hazel’s confidence in the model’s probabilistic reasoning.
 
+### Practical Implementation
+
+- **[⚡ KNN for Emergency Triage]({{% relref "/how-machines-think/Chapter 4/code/knn.en.md" %}})**: K-nearest neighbors, distance metrics and feature scaling for multiclass triage.
+- **[⚡ Naive Bayes for Emergency Triage]({{% relref "/how-machines-think/Chapter 4/code/naive-bayes.en.md" %}})**: The Naive Bayes classifier by hand and with scikit-learn, following Martha's notes.
+- **[⚡ Decision Tree for Emergency Triage]({{% relref "/how-machines-think/Chapter 4/code/decision-tree.en.md" %}})**: How a decision tree chooses its questions, overfitting, depth, interpretability and instability.
+- **[⚡ Random Forest for Emergency Triage]({{% relref "/how-machines-think/Chapter 4/code/random-forest.en.md" %}})**: Bagging, out-of-bag error, feature importance and the critical levels, with the model the team chooses.
+- **[⚡ One-vs-Rest, One-vs-One and Softmax from Scratch]({{% relref "/how-machines-think/Chapter 4/code/multiclass-ovr-ovo-softmax.en.md" %}})**: Five-level emergency triage with One-vs-Rest, One-vs-One and softmax regression, all written with NumPy.
+
 ### Bibliography and Additional Resources
 - **[📚 K-NN and Decision Trees]({{% relref "how-machines-think/Chapter 4/bibliography/bibliography-knn-decision-trees.en.md" %}})**: Verified resources and references on classification algorithms, distance metrics, and interpretability.
